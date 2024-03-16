@@ -1,0 +1,4 @@
+rootProject.name = 'kick-off'
+include 'kick-off-api'
+include 'kick-off-domain'
+
