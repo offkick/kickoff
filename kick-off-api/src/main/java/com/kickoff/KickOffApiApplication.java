@@ -1,10 +1,14 @@
-package com.api;
+package com.kickoff;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@SpringBootApplication(scanBasePackages = {"com.api", "com.domain"})
+@EntityScan(basePackages = {"com.kickoff.domain"})
+@EnableJpaRepositories(basePackages = {"com.kickoff.domain"})
+@SpringBootApplication
 @PropertySource({"classpath:application-domain.yml"})
 public class KickOffApiApplication {
 

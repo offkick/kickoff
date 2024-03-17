@@ -1,6 +1,6 @@
-package com.domain.team.league;
+package com.kickoff.domain.team.league;
 
-import com.domain.team.TeamType;
+import com.kickoff.domain.team.TeamType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

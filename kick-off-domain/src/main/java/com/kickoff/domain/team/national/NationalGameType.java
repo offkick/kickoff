@@ -1,4 +1,4 @@
-package com.domain.team.national;
+package com.kickoff.domain.team.national;
 
 public enum NationalGameType {
     WORLD_CUP_MATCH,

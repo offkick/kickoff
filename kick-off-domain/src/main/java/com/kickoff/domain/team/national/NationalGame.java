@@ -1,4 +1,4 @@
-package com.domain.team.national;
+package com.kickoff.domain.team.national;
 
 import jakarta.persistence.*;
 import lombok.Getter;

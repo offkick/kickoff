@@ -1,20 +1,21 @@
-package com.domain.team.league;
+package com.kickoff.domain.team;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
-public class League {
+@NoArgsConstructor
+public class Score {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long leagueId;
+    private Long scoreId;
 
-    private String leagueName;
-    private String national;
-    private String tier;
+    private int homeScore;
+    private int awayScore;
 }
