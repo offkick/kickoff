@@ -13,7 +13,6 @@ public class League {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long leagueId;
-
     private String leagueName;
     private String national;
     private String tier;

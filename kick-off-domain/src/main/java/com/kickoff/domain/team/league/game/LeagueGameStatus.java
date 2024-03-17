@@ -1,4 +1,4 @@
-package com.kickoff.domain.team.league;
+package com.kickoff.domain.team.league.game;
 
 public enum LeagueGameStatus {
     BEFORE,
