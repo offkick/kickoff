@@ -3,10 +3,10 @@ package com.kickoff.domain.team.league;
 import com.kickoff.domain.team.TeamType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
 @Entity
 @NoArgsConstructor
 @Getter
@@ -24,4 +24,12 @@ public class LeagueTeam {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "league_id")
     private League league;
+
+    @Builder
+    public LeagueTeam(Long leagueTeamId, String leagueTeamName, TeamType teamType, League league) {
+        this.leagueTeamId = leagueTeamId;
+        this.leagueTeamName = leagueTeamName;
+        this.teamType = teamType;
+        this.league = league;
+    }
 }

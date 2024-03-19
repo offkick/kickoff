@@ -3,10 +3,10 @@ package com.kickoff.domain.team.league.game;
 import com.kickoff.domain.team.Score;
 import com.kickoff.domain.team.league.LeagueTeam;
 import com.kickoff.domain.team.league.Season;
+import com.kickoff.domain.team.league.game.player.LeagueGamePlayer;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +21,7 @@ public class LeagueGame {
     private Long leagueGameId;
 
     private LocalDateTime gameDate;
+
     private int count;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -42,6 +43,6 @@ public class LeagueGame {
     @JoinColumn(name = "season_id")
     private Season season;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<GameLineUp> gameLineUpList = new ArrayList<>();
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<LeagueGamePlayer> gamePlayerList = new ArrayList<>();
 }
