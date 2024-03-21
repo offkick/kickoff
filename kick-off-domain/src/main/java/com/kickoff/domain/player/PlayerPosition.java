@@ -1,4 +1,4 @@
-package com.kickoff.domain.board.player;
+package com.kickoff.domain.player;
 
 public enum PlayerPosition {
     FORWARD,

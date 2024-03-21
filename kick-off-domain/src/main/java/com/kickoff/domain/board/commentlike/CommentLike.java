@@ -1,7 +1,7 @@
-package com.kickoff.domain.board.postLike;
+package com.kickoff.domain.board.commentlike;
 
 import com.kickoff.domain.board.member.Member;
-import com.kickoff.domain.board.post.Post;
+import com.kickoff.domain.board.postcomment.PostComment;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,15 +9,15 @@ import lombok.NoArgsConstructor;
 @Getter
 @Entity
 @NoArgsConstructor
-@Table(indexes = @Index(name = "post_like_idx", unique = true, columnList = "member_id, post_id"))
-public class PostLike {
+@Table(indexes = @Index(name = "comment_like_idx", unique = true, columnList = "member_id, comment_id"))
+public class CommentLike {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long postLikeId;
+    private Long commentLikeId;
 
-    @JoinColumn(name = "post_id")
+    @JoinColumn(name = "comment_id")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Post post;
+    private PostComment postComment;
 
     @JoinColumn(name = "member_id")
     @ManyToOne(fetch = FetchType.LAZY)

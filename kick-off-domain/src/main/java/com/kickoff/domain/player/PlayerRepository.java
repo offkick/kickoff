@@ -1,4 +1,4 @@
-package com.kickoff.domain.board.player;
+package com.kickoff.domain.player;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

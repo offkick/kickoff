@@ -1,7 +1,7 @@
 package com.kickoff.domain.team.league;
 
 import com.kickoff.domain.TestConfiguration;
-import com.kickoff.domain.team.TeamType;
+import com.kickoff.domain.common.National;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,21 +12,23 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @ContextConfiguration(classes = TestConfiguration.class)
 @DataJpaTest
-public class LeagueTeamRepositoryTest {
-
+public class LeagueRepositoryTest {
     @Autowired
-    private LeagueTeamRepository leagueTeamRepository;
+    private LeagueRepository leagueRepository;
 
     @Test
     public void save()
     {
-        LeagueTeam leagueTeam = leagueTeamRepository.save(
-                LeagueTeam.builder()
-                        .leagueTeamName("mancity")
-                        .teamType(TeamType.LEAGUE)
+        League league = leagueRepository.save(
+                League.builder()
+                        .leagueName("k-league")
+                        .tier("K리그1")
+                        .national(National.KOREA)
                         .build()
         );
-
-        assertThat(leagueTeam).isNotNull();
+        assertThat(league.getLeagueId()).isNotNull();
     }
+
+
+
 }

@@ -3,6 +3,5 @@ public record SoccerPost(
         String leagueName,
         String leagueTeamName,
         String playerName
-
 ) {
 }

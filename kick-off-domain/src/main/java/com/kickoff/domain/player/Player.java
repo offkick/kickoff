@@ -1,7 +1,8 @@
-package com.kickoff.domain.board.player;
+package com.kickoff.domain.player;
 
 import com.kickoff.domain.team.league.LeagueTeam;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -22,6 +23,15 @@ public class Player {
     private PlayerPosition position;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "leagueTeam_id")
+    @JoinColumn(name = "league_team_id")
     private LeagueTeam leagueTeam;
+
+    @Builder
+    public Player(Long playerId, String national, String playerName, PlayerPosition position, LeagueTeam leagueTeam) {
+        this.playerId = playerId;
+        this.national = national;
+        this.playerName = playerName;
+        this.position = position;
+        this.leagueTeam = leagueTeam;
+    }
 }

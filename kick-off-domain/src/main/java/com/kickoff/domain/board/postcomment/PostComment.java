@@ -1,4 +1,4 @@
-package com.kickoff.domain.board.postComment;
+package com.kickoff.domain.board.postcomment;
 
 import com.kickoff.domain.board.member.Member;
 import jakarta.persistence.*;
@@ -8,11 +8,11 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor
-public class postComment {
+public class PostComment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long commentId;
-    private String commnet;
+    private String comment;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
