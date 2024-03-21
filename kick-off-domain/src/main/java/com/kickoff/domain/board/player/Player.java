@@ -1,4 +1,4 @@
-package com.kickoff.domain.player;
+package com.kickoff.domain.board.player;
 
 import com.kickoff.domain.team.league.LeagueTeam;
 import jakarta.persistence.*;
