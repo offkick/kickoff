@@ -5,6 +5,4 @@ public enum PlayerPosition {
     DEFENDER,
     MID_FIELDER,
     KEEPER,
-
-    // 920
 }

@@ -1,0 +1,93 @@
+package com.kickoff.api.service.board.member;
+
+import com.kickoff.api.service.board.member.dto.CreateMemberServiceRequest;
+import com.kickoff.api.service.board.member.dto.UpdateMemberServiceRequest;
+import com.kickoff.domain.board.member.Member;
+import com.kickoff.domain.board.member.MemberRepository;
+import jakarta.transaction.Transactional;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+@Transactional
+@SpringBootTest
+public class MemberServiceTest {
+
+    @Autowired
+    MemberService memberService;
+
+    @Autowired
+    MemberRepository memberRepository;
+
+    @DisplayName("멤버생성")
+    @Test
+    @Transactional
+    void createMember()
+    {
+        //given
+        CreateMemberServiceRequest request = new CreateMemberServiceRequest(
+                "nickName",
+                "1234"
+        );
+
+        //when
+        Long memberId = memberService.createMember(request);
+
+        //then
+        assertThat(memberId).isNotNull();
+    }
+
+    @DisplayName("멤버삭제")
+    @Test
+    @Transactional
+    void deleteMember()
+    {
+        //given
+        Member member = memberRepository.save(
+                Member.builder()
+                        .nickName("nickName")
+                        .password("1234")
+                        .build()
+        );
+
+        //when
+        memberService.deleteMember(member.getMemberId());
+
+        //then
+        List<Member> all = memberRepository.findAll();
+        assertThat(all).isEmpty();
+    }
+
+    @DisplayName("멤버수정")
+    @Test
+    @Transactional
+    void updateMember()
+    {
+        //given
+        Member member = memberRepository.save(
+                Member.builder()
+                        .nickName("nickName")
+                        .password("1234")
+                        .build()
+        );
+
+        UpdateMemberServiceRequest request = new UpdateMemberServiceRequest(
+                "updated",
+                "2345",
+                member.getMemberId()
+        );
+
+        //when
+        Long memberId = memberService.updateMember(request);
+
+        //then
+        assertThat(memberId).isNotNull();
+    }
+
+}

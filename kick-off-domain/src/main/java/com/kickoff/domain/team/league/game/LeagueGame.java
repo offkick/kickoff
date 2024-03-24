@@ -1,5 +1,6 @@
 package com.kickoff.domain.team.league.game;
 
+import com.kickoff.domain.player.PlayerPosition;
 import com.kickoff.domain.team.Score;
 import com.kickoff.domain.team.league.LeagueTeam;
 import com.kickoff.domain.team.league.Season;
@@ -9,15 +10,20 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static com.kickoff.domain.player.PlayerPosition.*;
+
 @Getter
 @NoArgsConstructor
 @Entity
+
 public class LeagueGame {
 
     @Id
@@ -48,19 +54,23 @@ public class LeagueGame {
     private Season season;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<LeagueGamePlayer> gamePlayerList = new ArrayList<>();
+    private List<LeagueGamePlayer> homePlayers = new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<LeagueGamePlayer> awayPlayers = new ArrayList<>();
+
 
     @Builder
     public LeagueGame(
             Long leagueGameId,
             LocalDateTime gameDate,
-            int count,
-            LeagueTeam away,
+            int count, LeagueTeam away,
             LeagueTeam home,
             Score score,
             LeagueGameStatus leagueGameStatus,
             Season season,
-            List<LeagueGamePlayer> gamePlayerList
+            List<LeagueGamePlayer> homePlayers,
+            List<LeagueGamePlayer> awayPlayers
     ) {
         this.leagueGameId = leagueGameId;
         this.gameDate = gameDate;
@@ -70,28 +80,64 @@ public class LeagueGame {
         this.score = score;
         this.leagueGameStatus = leagueGameStatus;
         this.season = season;
-        setGamePlayerList(gamePlayerList);
+        setHomePlayers(homePlayers);
+        setAwayPlayers(awayPlayers);
     }
 
-    private void setGamePlayerList(List<LeagueGamePlayer> gamePlayerList)
+        
+    private void setHomePlayers(List<LeagueGamePlayer> homePlayers)
     {
-        Map<LeagueTeam, List<LeagueGamePlayer>> maps = gamePlayerList.stream()
-                .collect(Collectors.groupingBy(s -> s.getPlayer().getLeagueTeam()));
 
-        if (maps.keySet().size() >= 3) {
-            throw new IllegalArgumentException("팀 두개 초과");
-        }
 
-        for (Map.Entry<LeagueTeam, List<LeagueGamePlayer>> entry : maps.entrySet())
+        int keeper = 0;
+        int position = 0;
+        int member = 0;
+
+        for (LeagueGamePlayer player : homePlayers)
         {
-            List<LeagueGamePlayer> teams = entry.getValue();
-
-            // todo : 모든 포지션의 사람이 있는지...
-
-
-            /// todo 키퍼는 1명인지, 나머지는 10명인지...
-
+            member += 1;
+            if(player.getPosition()== KEEPER){
+                keeper += 1;
+            }else if(player.getPosition() == FORWARD){
+                position += 1;
+            }else if(player.getPosition() == DEFENDER){
+                position += 1;
+            }else if(player.getPosition() == MID_FIELDER){
+                position += 1;
+            }
         }
-        this.gamePlayerList = gamePlayerList;
+        if(keeper != 1|| position < 3){
+            throw new IllegalArgumentException("골키퍼 1명이 아니거나 멤버가 11명이 아님");
+        }
+        this.homePlayers = homePlayers;
     }
+
+    private void setAwayPlayers(List<LeagueGamePlayer> awayPlayers)
+    {
+        int keeper = 0;
+        int position = 0;
+        int member = 0;
+
+
+        for (LeagueGamePlayer player : awayPlayers)
+        {
+            member += 1;
+            if(player.getPosition()== KEEPER){
+                keeper += 1;
+            }else if(player.getPosition() == FORWARD){
+                position += 1;
+            }else if(player.getPosition() == DEFENDER){
+                position += 1;
+            }else if(player.getPosition() == MID_FIELDER){
+                position += 1;
+            }
+        }
+//         || member != 11
+        if(keeper != 1|| position < 3){
+                throw new IllegalArgumentException("골키퍼 1명이 아니거나 멤버가 11명이 아님");
+            }
+        this.awayPlayers = awayPlayers;
+    }
+
+
 }

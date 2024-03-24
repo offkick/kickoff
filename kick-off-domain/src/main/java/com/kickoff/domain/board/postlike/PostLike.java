@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Table(indexes = @Index(name = "post_like_idx", unique = true, columnList = "member_id, post_id"))
 public class PostLike {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long postLikeId;
