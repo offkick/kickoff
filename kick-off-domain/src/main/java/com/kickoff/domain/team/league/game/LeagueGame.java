@@ -5,17 +5,14 @@ import com.kickoff.domain.team.Score;
 import com.kickoff.domain.team.league.LeagueTeam;
 import com.kickoff.domain.team.league.Season;
 import com.kickoff.domain.team.league.game.player.LeagueGamePlayer;
+import com.kickoff.domain.team.league.game.player.LeagueGamePlayerStatus;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.kickoff.domain.player.PlayerPosition.*;
@@ -23,7 +20,6 @@ import static com.kickoff.domain.player.PlayerPosition.*;
 @Getter
 @NoArgsConstructor
 @Entity
-
 public class LeagueGame {
 
     @Id
@@ -59,7 +55,6 @@ public class LeagueGame {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<LeagueGamePlayer> awayPlayers = new ArrayList<>();
 
-
     @Builder
     public LeagueGame(
             Long leagueGameId,
@@ -80,64 +75,46 @@ public class LeagueGame {
         this.score = score;
         this.leagueGameStatus = leagueGameStatus;
         this.season = season;
-        setHomePlayers(homePlayers);
-        setAwayPlayers(awayPlayers);
-    }
-
-        
-    private void setHomePlayers(List<LeagueGamePlayer> homePlayers)
-    {
-
-
-        int keeper = 0;
-        int position = 0;
-        int member = 0;
-
-        for (LeagueGamePlayer player : homePlayers)
-        {
-            member += 1;
-            if(player.getPosition()== KEEPER){
-                keeper += 1;
-            }else if(player.getPosition() == FORWARD){
-                position += 1;
-            }else if(player.getPosition() == DEFENDER){
-                position += 1;
-            }else if(player.getPosition() == MID_FIELDER){
-                position += 1;
-            }
-        }
-        if(keeper != 1|| position < 3){
-            throw new IllegalArgumentException("골키퍼 1명이 아니거나 멤버가 11명이 아님");
-        }
+        validate(home, homePlayers);
+        validate(away, awayPlayers);
         this.homePlayers = homePlayers;
-    }
-
-    private void setAwayPlayers(List<LeagueGamePlayer> awayPlayers)
-    {
-        int keeper = 0;
-        int position = 0;
-        int member = 0;
-
-
-        for (LeagueGamePlayer player : awayPlayers)
-        {
-            member += 1;
-            if(player.getPosition()== KEEPER){
-                keeper += 1;
-            }else if(player.getPosition() == FORWARD){
-                position += 1;
-            }else if(player.getPosition() == DEFENDER){
-                position += 1;
-            }else if(player.getPosition() == MID_FIELDER){
-                position += 1;
-            }
-        }
-//         || member != 11
-        if(keeper != 1|| position < 3){
-                throw new IllegalArgumentException("골키퍼 1명이 아니거나 멤버가 11명이 아님");
-            }
         this.awayPlayers = awayPlayers;
     }
 
+    private void validate(LeagueTeam leagueTeam, List<LeagueGamePlayer> leagueGamePlayers)
+    {
+        Set<PlayerPosition> playerPositions = Arrays.stream(values())
+                .collect(Collectors.toSet());
 
+        Set<LeagueGamePlayer> startingPlayers = leagueGamePlayers.stream()
+                .filter(leagueGamePlayer -> leagueGamePlayer.getStatus().equals(LeagueGamePlayerStatus.STARTING))
+                .collect(Collectors.toSet());
+
+        if ((long) startingPlayers.size() != 11)
+        {
+            throw new IllegalArgumentException("출전 선수 11명 안됨");
+        }
+
+        Set<PlayerPosition> leagueGamePlayerPositionSet = startingPlayers.stream()
+                .map(LeagueGamePlayer::getPosition)
+                .collect(Collectors.toSet());
+
+        if (!leagueGamePlayerPositionSet.containsAll(playerPositions))
+        {
+            throw new IllegalArgumentException("모든 포지션 없음");
+        }
+
+        if(startingPlayers.stream()
+                .filter(leagueGamePlayer -> KEEPER.equals(leagueGamePlayer.getPosition()))
+                .count() != 1
+        ) {
+            throw new IllegalArgumentException("키퍼가 1명 아님");
+        }
+
+        if (leagueGamePlayers.stream()
+                .anyMatch(s-> !s.getPlayer().getLeagueTeam().equals(leagueTeam))
+        ) {
+            throw new IllegalArgumentException("팀이 다름");
+        }
+    }
 }

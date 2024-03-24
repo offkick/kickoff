@@ -27,7 +27,8 @@ public class Player {
     private LeagueTeam leagueTeam;
 
     @Builder
-    public Player(Long playerId, String national, String playerName, PlayerPosition position, LeagueTeam leagueTeam) {
+    public Player(Long playerId, String national, String playerName, PlayerPosition position, LeagueTeam leagueTeam)
+    {
         this.playerId = playerId;
         this.national = national;
         this.playerName = playerName;
