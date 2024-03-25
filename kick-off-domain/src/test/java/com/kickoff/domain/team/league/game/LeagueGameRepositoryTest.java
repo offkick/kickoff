@@ -159,6 +159,8 @@ public class LeagueGameRepositoryTest {
                         .awayPlayers(awayLeagueGamePlayers)
                         .build()
         );
-        // todo : 테스트 assertThat
+        assertThat(leagueGame.getLeagueGameId()).isNotNull();
+        assertThat(leagueGame.getAwayPlayers().size()).isEqualTo(11);
+        assertThat(leagueGame.getScore().getAwayScore()).isEqualTo(3);
     }
 }
