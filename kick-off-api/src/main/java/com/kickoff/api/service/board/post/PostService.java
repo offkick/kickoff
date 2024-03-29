@@ -20,7 +20,7 @@ public class PostService {
     private final PostRepository postRepository;
     private final MemberRepository memberRepository;
 
-    public Long createPost(Long memberId,CreatePostServiceRequest request)
+    public Long create(Long memberId,CreatePostServiceRequest request)
     {
         Optional<Member> byId = memberRepository.findById(memberId);
         Member member = byId.orElseThrow(() -> new IllegalArgumentException());
@@ -46,11 +46,12 @@ public class PostService {
     public Long update(UpdatePostServiceRequest request){
         Post post = postRepository.findById(request.postId())
                 .orElseThrow(()-> new IllegalArgumentException());
-        Post updatePost =  Post.builder()
+        Post updatePost = Post.builder()
                 .title(request.title())
                 .content(request.content())
                 .category(request.category())
                 .build();
+
         post.update(updatePost);
         return post.getPostId();
     }

@@ -8,6 +8,7 @@ import com.kickoff.domain.board.post.Post;
 import com.kickoff.domain.board.post.PostRepository;
 import jakarta.transaction.Transactional;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -31,6 +32,7 @@ public class PostServiceTest {
     private PostRepository postRepository;
 
     @Test
+    @DisplayName("포스트생성")
     void createPost()
     {
         //given
@@ -48,13 +50,14 @@ public class PostServiceTest {
         );
 
         //when
-        Long postId = postService.createPost(member.getMemberId(),request);
+        Long postId = postService.create(member.getMemberId(), request);
 
         //then
         assertThat(postId).isNotNull();
     }
 
     @Test
+    @DisplayName("포스트수정")
     void updatePost(){
         //given
         Member member = memberRepository.save(
@@ -88,6 +91,7 @@ public class PostServiceTest {
     }
 
     @Test
+    @DisplayName("포스트삭제")
     void deletePost()
     {
         //given

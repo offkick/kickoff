@@ -3,6 +3,7 @@ package com.kickoff.domain.board.postlike;
 import com.kickoff.domain.board.member.Member;
 import com.kickoff.domain.board.post.Post;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -23,4 +24,11 @@ public class PostLike {
     @JoinColumn(name = "member_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
+
+    @Builder
+    public PostLike(Long postLikeId, Post post, Member member) {
+        this.postLikeId = postLikeId;
+        this.post = post;
+        this.member = member;
+    }
 }

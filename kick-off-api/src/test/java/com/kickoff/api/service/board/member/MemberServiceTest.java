@@ -27,7 +27,6 @@ public class MemberServiceTest {
 
     @DisplayName("멤버생성")
     @Test
-    @Transactional
     void createMember()
     {
         //given
@@ -45,7 +44,6 @@ public class MemberServiceTest {
 
     @DisplayName("멤버삭제")
     @Test
-    @Transactional
     void deleteMember()
     {
         //given
