@@ -1,0 +1,17 @@
+spring:
+  datasource:
+#    url: jdbc:h2:mem:~/kickOffApplication
+    url: jdbc:mysql://localhost:3306/kick_off?serverTimezone=UTC&characterEncoding=UTF-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: Abcd123@
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    defer-datasource-initialization: true
+  profiles:
+    active: domain

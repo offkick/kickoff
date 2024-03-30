@@ -60,7 +60,7 @@ public class Post {
         {
             return ;
         }
-        this.title = content;
+        this.title = title;
     }
     private void setCategory(String category)
     {
