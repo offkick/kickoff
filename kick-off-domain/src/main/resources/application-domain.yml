@@ -13,5 +13,5 @@ spring:
       hibernate:
         format_sql: true
     defer-datasource-initialization: true
-  profiles:
-    active: domain
+#  profiles:
+#    active: domain
