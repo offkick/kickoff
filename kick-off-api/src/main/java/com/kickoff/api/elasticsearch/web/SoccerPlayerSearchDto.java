@@ -9,11 +9,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SoccerPlayerSearchDto {
-    private Long playerId;
-    private String teamName;
-    private Long teamId;
-    private String playerName;
-    private PlayerPosition playerPosition;
-    private String nation;
-    private Integer age;
+//    private Long playerId;
+//    private String teamName;
+//    private Long teamId;
+//    private String playerName;
+//    private PlayerPosition playerPosition;
+//    private String nation;
+//    private Integer age;
+    private String keyword;
 }

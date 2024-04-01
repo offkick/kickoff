@@ -16,11 +16,10 @@ package com.kickoff.api.elasticsearch.web;
 
 import com.kickoff.api.elasticsearch.service.SoccerPlayerElasticSearchService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/search/soccer-player")
@@ -28,9 +27,10 @@ public class SoccerSearchController {
     private final SoccerPlayerElasticSearchService soccerPlayerElasticSearchService;
 
     @GetMapping
-    public String searchPlayer(SoccerPlayerSearchDto soccerPlayerSearchDto)
+    public String searchPlayer(@RequestParam(value = "keyword") String keyword)
     {
-        soccerPlayerElasticSearchService.search(soccerPlayerSearchDto);
+        log.info("keyword :{}", keyword);
+        soccerPlayerElasticSearchService.search(keyword);
         return "SUCCESS";
     }
 

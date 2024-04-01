@@ -1,10 +1,15 @@
 package com.kickoff.api.elasticsearch.service;
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
+import co.elastic.clients.elasticsearch._types.query_dsl.MatchQuery;
+import co.elastic.clients.elasticsearch._types.query_dsl.Query;
+import co.elastic.clients.elasticsearch._types.query_dsl.RangeQuery;
+import co.elastic.clients.elasticsearch._types.query_dsl.TermQuery;
 import co.elastic.clients.elasticsearch.core.GetResponse;
 import co.elastic.clients.elasticsearch.core.SearchResponse;
 import co.elastic.clients.elasticsearch.core.search.Hit;
 import co.elastic.clients.elasticsearch.core.search.TotalHits;
+import co.elastic.clients.json.JsonData;
 import com.kickoff.api.elasticsearch.index.SoccerPlayerIndex;
 import com.kickoff.api.elasticsearch.web.ElasticSearchFoundException;
 import com.kickoff.api.elasticsearch.web.SoccerPlayerSearchDto;
@@ -13,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.List;
 
 @Slf4j
@@ -22,23 +28,44 @@ public class SoccerPlayerElasticSearchService {
     private final String SOCCER_PLAYER_INDEX = "soccer-player";
     private final ElasticsearchClient client;
 
-    public void search(SoccerPlayerSearchDto soccerPlayerSearchDto)
+    public void search(String keyword)
     {
         try {
+            Query playerNameQuery = MatchQuery.of(m -> m
+                .field("playerName")
+                .query(keyword))._toQuery();
 
+            Query playerPositionQuery = TermQuery.of(t -> t
+                    .field("playerPosition")
+                    .value(keyword))._toQuery();
+
+            Query nationQuery = MatchQuery.of(m->m
+                    .field("nation")
+                    .query(keyword))._toQuery();
+
+            Query teamNameQuery = MatchQuery.of(m->m
+                    .field("teamName")
+                    .query(keyword))._toQuery();
+
+            // or  + like (문자열)
+            // id ==> &
             SearchResponse<SoccerPlayerIndex> response = client.search(s -> s.index(SOCCER_PLAYER_INDEX)
-                    .query(q -> q.term(t->t.field("playerName").value("손"))),SoccerPlayerIndex.class);
-            
+                    .query(q -> q.bool(b -> b
+                            .should(playerNameQuery)
+                            .should(playerPositionQuery)
+                            .should(nationQuery)
+                            .should(teamNameQuery))), SoccerPlayerIndex.class);
+
             TotalHits totalHits = response.hits().total();
 
             List<Hit<SoccerPlayerIndex>> hits =  response.hits().hits();
-
             for (Hit<SoccerPlayerIndex> hit : hits)
             {
                 log.info("result = {}", hit.source());
             }
+
         }catch (Exception e) {
-            log.error("~~~~");
+            log.error("elasticsearch player search error", e);
         }
     }
 
