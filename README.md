@@ -12,6 +12,5 @@
 ## 도메인
 
 ## ERD
- 
 
-LeagueGame - Line Up
+![image](https://github.com/offkick/kickoff/assets/153713451/cc815140-480e-47d5-a355-5ba8eaa0433a)
