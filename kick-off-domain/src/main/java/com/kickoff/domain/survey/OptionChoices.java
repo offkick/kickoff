@@ -22,7 +22,8 @@ public class OptionChoices {
     private OptionGroups optionGroups;
 
     @Builder
-    public OptionChoices(String optionChoiceName, OptionGroups optionGroups) {
+    public OptionChoices(String optionChoiceName, OptionGroups optionGroups)
+    {
         this.optionGroups = optionGroups;
         this.optionChoiceName = optionChoiceName;
     }

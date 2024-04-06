@@ -12,8 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class SurveyService {
     private final AnswerQuestionSurveyValidator answerQuestionSurveyValidator;
-    private final AnswerService answerService;
     private final QuestionOptionsRepository questionOptionsRepository;
+    private final AnswerService answerService;
 
     public void answerQuestionSurvey(
             Long memberId,

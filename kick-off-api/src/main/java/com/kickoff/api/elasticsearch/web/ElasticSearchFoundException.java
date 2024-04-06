@@ -5,6 +5,5 @@ public class ElasticSearchFoundException extends RuntimeException {
 
     public ElasticSearchFoundException(String message) {
         super(message);
-
     }
 }

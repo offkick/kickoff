@@ -17,8 +17,9 @@ public class AnswerService {
     {
         Answer answer = Answer.builder()
                 .memberId(memberId)
-                .answerNumber(Long.valueOf(answerNumeric))
+                .answerNumber((long) answerNumeric)
                 .answerYn(answerYn)
+                .answerText(answerText)
                 .questionOptions(questionOptions)
                 .build();
 

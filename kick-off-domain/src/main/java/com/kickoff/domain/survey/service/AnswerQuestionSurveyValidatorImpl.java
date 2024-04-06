@@ -4,10 +4,12 @@ import com.kickoff.domain.survey.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RequiredArgsConstructor
 @Service
 public class AnswerQuestionSurveyValidatorImpl implements AnswerQuestionSurveyValidator {
-    private final OptionChoicesRepository optionChoicesRepository;
     private final QuestionsRepository questionsRepository;
 
     @Override
@@ -16,7 +18,6 @@ public class AnswerQuestionSurveyValidatorImpl implements AnswerQuestionSurveyVa
         Questions questions = questionsRepository.findById(questionId).orElseThrow();
         SurveySections surveySection = questions.getSurveySection();
         SurveyHeaders surveyHeaders = surveySection.getSurveyHeaders();
-        OptionChoices optionChoices = optionChoicesRepository.findById(optionChoicesId).orElseThrow();
 
         if(!surveyHeaders.getSurveyHeaderId().equals(surveyHeadersId)
                 || !surveySection.getSurveySectionId().equals(surveySectionId)
@@ -24,6 +25,8 @@ public class AnswerQuestionSurveyValidatorImpl implements AnswerQuestionSurveyVa
             throw new RuntimeException("survey 없음");
         }
         questions.getOptionGroups().getOptionChoicesList().stream()
-                .map()
+                .filter(q -> optionChoicesId.equals(q.getOptionChoicesId()))
+                .findAny()
+                .orElseThrow(() -> new RuntimeException("invalid optionChoicesId"));
     }
 }
