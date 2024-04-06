@@ -18,18 +18,29 @@ public class Answer {
     private boolean answerYn;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "questionOptions_id")
+    @JoinColumn(name = "question_options_id")
     private QuestionOptions questionOptions;
 
     private Long memberId;
 
     @Builder
-    public Answer(Long answerId, String answerText, Long answerNumber, boolean answerYn, QuestionOptions questionOptions, Long memberId) {
+    public Answer(
+            Long answerId,
+            String answerText,
+            Long answerNumber,
+            boolean answerYn,
+            QuestionOptions questionOptions,
+            Long memberId) {
         this.answerId = answerId;
         this.answerText = answerText;
         this.answerNumber = answerNumber;
         this.answerYn = answerYn;
         this.questionOptions = questionOptions;
         this.memberId = memberId;
+
+        if (answerYn && answerNumber == null && answerText == null)
+        {
+            throw new IllegalArgumentException("Create answer entity Error");
+        }
     }
 }

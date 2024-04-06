@@ -1,11 +1,10 @@
 package com.kickoff.domain.board.postcomment;
 
 import com.kickoff.domain.TestConfiguration;
-import com.kickoff.domain.board.member.Member;
-import com.kickoff.domain.board.member.MemberRepository;
+import com.kickoff.domain.member.Member;
+import com.kickoff.domain.member.MemberRepository;
 import com.kickoff.domain.board.post.Post;
 import com.kickoff.domain.board.post.PostRepository;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;

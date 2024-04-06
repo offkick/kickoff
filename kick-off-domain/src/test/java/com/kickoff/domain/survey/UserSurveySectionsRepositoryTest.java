@@ -1,8 +1,8 @@
 package com.kickoff.domain.survey;
 
 import com.kickoff.domain.TestConfiguration;
-import com.kickoff.domain.board.member.Member;
-import com.kickoff.domain.board.member.MemberRepository;
+import com.kickoff.domain.member.Member;
+import com.kickoff.domain.member.MemberRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

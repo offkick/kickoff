@@ -15,6 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ContextConfiguration(classes = TestConfiguration.class)
 @DataJpaTest
 public class PlayerRepositoryTest {
+
     @Autowired
     private PlayerRepository playerRepository;
 
@@ -27,7 +28,7 @@ public class PlayerRepositoryTest {
         // given
         LeagueTeam leagueTeam = leagueTeamRepository.save(
                 LeagueTeam.builder()
-                        .leagueTeamName("mancity")
+                        .leagueTeamName("man-city")
                         .teamType(TeamType.LEAGUE)
                         .build()
         );

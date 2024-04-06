@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * optionGroupName : 공격수
+ */
 @Entity
 @NoArgsConstructor
 @Getter
@@ -30,7 +33,10 @@ public class OptionGroups {
     }
 
     @Builder
-    public OptionGroups(Long optionGroupId, String optionGroupName) {
+    public OptionGroups(
+            Long optionGroupId,
+            String optionGroupName
+    ) {
         this.optionGroupId = optionGroupId;
         this.optionGroupName = optionGroupName;
     }

@@ -1,6 +1,6 @@
 package com.kickoff.domain.board.post;
 
-import com.kickoff.domain.board.member.Member;
+import com.kickoff.domain.member.Member;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;

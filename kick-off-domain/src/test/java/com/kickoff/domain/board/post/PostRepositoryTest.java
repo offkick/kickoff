@@ -1,15 +1,12 @@
 package com.kickoff.domain.board.post;
 
 import com.kickoff.domain.TestConfiguration;
-import com.kickoff.domain.board.member.Member;
-import com.kickoff.domain.board.member.MemberRepository;
-import org.assertj.core.api.Assertions;
+import com.kickoff.domain.member.Member;
+import com.kickoff.domain.member.MemberRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ContextConfiguration;
-
-import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -40,5 +37,4 @@ public class PostRepositoryTest {
         );
         assertThat(post.getPostId()).isNotNull();
     }
-
 }

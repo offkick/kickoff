@@ -2,17 +2,15 @@ package com.kickoff.api.service.board.post;
 
 import com.kickoff.api.service.board.post.dto.CreatePostServiceRequest;
 import com.kickoff.api.service.board.post.dto.UpdatePostServiceRequest;
-import com.kickoff.domain.board.member.Member;
-import com.kickoff.domain.board.member.MemberRepository;
+import com.kickoff.domain.member.Member;
+import com.kickoff.domain.member.MemberRepository;
 import com.kickoff.domain.board.post.Post;
 import com.kickoff.domain.board.post.PostRepository;
 import jakarta.transaction.Transactional;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
 

@@ -5,6 +5,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+/**
+ * optionChoiceName : 손흥민
+ */
 @Entity
 @NoArgsConstructor
 @Getter
@@ -17,6 +20,7 @@ public class OptionChoices {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="optionGroups_id")
     private OptionGroups optionGroups;
+
     @Builder
     public OptionChoices(String optionChoiceName, OptionGroups optionGroups) {
         this.optionGroups = optionGroups;

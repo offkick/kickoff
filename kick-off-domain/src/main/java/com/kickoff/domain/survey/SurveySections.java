@@ -5,7 +5,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
+/*
+ * 예시
+ * sectionName: 최고의 선수를 뽑아주세요
+ * sectionTitle: 선수 평가
+ */
 @Entity
 @Getter
 @Setter

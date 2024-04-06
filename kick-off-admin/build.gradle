@@ -1,0 +1,26 @@
+plugins {
+    id 'java'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':kick-off-domain')
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+}
+
+test {
+    useJUnitPlatform()
+}
+
+bootJar {
+    enabled = true
+}
+
+jar {
+    enabled = false
+}

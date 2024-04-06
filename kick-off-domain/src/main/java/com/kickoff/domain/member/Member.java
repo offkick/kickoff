@@ -1,4 +1,4 @@
-package com.kickoff.domain.board.member;
+package com.kickoff.domain.member;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

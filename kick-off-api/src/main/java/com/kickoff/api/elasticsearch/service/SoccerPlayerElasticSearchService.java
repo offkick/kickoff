@@ -47,16 +47,12 @@ public class SoccerPlayerElasticSearchService {
                     .field("teamName")
                     .query(keyword))._toQuery();
 
-            // or  + like (문자열)
-            // id ==> &
             SearchResponse<SoccerPlayerIndex> response = client.search(s -> s.index(SOCCER_PLAYER_INDEX)
                     .query(q -> q.bool(b -> b
                             .should(playerNameQuery)
                             .should(playerPositionQuery)
                             .should(nationQuery)
                             .should(teamNameQuery))), SoccerPlayerIndex.class);
-
-            TotalHits totalHits = response.hits().total();
 
             List<Hit<SoccerPlayerIndex>> hits =  response.hits().hits();
             for (Hit<SoccerPlayerIndex> hit : hits)

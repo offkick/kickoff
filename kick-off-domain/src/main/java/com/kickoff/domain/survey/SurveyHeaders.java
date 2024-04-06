@@ -25,6 +25,5 @@ public class SurveyHeaders {
         this.surveyHeaderId = surveyHeaderId;
         this.surveyName = surveyName;
         this.instruction = instruction;
-
     }
 }

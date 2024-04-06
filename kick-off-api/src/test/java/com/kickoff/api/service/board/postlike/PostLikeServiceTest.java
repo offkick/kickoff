@@ -1,8 +1,8 @@
 package com.kickoff.api.service.board.postlike;
 
 import com.kickoff.api.service.board.postlike.dto.PostLikeServiceRequest;
-import com.kickoff.domain.board.member.Member;
-import com.kickoff.domain.board.member.MemberRepository;
+import com.kickoff.domain.member.Member;
+import com.kickoff.domain.member.MemberRepository;
 import com.kickoff.domain.board.post.Post;
 import com.kickoff.domain.board.post.PostRepository;
 import com.kickoff.domain.board.postlike.PostLike;

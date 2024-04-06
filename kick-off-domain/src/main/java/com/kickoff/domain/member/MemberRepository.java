@@ -1,4 +1,4 @@
-package com.kickoff.domain.board.member;
+package com.kickoff.domain.member;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

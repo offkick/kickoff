@@ -2,8 +2,8 @@ package com.kickoff.api.service.board.post;
 
 import com.kickoff.api.service.board.post.dto.CreatePostServiceRequest;
 import com.kickoff.api.service.board.post.dto.UpdatePostServiceRequest;
-import com.kickoff.domain.board.member.Member;
-import com.kickoff.domain.board.member.MemberRepository;
+import com.kickoff.domain.member.Member;
+import com.kickoff.domain.member.MemberRepository;
 import com.kickoff.domain.board.post.Post;
 import com.kickoff.domain.board.post.PostRepository;
 import lombok.RequiredArgsConstructor;
