@@ -26,10 +26,7 @@ public class SurveyHeadersQueryDslRepository {
                 .from(surveySections)
                 .innerJoin(surveySections.surveyHeaders, surveyHeaders)
                 .join(questions).on(questions.surveySection.surveySectionId.eq(surveySections.surveySectionId))
-//                    .innerJoin(questions.surveyInputType, qSurveyInputType)
-//                    .innerJoin(questionOptions).on(questionOptions.questions.questionId.eq(questions.questionId))
                 .where(surveyHeaders.surveyHeaderId.eq(surveyHeadersId))
-                .distinct()
                 .transform(
                         GroupBy.groupBy(surveyHeaders.surveyHeaderId).list(
                                 Projections.constructor(
@@ -37,13 +34,13 @@ public class SurveyHeadersQueryDslRepository {
                                         surveyHeaders.surveyHeaderId,
                                         surveyHeaders.surveyName,
                                         surveyHeaders.instruction,
-                                        list(
+                                        GroupBy.list(
                                                 Projections.constructor(
                                                         SurveyHeaderDTO.SurveySectionDTO.class,
                                                         surveySections.surveySectionId,
                                                         surveySections.sectionName,
                                                         surveySections.sectionTitle,
-                                                        list(
+                                                        GroupBy.list(
                                                                 Projections.constructor(
                                                                         SurveyHeaderDTO.QuestionDTO.class,
                                                                         questions.questionId,
@@ -56,6 +53,5 @@ public class SurveyHeadersQueryDslRepository {
                         )
                 );
         System.out.println("result = " + result);
-
     }
 }
