@@ -5,6 +5,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 
@@ -27,6 +28,7 @@ public class QuestionsRepositoryTest {
     @Autowired
     OptionGroupsRepository optionGroupsRepository;
 
+    @Commit
     @Test
     public void save()
     {
@@ -46,8 +48,18 @@ public class QuestionsRepositoryTest {
                 .sectionSubheading("")
                 .sectionRequiredYn(true)
                 .build();
+
+        SurveySections surveySections2 = SurveySections.builder()
+                .sectionName("워스트를 뽑아 주세요!")
+                .sectionTitle("선수 평가")
+                .sectionSubheading("")
+                .sectionRequiredYn(true)
+                .build();
+
         surveySections.setSurveyHeaders(headers);
+        surveySections2.setSurveyHeaders(headers);
         surveySectionsRepository.save(surveySections);
+        surveySectionsRepository.save(surveySections2);
 
         OptionGroups optionGroups = OptionGroups.builder()
                 .optionGroupName("공격수")
@@ -63,7 +75,37 @@ public class QuestionsRepositoryTest {
             .optionGroups(optionGroups)
             .build();
 
+        Questions questions2 = Questions.builder()
+                .answerRequiredYn(false)
+                .multipleOptionAnswers(true)
+                .surveySection(surveySections)
+                .surveyInputType(surveyInputType)
+                .questionName("최고의 수비수는?")
+                .optionGroups(optionGroups)
+                .build();
+
+        Questions questions3 = Questions.builder()
+                .answerRequiredYn(false)
+                .multipleOptionAnswers(true)
+                .surveySection(surveySections2)
+                .surveyInputType(surveyInputType)
+                .questionName("워스트 공격수는?")
+                .optionGroups(optionGroups)
+                .build();
+
+        Questions questions4 = Questions.builder()
+                .answerRequiredYn(false)
+                .multipleOptionAnswers(true)
+                .surveySection(surveySections2)
+                .surveyInputType(surveyInputType)
+                .questionName("워스트 수비수는?")
+                .optionGroups(optionGroups)
+                .build();
+
         questionsRepository.save(questions1);
+        questionsRepository.save(questions2);
+        questionsRepository.save(questions3);
+        questionsRepository.save(questions4);
 
         Assertions.assertThat(questions1.getQuestionId()).isNotNull();
 

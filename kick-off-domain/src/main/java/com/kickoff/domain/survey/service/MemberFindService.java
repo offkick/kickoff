@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @RequiredArgsConstructor
 @Service
-public class MemberService {
+public class MemberFindService {
     private final MemberRepository memberRepository;
 
     @Transactional(readOnly = true)

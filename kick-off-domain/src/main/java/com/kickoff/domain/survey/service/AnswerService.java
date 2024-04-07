@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class AnswerService {
     private final AnswerRepository answerRepository;
 
-    public void create(Long memberId, int answerNumeric, String answerText, boolean answerYn, QuestionOptions questionOptions)
+    public Answer create(Long memberId, int answerNumeric, String answerText, boolean answerYn, QuestionOptions questionOptions)
     {
         Answer answer = Answer.builder()
                 .memberId(memberId)
@@ -23,6 +23,6 @@ public class AnswerService {
                 .questionOptions(questionOptions)
                 .build();
 
-        answerRepository.save(answer);
+        return answerRepository.save(answer);
     }
 }

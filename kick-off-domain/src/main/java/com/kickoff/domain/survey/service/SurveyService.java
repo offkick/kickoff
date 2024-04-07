@@ -15,7 +15,7 @@ public class SurveyService {
     private final QuestionOptionsRepository questionOptionsRepository;
     private final AnswerService answerService;
 
-    public void answerQuestionSurvey(
+    public Answer answerQuestionSurvey(
             Long memberId,
             Long surveyHeadersId,
             Long surveySectionId,
@@ -36,7 +36,7 @@ public class SurveyService {
                 optionChoicesId, questionId)
                 .orElseThrow();
 
-        answerService.create(
+        return answerService.create(
                 memberId,
                 answerNumeric,
                 answerText,
