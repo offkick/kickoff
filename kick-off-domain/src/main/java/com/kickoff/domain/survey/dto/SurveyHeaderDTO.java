@@ -1,4 +1,4 @@
-package com.kickoff.domain.survey;
+package com.kickoff.domain.survey.dto;
 
 import lombok.*;
 
@@ -14,13 +14,17 @@ public class SurveyHeaderDTO {
     private String instruction;
     private List<SurveySectionDTO> surveySectionDTOS;
 
-    public SurveyHeaderDTO(Long surveyHeadersId, String surveyName, String instruction, List<SurveySectionDTO> surveySectionDTOS) {
+    public SurveyHeaderDTO(
+            Long surveyHeadersId,
+            String surveyName,
+            String instruction,
+            List<SurveySectionDTO> surveySectionDTO
+    ) {
         this.surveyHeadersId = surveyHeadersId;
         this.surveyName = surveyName;
         this.instruction = instruction;
         this.surveySectionDTOS = surveySectionDTOS;
     }
-
 
     @Data
     @NoArgsConstructor
@@ -29,28 +33,21 @@ public class SurveyHeaderDTO {
         private Long surveySectionId;
         private String sectionName;
         private String sectionTitle;
-        private List<QuestionDTO> questionDTOS;
-
-        public SurveySectionDTO(Long surveySectionId, String sectionName, String sectionTitle, List<QuestionDTO> questionDTOS) {
-            this.surveySectionId = surveySectionId;
-            this.sectionName = sectionName;
-            this.sectionTitle = sectionTitle;
-            this.questionDTOS = questionDTOS;
-        }
-    }
-
-    @Data
-    @NoArgsConstructor
-    public static class QuestionDTO
-    {
         private Long questionId;
         private String questionName;
 
-        public QuestionDTO(Long questionId, String questionName) {
+        public SurveySectionDTO(
+                Long surveySectionId,
+                String sectionName,
+                String sectionTitle,
+                Long questionId,
+                String questionName
+        ) {
+            this.surveySectionId = surveySectionId;
+            this.sectionName = sectionName;
+            this.sectionTitle = sectionTitle;
             this.questionId = questionId;
             this.questionName = questionName;
         }
     }
-
-
 }

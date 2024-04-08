@@ -1,8 +1,10 @@
 package com.kickoff.domain.survey;
 
-import com.querydsl.core.group.GroupBy;
+import com.kickoff.domain.survey.dto.SurveyHeaderDTO;
 import com.querydsl.core.types.Projections;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import jakarta.annotation.Nullable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +16,20 @@ import static com.querydsl.core.group.GroupBy.*;
 public class SurveyHeadersQueryDslRepository {
     private final JPAQueryFactory jpaQueryFactory;
 
-    public void findSurveyHeadersById(Long surveyHeadersId)
+    public void test()
+    {
+        QQuestions questions = QQuestions.questions;
+        List<Questions> fetch = jpaQueryFactory.select(QQuestions.questions)
+                .innerJoin(questions.surveySection).fetchJoin()
+                .innerJoin(questions.optionGroups).fetchJoin()
+                .innerJoin(questions.surveyInputType).fetchJoin()
+                .leftJoin(questions.surveySection.surveyHeaders).fetchJoin()
+                .where(questions.surveySection.surveyHeaders.surveyHeaderId.eq(1L))
+                .fetch();
+    }
+
+    @Nullable
+    public SurveyHeaderDTO findSurveyHeadersById(Long surveyHeadersId)
     {
         QSurveyHeaders surveyHeaders = QSurveyHeaders.surveyHeaders;
         QSurveySections surveySections = QSurveySections.surveySections;
@@ -22,36 +37,37 @@ public class SurveyHeadersQueryDslRepository {
         QSurveyInputType qSurveyInputType = QSurveyInputType.surveyInputType;
         QQuestionOptions questionOptions = QQuestionOptions.questionOptions;
 
-        List<SurveyHeaderDTO> result =  jpaQueryFactory.select(surveySections)
+        List<SurveyHeaderDTO> transform = jpaQueryFactory.select(surveySections)
                 .from(surveySections)
                 .innerJoin(surveySections.surveyHeaders, surveyHeaders)
                 .join(questions).on(questions.surveySection.surveySectionId.eq(surveySections.surveySectionId))
                 .where(surveyHeaders.surveyHeaderId.eq(surveyHeadersId))
                 .transform(
-                        GroupBy.groupBy(surveyHeaders.surveyHeaderId).list(
+                        groupBy(surveyHeaders.surveyHeaderId).list(
                                 Projections.constructor(
                                         SurveyHeaderDTO.class,
                                         surveyHeaders.surveyHeaderId,
                                         surveyHeaders.surveyName,
                                         surveyHeaders.instruction,
-                                        GroupBy.list(
+                                        list(
                                                 Projections.constructor(
                                                         SurveyHeaderDTO.SurveySectionDTO.class,
                                                         surveySections.surveySectionId,
                                                         surveySections.sectionName,
                                                         surveySections.sectionTitle,
-                                                        GroupBy.list(
-                                                                Projections.constructor(
-                                                                        SurveyHeaderDTO.QuestionDTO.class,
-                                                                        questions.questionId,
-                                                                        questions.questionName
-                                                                )
-                                                        )
+                                                        questions.questionId,
+                                                        questions.questionName
                                                 )
                                         )
                                 )
                         )
                 );
-        System.out.println("result = " + result);
+
+        if (transform.size() > 1)
+        {
+            throw new RuntimeException();
+        }
+
+        return transform.isEmpty() ? null :  transform.get(0);
     }
 }

@@ -20,4 +20,10 @@ public class SurveyHeadersQueryDslRepositoryTest {
     {
         repository.findSurveyHeadersById(1L);
     }
+
+    @Test
+    public void test2()
+    {
+        repository.test();
+    }
 }

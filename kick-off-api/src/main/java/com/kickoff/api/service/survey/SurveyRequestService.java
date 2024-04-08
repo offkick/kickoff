@@ -3,6 +3,7 @@ package com.kickoff.api.service.survey;
 import com.kickoff.api.controller.survey.dto.SurveyRequest;
 import com.kickoff.domain.member.Member;
 import com.kickoff.domain.survey.*;
+import com.kickoff.domain.survey.dto.SurveyHeaderDTO;
 import com.kickoff.domain.survey.service.MemberFindService;
 import com.kickoff.domain.survey.service.SurveyHeaderService;
 import com.kickoff.domain.survey.service.SurveyService;
@@ -17,6 +18,7 @@ public class SurveyRequestService {
     private final SurveyService surveyService;
     private final MemberFindService memberService;
     private final SurveyHeaderService surveyHeaderService;
+    private final SurveyHeadersQueryDslRepository surveyHeadersQueryDslRepository;
 
     public void survey(Long memberId, SurveyRequest request)
     {
@@ -37,5 +39,11 @@ public class SurveyRequestService {
                     surveyAnswerRequest.isAnswerYn()
             );
         }
+    }
+
+    @Transactional(readOnly = true)
+    public SurveyHeaderDTO findById(Long surveyHeadersId)
+    {
+        return surveyHeadersQueryDslRepository.findSurveyHeadersById(surveyHeadersId);
     }
 }
