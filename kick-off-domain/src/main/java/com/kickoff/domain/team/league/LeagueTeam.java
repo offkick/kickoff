@@ -26,7 +26,12 @@ public class LeagueTeam {
     private League league;
 
     @Builder
-    public LeagueTeam(Long leagueTeamId, String leagueTeamName, TeamType teamType, League league) {
+    public LeagueTeam(
+            Long leagueTeamId,
+            String leagueTeamName,
+            TeamType teamType,
+            League league
+    ) {
         this.leagueTeamId = leagueTeamId;
         this.leagueTeamName = leagueTeamName;
         this.teamType = teamType;

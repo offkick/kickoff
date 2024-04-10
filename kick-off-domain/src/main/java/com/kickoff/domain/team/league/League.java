@@ -24,7 +24,12 @@ public class League {
     private String tier;
 
     @Builder
-    public League(Long leagueId, String leagueName, National national, String tier) {
+    public League(
+            Long leagueId,
+            String leagueName,
+            National national,
+            String tier
+    ) {
         this.leagueId = leagueId;
         this.leagueName = leagueName;
         this.national = national;

@@ -28,13 +28,8 @@ public class Questions {
     @JoinColumn(name = "survey_section_id")
     private SurveySections surveySection;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "option_groups_id")
-    private OptionGroups optionGroups;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "survey_inputType_id")
-    private SurveyInputType surveyInputType;
+    private Long optionGroupsId;
+    private Long surveyInputTypeId;
 
     @Builder
     public Questions(
@@ -44,8 +39,8 @@ public class Questions {
             Boolean answerRequiredYn,
             Boolean multipleOptionAnswers,
             SurveySections surveySection,
-            OptionGroups optionGroups,
-            SurveyInputType surveyInputType
+            Long optionGroupsId,
+            Long surveyInputTypeId
     ) {
         this.questionId = questionId;
         this.questionName = questionName;
@@ -53,7 +48,7 @@ public class Questions {
         this.answerRequiredYn = answerRequiredYn;
         this.multipleOptionAnswers = multipleOptionAnswers;
         this.surveySection = surveySection;
-        this.optionGroups = optionGroups;
-        this.surveyInputType = surveyInputType;
+        this.optionGroupsId = optionGroupsId;
+        this.surveyInputTypeId = surveyInputTypeId;
     }
 }

@@ -45,14 +45,12 @@ public class QuestionsRepositoryTest {
         SurveySections surveySections = SurveySections.builder()
                 .sectionName("최고의 선수를 뽑아 주세요!")
                 .sectionTitle("선수 평가")
-                .sectionSubheading("")
                 .sectionRequiredYn(true)
                 .build();
 
         SurveySections surveySections2 = SurveySections.builder()
                 .sectionName("워스트를 뽑아 주세요!")
                 .sectionTitle("선수 평가")
-                .sectionSubheading("")
                 .sectionRequiredYn(true)
                 .build();
 
@@ -70,36 +68,36 @@ public class QuestionsRepositoryTest {
             .answerRequiredYn(false)
             .multipleOptionAnswers(true)
             .surveySection(surveySections)
-            .surveyInputType(surveyInputType)
+            .surveyInputTypeId(surveyInputType.getSurveyInputTypeId())
             .questionName("최고의 공격수는?")
-            .optionGroups(optionGroups)
+            .optionGroupsId(optionGroups.getOptionGroupId())
             .build();
 
         Questions questions2 = Questions.builder()
                 .answerRequiredYn(false)
                 .multipleOptionAnswers(true)
                 .surveySection(surveySections)
-                .surveyInputType(surveyInputType)
+                .surveyInputTypeId(surveyInputType.getSurveyInputTypeId())
                 .questionName("최고의 수비수는?")
-                .optionGroups(optionGroups)
+                .optionGroupsId(optionGroups.getOptionGroupId())
                 .build();
 
         Questions questions3 = Questions.builder()
                 .answerRequiredYn(false)
                 .multipleOptionAnswers(true)
                 .surveySection(surveySections2)
-                .surveyInputType(surveyInputType)
+                .surveyInputTypeId(surveyInputType.getSurveyInputTypeId())
                 .questionName("워스트 공격수는?")
-                .optionGroups(optionGroups)
+                .optionGroupsId(optionGroups.getOptionGroupId())
                 .build();
 
         Questions questions4 = Questions.builder()
                 .answerRequiredYn(false)
                 .multipleOptionAnswers(true)
                 .surveySection(surveySections2)
-                .surveyInputType(surveyInputType)
+                .surveyInputTypeId(surveyInputType.getSurveyInputTypeId())
                 .questionName("워스트 수비수는?")
-                .optionGroups(optionGroups)
+                .optionGroupsId(optionGroups.getOptionGroupId())
                 .build();
 
         questionsRepository.save(questions1);

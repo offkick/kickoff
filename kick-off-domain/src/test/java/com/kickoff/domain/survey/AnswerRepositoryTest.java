@@ -61,7 +61,6 @@ public class AnswerRepositoryTest {
         SurveySections surveySections = SurveySections.builder()
                 .sectionName("최고의 선수를 뽑아 주세요!")
                 .sectionTitle("선수 평가")
-                .sectionSubheading("")
                 .sectionRequiredYn(true)
                 .build();
         surveySections.setSurveyHeaders(headers);
@@ -95,7 +94,7 @@ public class AnswerRepositoryTest {
                 .answerRequiredYn(false)
                 .multipleOptionAnswers(true)
                 .surveySection(surveySections)
-                .surveyInputType(surveyInputType)
+                .surveyInputTypeId(surveyInputType.getSurveyInputTypeId())
                 .questionName("최고의 공격수는?")
                 .optionGroups(optionGroups)
                 .build();

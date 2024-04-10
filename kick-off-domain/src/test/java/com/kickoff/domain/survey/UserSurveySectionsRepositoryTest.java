@@ -42,7 +42,6 @@ public class UserSurveySectionsRepositoryTest {
         SurveySections surveySections = SurveySections.builder()
                 .sectionName("최고의 선수를 뽑아 주세요!")
                 .sectionTitle("선수 평가")
-                .sectionSubheading("")
                 .sectionRequiredYn(true)
                 .build();
         surveySections.setSurveyHeaders(headers);

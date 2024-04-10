@@ -20,16 +20,10 @@ public class SurveyResponse {
     {
         List<SurveyHeaderDTO.SurveySectionDTO> surveySectionDTOS = dto.getSurveySectionDTOS();
 
-        Map<Long, List<SurveySectionResponse>> res = surveySectionDTOS.stream()
-                .collect(Collectors.groupingBy(SurveyHeaderDTO.SurveySectionDTO::getSurveySectionId,
-                        Collectors.mapping(s->
-                            new SurveySectionResponse(
-                                s.getSurveySectionId(),
-                                s.getSectionTitle(),
-                                s.getSectionName(),
-                                null
-                            )
-                        , Collectors.toList())));
+        Map<Long, List<SurveyHeaderDTO.SurveySectionDTO>> res = surveySectionDTOS.stream()
+                .collect(Collectors.groupingBy(
+                        SurveyHeaderDTO.SurveySectionDTO::getSurveySectionId
+                ));
 
         List<SurveySectionResponse> surveySectionResponses =
                 res.entrySet().stream()
@@ -65,7 +59,8 @@ public class SurveyResponse {
             this.questionsResponses = questionsResponses;
         }
 
-        public static SurveySectionResponse of(Long surveySectionId, List<SurveyHeaderDTO.SurveySectionDTO> value) {
+        public static SurveySectionResponse of(Long surveySectionId, List<SurveyHeaderDTO.SurveySectionDTO> value)
+        {
             List<QuestionsResponse> questionsResponses = value.stream()
                     .map(t-> new QuestionsResponse(
                             t.getQuestionId(),

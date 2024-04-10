@@ -26,8 +26,6 @@ public class QSurveySections extends EntityPathBase<SurveySections> {
 
     public final BooleanPath sectionRequiredYn = createBoolean("sectionRequiredYn");
 
-    public final StringPath sectionSubheading = createString("sectionSubheading");
-
     public final StringPath sectionTitle = createString("sectionTitle");
 
     public final QSurveyHeaders surveyHeaders;
