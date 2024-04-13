@@ -2,6 +2,8 @@ package com.kickoff.domain.player;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
+import com.kickoff.domain.soccer.player.Player;
+import com.kickoff.domain.soccer.player.PlayerPosition;
 import com.querydsl.core.types.dsl.*;
 
 import com.querydsl.core.types.PathMetadata;

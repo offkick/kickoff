@@ -1,11 +1,10 @@
 package com.kickoff.api.service.survey;
 
 
-import com.kickoff.domain.member.Member;
 import com.kickoff.domain.survey.QuestionOptionsRepository;
 import com.kickoff.domain.survey.service.AnswerQuestionSurveyValidator;
 import com.kickoff.domain.survey.service.AnswerService;
-import com.kickoff.domain.survey.service.SurveyService;
+import com.kickoff.domain.survey.service.SurveyAnswerService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,7 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class SurveyServiceTest {
 
     @Autowired
-    SurveyService sut;
+    SurveyAnswerService sut;
 
     @Autowired
     AnswerQuestionSurveyValidator answerQuestionSurveyValidator;

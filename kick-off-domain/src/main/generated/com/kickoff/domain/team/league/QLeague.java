@@ -2,6 +2,7 @@ package com.kickoff.domain.team.league;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
+import com.kickoff.domain.soccer.team.league.League;
 import com.querydsl.core.types.dsl.*;
 
 import com.querydsl.core.types.PathMetadata;

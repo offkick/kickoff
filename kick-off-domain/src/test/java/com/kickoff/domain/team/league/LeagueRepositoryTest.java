@@ -2,7 +2,8 @@ package com.kickoff.domain.team.league;
 
 import com.kickoff.domain.TestConfiguration;
 import com.kickoff.domain.common.National;
-import org.assertj.core.api.Assertions;
+import com.kickoff.domain.soccer.team.league.League;
+import com.kickoff.domain.soccer.team.league.LeagueRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;

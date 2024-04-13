@@ -96,7 +96,7 @@ public class AnswerRepositoryTest {
                 .surveySection(surveySections)
                 .surveyInputTypeId(surveyInputType.getSurveyInputTypeId())
                 .questionName("최고의 공격수는?")
-                .optionGroups(optionGroups)
+                .optionGroupsId(optionGroups.getOptionGroupId())
                 .build();
 
         questionsRepository.save(questions1);

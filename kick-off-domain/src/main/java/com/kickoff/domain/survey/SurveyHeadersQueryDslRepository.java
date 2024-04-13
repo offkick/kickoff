@@ -18,14 +18,14 @@ public class SurveyHeadersQueryDslRepository {
 
     public void test()
     {
-        QQuestions questions = QQuestions.questions;
-        List<Questions> fetch = jpaQueryFactory.select(QQuestions.questions)
-                .innerJoin(questions.surveySection).fetchJoin()
-                .innerJoin(questions.optionGroups).fetchJoin()
-                .innerJoin(questions.surveyInputType).fetchJoin()
-                .leftJoin(questions.surveySection.surveyHeaders).fetchJoin()
-                .where(questions.surveySection.surveyHeaders.surveyHeaderId.eq(1L))
-                .fetch();
+//        QQuestions questions = QQuestions.questions;
+//        List<Questions> fetch = jpaQueryFactory.select(QQuestions.questions)
+//                .innerJoin(questions.surveySection).fetchJoin()
+//                .innerJoin(questions.optionGroups).fetchJoin()
+//                .innerJoin(questions.surveyInputType).fetchJoin()
+//                .leftJoin(questions.surveySection.surveyHeaders).fetchJoin()
+//                .where(questions.surveySection.surveyHeaders.surveyHeaderId.eq(1L))
+//                .fetch();
     }
 
     @Nullable

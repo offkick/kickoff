@@ -49,6 +49,7 @@ public class SurveyRepositoryTest {
     @Commit
     public void save()
     {
+        // given
         SurveyInputType surveyInputType = new SurveyInputType();
         surveyInputType.setInputTypeName("select");
         surveyInputTypeRepository.save(surveyInputType);
@@ -105,9 +106,9 @@ public class SurveyRepositoryTest {
                 .answerRequiredYn(false)
                 .multipleOptionAnswers(true)
                 .surveySection(surveySections)
-                .surveyInputType(surveyInputType)
+                .surveyInputTypeId(surveyInputType.getSurveyInputTypeId())
                 .questionName("최고의 공격수는?")
-                .optionGroups(optionGroups)
+                .optionGroupsId(optionGroups.getOptionGroupId())
                 .build();
 
         questionsRepository.save(questions1);
@@ -132,6 +133,7 @@ public class SurveyRepositoryTest {
                 .memberId(member.getMemberId())
                 .build();
 
+        // when
         userSurveySectionsRepository.save(userSurveySections);
     }
 }

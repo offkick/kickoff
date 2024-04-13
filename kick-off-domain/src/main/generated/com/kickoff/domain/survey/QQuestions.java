@@ -26,7 +26,7 @@ public class QQuestions extends EntityPathBase<Questions> {
 
     public final BooleanPath multipleOptionAnswers = createBoolean("multipleOptionAnswers");
 
-    public final QOptionGroups optionGroups;
+    public final NumberPath<Long> optionGroupsId = createNumber("optionGroupsId", Long.class);
 
     public final NumberPath<Long> questionId = createNumber("questionId", Long.class);
 
@@ -34,7 +34,7 @@ public class QQuestions extends EntityPathBase<Questions> {
 
     public final StringPath questionSubtext = createString("questionSubtext");
 
-    public final QSurveyInputType surveyInputType;
+    public final NumberPath<Long> surveyInputTypeId = createNumber("surveyInputTypeId", Long.class);
 
     public final QSurveySections surveySection;
 
@@ -56,8 +56,6 @@ public class QQuestions extends EntityPathBase<Questions> {
 
     public QQuestions(Class<? extends Questions> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.optionGroups = inits.isInitialized("optionGroups") ? new QOptionGroups(forProperty("optionGroups")) : null;
-        this.surveyInputType = inits.isInitialized("surveyInputType") ? new QSurveyInputType(forProperty("surveyInputType")) : null;
         this.surveySection = inits.isInitialized("surveySection") ? new QSurveySections(forProperty("surveySection"), inits.get("surveySection")) : null;
     }
 

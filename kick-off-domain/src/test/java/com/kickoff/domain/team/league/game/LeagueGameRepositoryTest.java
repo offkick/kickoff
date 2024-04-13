@@ -1,20 +1,22 @@
 package com.kickoff.domain.team.league.game;
 
 import com.kickoff.domain.TestConfiguration;
-import com.kickoff.domain.player.Player;
-import com.kickoff.domain.player.PlayerPosition;
-import com.kickoff.domain.player.PlayerRepository;
-import com.kickoff.domain.team.Score;
-import com.kickoff.domain.team.ScoreRepository;
-import com.kickoff.domain.team.TeamType;
-import com.kickoff.domain.team.league.LeagueTeam;
-import com.kickoff.domain.team.league.LeagueTeamRepository;
-import com.kickoff.domain.team.league.Season;
-import com.kickoff.domain.team.league.SeasonRepository;
-import com.kickoff.domain.team.league.game.player.LeagueGamePlayer;
-import com.kickoff.domain.team.league.game.player.LeagueGamePlayerRepository;
-import com.kickoff.domain.team.league.game.player.LeagueGamePlayerStatus;
-import org.assertj.core.api.Assertions;
+import com.kickoff.domain.soccer.player.Player;
+import com.kickoff.domain.soccer.player.PlayerPosition;
+import com.kickoff.domain.soccer.player.PlayerRepository;
+import com.kickoff.domain.soccer.team.Score;
+import com.kickoff.domain.soccer.team.ScoreRepository;
+import com.kickoff.domain.soccer.team.TeamType;
+import com.kickoff.domain.soccer.team.league.LeagueTeam;
+import com.kickoff.domain.soccer.team.league.LeagueTeamRepository;
+import com.kickoff.domain.soccer.team.league.Season;
+import com.kickoff.domain.soccer.team.league.SeasonRepository;
+import com.kickoff.domain.soccer.team.league.game.LeagueGame;
+import com.kickoff.domain.soccer.team.league.game.LeagueGameRepository;
+import com.kickoff.domain.soccer.team.league.game.LeagueGameStatus;
+import com.kickoff.domain.soccer.team.league.game.player.LeagueGamePlayer;
+import com.kickoff.domain.soccer.team.league.game.player.LeagueGamePlayerRepository;
+import com.kickoff.domain.soccer.team.league.game.player.LeagueGamePlayerStatus;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -22,10 +24,8 @@ import org.springframework.test.context.ContextConfiguration;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.as;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ContextConfiguration(classes = TestConfiguration.class)

@@ -2,6 +2,9 @@ package com.kickoff.domain.team.league.game.player;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
+import com.kickoff.domain.soccer.player.PlayerPosition;
+import com.kickoff.domain.soccer.team.league.game.player.LeagueGamePlayer;
+import com.kickoff.domain.soccer.team.league.game.player.LeagueGamePlayerStatus;
 import com.querydsl.core.types.dsl.*;
 
 import com.querydsl.core.types.PathMetadata;
@@ -28,7 +31,7 @@ public class QLeagueGamePlayer extends EntityPathBase<LeagueGamePlayer> {
 
     public final com.kickoff.domain.player.QPlayer player;
 
-    public final EnumPath<com.kickoff.domain.player.PlayerPosition> position = createEnum("position", com.kickoff.domain.player.PlayerPosition.class);
+    public final EnumPath<PlayerPosition> position = createEnum("position", PlayerPosition.class);
 
     public final EnumPath<LeagueGamePlayerStatus> status = createEnum("status", LeagueGamePlayerStatus.class);
 

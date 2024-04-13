@@ -24,9 +24,11 @@ public class AnswerQuestionSurveyValidatorImpl implements AnswerQuestionSurveyVa
         ) {
             throw new RuntimeException("survey 없음");
         }
-        questions.getOptionGroups().getOptionChoicesList().stream()
-                .filter(q -> optionChoicesId.equals(q.getOptionChoicesId()))
-                .findAny()
-                .orElseThrow(() -> new RuntimeException("invalid optionChoicesId"));
+
+        if(!optionChoicesId.equals(questions.getOptionGroupsId()))
+        {
+            throw new RuntimeException("invalid optionChoicesId");
+        }
+
     }
 }

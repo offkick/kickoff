@@ -2,6 +2,9 @@ package com.kickoff.domain.team.league.game;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
+import com.kickoff.domain.soccer.team.league.game.LeagueGame;
+import com.kickoff.domain.soccer.team.league.game.LeagueGameStatus;
+import com.kickoff.domain.soccer.team.league.game.player.LeagueGamePlayer;
 import com.querydsl.core.types.dsl.*;
 
 import com.querydsl.core.types.PathMetadata;
@@ -24,7 +27,7 @@ public class QLeagueGame extends EntityPathBase<LeagueGame> {
 
     public final com.kickoff.domain.team.league.QLeagueTeam away;
 
-    public final ListPath<com.kickoff.domain.team.league.game.player.LeagueGamePlayer, com.kickoff.domain.team.league.game.player.QLeagueGamePlayer> awayPlayers = this.<com.kickoff.domain.team.league.game.player.LeagueGamePlayer, com.kickoff.domain.team.league.game.player.QLeagueGamePlayer>createList("awayPlayers", com.kickoff.domain.team.league.game.player.LeagueGamePlayer.class, com.kickoff.domain.team.league.game.player.QLeagueGamePlayer.class, PathInits.DIRECT2);
+    public final ListPath<LeagueGamePlayer, com.kickoff.domain.team.league.game.player.QLeagueGamePlayer> awayPlayers = this.<LeagueGamePlayer, com.kickoff.domain.team.league.game.player.QLeagueGamePlayer>createList("awayPlayers", LeagueGamePlayer.class, com.kickoff.domain.team.league.game.player.QLeagueGamePlayer.class, PathInits.DIRECT2);
 
     public final NumberPath<Integer> count = createNumber("count", Integer.class);
 
@@ -32,7 +35,7 @@ public class QLeagueGame extends EntityPathBase<LeagueGame> {
 
     public final com.kickoff.domain.team.league.QLeagueTeam home;
 
-    public final ListPath<com.kickoff.domain.team.league.game.player.LeagueGamePlayer, com.kickoff.domain.team.league.game.player.QLeagueGamePlayer> homePlayers = this.<com.kickoff.domain.team.league.game.player.LeagueGamePlayer, com.kickoff.domain.team.league.game.player.QLeagueGamePlayer>createList("homePlayers", com.kickoff.domain.team.league.game.player.LeagueGamePlayer.class, com.kickoff.domain.team.league.game.player.QLeagueGamePlayer.class, PathInits.DIRECT2);
+    public final ListPath<LeagueGamePlayer, com.kickoff.domain.team.league.game.player.QLeagueGamePlayer> homePlayers = this.<LeagueGamePlayer, com.kickoff.domain.team.league.game.player.QLeagueGamePlayer>createList("homePlayers", LeagueGamePlayer.class, com.kickoff.domain.team.league.game.player.QLeagueGamePlayer.class, PathInits.DIRECT2);
 
     public final NumberPath<Long> leagueGameId = createNumber("leagueGameId", Long.class);
 
