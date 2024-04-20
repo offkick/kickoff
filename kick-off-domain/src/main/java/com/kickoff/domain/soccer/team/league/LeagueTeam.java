@@ -1,6 +1,7 @@
 package com.kickoff.domain.team.league;
 
-import com.kickoff.domain.team.TeamType;
+import com.kickoff.domain.soccer.team.TeamType;
+import com.kickoff.domain.soccer.team.league.League;
 import jakarta.persistence.*;
 import lombok.*;
 

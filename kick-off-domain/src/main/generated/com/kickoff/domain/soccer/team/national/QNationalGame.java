@@ -1,9 +1,7 @@
-package com.kickoff.domain.team.national;
+package com.kickoff.domain.soccer.team.national;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
-import com.kickoff.domain.soccer.team.national.NationalGame;
-import com.kickoff.domain.soccer.team.national.NationalGameType;
 import com.querydsl.core.types.dsl.*;
 
 import com.querydsl.core.types.PathMetadata;
@@ -18,7 +16,7 @@ import com.querydsl.core.types.dsl.PathInits;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QNationalGame extends EntityPathBase<NationalGame> {
 
-    private static final long serialVersionUID = 419165895L;
+    private static final long serialVersionUID = 1386137468L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 

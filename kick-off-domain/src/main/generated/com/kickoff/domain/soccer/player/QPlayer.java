@@ -1,9 +1,7 @@
-package com.kickoff.domain.player;
+package com.kickoff.domain.soccer.player;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
-import com.kickoff.domain.soccer.player.Player;
-import com.kickoff.domain.soccer.player.PlayerPosition;
 import com.querydsl.core.types.dsl.*;
 
 import com.querydsl.core.types.PathMetadata;
@@ -18,7 +16,7 @@ import com.querydsl.core.types.dsl.PathInits;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QPlayer extends EntityPathBase<Player> {
 
-    private static final long serialVersionUID = 804820918L;
+    private static final long serialVersionUID = -1352153887L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 

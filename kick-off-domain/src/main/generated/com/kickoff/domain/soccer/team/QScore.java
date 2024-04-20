@@ -1,8 +1,7 @@
-package com.kickoff.domain.team;
+package com.kickoff.domain.soccer.team;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
-import com.kickoff.domain.soccer.team.Score;
 import com.querydsl.core.types.dsl.*;
 
 import com.querydsl.core.types.PathMetadata;
@@ -16,7 +15,7 @@ import com.querydsl.core.types.Path;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QScore extends EntityPathBase<Score> {
 
-    private static final long serialVersionUID = 520162201L;
+    private static final long serialVersionUID = 561899086L;
 
     public static final QScore score = new QScore("score");
 

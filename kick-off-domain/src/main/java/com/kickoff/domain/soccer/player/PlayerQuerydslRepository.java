@@ -1,6 +1,5 @@
 package com.kickoff.domain.soccer.player;
 
-import com.kickoff.domain.player.QPlayer;
 import com.kickoff.domain.team.league.QLeagueTeam;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;

@@ -2,8 +2,6 @@ package com.kickoff.domain.team.league;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
-import com.kickoff.domain.soccer.team.TeamType;
-import com.kickoff.domain.soccer.team.league.LeagueTeam;
 import com.querydsl.core.types.dsl.*;
 
 import com.querydsl.core.types.PathMetadata;
@@ -24,13 +22,13 @@ public class QLeagueTeam extends EntityPathBase<LeagueTeam> {
 
     public static final QLeagueTeam leagueTeam = new QLeagueTeam("leagueTeam");
 
-    public final QLeague league;
+    public final com.kickoff.domain.soccer.team.league.QLeague league;
 
     public final NumberPath<Long> leagueTeamId = createNumber("leagueTeamId", Long.class);
 
     public final StringPath leagueTeamName = createString("leagueTeamName");
 
-    public final EnumPath<TeamType> teamType = createEnum("teamType", TeamType.class);
+    public final EnumPath<com.kickoff.domain.soccer.team.TeamType> teamType = createEnum("teamType", com.kickoff.domain.soccer.team.TeamType.class);
 
     public QLeagueTeam(String variable) {
         this(LeagueTeam.class, forVariable(variable), INITS);
@@ -50,7 +48,7 @@ public class QLeagueTeam extends EntityPathBase<LeagueTeam> {
 
     public QLeagueTeam(Class<? extends LeagueTeam> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.league = inits.isInitialized("league") ? new QLeague(forProperty("league")) : null;
+        this.league = inits.isInitialized("league") ? new com.kickoff.domain.soccer.team.league.QLeague(forProperty("league")) : null;
     }
 
 }

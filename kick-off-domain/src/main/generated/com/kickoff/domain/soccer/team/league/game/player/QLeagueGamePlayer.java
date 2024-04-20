@@ -1,10 +1,7 @@
-package com.kickoff.domain.team.league.game.player;
+package com.kickoff.domain.soccer.team.league.game.player;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
-import com.kickoff.domain.soccer.player.PlayerPosition;
-import com.kickoff.domain.soccer.team.league.game.player.LeagueGamePlayer;
-import com.kickoff.domain.soccer.team.league.game.player.LeagueGamePlayerStatus;
 import com.querydsl.core.types.dsl.*;
 
 import com.querydsl.core.types.PathMetadata;
@@ -19,7 +16,7 @@ import com.querydsl.core.types.dsl.PathInits;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QLeagueGamePlayer extends EntityPathBase<LeagueGamePlayer> {
 
-    private static final long serialVersionUID = 926179545L;
+    private static final long serialVersionUID = -1144172338L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
@@ -29,9 +26,9 @@ public class QLeagueGamePlayer extends EntityPathBase<LeagueGamePlayer> {
 
     public final NumberPath<Integer> playedTime = createNumber("playedTime", Integer.class);
 
-    public final com.kickoff.domain.player.QPlayer player;
+    public final com.kickoff.domain.soccer.player.QPlayer player;
 
-    public final EnumPath<PlayerPosition> position = createEnum("position", PlayerPosition.class);
+    public final EnumPath<com.kickoff.domain.soccer.player.PlayerPosition> position = createEnum("position", com.kickoff.domain.soccer.player.PlayerPosition.class);
 
     public final EnumPath<LeagueGamePlayerStatus> status = createEnum("status", LeagueGamePlayerStatus.class);
 
@@ -55,7 +52,7 @@ public class QLeagueGamePlayer extends EntityPathBase<LeagueGamePlayer> {
 
     public QLeagueGamePlayer(Class<? extends LeagueGamePlayer> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.player = inits.isInitialized("player") ? new com.kickoff.domain.player.QPlayer(forProperty("player"), inits.get("player")) : null;
+        this.player = inits.isInitialized("player") ? new com.kickoff.domain.soccer.player.QPlayer(forProperty("player"), inits.get("player")) : null;
     }
 
 }
