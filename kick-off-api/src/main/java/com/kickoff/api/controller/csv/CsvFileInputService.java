@@ -78,7 +78,8 @@ public class CsvFileInputService {
         }
     }
 
-    private PlayerPosition convertPosition(String csvPosition) {
+    private PlayerPosition convertPosition(String csvPosition)
+    {
         return switch (csvPosition) {
             case "MID" -> MID_FIELDER;
             case "STR" -> FORWARD;

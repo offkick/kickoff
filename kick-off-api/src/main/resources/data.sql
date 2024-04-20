@@ -1,9 +1,10 @@
 
-# league
+-- league
 INSERT INTO kick_off.league (league_id, league_name, tier, national) VALUES (1, 'Premier League', '1', 'ENGLAND');
 
-# league Team
+-- league Team
 INSERT INTO kick_off.league_team (league_id, league_team_id, league_team_name, team_type) VALUES (1, 1, 'Fulham', 'LEAGUE');
+INSERT INTO kick_off.player (league_team_id, player_id, national, player_name, position) VALUES (1, 749, null, 'Dibley-Dias', 'MID_FIELDER');
 INSERT INTO kick_off.league_team (league_id, league_team_id, league_team_name, team_type) VALUES (1, 2, 'Liverpool', 'LEAGUE');
 INSERT INTO kick_off.league_team (league_id, league_team_id, league_team_name, team_type) VALUES (1, 3, 'Wolverhampton', 'LEAGUE');
 INSERT INTO kick_off.league_team (league_id, league_team_id, league_team_name, team_type) VALUES (1, 4, 'Aston Villa', 'LEAGUE');
@@ -25,7 +26,7 @@ INSERT INTO kick_off.league_team (league_id, league_team_id, league_team_name, t
 INSERT INTO kick_off.league_team (league_id, league_team_id, league_team_name, team_type) VALUES (1, 20, 'Man City', 'LEAGUE');
 INSERT INTO kick_off.league_team (league_id, league_team_id, league_team_name, team_type) VALUES (1, 21, 'B & H Albion', 'LEAGUE');
 
-#player
+-- player
 INSERT INTO kick_off.player (league_team_id, player_id, national, player_name, position) VALUES (20, 1, null, 'Haaland', 'FORWARD');
 INSERT INTO kick_off.player (league_team_id, player_id, national, player_name, position) VALUES (7, 2, null, 'Kane', 'FORWARD');
 INSERT INTO kick_off.player (league_team_id, player_id, national, player_name, position) VALUES (2, 3, null, 'Salah', 'MID_FIELDER');
@@ -420,7 +421,7 @@ INSERT INTO kick_off.player (league_team_id, player_id, national, player_name, p
 INSERT INTO kick_off.player (league_team_id, player_id, national, player_name, position) VALUES (12, 392, null, 'Sambi', 'MID_FIELDER');
 INSERT INTO kick_off.player (league_team_id, player_id, national, player_name, position) VALUES (13, 393, null, 'Edozie', 'MID_FIELDER');
 INSERT INTO kick_off.player (league_team_id, player_id, national, player_name, position) VALUES (2, 394, null, 'Bajcetic', 'MID_FIELDER');
-INSERT INTO kick_off.player (league_team_id, player_id, national, player_name, position) VALUES (17, 395, null, 'O\'Brien', 'MID_FIELDER');
+INSERT INTO kick_off.player (league_team_id, player_id, national, player_name, position) VALUES (17, 395, null, 'O Brien', 'MID_FIELDER');
 INSERT INTO kick_off.player (league_team_id, player_id, national, player_name, position) VALUES (15, 396, null, 'Holding', 'DEFENDER');
 INSERT INTO kick_off.player (league_team_id, player_id, national, player_name, position) VALUES (20, 397, null, 'Sergio Gómez', 'DEFENDER');
 INSERT INTO kick_off.player (league_team_id, player_id, national, player_name, position) VALUES (21, 398, null, 'Gilmour', 'MID_FIELDER');
@@ -774,7 +775,6 @@ INSERT INTO kick_off.player (league_team_id, player_id, national, player_name, p
 INSERT INTO kick_off.player (league_team_id, player_id, national, player_name, position) VALUES (7, 746, null, 'Mundle', 'MID_FIELDER');
 INSERT INTO kick_off.player (league_team_id, player_id, national, player_name, position) VALUES (4, 747, null, 'Patterson', 'MID_FIELDER');
 INSERT INTO kick_off.player (league_team_id, player_id, national, player_name, position) VALUES (4, 748, null, 'O\'Reilly', 'MID_FIELDER');
-INSERT INTO kick_off.player (league_team_id, player_id, national, player_name, position) VALUES (1, 749, null, 'Dibley-Dias', 'MID_FIELDER');
 INSERT INTO kick_off.player (league_team_id, player_id, national, player_name, position) VALUES (15, 750, null, 'Bandeira', 'MID_FIELDER');
 INSERT INTO kick_off.player (league_team_id, player_id, national, player_name, position) VALUES (19, 751, null, 'McAllister', 'MID_FIELDER');
 INSERT INTO kick_off.player (league_team_id, player_id, national, player_name, position) VALUES (20, 752, null, 'Robertson', 'MID_FIELDER');

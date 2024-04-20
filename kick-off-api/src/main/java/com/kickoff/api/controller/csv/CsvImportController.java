@@ -13,7 +13,6 @@ public class CsvImportController {
     @GetMapping("/init")
     public void init()
     {
-        System.out.println("~~~호출");
         fileInputService.init();
     }
 }
