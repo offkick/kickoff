@@ -2,7 +2,6 @@ package com.kickoff.domain.survey;
 
 import com.kickoff.domain.survey.dto.SurveyHeaderDTO;
 import com.querydsl.core.types.Projections;
-import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.annotation.Nullable;
 import lombok.RequiredArgsConstructor;

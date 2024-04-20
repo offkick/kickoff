@@ -1,14 +1,13 @@
-package com.kickoff.domain.soccer.team.league;
+package com.kickoff.domain.team.league;
 
-import com.kickoff.domain.soccer.team.TeamType;
+import com.kickoff.domain.team.TeamType;
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @NoArgsConstructor
 @Getter
+@ToString
 public class LeagueTeam {
 
     @Id
