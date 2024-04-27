@@ -8,6 +8,7 @@ import com.kickoff.domain.board.post.PostRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.ContextConfiguration;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -25,6 +26,7 @@ public class PostCommentRepositoryTest {
     private PostCommentRepository postCommentRepository;
 
     @Test
+    @Commit
     public void save(){
         Member member = memberRepository.save(
                 Member.builder()

@@ -3,9 +3,10 @@ package com.kickoff.api.service.soccer.team.national;
 import com.kickoff.api.service.soccer.team.national.dto.CreateNationalTeamServiceRequest;
 import com.kickoff.domain.soccer.team.national.NationalTeam;
 import com.kickoff.domain.soccer.team.national.NationalTeamRepository;
-import jakarta.transaction.Transactional;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor

@@ -26,6 +26,7 @@ public class SurveyHeaderDTO {
         this.surveySectionDTOS = surveySectionDTOS;
     }
 
+    @Builder
     @Data
     @NoArgsConstructor
     public static class SurveySectionDTO

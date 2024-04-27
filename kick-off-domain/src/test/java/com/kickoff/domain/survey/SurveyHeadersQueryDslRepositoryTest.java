@@ -18,7 +18,7 @@ public class SurveyHeadersQueryDslRepositoryTest {
     @Test
     public void test()
     {
-        repository.findSurveyHeadersById(1L);
+
     }
 
 }

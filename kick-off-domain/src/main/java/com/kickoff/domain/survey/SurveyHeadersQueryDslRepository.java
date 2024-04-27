@@ -7,7 +7,11 @@ import jakarta.annotation.Nullable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 import static com.querydsl.core.group.GroupBy.*;
 
 @Component
@@ -15,58 +19,52 @@ import static com.querydsl.core.group.GroupBy.*;
 public class SurveyHeadersQueryDslRepository {
     private final JPAQueryFactory jpaQueryFactory;
 
-    public void test()
+    public SurveyHeaderDTO searchSurvey()
     {
-//        QQuestions questions = QQuestions.questions;
-//        List<Questions> fetch = jpaQueryFactory.select(QQuestions.questions)
-//                .innerJoin(questions.surveySection).fetchJoin()
-//                .innerJoin(questions.optionGroups).fetchJoin()
-//                .innerJoin(questions.surveyInputType).fetchJoin()
-//                .leftJoin(questions.surveySection.surveyHeaders).fetchJoin()
-//                .where(questions.surveySection.surveyHeaders.surveyHeaderId.eq(1L))
-//                .fetch();
-    }
+        QSurveyHeaders qSurveyHeaders = QSurveyHeaders.surveyHeaders;
+        QSurveySections qSurveySections = QSurveySections.surveySections;
+        QQuestions qQuestions = QQuestions.questions;
 
-    @Nullable
-    public SurveyHeaderDTO findSurveyHeadersById(Long surveyHeadersId)
-    {
-        QSurveyHeaders surveyHeaders = QSurveyHeaders.surveyHeaders;
-        QSurveySections surveySections = QSurveySections.surveySections;
-        QQuestions questions = QQuestions.questions;
-        QSurveyInputType qSurveyInputType = QSurveyInputType.surveyInputType;
-        QQuestionOptions questionOptions = QQuestionOptions.questionOptions;
+        List<Questions> questionsList = jpaQueryFactory.select(qQuestions)
+                .from(qQuestions)
+                .innerJoin(qQuestions.surveySection, qSurveySections).fetchJoin()
+                .innerJoin(qSurveySections.surveyHeaders, qSurveyHeaders).fetchJoin()
+                .where(qQuestions.surveySection.surveyHeaders.surveyHeaderId.eq(1L))
+                .fetch();
 
-        List<SurveyHeaderDTO> transform = jpaQueryFactory.select(surveySections)
-                .from(surveySections)
-                .innerJoin(surveySections.surveyHeaders, surveyHeaders)
-                .join(questions).on(questions.surveySection.surveySectionId.eq(surveySections.surveySectionId))
-                .where(surveyHeaders.surveyHeaderId.eq(surveyHeadersId))
-                .transform(
-                        groupBy(surveyHeaders.surveyHeaderId).list(
-                                Projections.constructor(
-                                        SurveyHeaderDTO.class,
-                                        surveyHeaders.surveyHeaderId,
-                                        surveyHeaders.surveyName,
-                                        surveyHeaders.instruction,
-                                        list(
-                                                Projections.constructor(
-                                                        SurveyHeaderDTO.SurveySectionDTO.class,
-                                                        surveySections.surveySectionId,
-                                                        surveySections.sectionName,
-                                                        surveySections.sectionTitle,
-                                                        questions.questionId,
-                                                        questions.questionName
-                                                )
-                                        )
-                                )
-                        )
-                );
+        Map<SurveySections, List<Questions>> questionMap = questionsList.stream()
+                .collect(Collectors.groupingBy(Questions::getSurveySection));
 
-        if (transform.size() > 1)
+        SurveyHeaderDTO dto = new SurveyHeaderDTO();
+        SurveyHeaders surveyHeaders = questionsList.stream()
+                .findFirst()
+                .orElseThrow()
+                .getSurveySection().getSurveyHeaders();
+
+        dto.setSurveyName(surveyHeaders.getSurveyName());
+        dto.setInstruction(surveyHeaders.getInstruction());
+        dto.setSurveyHeadersId(surveyHeaders.getSurveyHeaderId());
+
+        for (Map.Entry<SurveySections, List<Questions>> entry : questionMap.entrySet())
         {
-            throw new RuntimeException();
+            SurveySections surveySections = entry.getKey();
+            List<SurveyHeaderDTO.SurveySectionDTO> surveySectionDTOS = new ArrayList<>();
+
+            for (Questions questions : entry.getValue())
+            {
+                surveySectionDTOS.add(
+                        SurveyHeaderDTO.SurveySectionDTO.builder()
+                                .surveySectionId(surveySections.getSurveySectionId())
+                                .questionId(questions.getQuestionId())
+                                .questionName(questions.getQuestionName())
+                                .sectionName(surveySections.getSectionName())
+                                .sectionTitle(surveySections.getSectionTitle())
+                                .build()
+                );
+            }
+            dto.setSurveySectionDTOS(surveySectionDTOS);
         }
 
-        return transform.isEmpty() ? null :  transform.get(0);
+        return dto;
     }
 }

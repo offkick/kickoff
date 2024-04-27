@@ -4,9 +4,10 @@ import com.kickoff.api.service.board.member.dto.CreateMemberServiceRequest;
 import com.kickoff.api.service.board.member.dto.UpdateMemberServiceRequest;
 import com.kickoff.domain.member.Member;
 import com.kickoff.domain.member.MemberRepository;
-import jakarta.transaction.Transactional;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor

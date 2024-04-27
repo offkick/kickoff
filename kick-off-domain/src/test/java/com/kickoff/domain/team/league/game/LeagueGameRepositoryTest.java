@@ -7,7 +7,6 @@ import com.kickoff.domain.soccer.player.PlayerRepository;
 import com.kickoff.domain.soccer.team.Score;
 import com.kickoff.domain.soccer.team.ScoreRepository;
 import com.kickoff.domain.soccer.team.TeamType;
-import com.kickoff.domain.soccer.team.league.LeagueTeam;
 import com.kickoff.domain.soccer.team.league.LeagueTeamRepository;
 import com.kickoff.domain.soccer.team.league.Season;
 import com.kickoff.domain.soccer.team.league.SeasonRepository;
@@ -17,6 +16,7 @@ import com.kickoff.domain.soccer.team.league.game.LeagueGameStatus;
 import com.kickoff.domain.soccer.team.league.game.player.LeagueGamePlayer;
 import com.kickoff.domain.soccer.team.league.game.player.LeagueGamePlayerRepository;
 import com.kickoff.domain.soccer.team.league.game.player.LeagueGamePlayerStatus;
+import com.kickoff.domain.team.league.LeagueTeam;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -62,7 +62,7 @@ public class LeagueGameRepositoryTest {
                 .build();
     }
 
-    private static Player createPlayer(String name, LeagueTeam leagueTeam,  PlayerPosition position)
+    private static Player createPlayer(String name, LeagueTeam leagueTeam, PlayerPosition position)
     {
         return Player.builder()
                 .playerName(name)

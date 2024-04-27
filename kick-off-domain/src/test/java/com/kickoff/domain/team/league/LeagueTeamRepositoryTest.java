@@ -2,7 +2,6 @@ package com.kickoff.domain.team.league;
 
 import com.kickoff.domain.TestConfiguration;
 import com.kickoff.domain.soccer.team.TeamType;
-import com.kickoff.domain.soccer.team.league.LeagueTeam;
 import com.kickoff.domain.soccer.team.league.LeagueTeamRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +20,8 @@ public class LeagueTeamRepositoryTest {
     @Test
     public void save()
     {
-        LeagueTeam leagueTeam = leagueTeamRepository.save(
-                LeagueTeam.builder()
+        com.kickoff.domain.team.league.LeagueTeam leagueTeam = leagueTeamRepository.save(
+                com.kickoff.domain.team.league.LeagueTeam.builder()
                         .leagueTeamName("mancity")
                         .teamType(TeamType.LEAGUE)
                         .build()

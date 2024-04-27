@@ -5,9 +5,10 @@ import com.kickoff.domain.soccer.team.league.League;
 import com.kickoff.domain.soccer.team.league.LeagueRepository;
 import com.kickoff.domain.soccer.team.league.LeagueTeamRepository;
 import com.kickoff.domain.team.league.LeagueTeam;
-import jakarta.transaction.Transactional;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor

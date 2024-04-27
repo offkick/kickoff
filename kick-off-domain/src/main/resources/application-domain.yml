@@ -4,14 +4,15 @@ spring:
     url: jdbc:mysql://localhost:3306/kick_off?serverTimezone=UTC&characterEncoding=UTF-8
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password:
+    password: Abcd123@
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: create
     show-sql: true
     properties:
       hibernate:
         format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
     defer-datasource-initialization: true
   sql:
     init:
