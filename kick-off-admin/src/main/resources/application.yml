@@ -1,0 +1,17 @@
+spring:
+  profiles:
+    active: admin
+    include: domain
+  h2:
+    console:
+      enabled: true
+  thymeleaf:
+    cache: false
+    check-template-location: false
+    enabled: true
+    prefix: classpath:/templates
+    suffix: .html
+    view-names: /html/*
+server:
+  port: 8081
+

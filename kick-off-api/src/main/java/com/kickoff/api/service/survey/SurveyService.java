@@ -15,10 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Service
 public class SurveyService {
+
     private final SurveyAnswerService surveyService;
     private final MemberFindService memberService;
     private final SurveyHeaderService surveyHeaderService;
-    private final SurveyHeadersQueryDslRepository surveyHeadersQueryDslRepository;
 
     public void survey(Long memberId, SurveyRequest request)
     {
@@ -39,11 +39,5 @@ public class SurveyService {
             );
         }
 
-    }
-
-    @Transactional(readOnly = true)
-    public SurveyHeaderDTO findById(Long surveyHeadersId)
-    {
-        return surveyHeadersQueryDslRepository.findSurveyHeadersById(surveyHeadersId);
     }
 }
