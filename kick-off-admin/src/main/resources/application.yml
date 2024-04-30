@@ -9,9 +9,8 @@ spring:
     cache: false
     check-template-location: false
     enabled: true
-    prefix: classpath:/templates
+    prefix: classpath:/templates/
     suffix: .html
-    view-names: /html/*
 server:
   port: 8081
 

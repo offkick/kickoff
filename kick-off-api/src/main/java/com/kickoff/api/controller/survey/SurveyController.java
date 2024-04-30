@@ -27,12 +27,12 @@ public class SurveyController {
         return "SUCCESS";
     }
 
-    @GetMapping("/{surveyHeadersId}")
-    public SurveyResponse findById(@PathVariable Long surveyHeadersId)
-    {
-        SurveyHeaderDTO dto = surveyRequestService.findById(surveyHeadersId);
-        return SurveyResponse.of(dto);
-    }
+//    @GetMapping("/{surveyHeadersId}")
+//    public SurveyResponse findById(@PathVariable Long surveyHeadersId)
+//    {
+//        SurveyHeaderDTO dto = surveyRequestService.findById(surveyHeadersId);
+//        return SurveyResponse.of(dto);
+//    }
 
     @PostMapping("/option-groups")
     public void createOptionGroups(@RequestBody CreateOptionGroupsRequest createOptionGroupsRequest)
