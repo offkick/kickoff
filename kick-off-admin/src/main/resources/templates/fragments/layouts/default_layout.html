@@ -3,12 +3,17 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <!-- header fragment 사용 -->
-<th:block th:replace="fragments/header :: headerFragment"></th:block>
+<th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
 <body>
-    <th:block th:replace="fragments/navbar :: navvarFragment"></th:block>
-    <!-- content fragment 사용 -->
-    <th:block layout:fragment="content"></th:block>
-    <!-- footer fragment 사용 -->
-    <th:block th:replace="fragments/footer :: footerFragment"></th:block>
+    <div class="d-flex" id="wrapper">
+        <th:block th:replace="~{fragments/navbar :: navvarFragment}"></th:block>
+        <div id="page-content-wrapper">
+            <th:block th:replace="~{fragments/topbar :: topbarFragment}"></th:block>
+            <!-- content fragment 사용 -->
+            <th:block layout:fragment="content"></th:block>
+        </div>
+    </div>
+            <!-- footer fragment 사용 -->
+        <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
 </body>
 </html>

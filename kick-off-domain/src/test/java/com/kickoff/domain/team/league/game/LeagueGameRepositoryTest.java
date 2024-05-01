@@ -20,6 +20,8 @@ import com.kickoff.domain.team.league.LeagueTeam;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 
 import java.time.LocalDate;
@@ -28,8 +30,9 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@ActiveProfiles("domain")
 @ContextConfiguration(classes = TestConfiguration.class)
-@DataJpaTest
+@SpringBootTest
 public class LeagueGameRepositoryTest {
 
     @Autowired
