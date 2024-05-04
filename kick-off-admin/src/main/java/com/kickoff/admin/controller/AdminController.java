@@ -1,14 +1,12 @@
 package com.kickoff.admin.controller;
 
-import com.kickoff.domain.survey.SurveyHeaders;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-@RequiredArgsConstructor
 @Controller
+@RequiredArgsConstructor
 @RequestMapping(value = "/admin")
 @Slf4j
 public class AdminController {
@@ -17,5 +15,11 @@ public class AdminController {
     public String admin()
     {
         return "page/main";
+    }
+
+    @GetMapping("/player")
+    public String plyer()
+    {
+        return "page/player";
     }
 }
