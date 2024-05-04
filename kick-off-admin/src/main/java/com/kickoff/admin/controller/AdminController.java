@@ -22,4 +22,16 @@ public class AdminController {
     {
         return "page/player";
     }
+
+    @GetMapping("/vote")
+    public String vote()
+    {
+        return "page/vote";
+    }
+
+    @GetMapping("/game")
+    public String game()
+    {
+        return "page/game";
+    }
 }
