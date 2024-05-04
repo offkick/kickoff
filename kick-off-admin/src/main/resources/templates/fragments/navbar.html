@@ -5,9 +5,13 @@
     <div class="border-end bg-white" id="sidebar-wrapper">
         <div class="sidebar-heading border-bottom bg-light">kick-off Admin</div>
         <div class="list-group list-group-flush">
-            <a th:href="@{/admin/player/}">선수</a>
-            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">투표</a>
-            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">경기</a>
+            <a class="list-group-item list-group-item-action list-group-item-light p-3"  th:href="@{/admin/player}">선수</a>
+            <a class="list-group-item list-group-item-action list-group-item-light p-3"  th:href="@{/admin/vote}">투표</a>
+            <a class="list-group-item list-group-item-action list-group-item-light p-3" th:href="@{/admin/game}">경기</a>
+
+<!--            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Events</a>-->
+<!--            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Profile</a>-->
+<!--            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Status</a>-->
         </div>
     </div>
 
