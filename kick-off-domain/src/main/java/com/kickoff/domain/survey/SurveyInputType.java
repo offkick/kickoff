@@ -19,4 +19,3 @@ public class SurveyInputType {
     private Long surveyInputTypeId;
     private String inputTypeName;
 }
-
