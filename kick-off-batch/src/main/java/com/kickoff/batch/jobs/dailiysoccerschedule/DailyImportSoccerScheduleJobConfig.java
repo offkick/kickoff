@@ -1,4 +1,4 @@
-package com.kickoff.batch.jobs;
+package com.kickoff.batch.jobs.dailiysoccerschedule;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +14,9 @@ import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
 
 @Configuration
 @RequiredArgsConstructor
@@ -44,14 +46,9 @@ public class DailyImportSoccerScheduleJobConfig {
     @Bean
     public Tasklet dailyImportSoccerTasklet()
     {
-        return new Tasklet()
-        {
-            @Override
-            public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception
-            {
-                log.info("start dailyImportSoccerTasklet ...");
-                return RepeatStatus.FINISHED;
-            }
+        return (contribution, chunkContext) -> {
+            log.info("start dailyImportSoccerTasklet ...");
+            return RepeatStatus.FINISHED;
         };
     }
 }

@@ -13,7 +13,8 @@ import java.util.Optional;
 public class PlayerQuerydslRepository {
     private final JPAQueryFactory jpaQueryFactory;
 
-    public Optional<Player> findPlayer(@PathVariable("playerId") Long playerId){
+    public Optional<Player> findPlayer(Long playerId)
+    {
         QLeagueTeam leagueTeam = QLeagueTeam.leagueTeam;
         QPlayer player = QPlayer.player;
 
