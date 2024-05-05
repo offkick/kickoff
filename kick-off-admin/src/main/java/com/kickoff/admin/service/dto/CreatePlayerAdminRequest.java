@@ -7,6 +7,6 @@ public record CreatePlayerAdminRequest(
         String national,
         String playerName,
         PlayerPosition playerPosition,
-        LeagueTeam leagueTeam
+        Long leagueTeamId
 ) {
 }

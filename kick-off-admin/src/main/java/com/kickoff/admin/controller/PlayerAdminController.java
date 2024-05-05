@@ -1,6 +1,7 @@
 package com.kickoff.admin.controller;
 
 import com.kickoff.admin.service.PlayerAdminService;
+import com.kickoff.admin.service.dto.CreatePlayerAdminRequest;
 import com.kickoff.domain.soccer.player.dto.CreatePlayerRequest;
 import com.kickoff.domain.soccer.player.service.PlayerService;
 import lombok.RequiredArgsConstructor;
@@ -14,12 +15,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class PlayerAdminController {
 
-    private final PlayerService playerService;
+    private final PlayerAdminService playerAdminService;
 
     @PostMapping("/players")
-    public String save(@ModelAttribute CreatePlayerRequest request)
+    public String save(@ModelAttribute CreatePlayerAdminRequest request)
     {
-        Long save = playerService.save(request);
+        Long save = playerAdminService.save(request);
         return "page/player";
     }
 }

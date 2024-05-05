@@ -26,13 +26,6 @@
     </style>
 </head>
 <body>
-<!-- Content -->
-<!--        <div layout:fragment="content">-->
-<!--            -->
-<!--            <div class="container-fluid">-->
-<!--                게임 추가-->
-<!--            </div>-->
-<!--        </div>-->
 <div class="container" layout:fragment="content">
     <div class="container-fluid">
         <h1>
@@ -51,8 +44,6 @@
                 <option th:each="LeagueTeam : ${leagueteam}"
                         th:value="${LeagueTeam?.leagueTeamId}"
                         th:text="${LeagueTeam?.leagueTeamName}">
-                    <!--                        th:text="${difficultyValue.name()}">-->
-                    val
                 </option>
             </select>
             <label>포지션</label>
@@ -60,8 +51,6 @@
                 <option th:each="playerPosition : ${T(com.kickoff.domain.soccer.player.PlayerPosition).values()}"
                         th:value="${playerPosition}"
                         th:text="${playerPosition}">
-<!--                        th:text="${difficultyValue.name()}">-->
-                    val
                 </option>
             </select>
 
@@ -69,12 +58,6 @@
         <button type="submit" class="btn btn-success float-right">제출</button>
     </form>
 
-    <!--        <div class="card">-->
-    <!--            <div class="card-header">결과</div>-->
-    <!--            <div class="card-body">-->
-    <!--                <p th:text="${name}"></p>-->
-    <!--            </div>-->
-    <!--        </div>-->
 </div>
 
 <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
