@@ -1,9 +1,5 @@
 package com.kickoff.admin.controller;
 
-import com.kickoff.admin.service.PlayerAdminService;
-import com.kickoff.domain.soccer.team.league.League;
-import com.kickoff.domain.soccer.team.league.service.LeagueTeamService;
-import com.kickoff.domain.team.league.LeagueTeam;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;

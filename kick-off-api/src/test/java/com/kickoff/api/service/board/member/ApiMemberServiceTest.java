@@ -36,7 +36,7 @@ public class ApiMemberServiceTest {
         );
 
         //when
-        Long memberId = apiMemberService.createMember(request);
+        Long memberId = memberService.createMember(request);
 
         //then
         assertThat(memberId).isNotNull();
@@ -55,7 +55,7 @@ public class ApiMemberServiceTest {
         );
 
         //when
-        apiMemberService.deleteMember(member.getMemberId());
+        memberService.deleteMember(member.getMemberId());
 
         //then
         List<Member> all = memberRepository.findAll();
@@ -82,7 +82,7 @@ public class ApiMemberServiceTest {
         );
 
         //when
-        Long memberId = apiMemberService.updateMember(request);
+        Long memberId = memberService.updateMember(request);
 
         //then
         assertThat(memberId).isNotNull();
