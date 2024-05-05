@@ -2,10 +2,10 @@ package com.kickoff.domain.soccer.team.league.game;
 
 import com.kickoff.domain.soccer.player.PlayerPosition;
 import com.kickoff.domain.soccer.team.Score;
+import com.kickoff.domain.soccer.team.league.LeagueTeam;
 import com.kickoff.domain.soccer.team.league.Season;
 import com.kickoff.domain.soccer.team.league.game.player.LeagueGamePlayer;
 import com.kickoff.domain.soccer.team.league.game.player.LeagueGamePlayerStatus;
-import com.kickoff.domain.team.league.LeagueTeam;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;

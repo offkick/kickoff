@@ -3,12 +3,64 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{/fragments/layouts/default_layout}">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.6.1/css/bootstrap.min.css}">
+    <style>
+        @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+        html, body {
+            font-family: 'Noto Sans KR';
+        }
+        .container {
+            padding: 5% 0;
+        }
+        .form-group {
+            margin: 32px 0;
+        }
+        .card {
+            margin: 10% 0;
+        }
+        h1 {
+            margin: 10% 0;
+        }
+    </style>
+</head>
 <body>
-    <!-- Content -->
-    <div layout:fragment="content">
-        <div class="container-fluid">
+<div class="container" layout:fragment="content">
+    <div class="container-fluid">
+        <h1>
             선수 추가
-        </div>
+        </h1>
     </div>
+
+    <form action="/players" method="post">
+        <div class="form-group">
+            <label for="national">국가</label>
+            <input type="text" id="national" name="national" class="form-control">
+            <label for="playerName">선수이름</label>
+            <input type="text" id="playerName" name="playerName" class="form-control">
+            <label>리그팀</label>
+            <select class="form-control" name="leagueTeamId">
+                <option th:each="LeagueTeam : ${leagueteam}"
+                        th:value="${LeagueTeam?.leagueTeamId}"
+                        th:text="${LeagueTeam?.leagueTeamName}">
+                </option>
+            </select>
+            <label>포지션</label>
+            <select class="form-control" name="playerPosition">
+                <option th:each="playerPosition : ${T(com.kickoff.domain.soccer.player.PlayerPosition).values()}"
+                        th:value="${playerPosition}"
+                        th:text="${playerPosition}">
+                </option>
+            </select>
+
+        </div>
+        <button type="submit" class="btn btn-success float-right">제출</button>
+    </form>
+
+</div>
+
+<script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.6.1/js/bootstrap.min.js}"></script>
 </body>
 </html>

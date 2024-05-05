@@ -1,15 +1,23 @@
 package com.kickoff.admin.controller;
 
+import com.kickoff.admin.service.PlayerAdminService;
+import com.kickoff.domain.soccer.team.league.League;
+import com.kickoff.domain.soccer.team.league.LeagueTeam;
+import com.kickoff.domain.soccer.team.league.service.LeagueTeamService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping(value = "/admin")
 @Slf4j
 public class AdminController {
+    private final LeagueTeamService leagueTeamService;
 
     @GetMapping
     public String admin()
@@ -18,8 +26,11 @@ public class AdminController {
     }
 
     @GetMapping("/player")
-    public String plyer()
+    public String player(Model model)
     {
+        model.addAttribute("leagueTeam",new LeagueTeam());
+        List<LeagueTeam> list = leagueTeamService.findAll();
+        model.addAttribute("leagueteam",list);
         return "page/player";
     }
 
