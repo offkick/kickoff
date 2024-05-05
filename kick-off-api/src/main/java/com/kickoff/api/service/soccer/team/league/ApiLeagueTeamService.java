@@ -3,8 +3,8 @@ package com.kickoff.api.service.soccer.team.league;
 import com.kickoff.api.service.soccer.team.league.dto.CreateTeamServiceRequest;
 import com.kickoff.domain.soccer.team.league.League;
 import com.kickoff.domain.soccer.team.league.LeagueRepository;
+import com.kickoff.domain.soccer.team.league.LeagueTeam;
 import com.kickoff.domain.soccer.team.league.LeagueTeamRepository;
-import com.kickoff.domain.team.league.LeagueTeam;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class LeagueTeamService {
+public class ApiLeagueTeamService {
     private final LeagueTeamRepository leagueTeamRepository;
     private final LeagueRepository leagueRepository;
 

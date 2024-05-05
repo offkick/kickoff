@@ -1,4 +1,4 @@
-package com.kickoff.domain.team.league;
+package com.kickoff.domain.soccer.team.league;
 
 import com.kickoff.domain.soccer.team.TeamType;
 import com.kickoff.domain.soccer.team.league.League;

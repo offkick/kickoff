@@ -1,6 +1,6 @@
 package com.kickoff.domain.soccer.player;
 
-import com.kickoff.domain.team.league.QLeagueTeam;
+import com.kickoff.domain.soccer.team.league.QLeagueTeam;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

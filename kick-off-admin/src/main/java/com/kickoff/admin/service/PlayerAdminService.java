@@ -1,5 +1,6 @@
 package com.kickoff.admin.service;
 
+import com.kickoff.domain.soccer.player.dto.CreatePlayerRequest;
 import com.kickoff.domain.soccer.player.service.PlayerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -9,8 +10,8 @@ import org.springframework.stereotype.Service;
 public class PlayerAdminService {
     private final PlayerService playerService;
 
-    public void save()
+    public Long save(CreatePlayerRequest request)
     {
-        playerService.save();
+        return playerService.save(request);
     }
 }

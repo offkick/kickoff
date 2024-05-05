@@ -22,7 +22,7 @@ public class QPlayer extends EntityPathBase<Player> {
 
     public static final QPlayer player = new QPlayer("player");
 
-    public final com.kickoff.domain.team.league.QLeagueTeam leagueTeam;
+    public final com.kickoff.domain.soccer.team.league.QLeagueTeam leagueTeam;
 
     public final StringPath national = createString("national");
 
@@ -50,7 +50,7 @@ public class QPlayer extends EntityPathBase<Player> {
 
     public QPlayer(Class<? extends Player> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.leagueTeam = inits.isInitialized("leagueTeam") ? new com.kickoff.domain.team.league.QLeagueTeam(forProperty("leagueTeam"), inits.get("leagueTeam")) : null;
+        this.leagueTeam = inits.isInitialized("leagueTeam") ? new com.kickoff.domain.soccer.team.league.QLeagueTeam(forProperty("leagueTeam"), inits.get("leagueTeam")) : null;
     }
 
 }

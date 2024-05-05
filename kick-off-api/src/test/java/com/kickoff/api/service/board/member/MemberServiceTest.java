@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class MemberServiceTest {
 
     @Autowired
-    MemberService memberService;
+    ApiMemberService memberService;
 
     @Autowired
     MemberRepository memberRepository;
