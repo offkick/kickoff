@@ -17,10 +17,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Transactional
 @SpringBootTest
-public class MemberServiceTest {
+public class ApiMemberServiceTest {
 
     @Autowired
-    MemberService memberService;
+    ApiMemberService apiMemberService;
 
     @Autowired
     MemberRepository memberRepository;
@@ -36,7 +36,7 @@ public class MemberServiceTest {
         );
 
         //when
-        Long memberId = memberService.createMember(request);
+        Long memberId = apiMemberService.createMember(request);
 
         //then
         assertThat(memberId).isNotNull();
@@ -55,7 +55,7 @@ public class MemberServiceTest {
         );
 
         //when
-        memberService.deleteMember(member.getMemberId());
+        apiMemberService.deleteMember(member.getMemberId());
 
         //then
         List<Member> all = memberRepository.findAll();
@@ -82,7 +82,7 @@ public class MemberServiceTest {
         );
 
         //when
-        Long memberId = memberService.updateMember(request);
+        Long memberId = apiMemberService.updateMember(request);
 
         //then
         assertThat(memberId).isNotNull();
