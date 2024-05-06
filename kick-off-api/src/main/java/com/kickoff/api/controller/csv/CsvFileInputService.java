@@ -38,10 +38,13 @@ public class CsvFileInputService {
     public List<String[]> readLineByLine(Path filePath) throws Exception
     {
         List<String[]> list = new ArrayList<>();
-        try (Reader reader = Files.newBufferedReader(filePath)) {
-            try (CSVReader csvReader = new CSVReader(reader)) {
+        try (Reader reader = Files.newBufferedReader(filePath))
+        {
+            try (CSVReader csvReader = new CSVReader(reader))
+            {
                 String[] line;
-                while ((line = csvReader.readNext()) != null) {
+                while ((line = csvReader.readNext()) != null)
+                {
                     list.add(line);
                 }
             }
@@ -52,12 +55,16 @@ public class CsvFileInputService {
     @Transactional
     public void init()
     {
-        try {
+        try
+        {
             List<String[]> strings = readLineByLineExample();
-            for (int i = 0; i < strings.size(); i++) {
-                if (i == 0) {
+            for (int i = 0; i < strings.size(); i++)
+            {
+                if (i == 0)
+                {
                     continue;
                 }
+
                 String[] a = strings.get(i);
                 PlayerCsvVO playerCsvVO = new PlayerCsvVO();
                 playerCsvVO.setPlayerName(a[1]);
@@ -80,7 +87,8 @@ public class CsvFileInputService {
 
     private PlayerPosition convertPosition(String csvPosition)
     {
-        return switch (csvPosition) {
+        return switch (csvPosition)
+        {
             case "MID" -> MID_FIELDER;
             case "STR" -> FORWARD;
             case "DEF" -> DEFENDER;
