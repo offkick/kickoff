@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class LeagueTeamService {
+public class ApiLeagueTeamService {
     private final LeagueTeamRepository leagueTeamRepository;
     private final LeagueRepository leagueRepository;
 
