@@ -34,6 +34,15 @@ public class AdminController {
         return "page/player";
     }
 
+//    @GetMapping("/admin/allPlayers")
+//    public String team(Model model)
+//    {
+//        model.addAttribute("leagueTeam",new LeagueTeam());
+//        List<LeagueTeam> list = leagueTeamService.findAll();
+//        model.addAttribute("leagueteam",list);
+//        return "page/allPlayers";
+//    }
+
     @GetMapping("/vote")
     public String vote()
     {
