@@ -31,6 +31,12 @@
 </head>
     <body>
     <div class="container" layout:fragment="content">
+        <script th:inline="javascript">
+            function submitForm() {
+                var form = document.getElementById('searchForm1');
+                form.submit();
+            }
+        </script>
         <div class="container-fluid">
             <h1>
                 선수조회
@@ -38,48 +44,38 @@
 
         </div>
 
-
-        <div class="row g-3">
-            <div class="col-md">
-                <form id="searchForm1" action="/search" method="GET">
-                    <div class="form-floating">
-
-                            <input type="search" class="form-control" id="floatingInputGrid" placeholder="선수이름" value="선수이름">
-                            <label for="floatingInputGrid">이름</label>
-
-                    </div>
-                </form>
-            </div>
-            <div class="col-md">
-                <form id="searchForm2" action="/search" method="GET">
-                    <div class="form-floating">
-
-                            <input type="search" class="form-control" id="floatingInputGrid2" placeholder="국가" value="국가">
-                            <label for="floatingInputGrid">국가</label>
-
-                    </div>
-                </form>
-            </div>
-            <div class="col-md">
-                <div class="form-floating">
-                    <select class="form-select" id="floatingSelectGrid" name="leagueTeamId">
-<!--                        <option selected>Open this select menu</option>-->
-<!--                        <option value="1">One</option>-->
-<!--                        <option value="2">Two</option>-->
-<!--                        <option value="3">Three</option>-->
-                        <option th:each="LeagueTeam : ${leagueteam}"
-                                th:value="${LeagueTeam?.leagueTeamId}"
-                                th:text="${LeagueTeam?.leagueTeamName}">
-                        </option>
-                    </select>
-
-                    <label for="floatingSelectGrid">팀</label>
+        <form id="searchForm1" action="/admin/allPlayers" method="GET">
+            <div class="row g-3">
+                <div class="col-md">
+                        <div class="form-floating">
+                                <input type="search" class="form-control" id="floatingInputGrid"  name="playerName">
+                                <label for="floatingInputGrid">이름</label>
+                        </div>
                 </div>
+                <div class="col-md">
+                        <div class="form-floating">
+                                <input type="search" class="form-control" id="floatingInputGrid2" name="national">
+                                <label for="floatingInputGrid">국가</label>
+                        </div>
+                </div>
+                <div class="col-md">
+                    <div class="form-floating">
+                        <select class="form-select" id="floatingSelectGrid" name="leagueTeamId">
+                            <option th:each="LeagueTeam : ${leagueteam}"
+                                    th:value="${LeagueTeam?.leagueTeamId}"
+                                    th:text="${LeagueTeam?.leagueTeamName}">
+                            </option>
+                        </select>
+
+                        <label for="floatingSelectGrid">팀</label>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <button type="button" class="btn btn-secondary btn-lg" onclick="submitForm()">검색</button>
+                </div>
+
             </div>
-            <div class="col-md">
-                <button type="button" class="btn btn-secondary btn-lg">검색</button>
-            </div>
-        </div>
+        </form>
 
 
 
@@ -102,13 +98,14 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="players : ${allPlayers}">
+                        <tr th:each="players : ${searchPlayers}">
 <!--                            <td><a href="item.html" th:href="@{/boards/{uid}(uid=${board.uid})}" th:text="${board.subject}">제목</a></td>-->
                             <td th:text="${players.national}">국가</td>
                             <td th:text="${players.playerName}">선수이름</td>
                             <td th:text="${players.leagueTeam.leagueTeamName}">리그팀</td>
                             <td th:text="${players.position}">포지션</td>
-                            <td> <button type="button" class="btn btn-warning">조회</button></td>
+                            <td><a th:href="@{/admin/allPlayers/getPlayer/{playerId}( playerId=${players.playerId} )}"  type="button" class="btn btn-warning">조회</a></td>
+<!--                            <td> <button th:href="@{/post/write.do( id=${post.id} )}" type="button" class="btn btn-warning">조회</button></td>-->
                         </tr>
                         </tbody>
                     </table>
@@ -121,13 +118,7 @@
     <script th:src="@{/webjars/bootstrap/4.6.1/js/bootstrap.min.js}"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
-    <script>
-        function enterkey() {
-            if (window.event.keyCode == 13) {
-                document.getElementById("searchForm").submit();
-            }
-        }
-    </script>
+
 
     </body>
 </html>

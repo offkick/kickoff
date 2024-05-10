@@ -28,4 +28,11 @@ public class PlayerAdminService {
     public List<Player> findAllPlayers(){
         return playerService.findPlayers();
     }
+
+    public Player findPlayer(Long id){
+        return playerService.findPlayerById(id);
+    }
+    public List<Player> findPlayer(String playerName, String national, Long leagueTeamId){
+        return playerService.findPlayer(playerName, national, leagueTeamId);
+    }
 }
