@@ -17,10 +17,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Transactional
 @SpringBootTest
-public class MemberServiceTest {
+public class ApiMemberServiceTest {
 
     @Autowired
-    ApiMemberService memberService;
+    ApiMemberService apiMemberService;
 
     @Autowired
     MemberRepository memberRepository;

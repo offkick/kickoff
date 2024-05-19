@@ -1,7 +1,5 @@
 package com.kickoff.admin.controller;
 
-import com.kickoff.admin.service.PlayerAdminService;
-import com.kickoff.domain.soccer.team.league.League;
 import com.kickoff.domain.soccer.team.league.LeagueTeam;
 import com.kickoff.domain.soccer.team.league.service.LeagueTeamService;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +31,7 @@ public class AdminController {
         model.addAttribute("leagueteam",list);
         return "page/player";
     }
+
 
     @GetMapping("/vote")
     public String vote()
