@@ -22,7 +22,7 @@ public class QLeagueGame extends EntityPathBase<LeagueGame> {
 
     public static final QLeagueGame leagueGame = new QLeagueGame("leagueGame");
 
-    public final com.kickoff.domain.team.league.QLeagueTeam away;
+    public final com.kickoff.domain.soccer.team.league.QLeagueTeam away;
 
     public final ListPath<com.kickoff.domain.soccer.team.league.game.player.LeagueGamePlayer, com.kickoff.domain.soccer.team.league.game.player.QLeagueGamePlayer> awayPlayers = this.<com.kickoff.domain.soccer.team.league.game.player.LeagueGamePlayer, com.kickoff.domain.soccer.team.league.game.player.QLeagueGamePlayer>createList("awayPlayers", com.kickoff.domain.soccer.team.league.game.player.LeagueGamePlayer.class, com.kickoff.domain.soccer.team.league.game.player.QLeagueGamePlayer.class, PathInits.DIRECT2);
 
@@ -30,7 +30,7 @@ public class QLeagueGame extends EntityPathBase<LeagueGame> {
 
     public final DateTimePath<java.time.LocalDateTime> gameDate = createDateTime("gameDate", java.time.LocalDateTime.class);
 
-    public final com.kickoff.domain.team.league.QLeagueTeam home;
+    public final com.kickoff.domain.soccer.team.league.QLeagueTeam home;
 
     public final ListPath<com.kickoff.domain.soccer.team.league.game.player.LeagueGamePlayer, com.kickoff.domain.soccer.team.league.game.player.QLeagueGamePlayer> homePlayers = this.<com.kickoff.domain.soccer.team.league.game.player.LeagueGamePlayer, com.kickoff.domain.soccer.team.league.game.player.QLeagueGamePlayer>createList("homePlayers", com.kickoff.domain.soccer.team.league.game.player.LeagueGamePlayer.class, com.kickoff.domain.soccer.team.league.game.player.QLeagueGamePlayer.class, PathInits.DIRECT2);
 
@@ -60,8 +60,8 @@ public class QLeagueGame extends EntityPathBase<LeagueGame> {
 
     public QLeagueGame(Class<? extends LeagueGame> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.away = inits.isInitialized("away") ? new com.kickoff.domain.team.league.QLeagueTeam(forProperty("away"), inits.get("away")) : null;
-        this.home = inits.isInitialized("home") ? new com.kickoff.domain.team.league.QLeagueTeam(forProperty("home"), inits.get("home")) : null;
+        this.away = inits.isInitialized("away") ? new com.kickoff.domain.soccer.team.league.QLeagueTeam(forProperty("away"), inits.get("away")) : null;
+        this.home = inits.isInitialized("home") ? new com.kickoff.domain.soccer.team.league.QLeagueTeam(forProperty("home"), inits.get("home")) : null;
         this.score = inits.isInitialized("score") ? new com.kickoff.domain.soccer.team.QScore(forProperty("score")) : null;
         this.season = inits.isInitialized("season") ? new com.kickoff.domain.soccer.team.league.QSeason(forProperty("season")) : null;
     }

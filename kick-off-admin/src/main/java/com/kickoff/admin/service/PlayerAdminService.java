@@ -1,16 +1,40 @@
 package com.kickoff.admin.service;
 
+import com.kickoff.admin.service.dto.CreatePlayerAdminRequest;
+import com.kickoff.domain.soccer.player.Player;
 import com.kickoff.domain.soccer.player.service.PlayerService;
+import com.kickoff.domain.soccer.player.service.dto.CreatePlayerRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
 public class PlayerAdminService {
     private final PlayerService playerService;
 
-    public void save()
+    public Long save(CreatePlayerAdminRequest request)
     {
-        playerService.save();
+        CreatePlayerRequest createPlayerRequest = new CreatePlayerRequest(
+                request.national(),
+                request.playerName(),
+                request.playerPosition(),
+                request.leagueTeamId()
+        );
+        return playerService.save(createPlayerRequest);
     }
+
+    public List<Player> findAllPlayers(){
+        return playerService.findPlayers();
+    }
+
+    public Player findPlayer(Long id){
+        return playerService.findPlayerById(id);
+    }
+    public List<Player> findPlayer(String playerName, String national, Long leagueTeamId){
+        return playerService.findPlayer(playerName, national, leagueTeamId);
+    }
+
 }
