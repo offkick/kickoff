@@ -3,7 +3,7 @@ spring:
     active: batch
     include: domain
   batch:
-#    job:
-#      names: ${job.name:NONE}
+    job:
+      name: competitionBulkInsertJob
     jdbc:
       initialize-schema: always

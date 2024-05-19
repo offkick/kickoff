@@ -1,0 +1,27 @@
+package com.kickoff.domain.soccer.team.league;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Getter
+@NoArgsConstructor
+public class Season {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long seasonId;
+
+    private String season;
+
+    @Builder
+    public Season(Long seasonId, String season) {
+        this.seasonId = seasonId;
+        this.season = season;
+    }
+}

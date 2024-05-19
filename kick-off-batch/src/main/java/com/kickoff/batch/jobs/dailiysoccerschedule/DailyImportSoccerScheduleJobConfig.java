@@ -8,15 +8,12 @@ import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.repository.JobRepository;
-import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionDefinition;
 
 @Configuration
 @RequiredArgsConstructor
@@ -24,6 +21,7 @@ import org.springframework.transaction.TransactionDefinition;
 public class DailyImportSoccerScheduleJobConfig {
 
     private final PlatformTransactionManager platformTransactionManager;
+    private final SoccerScheduleService soccerScheduleService;
 
     @Bean
     public Job dailyImportSoccerScheduleJob(JobRepository jobRepository)
@@ -48,6 +46,7 @@ public class DailyImportSoccerScheduleJobConfig {
     {
         return (contribution, chunkContext) -> {
             log.info("start dailyImportSoccerTasklet ...");
+            soccerScheduleService.insertCLMatches();
             return RepeatStatus.FINISHED;
         };
     }

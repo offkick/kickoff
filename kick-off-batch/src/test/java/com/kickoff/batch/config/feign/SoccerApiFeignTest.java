@@ -1,5 +1,8 @@
 package com.kickoff.batch.config.feign;
 
+import com.kickoff.batch.config.feign.api.SoccerApiFeign;
+import com.kickoff.batch.config.feign.api.dto.CompetitionTeamsResponse;
+import com.kickoff.batch.config.feign.api.dto.MatchesFeignResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,12 +16,19 @@ class SoccerApiFeignTest {
     @Test
     public void test()
     {
-        MatchesResponse matches = soccerApiFeign.matches();
+        MatchesFeignResponse matches = soccerApiFeign.getLatestClMatch();
         System.out.println(matches);
 
-        for (MatchesResponse.Match match : matches.matches())
+        for (MatchesFeignResponse.Match match : matches.matches())
         {
             System.out.println("match = " + match);
         }
+    }
+
+    @Test
+    public void getCompetitionTeams()
+    {
+        CompetitionTeamsResponse pl = soccerApiFeign.getCompetitionTeams("2023");
+        System.out.println(pl);
     }
 }
