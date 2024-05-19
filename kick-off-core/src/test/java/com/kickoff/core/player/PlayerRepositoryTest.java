@@ -5,8 +5,8 @@ import com.kickoff.core.soccer.player.Player;
 import com.kickoff.core.soccer.player.PlayerPosition;
 import com.kickoff.core.soccer.player.PlayerRepository;
 import com.kickoff.core.soccer.team.TeamType;
-import com.kickoff.core.soccer.team.league.LeagueTeam;
 import com.kickoff.core.soccer.team.league.LeagueTeamRepository;
+import com.kickoff.core.team.league.LeagueTeam;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,7 +15,7 @@ import org.springframework.test.context.ContextConfiguration;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@ActiveProfiles("domain")
+@ActiveProfiles("core")
 @ContextConfiguration(classes = TestConfiguration.class)
 @SpringBootTest
 public class PlayerRepositoryTest {

@@ -9,7 +9,7 @@ import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 
-@ActiveProfiles("domain")
+@ActiveProfiles("core")
 @ContextConfiguration(classes = TestConfiguration.class)
 @SpringBootTest
 public class SurveyHeadersRepositoryTest {

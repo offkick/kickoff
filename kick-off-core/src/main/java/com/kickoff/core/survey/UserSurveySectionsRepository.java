@@ -1,5 +1,7 @@
 package com.kickoff.core.survey;
 
-//
-//public interface UserSurveySectionsRepository extends JpaRepository<UserSurveySections, Long> {
-//}
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface UserSurveySectionsRepository extends JpaRepository<UserSurveySections, Long> {
+}

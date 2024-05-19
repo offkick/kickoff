@@ -12,7 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@ActiveProfiles("domain")
+@ActiveProfiles("core")
 @ContextConfiguration(classes = TestConfiguration.class)
 @SpringBootTest
 public class LeagueRepositoryTest {
