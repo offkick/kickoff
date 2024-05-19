@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @EnableFeignClients
 @ComponentScan(basePackages = {"com.kickoff.batch", "com.kickoff.core"})
-@EntityScan(basePackages = {"com.kickoff.domain"})
+@EntityScan(basePackages = {"com.kickoff.core"})
 @EnableJpaRepositories(basePackages = {"com.kickoff.core"})
 @SpringBootApplication
 @PropertySource({"classpath:application.yml"})
