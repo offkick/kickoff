@@ -1,7 +1,6 @@
 package com.kickoff.api.service.survey;
 
-import com.kickoff.domain.survey.*;
-import com.kickoff.domain.survey.service.QuestionsService;
+import com.kickoff.core.survey.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

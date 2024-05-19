@@ -6,6 +6,6 @@ import org.springframework.context.annotation.Configuration;
 
 @EnableAutoConfiguration
 @Configuration
-@ComponentScan(basePackages = {"com.kickoff.domain", "com.kickoff.api"})
+@ComponentScan(basePackages = {"com.kickoff.core", "com.kickoff.api"})
 public class TestConfiguration {
 }

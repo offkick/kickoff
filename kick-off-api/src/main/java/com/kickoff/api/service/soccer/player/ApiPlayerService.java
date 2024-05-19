@@ -1,10 +1,10 @@
 package com.kickoff.api.service.soccer.player;
 
 import com.kickoff.api.service.soccer.player.dto.CreatePlayerServiceRequest;
-import com.kickoff.domain.soccer.player.Player;
-import com.kickoff.domain.soccer.player.PlayerRepository;
-import com.kickoff.domain.soccer.team.league.LeagueTeam;
-import com.kickoff.domain.soccer.team.league.LeagueTeamRepository;
+import com.kickoff.core.soccer.player.Player;
+import com.kickoff.core.soccer.player.PlayerRepository;
+import com.kickoff.core.soccer.team.league.LeagueTeam;
+import com.kickoff.core.soccer.team.league.LeagueTeamRepository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -1,14 +1,13 @@
 package com.kickoff.admin.service;
 
 import com.kickoff.admin.service.dto.CreatePlayerAdminRequest;
-import com.kickoff.domain.soccer.player.Player;
-import com.kickoff.domain.soccer.player.service.PlayerService;
-import com.kickoff.domain.soccer.player.service.dto.CreatePlayerRequest;
+import com.kickoff.core.soccer.player.Player;
+import com.kickoff.core.soccer.player.service.PlayerService;
+import com.kickoff.core.soccer.player.service.dto.CreatePlayerRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service

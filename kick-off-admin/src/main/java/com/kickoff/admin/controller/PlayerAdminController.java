@@ -2,11 +2,11 @@ package com.kickoff.admin.controller;
 
 import com.kickoff.admin.service.PlayerAdminService;
 import com.kickoff.admin.service.dto.CreatePlayerAdminRequest;
-import com.kickoff.domain.soccer.player.Player;
-import com.kickoff.domain.soccer.player.PlayerRepositoryImpl;
-import com.kickoff.domain.soccer.player.dto.PlayerSearchCondition;
-import com.kickoff.domain.soccer.team.league.LeagueTeam;
-import com.kickoff.domain.soccer.team.league.service.LeagueTeamService;
+import com.kickoff.core.soccer.player.Player;
+import com.kickoff.core.soccer.player.PlayerRepositoryImpl;
+import com.kickoff.core.soccer.player.dto.PlayerSearchCondition;
+import com.kickoff.core.soccer.team.league.LeagueTeam;
+import com.kickoff.core.soccer.team.league.service.LeagueTeamService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

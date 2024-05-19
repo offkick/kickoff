@@ -9,9 +9,9 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @EnableFeignClients
-@ComponentScan(basePackages = {"com.kickoff.batch", "com.kickoff.domain"})
+@ComponentScan(basePackages = {"com.kickoff.batch", "com.kickoff.core"})
 @EntityScan(basePackages = {"com.kickoff.domain"})
-@EnableJpaRepositories(basePackages = {"com.kickoff.domain"})
+@EnableJpaRepositories(basePackages = {"com.kickoff.core"})
 @SpringBootApplication
 @PropertySource({"classpath:application.yml"})
 public class KickOffBatchApplication {

@@ -1,9 +1,9 @@
 package com.kickoff.api.service.survey;
 
 import com.kickoff.api.controller.survey.dto.CreateOptionGroupsRequest;
-import com.kickoff.domain.survey.OptionChoices;
-import com.kickoff.domain.survey.OptionGroups;
-import com.kickoff.domain.survey.OptionGroupsRepository;
+import com.kickoff.core.survey.OptionChoices;
+import com.kickoff.core.survey.OptionGroups;
+import com.kickoff.core.survey.OptionGroupsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

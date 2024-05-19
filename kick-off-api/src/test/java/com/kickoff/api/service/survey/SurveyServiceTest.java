@@ -1,10 +1,10 @@
 package com.kickoff.api.service.survey;
 
 
-import com.kickoff.domain.survey.QuestionOptionsRepository;
-import com.kickoff.domain.survey.service.AnswerQuestionSurveyValidator;
-import com.kickoff.domain.survey.service.AnswerService;
-import com.kickoff.domain.survey.service.SurveyAnswerService;
+import com.kickoff.core.survey.QuestionOptionsRepository;
+import com.kickoff.core.survey.service.AnswerQuestionSurveyValidator;
+import com.kickoff.core.survey.service.AnswerService;
+import com.kickoff.core.survey.service.SurveyAnswerService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

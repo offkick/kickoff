@@ -7,9 +7,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@ComponentScan(basePackages = {"com.kickoff.domain", "com.kickoff.admin"})
-@EntityScan(basePackages = {"com.kickoff.domain"})
-@EnableJpaRepositories(basePackages = {"com.kickoff.domain"})
+@ComponentScan(basePackages = {"com.kickoff.core", "com.kickoff.admin"})
+@EntityScan(basePackages = {"com.kickoff.core"})
+@EnableJpaRepositories(basePackages = {"com.kickoff.core"})
 @SpringBootApplication
 @PropertySource({"classpath:application.yml"})
 public class KickOffAdminApplication {

@@ -1,7 +1,7 @@
 package com.kickoff.admin.service.dto;
 
-import com.kickoff.domain.soccer.player.PlayerPosition;
-import com.kickoff.domain.soccer.team.league.LeagueTeam;
+
+import com.kickoff.core.soccer.player.PlayerPosition;
 
 public record CreatePlayerAdminRequest(
         String national,

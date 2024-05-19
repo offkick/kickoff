@@ -1,6 +1,6 @@
 package com.kickoff.api.elasticsearch.web;
 
-import com.kickoff.domain.soccer.player.PlayerPosition;
+import com.kickoff.core.soccer.player.PlayerPosition;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

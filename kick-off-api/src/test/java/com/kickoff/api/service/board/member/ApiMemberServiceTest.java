@@ -2,8 +2,8 @@ package com.kickoff.api.service.board.member;
 
 import com.kickoff.api.service.board.member.dto.CreateMemberServiceRequest;
 import com.kickoff.api.service.board.member.dto.UpdateMemberServiceRequest;
-import com.kickoff.domain.member.Member;
-import com.kickoff.domain.member.MemberRepository;
+import com.kickoff.core.member.Member;
+import com.kickoff.core.member.MemberRepository;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

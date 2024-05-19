@@ -48,7 +48,7 @@
             </select>
             <label>포지션</label>
             <select class="form-control" name="playerPosition">
-                <option th:each="playerPosition : ${T(com.kickoff.domain.soccer.player.PlayerPosition).values()}"
+                <option th:each="playerPosition : ${T(com.kickoff.core.soccer.player.PlayerPosition).values()}"
                         th:value="${playerPosition}"
                         th:text="${playerPosition}">
                 </option>

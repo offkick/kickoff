@@ -1,9 +1,9 @@
 package com.kickoff.api.service.survey;
 
 import com.kickoff.api.controller.survey.dto.SurveyRequest;
-import com.kickoff.domain.member.Member;
-import com.kickoff.domain.member.MemberRepository;
-import com.kickoff.domain.survey.*;
+import com.kickoff.core.member.Member;
+import com.kickoff.core.member.MemberRepository;
+import com.kickoff.core.survey.*;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,12 +1,11 @@
 package com.kickoff.api.service.survey;
 
 import com.kickoff.api.controller.survey.dto.SurveyRequest;
-import com.kickoff.domain.member.Member;
-import com.kickoff.domain.survey.*;
-import com.kickoff.domain.survey.dto.SurveyHeaderDTO;
-import com.kickoff.domain.survey.service.MemberFindService;
-import com.kickoff.domain.survey.service.SurveyAnswerService;
-import com.kickoff.domain.survey.service.SurveyHeaderService;
+import com.kickoff.core.member.Member;
+import com.kickoff.core.survey.*;
+import com.kickoff.core.survey.service.MemberFindService;
+import com.kickoff.core.survey.service.SurveyAnswerService;
+import com.kickoff.core.survey.service.SurveyHeaderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

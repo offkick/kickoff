@@ -1,9 +1,8 @@
 package com.kickoff.api.controller.survey.dto;
 
-import com.kickoff.domain.survey.dto.SurveyHeaderDTO;
+import com.kickoff.core.survey.dto.SurveyHeaderDTO;
 import lombok.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;

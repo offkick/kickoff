@@ -1,6 +1,6 @@
 rootProject.name = 'kick-off'
 include 'kick-off-api'
-include 'kick-off-domain'
+include 'kick-off-core'
 include 'kick-off-admin'
 include 'kick-off-batch'
 

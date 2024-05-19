@@ -2,10 +2,10 @@ package com.kickoff.api.service.board.post;
 
 import com.kickoff.api.service.board.post.dto.CreatePostServiceRequest;
 import com.kickoff.api.service.board.post.dto.UpdatePostServiceRequest;
-import com.kickoff.domain.member.Member;
-import com.kickoff.domain.member.MemberRepository;
-import com.kickoff.domain.board.post.Post;
-import com.kickoff.domain.board.post.PostRepository;
+import com.kickoff.core.member.Member;
+import com.kickoff.core.member.MemberRepository;
+import com.kickoff.core.board.post.Post;
+import com.kickoff.core.board.post.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

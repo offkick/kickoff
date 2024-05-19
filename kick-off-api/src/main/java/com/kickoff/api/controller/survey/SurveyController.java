@@ -2,10 +2,8 @@ package com.kickoff.api.controller.survey;
 
 import com.kickoff.api.controller.survey.dto.CreateOptionGroupsRequest;
 import com.kickoff.api.controller.survey.dto.SurveyRequest;
-import com.kickoff.api.controller.survey.dto.SurveyResponse;
 import com.kickoff.api.service.survey.OptionGroupService;
 import com.kickoff.api.service.survey.SurveyService;
-import com.kickoff.domain.survey.dto.SurveyHeaderDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

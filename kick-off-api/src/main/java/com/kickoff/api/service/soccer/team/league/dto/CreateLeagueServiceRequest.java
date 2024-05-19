@@ -1,6 +1,6 @@
 package com.kickoff.api.service.soccer.team.league.dto;
 
-import com.kickoff.domain.common.National;
+import com.kickoff.core.common.National;
 
 public record CreateLeagueServiceRequest(
         String leagueName,
