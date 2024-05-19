@@ -59,7 +59,8 @@ public class LeagueGame {
     public LeagueGame(
             Long leagueGameId,
             LocalDateTime gameDate,
-            int count, LeagueTeam away,
+            int count,
+            LeagueTeam away,
             LeagueTeam home,
             Score score,
             LeagueGameStatus leagueGameStatus,

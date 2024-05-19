@@ -8,5 +8,6 @@ public record CreatePlayerAdminRequest(
         String playerName,
         PlayerPosition playerPosition,
         Long leagueTeamId
+
 ) {
 }
