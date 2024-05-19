@@ -1,7 +1,7 @@
 package com.kickoff.domain.soccer.team.league.service;
 
+import com.kickoff.domain.soccer.team.league.LeagueTeam;
 import com.kickoff.domain.soccer.team.league.LeagueTeamRepository;
-import com.kickoff.domain.team.league.LeagueTeam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

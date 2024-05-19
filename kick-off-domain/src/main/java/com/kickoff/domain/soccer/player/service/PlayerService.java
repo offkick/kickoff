@@ -4,9 +4,9 @@ import com.kickoff.domain.soccer.player.Player;
 import com.kickoff.domain.soccer.player.PlayerQuerydslRepository;
 import com.kickoff.domain.soccer.player.PlayerRepository;
 import com.kickoff.domain.soccer.player.service.dto.CreatePlayerRequest;
+import com.kickoff.domain.soccer.team.league.LeagueTeam;
 import com.kickoff.domain.soccer.team.league.LeagueTeamRepository;
-import com.kickoff.domain.team.league.LeagueTeam;
-import com.querydsl.jpa.impl.JPAQueryFactory;
+
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

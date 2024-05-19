@@ -1,6 +1,6 @@
 package com.kickoff.domain.soccer.player;
 
-import com.kickoff.domain.team.league.QLeagueTeam;
+import com.kickoff.domain.soccer.team.league.QLeagueTeam;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -33,32 +33,23 @@ public class PlayerQuerydslRepository {
         return Optional.ofNullable(findPlayer);
     }
 
-    public List<Player> findAllByUsers(String playerName, String national, Long teamId) {
+    public List<Player> findAllByUsers(String playerName, String national, Long LeagueTeamId) {
         QPlayer player = QPlayer.player;
-
-        // QueryDSL을 사용하여 동적 쿼리 생성
-        var query = jpaQueryFactory.selectFrom(player);
-
-        // playerName 값이 있을 때만 조건 추가
-        if (playerName != null && !playerName.isEmpty()) {
-            query.where(player.playerName.contains(playerName));
-        }
-
-        // national 값이 있을 때만 조건 추가
-        if (national != null && !national.isEmpty()) {
-            query.where(player.national.contains(national));
-        }
-
-        // teamId 값이 있을 때만 조건 추가
-        if (teamId != null) {
-            query.where(player.leagueTeam.leagueTeamId.eq(teamId));
-        }
-
-        // 모든 값이 null인 경우 조건 추가하지 않고 모든 플레이어를 반환
-        return query.fetch();
+        return jpaQueryFactory.selectFrom(player)
+                .where(playerNameEq(playerName),
+                        nationalEq(national),
+                        leagueTeamEq(LeagueTeamId))
+                .fetch();
     }
-//    private BooleanExpression playerNameEq(String playerName) {
-//        if(!StringUtils.hasText(playerName)) return null;
-//        return player.playerName.eq(playerName);
-//    }
+    private BooleanExpression playerNameEq(String playerName) {
+        return playerName != null && !playerName.isEmpty()? player.playerName.contains(playerName): null;
+    }
+
+    private BooleanExpression nationalEq(String national) {
+        return national != null && !national.isEmpty() ? player.national.contains(national): null;
+    }
+
+    private BooleanExpression leagueTeamEq(Long LeagueTeamId) {
+        return LeagueTeamId != null ? player.leagueTeam.leagueTeamId.eq(LeagueTeamId): null;
+    }
 }

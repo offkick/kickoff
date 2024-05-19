@@ -44,26 +44,28 @@
 
         </div>
 
-        <form id="searchForm1" action="/admin/allPlayers" method="GET">
-            <div class="row g-3">
+        <form id="searchForm1" action="/admin/all-players" method="GET">
+            <div class="row g-2">
                 <div class="col-md">
                         <div class="form-floating">
-                                <input type="search" class="form-control" id="floatingInputGrid"  name="playerName">
+                                <input type="search" class="form-control" id="floatingInputGrid"  name="playerName" th:value="${condition.playerName}">
                                 <label for="floatingInputGrid">이름</label>
                         </div>
                 </div>
                 <div class="col-md">
                         <div class="form-floating">
-                                <input type="search" class="form-control" id="floatingInputGrid2" name="national">
+                                <input type="search" class="form-control" id="floatingInputGrid2" name="national" th:value="${condition.national}">
                                 <label for="floatingInputGrid">국가</label>
                         </div>
                 </div>
                 <div class="col-md">
                     <div class="form-floating">
                         <select class="form-select" id="floatingSelectGrid" name="leagueTeamId">
+                            <option></option>
                             <option th:each="LeagueTeam : ${leagueteam}"
                                     th:value="${LeagueTeam?.leagueTeamId}"
-                                    th:text="${LeagueTeam?.leagueTeamName}">
+                                    th:text="${LeagueTeam?.leagueTeamName}"
+                                    th:selected="${LeagueTeam?.leagueTeamId == condition?.leagueTeamId}">
                             </option>
                         </select>
 
@@ -71,7 +73,20 @@
                     </div>
                 </div>
                 <div class="col-md">
+                    <div class="form-floating">
+                        <select class="form-select" id="pageSizeSelect" name="size">
+                            <option value="10" th:selected="${size == 10}">10</option>
+                            <option value="50" th:selected="${size == 50}">50</option>
+                            <option value="100" th:selected="${size == 100}">100</option>
+                        </select>
+                        <label for="pageSizeSelect">페이지 크기</label>
+                    </div>
+                </div>
+
+                <div class="col-md">
                     <button type="button" class="btn btn-secondary btn-lg" onclick="submitForm()">검색</button>
+                    <a th:href="@{/admin/player}" type="button" class="btn btn-secondary btn-lg">선수추가</a>
+
                 </div>
 
             </div>
@@ -98,18 +113,55 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="players : ${searchPlayers}">
+                        <tr th:each="players : ${players}">
 <!--                            <td><a href="item.html" th:href="@{/boards/{uid}(uid=${board.uid})}" th:text="${board.subject}">제목</a></td>-->
                             <td th:text="${players.national}">국가</td>
                             <td th:text="${players.playerName}">선수이름</td>
                             <td th:text="${players.leagueTeam.leagueTeamName}">리그팀</td>
                             <td th:text="${players.position}">포지션</td>
-                            <td><a th:href="@{/admin/allPlayers/getPlayer/{playerId}( playerId=${players.playerId} )}"  type="button" class="btn btn-warning">조회</a></td>
+                            <td><a th:href="@{/admin/all-players/{playerId}( playerId=${players.playerId} )}"  type="button" class="btn btn-warning">조회</a></td>
 <!--                            <td> <button th:href="@{/post/write.do( id=${post.id} )}" type="button" class="btn btn-warning">조회</button></td>-->
                         </tr>
                         </tbody>
                     </table>
                 </div>
+
+                <nav class="container d-flex align-items-center justify-content-center" aria-label="Page navigation example"
+                     th:with="start=${(number/maxPage)*maxPage + 1},
+                      end=(${(totalPages== 0) ? 1 : (start + (maxPage - 1) < totalPages ? start + (maxPage - 1) : totalPages)})">
+
+                    <ul class="pagination">
+
+
+                        <li class="page-item">
+                            <a th:href="@{admin/all-players?(page=0, playerName=${condition.playerName},national=${condition.national}, leagueTeamId=${condition.leagueTeamId})}" class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;&laquo;</span>
+                            </a>
+                        </li>
+
+                        <li  class="page-item">
+                            <a th:href="@{/admin/all-players?(page=${start - maxPage-1},playerName=${condition.playerName},national=${condition.national}, leagueTeamId=${condition.leagueTeamId})}" class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+
+                        <li th:each="page: ${#numbers.sequence(start, end)}" class="page-item" th:classappend="${number+1 == page} ? active">
+                            <a th:href="@{/admin/all-players?(page=${page-1},playerName=${condition.playerName},national=${condition.national}, leagueTeamId=${condition.leagueTeamId})}" th:text="${page}"  class="page-link" href="#">1</a>
+                        </li>
+
+                        <li th:if="${end < totalPages}" class="page-item">
+                            <a th:href="@{/admin/all-players?(page=${start + maxPage -1}, playerName=${condition.playerName},national=${condition.national}, leagueTeamId=${condition.leagueTeamId})}"  class="page-link" href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+
+                        <li th:if="${end < totalPages}" class="page-item">
+                            <a th:href="@{/admin/all-players?(page=${totalPages-1}, playerName=${condition.playerName},national=${condition.national}, leagueTeamId=${condition.leagueTeamId})}" class="page-link" href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
 
     </div>
