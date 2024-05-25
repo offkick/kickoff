@@ -3,12 +3,17 @@ package com.kickoff.core.soccer.player.service;
 import com.kickoff.core.soccer.player.Player;
 import com.kickoff.core.soccer.player.PlayerQuerydslRepository;
 import com.kickoff.core.soccer.player.PlayerRepository;
+import com.kickoff.core.soccer.player.PlayerRepositoryImpl;
+import com.kickoff.core.soccer.player.dto.FindPlayerResponse;
+import com.kickoff.core.soccer.player.dto.PlayerSearchCondition;
 import com.kickoff.core.soccer.player.service.dto.CreatePlayerRequest;
 import com.kickoff.core.soccer.team.league.LeagueTeam;
 import com.kickoff.core.soccer.team.league.LeagueTeamRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +26,7 @@ public class PlayerService {
     private final PlayerRepository playerRepository;
     private final LeagueTeamRepository leagueTeamRepository;
     private final PlayerQuerydslRepository playerQuerydslRepository;
+    private final PlayerRepositoryImpl playerRepositoryImpl;
 
 
     public Long save(CreatePlayerRequest request)
@@ -44,8 +50,13 @@ public class PlayerService {
         return playerQuerydslRepository.findPlayer(playerId).orElseThrow((() -> new EntityNotFoundException()));
     }
 
-    public List<Player> findPlayer(String playerName,String national,Long leagueTeamId){
+    public List<FindPlayerResponse> findPlayer(String playerName, String national, Long leagueTeamId){
         return playerQuerydslRepository.findAllByUsers(playerName,national,leagueTeamId);
+    }
+
+    public Page<FindPlayerResponse> searchPlayers(PlayerSearchCondition condition, Pageable pageable){
+        return playerRepositoryImpl.searchPlayer(condition,pageable);
+
     }
 
 }

@@ -1,5 +1,6 @@
 package com.kickoff.core.soccer.player;
 
+import com.kickoff.core.soccer.player.dto.FindPlayerResponse;
 import com.kickoff.core.soccer.player.dto.PlayerSearchCondition;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.kickoff.core.soccer.player.QPlayer.player;
 
@@ -20,7 +22,8 @@ public class PlayerRepositoryImpl implements PlayerRepositoryCustom{
     private final JPAQueryFactory jpaQueryFactory;
 
     @Override
-    public Page<Player> searchPage(PlayerSearchCondition condition, Pageable pageable){
+    public Page<FindPlayerResponse> searchPlayer(PlayerSearchCondition condition, Pageable pageable)
+    {
         QPlayer player = QPlayer.player;
         QueryResults<Player> results = jpaQueryFactory.selectFrom(player)
                 .where(playerNameEq(condition.playerName()),
@@ -31,7 +34,10 @@ public class PlayerRepositoryImpl implements PlayerRepositoryCustom{
                 .fetchResults();
         List<Player> content = results.getResults();
         long total = results.getTotal();
-        return new PageImpl<>(content,pageable,total);
+        List<FindPlayerResponse> responses = content.stream()
+                .map(FindPlayerResponse::from)
+                .collect(Collectors.toList());
+        return new PageImpl<>(responses,pageable,total);
 
     }
 

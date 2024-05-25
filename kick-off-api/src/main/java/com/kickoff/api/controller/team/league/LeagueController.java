@@ -1,15 +1,14 @@
 package com.kickoff.api.controller.team.league;
 
-import co.elastic.clients.elasticsearch.ElasticsearchClient;
-import co.elastic.clients.elasticsearch.core.GetResponse;
-import co.elastic.clients.elasticsearch.core.SearchResponse;
-import co.elastic.clients.elasticsearch.core.search.Hit;
-import com.kickoff.api.controller.team.league.dto.CreateLeagueTeamRequest;
+import com.kickoff.api.service.soccer.team.league.ApiLeagueService;
+import com.kickoff.api.service.soccer.team.league.dto.FindLeagueResponseDto;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 
 
 @Slf4j
@@ -17,4 +16,11 @@ import java.io.IOException;
 @RequiredArgsConstructor
 @RestController
 public class LeagueController {
+    @Autowired
+    ApiLeagueService apiLeagueService;
+
+    @GetMapping("/all")
+    public List<FindLeagueResponseDto> findAllLeagues(){
+        return apiLeagueService.findAllLeagues();
+    }
 }

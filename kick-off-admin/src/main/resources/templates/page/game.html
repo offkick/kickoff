@@ -6,58 +6,200 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.6.1/css/bootstrap.min.css}">
+    <link th:href="@{/css2/bootstrap.min.css}"
+          href="../css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://unpkg.com/gijgo@1.9.14/js/gijgo.min.js" type="text/javascript"></script>
+    <link href="https://unpkg.com/gijgo@1.9.14/css/gijgo.min.css" rel="stylesheet" type="text/css" />
     <style>
         @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
         html, body {
             font-family: 'Noto Sans KR';
         }
         .container {
-            padding: 5% 0;
+            padding: 3% 0;
         }
         .form-group {
             margin: 32px 0;
         }
         .card {
-            margin: 10% 0;
+            margin: 5% 0;
         }
         h1 {
-            margin: 10% 0;
+            margin: 3% 0;
         }
     </style>
 </head>
-    <body>
-    <!-- Content -->
-<!--        <div layout:fragment="content">-->
-<!--            -->
-<!--            <div class="container-fluid">-->
-<!--                게임 추가-->
-<!--            </div>-->
-<!--        </div>-->
-    <div class="container" layout:fragment="content">
-        <div class="container-fluid">
-            <h1>
-                게임 추가
-            </h1>
+<body>
+<div class="container" layout:fragment="content">
+    <script th:inline="javascript">
+        function submitForm() {
+            var form = document.getElementById('searchForm1');
+            form.submit();
+        }
+    </script>
+    <div class="container-fluid">
+        <h1>
+            경기조회
+        </h1>
 
-        </div>
-
-        <form action="/" method="post">
-            <div class="form-group">
-                <label for="name">이름</label>
-                <input type="text" id="name" name="name" class="form-control">
-            </div>
-            <button type="submit" class="btn btn-success float-right">제출</button>
-        </form>
-
-<!--        <div class="card">-->
-<!--            <div class="card-header">결과</div>-->
-<!--            <div class="card-body">-->
-<!--                <p th:text="${name}"></p>-->
-<!--            </div>-->
-<!--        </div>-->
     </div>
 
-    <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
-    <script th:src="@{/webjars/bootstrap/4.6.1/js/bootstrap.min.js}"></script>
-    </body>
+    <form id="searchForm1" th:action="@{/admin/games}" method="GET">
+        <div class="row g-2">
+
+            <div class="col-md">
+                <input id="datepicker" width="240" placeholder="시작" name="startDate" th:value="${condition.startDate()}"/>
+                <script>
+                    $('#datepicker').datepicker({
+                        uiLibrary: 'bootstrap4',
+                        format: 'yyyy-mm-dd',
+                        autoclose: true
+                    }).on('changeDate', function(e) {
+                        $('#startDate').val(e.format());
+                        $('#searchForm').submit();
+                    });
+                </script>
+
+            </div>
+            <div class="col-md">
+                <input id="datepicker1" width="240" placeholder="끝" name = "endDate" th:value="${condition.endDate()}"/>
+                <script>
+                    $('#datepicker1').datepicker({
+                        uiLibrary: 'bootstrap4',
+                        format: 'yyyy-mm-dd',
+                        autoclose: true
+                    }).on('changeDate', function(e) {
+                        $('#startDate').val(e.format());
+                        $('#searchForm').submit();
+                    });
+                </script>
+
+            </div>
+            <div class="col-md">
+<!--                <div class="form-floating">-->
+<!--                    <input type="search" class="form-control" id="floatingInputGrid3" name="leagueId" th:value="${condition.leagueId()}">-->
+<!--                    <label for="floatingInputGrid3">리그</label>-->
+<!--                </div>-->
+                <div class="form-floating">
+                    <select class="form-select" id="floatingSelectGrid" name="leagueId">
+                        <option></option>
+                        <option th:each="league : ${league}"
+                                th:value="${league?.leagueId}"
+                                th:text="${league?.leagueName}"
+                                th:selected="${league?.leagueId == condition?.leagueId()}">
+                        </option>
+                    </select>
+
+                    <label for="floatingSelectGrid">팀</label>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-floating">
+                    <select class="form-select" id="pageSizeSelect" name="size">
+                        <option value="10" th:selected="${size == 10}">10</option>
+                        <option value="50" th:selected="${size == 50}">50</option>
+                        <option value="100" th:selected="${size == 100}">100</option>
+                    </select>
+                    <label for="pageSizeSelect">페이지 크기</label>
+                </div>
+            </div>
+
+            <div class="col-md">
+                <button type="button" class="btn btn-secondary btn-lg" onclick="submitForm()">검색</button>
+
+            </div>
+
+        </div>
+    </form>
+
+
+
+    <div class="card">
+
+        <!--                    <div class="card-header">화면</div>-->
+        <!--                    <div class="card-body">-->
+        <!--                        <p th:text="${national}"></p>-->
+        <!--                    </div>-->
+        <div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>게임날짜</th>
+                    <th>게임상태</th>
+                    <th>홈팀</th>
+                    <th>어웨이팀</th>
+                    <th>홈점수</th>
+                    <th>어웨이점수</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="leagueGames : ${leagueGames}">
+                    <!--                            <td><a href="item.html" th:href="@{/boards/{uid}(uid=${board.uid})}" th:text="${board.subject}">제목</a></td>-->
+                    <td th:text="${leagueGames.gameDate}">게임날짜</td>
+                    <td th:text="${leagueGames.leagueGameStatus}">게임상태</td>
+                    <td th:text="${leagueGames.home.leagueTeamName}">홈팀</td>
+                    <td th:text="${leagueGames.away.leagueTeamName}">어웨이팀팀</td>
+                    <td th:text="${leagueGames.score.homeScore}">홈점수</td>
+                    <td th:text="${leagueGames.score.awayScore}">어웨이점수</td>
+<!--                    <td><a th:href="@{/admin/all-players/{playerId}( playerId=${players.playerId} )}"  type="button" class="btn btn-warning">조회</a></td>-->
+                    <!--                            <td> <button th:href="@{/post/write.do( id=${post.id} )}" type="button" class="btn btn-warning">조회</button></td>-->
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <nav class="container d-flex align-items-center justify-content-center" aria-label="Page navigation example"
+             th:with="start=${(number/maxPage)*maxPage + 1},
+                      end=(${(totalPages== 0) ? 1 : (start + (maxPage - 1) < totalPages ? start + (maxPage - 1) : totalPages)})">
+
+            <ul class="pagination">
+
+
+                <li class="page-item">
+                    <a th:href="@{admin/games?(page=0, startDate=${condition.startDate},endDate=${condition.endDate}, leagueId=${condition.leagueId})}" class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;&laquo;</span>
+                    </a>
+                </li>
+
+                <li  class="page-item">
+                    <a th:href="@{/admin/games?(page=${start - maxPage-1},startDate=${condition.startDate},endDate=${condition.endDate}, leagueId=${condition.leagueId})}" class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+
+                <li th:each="page: ${#numbers.sequence(start, end)}" class="page-item" th:classappend="${number+1 == page} ? active">
+                    <a th:href="@{/admin/games?(page=${page-1},startDate=${condition.startDate},endDate=${condition.endDate}, leagueId=${condition.leagueId})}" th:text="${page}"  class="page-link" href="#">1</a>
+                </li>
+
+                <li th:if="${end < totalPages}" class="page-item">
+                    <a th:href="@{/admin/games?(page=${start + maxPage -1}, startDate=${condition.startDate},endDate=${condition.endDate}, leagueId=${condition.leagueId})}"  class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+
+                <li th:if="${end < totalPages}" class="page-item">
+                    <a th:href="@{/admin/games?(page=${totalPages-1}, startDate=${condition.startDate},endDate=${condition.endDate}, leagueId=${condition.leagueId})}" class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+</div>
+
+<script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.6.1/js/bootstrap.min.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+
+
+</body>
 </html>
