@@ -5,7 +5,6 @@ import com.kickoff.core.soccer.team.league.League;
 import com.kickoff.core.soccer.team.league.LeagueRepository;
 import com.kickoff.core.soccer.team.league.LeagueTeam;
 import com.kickoff.core.soccer.team.league.LeagueTeamRepository;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,7 +1,7 @@
 spring:
   profiles:
     active: local
-    include: domain
+    include: core
   h2:
     console:
       enabled: true

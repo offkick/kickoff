@@ -16,8 +16,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 public class LeagueController {
-    @Autowired
-    ApiLeagueService apiLeagueService;
+
+    private final ApiLeagueService apiLeagueService;
 
     @GetMapping("/all")
     public List<FindLeagueResponseDto> findAllLeagues(){

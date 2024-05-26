@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@EntityScan(basePackages = {"com.kickoff.domain"})
+@EntityScan(basePackages = {"com.kickoff.tcore"})
 @EnableJpaRepositories(basePackages = {"com.kickoff.core"})
 @SpringBootApplication
 @PropertySource({"classpath:application.yml"})
