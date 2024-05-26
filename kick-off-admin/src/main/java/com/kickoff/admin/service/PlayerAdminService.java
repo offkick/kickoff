@@ -45,14 +45,16 @@ public class PlayerAdminService {
         return playerService.findPlayerById(id);
     }
 
-    public List<FindLeagueResponses> findAllLeagues() {
+    public List<FindLeagueResponses> findAllLeagues()
+    {
         List<League> leagues = leagueRepository.findAll();
         return leagues.stream()
-                .map(FindLeagueResponses::from)
+                .map(FindLeagueResponses::of)
                 .collect(Collectors.toList());
     }
 
-    public Page<FindLeagueGameResponses> findLeagueGames(GameSearchCondition gameSearchCondition, Pageable pageable){
+    public Page<FindLeagueGameResponses> findLeagueGames(GameSearchCondition gameSearchCondition, Pageable pageable)
+    {
         Page<FindLeagueGameResponse> responses = leagueGameRepositoryImpl.searchGame(gameSearchCondition, pageable);
 
         List<FindLeagueGameResponses> convertedResponses = responses.getContent().stream()
@@ -71,7 +73,8 @@ public class PlayerAdminService {
         return new PageImpl<>(convertedResponses, pageable, responses.getTotalElements());
     }
 
-    public Page<FindPlayerResponses> findPlayers(PlayerSearchCondition condition, Pageable pageable){
+    public Page<FindPlayerResponses> findPlayers(PlayerSearchCondition condition, Pageable pageable)
+    {
         Page<FindPlayerResponse> findPlayerResponses = playerService.searchPlayers(condition, pageable);
         List<FindPlayerResponses> playerList = findPlayerResponses.getContent().stream()
                 .map(p -> new FindPlayerResponses(

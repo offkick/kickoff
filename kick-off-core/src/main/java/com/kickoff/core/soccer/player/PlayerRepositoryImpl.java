@@ -29,6 +29,7 @@ public class PlayerRepositoryImpl implements PlayerRepositoryCustom{
                 .where(playerNameEq(condition.playerName()),
                         nationalEq(condition.national()),
                         leagueTeamEq(condition.leagueTeamId()))
+                .orderBy(player.playerName.asc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetchResults();

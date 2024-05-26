@@ -30,7 +30,9 @@ public class LeagueGameRepositoryImpl implements LeagueGameRepositoryCustom{
         QueryResults<LeagueGame> results = jpaQueryFactory.selectFrom(leagueGame)
                 .where(gameDateEq(condition.startDate(), condition.endDate()),
                         leagueIdEq(condition.leagueId())
-                ).offset(pageable.getOffset())
+                )
+                .orderBy(leagueGame.gameDate.desc())
+                .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetchResults();
         List<LeagueGame> content = results.getResults();
