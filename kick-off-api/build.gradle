@@ -28,3 +28,7 @@ bootJar {
 jar {
     enabled = false
 }
+
+tasks.withType(JavaCompile) {
+    options.forkOptions.memoryMaximumSize = '1g'
+}

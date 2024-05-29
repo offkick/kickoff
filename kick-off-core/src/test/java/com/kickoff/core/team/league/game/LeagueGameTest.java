@@ -1,9 +1,11 @@
 package com.kickoff.core.team.league.game;
 
+import com.kickoff.core.common.National;
 import com.kickoff.core.soccer.player.Player;
 import com.kickoff.core.soccer.player.PlayerPosition;
 import com.kickoff.core.soccer.team.Score;
 import com.kickoff.core.soccer.team.TeamType;
+import com.kickoff.core.soccer.team.league.League;
 import com.kickoff.core.soccer.team.league.LeagueTeam;
 import com.kickoff.core.soccer.team.league.Season;
 import com.kickoff.core.soccer.team.league.game.LeagueGame;
@@ -45,12 +47,20 @@ public class LeagueGameTest {
     @DisplayName("모든 포지션 없음")
     @Test
     public void noAllPosition(){
+        League league = League.builder()
+                        .leagueName("k-league")
+                        .tier("K리그1")
+                        .national(National.KOREA)
+                        .build();
+
         LeagueTeam homeTeam = LeagueTeam.builder()
+                .league(league)
                         .leagueTeamName("mancity")
                         .teamType(TeamType.LEAGUE)
                         .build();
 
         LeagueTeam awayTeam = LeagueTeam.builder()
+                .league(league)
                 .leagueTeamName("mancity")
                 .teamType(TeamType.LEAGUE)
                 .build();

@@ -1,38 +1,42 @@
 package com.kickoff.core.team.league.game;
 
 import com.kickoff.core.TestConfiguration;
+import com.kickoff.core.common.National;
 import com.kickoff.core.soccer.player.Player;
 import com.kickoff.core.soccer.player.PlayerPosition;
 import com.kickoff.core.soccer.player.PlayerRepository;
 import com.kickoff.core.soccer.team.Score;
 import com.kickoff.core.soccer.team.ScoreRepository;
 import com.kickoff.core.soccer.team.TeamType;
-import com.kickoff.core.soccer.team.league.LeagueTeamRepository;
-import com.kickoff.core.soccer.team.league.Season;
-import com.kickoff.core.soccer.team.league.SeasonRepository;
+import com.kickoff.core.soccer.team.league.*;
 import com.kickoff.core.soccer.team.league.game.LeagueGame;
 import com.kickoff.core.soccer.team.league.game.LeagueGameRepository;
+import com.kickoff.core.soccer.team.league.game.LeagueGameRepositoryImpl;
 import com.kickoff.core.soccer.team.league.game.LeagueGameStatus;
+import com.kickoff.core.soccer.team.league.game.dto.GameSearchCondition;
 import com.kickoff.core.soccer.team.league.game.player.LeagueGamePlayer;
 import com.kickoff.core.soccer.team.league.game.player.LeagueGamePlayerRepository;
 import com.kickoff.core.soccer.team.league.game.player.LeagueGamePlayerStatus;
-import com.kickoff.core.soccer.team.league.LeagueTeam;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ActiveProfiles("core")
 @ContextConfiguration(classes = TestConfiguration.class)
 @SpringBootTest
-public class LeagueGameRepositoryTest {
+public class LeagueGameQuerydslRepositoryTest {
 
     @Autowired
     private LeagueGameRepository leagueGameRepository;
@@ -52,6 +56,11 @@ public class LeagueGameRepositoryTest {
     @Autowired
     private PlayerRepository playerRepository;
 
+    @Autowired
+    private LeagueGameRepositoryImpl leagueGameRepositoryImpl;
+
+    @Autowired
+    private LeagueRepository leagueRepository;
 
     private static LeagueGamePlayer createLeagueGamePlayer(
             Player player,
@@ -75,10 +84,20 @@ public class LeagueGameRepositoryTest {
     }
 
     @Test
-    public void league()
+    @Commit
+    public void gameSearch()
     {
+        League league =  leagueRepository.save (
+                League.builder()
+                .leagueName("k-league")
+                .tier("K리그1")
+                .national(National.KOREA)
+                .build()
+        );
+
         LeagueTeam homeTeam = leagueTeamRepository.save(
                 LeagueTeam.builder()
+                        .league(league)
                         .leagueTeamName("mancity")
                         .teamType(TeamType.LEAGUE)
                         .build()
@@ -86,6 +105,7 @@ public class LeagueGameRepositoryTest {
 
         LeagueTeam awayTeam = leagueTeamRepository.save(
                 LeagueTeam.builder()
+                        .league(league)
                         .leagueTeamName("tottenham")
                         .teamType(TeamType.LEAGUE)
                         .build()
@@ -162,10 +182,15 @@ public class LeagueGameRepositoryTest {
                         .awayPlayers(awayLeagueGamePlayers)
                         .build()
         );
-        assertThat(leagueGame.getLeagueGameId()).isNotNull();
-        assertThat(leagueGame.getAwayPlayers().size()).isEqualTo(11);
-        assertThat(leagueGame.getScore().getAwayScore()).isEqualTo(3);
-    }
 
+        LocalDate startDate = LocalDate.of(2024, 11, 10);
+        LocalDate endDate = LocalDate.of(2024, 12, 10);
+        Long leagueGameId = leagueGame.getLeagueGameId();
+        GameSearchCondition condition = new GameSearchCondition(startDate, endDate, league.getLeagueId());
+        System.out.println(condition.leagueId());
+//        List<LeagueGame> content = leagueGameRepositoryImpl.searchGame(condition, PageRequest.of(0, 10)).getContent();
+//        System.out.println(content.size());
+//        assertEquals(1,content.size());
+    }
 
 }

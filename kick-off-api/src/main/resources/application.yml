@@ -1,9 +1,9 @@
 spring:
   profiles:
     active: local
-    include: domain
+    include: core
   h2:
     console:
       enabled: true
 server:
-  port: 8082
+  port: 8081

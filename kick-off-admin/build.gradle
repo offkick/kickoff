@@ -25,3 +25,5 @@ bootJar {
 jar {
     enabled = false
 }
+
+
