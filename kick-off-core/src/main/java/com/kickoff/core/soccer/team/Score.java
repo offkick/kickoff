@@ -15,7 +15,8 @@ public class Score {
     private String awayScore;
 
     @Builder
-    public Score(String homeScore, String awayScore) {
+    public Score(String homeScore, String awayScore)
+    {
         this.homeScore = homeScore;
         this.awayScore = awayScore;
     }
