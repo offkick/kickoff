@@ -3,11 +3,10 @@ spring:
     url: jdbc:mysql://localhost:3306/kick_off?createDatabaseIfNotExist=true
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-#    password: Abcd123@
     password:
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     show-sql: true
     properties:
       hibernate:

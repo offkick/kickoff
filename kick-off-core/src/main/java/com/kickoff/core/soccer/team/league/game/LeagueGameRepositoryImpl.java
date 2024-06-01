@@ -63,6 +63,5 @@ public class LeagueGameRepositoryImpl implements LeagueGameRepositoryCustom{
     private BooleanExpression leagueIdEq(Long leagueId)
     {
         return leagueId != null ? leagueGame.away.league.leagueId.eq(leagueId) : null;
-
     }
 }
