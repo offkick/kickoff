@@ -2,7 +2,7 @@ package com.kickoff.api.service.survey;
 
 import com.kickoff.api.controller.survey.dto.SurveyRequest;
 import com.kickoff.core.member.Member;
-import com.kickoff.core.survey.*;
+import com.kickoff.core.survey.SurveyHeaders;
 import com.kickoff.core.survey.service.MemberFindService;
 import com.kickoff.core.survey.service.SurveyAnswerService;
 import com.kickoff.core.survey.service.SurveyHeaderService;

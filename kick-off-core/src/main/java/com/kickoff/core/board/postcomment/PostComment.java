@@ -1,7 +1,7 @@
 package com.kickoff.core.board.postcomment;
 
-import com.kickoff.core.member.Member;
 import com.kickoff.core.board.post.Post;
+import com.kickoff.core.member.Member;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;

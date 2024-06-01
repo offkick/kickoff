@@ -5,7 +5,6 @@ import com.kickoff.core.soccer.team.league.LeagueTeam;
 import com.kickoff.core.soccer.team.league.Season;
 import com.kickoff.core.soccer.team.league.game.LeagueGame;
 import com.kickoff.core.soccer.team.league.game.LeagueGameStatus;
-import com.kickoff.core.soccer.team.league.game.dto.FindLeagueGameResponse;
 import com.kickoff.core.soccer.team.league.game.player.LeagueGamePlayer;
 
 import java.time.LocalDateTime;

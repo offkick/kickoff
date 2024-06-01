@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,8 +26,9 @@ import java.util.stream.Collectors;
 public class ApiLeagueGameFindService {
     private final LeagueGameRepositoryImpl leagueGameRepositoryImpl;
 
-    public Page<FindLeagueGameResponseDto> findLeagueGames(GameSearchCondition gameSearchCondition, Pageable pageable){
-        Page<FindLeagueGameResponse> responses = leagueGameRepositoryImpl.searchGame(gameSearchCondition, pageable);
+    public Page<FindLeagueGameResponseDto> findLeagueGames(LocalDate startDate, LocalDate endDate, Long leagueId, Pageable pageable) {
+        GameSearchCondition condition = new GameSearchCondition(startDate, endDate, leagueId);
+        Page<FindLeagueGameResponse> responses = leagueGameRepositoryImpl.searchGame(condition, pageable);
 
         List<FindLeagueGameResponseDto> convertedResponses = responses.getContent().stream()
                 .map(response -> new FindLeagueGameResponseDto(response.leagueGameId(),
@@ -43,5 +45,4 @@ public class ApiLeagueGameFindService {
 
         return new PageImpl<>(convertedResponses, pageable, responses.getTotalElements());
     }
-
 }

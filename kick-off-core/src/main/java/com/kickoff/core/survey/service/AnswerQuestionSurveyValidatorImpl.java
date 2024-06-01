@@ -1,6 +1,9 @@
 package com.kickoff.core.survey.service;
 
-import com.kickoff.core.survey.*;
+import com.kickoff.core.survey.Questions;
+import com.kickoff.core.survey.QuestionsRepository;
+import com.kickoff.core.survey.SurveyHeaders;
+import com.kickoff.core.survey.SurveySections;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

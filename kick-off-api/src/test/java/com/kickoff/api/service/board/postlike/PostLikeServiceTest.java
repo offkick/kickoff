@@ -1,13 +1,12 @@
 package com.kickoff.api.service.board.postlike;
 
 import com.kickoff.api.service.board.postlike.dto.PostLikeServiceRequest;
-import com.kickoff.core.member.Member;
-import com.kickoff.core.member.MemberRepository;
 import com.kickoff.core.board.post.Post;
 import com.kickoff.core.board.post.PostRepository;
 import com.kickoff.core.board.postlike.PostLike;
 import com.kickoff.core.board.postlike.PostLikeRepository;
-
+import com.kickoff.core.member.Member;
+import com.kickoff.core.member.MemberRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

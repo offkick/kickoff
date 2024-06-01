@@ -15,7 +15,8 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.kickoff.core.soccer.player.PlayerPosition.*;
 

@@ -4,7 +4,6 @@ import com.kickoff.api.service.board.member.dto.CreateMemberServiceRequest;
 import com.kickoff.api.service.board.member.dto.UpdateMemberServiceRequest;
 import com.kickoff.core.member.Member;
 import com.kickoff.core.member.MemberRepository;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

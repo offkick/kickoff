@@ -1,10 +1,10 @@
 package com.kickoff.core.board.postcomment;
 
 import com.kickoff.core.TestConfiguration;
-import com.kickoff.core.member.Member;
-import com.kickoff.core.member.MemberRepository;
 import com.kickoff.core.board.post.Post;
 import com.kickoff.core.board.post.PostRepository;
+import com.kickoff.core.member.Member;
+import com.kickoff.core.member.MemberRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

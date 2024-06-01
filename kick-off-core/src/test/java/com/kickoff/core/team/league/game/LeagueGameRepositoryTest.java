@@ -5,8 +5,8 @@ import com.kickoff.core.soccer.player.Player;
 import com.kickoff.core.soccer.player.PlayerPosition;
 import com.kickoff.core.soccer.player.PlayerRepository;
 import com.kickoff.core.soccer.team.Score;
-import com.kickoff.core.soccer.team.ScoreRepository;
 import com.kickoff.core.soccer.team.TeamType;
+import com.kickoff.core.soccer.team.league.LeagueTeam;
 import com.kickoff.core.soccer.team.league.LeagueTeamRepository;
 import com.kickoff.core.soccer.team.league.Season;
 import com.kickoff.core.soccer.team.league.SeasonRepository;
@@ -16,7 +16,6 @@ import com.kickoff.core.soccer.team.league.game.LeagueGameStatus;
 import com.kickoff.core.soccer.team.league.game.player.LeagueGamePlayer;
 import com.kickoff.core.soccer.team.league.game.player.LeagueGamePlayerRepository;
 import com.kickoff.core.soccer.team.league.game.player.LeagueGamePlayerStatus;
-import com.kickoff.core.soccer.team.league.LeagueTeam;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -42,9 +41,6 @@ public class LeagueGameRepositoryTest {
 
     @Autowired
     private LeagueTeamRepository leagueTeamRepository;
-
-    @Autowired
-    private ScoreRepository scoreRepository;
 
     @Autowired
     private SeasonRepository seasonRepository;
@@ -91,12 +87,10 @@ public class LeagueGameRepositoryTest {
                         .build()
         );
 
-        Score score = scoreRepository.save(
-                Score.builder()
-                        .homeScore(1)
-                        .awayScore(3)
-                        .build()
-        );
+        Score score = Score.builder()
+                        .homeScore("1")
+                        .awayScore("3")
+                        .build();
 
         Season season = seasonRepository.save(
                 Season.builder()

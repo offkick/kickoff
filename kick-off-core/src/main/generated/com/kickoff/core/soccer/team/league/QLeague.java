@@ -7,6 +7,7 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -17,6 +18,8 @@ public class QLeague extends EntityPathBase<League> {
 
     private static final long serialVersionUID = -1985151387L;
 
+    private static final PathInits INITS = PathInits.DIRECT2;
+
     public static final QLeague league = new QLeague("league");
 
     public final NumberPath<Long> leagueId = createNumber("leagueId", Long.class);
@@ -25,18 +28,29 @@ public class QLeague extends EntityPathBase<League> {
 
     public final EnumPath<com.kickoff.core.common.National> national = createEnum("national", com.kickoff.core.common.National.class);
 
+    public final QSeason season;
+
     public final StringPath tier = createString("tier");
 
     public QLeague(String variable) {
-        super(League.class, forVariable(variable));
+        this(League.class, forVariable(variable), INITS);
     }
 
     public QLeague(Path<? extends League> path) {
-        super(path.getType(), path.getMetadata());
+        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
     public QLeague(PathMetadata metadata) {
-        super(League.class, metadata);
+        this(metadata, PathInits.getFor(metadata, INITS));
+    }
+
+    public QLeague(PathMetadata metadata, PathInits inits) {
+        this(League.class, metadata, inits);
+    }
+
+    public QLeague(Class<? extends League> type, PathMetadata metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this.season = inits.isInitialized("season") ? new QSeason(forProperty("season")) : null;
     }
 
 }

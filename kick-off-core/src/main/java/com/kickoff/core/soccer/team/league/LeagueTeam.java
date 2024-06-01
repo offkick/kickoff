@@ -2,7 +2,10 @@ package com.kickoff.core.soccer.team.league;
 
 import com.kickoff.core.soccer.team.TeamType;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @NoArgsConstructor
@@ -23,16 +26,21 @@ public class LeagueTeam {
     @JoinColumn(name = "league_id")
     private League league;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "season_id")
+    private Season season;
+
     @Builder
     public LeagueTeam(
             Long leagueTeamId,
             String leagueTeamName,
             TeamType teamType,
-            League league
-    ) {
+            League league,
+            Season season) {
         this.leagueTeamId = leagueTeamId;
         this.leagueTeamName = leagueTeamName;
         this.teamType = teamType;
         this.league = league;
+        this.season = season;
     }
 }

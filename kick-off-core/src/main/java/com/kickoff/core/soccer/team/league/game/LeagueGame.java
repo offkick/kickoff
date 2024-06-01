@@ -10,16 +10,22 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
-import static com.kickoff.core.soccer.player.PlayerPosition.*;
+import static com.kickoff.core.soccer.player.PlayerPosition.KEEPER;
+import static com.kickoff.core.soccer.player.PlayerPosition.values;
 
 @Getter
 @NoArgsConstructor
 @Entity
+@ToString(exclude = {"homePlayers", "awayPlayers"})
 public class LeagueGame {
 
     @Id
@@ -38,8 +44,7 @@ public class LeagueGame {
     @JoinColumn(name = "home_team_id")
     private LeagueTeam home;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "score_id")
+    @Embedded
     private Score score;
 
     @Enumerated(EnumType.STRING)
@@ -76,8 +81,8 @@ public class LeagueGame {
         this.score = score;
         this.leagueGameStatus = leagueGameStatus;
         this.season = season;
-        validate(home, homePlayers);
-        validate(away, awayPlayers);
+//        validate(home, homePlayers);
+//        validate(away, awayPlayers);
         this.homePlayers = homePlayers;
         this.awayPlayers = awayPlayers;
     }
