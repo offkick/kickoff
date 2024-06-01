@@ -1,10 +1,8 @@
 package com.kickoff.core.soccer.team.league.game.dto;
 
 import com.kickoff.core.soccer.team.Score;
-import com.kickoff.core.soccer.team.league.League;
 import com.kickoff.core.soccer.team.league.LeagueTeam;
 import com.kickoff.core.soccer.team.league.Season;
-import com.kickoff.core.soccer.team.league.dto.FindLeagueResponse;
 import com.kickoff.core.soccer.team.league.game.LeagueGame;
 import com.kickoff.core.soccer.team.league.game.LeagueGameStatus;
 import com.kickoff.core.soccer.team.league.game.player.LeagueGamePlayer;

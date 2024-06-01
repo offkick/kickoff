@@ -28,6 +28,8 @@ public class QLeagueTeam extends EntityPathBase<LeagueTeam> {
 
     public final StringPath leagueTeamName = createString("leagueTeamName");
 
+    public final QSeason season;
+
     public final EnumPath<com.kickoff.core.soccer.team.TeamType> teamType = createEnum("teamType", com.kickoff.core.soccer.team.TeamType.class);
 
     public QLeagueTeam(String variable) {
@@ -48,7 +50,8 @@ public class QLeagueTeam extends EntityPathBase<LeagueTeam> {
 
     public QLeagueTeam(Class<? extends LeagueTeam> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.league = inits.isInitialized("league") ? new QLeague(forProperty("league")) : null;
+        this.league = inits.isInitialized("league") ? new QLeague(forProperty("league"), inits.get("league")) : null;
+        this.season = inits.isInitialized("season") ? new QSeason(forProperty("season")) : null;
     }
 
 }

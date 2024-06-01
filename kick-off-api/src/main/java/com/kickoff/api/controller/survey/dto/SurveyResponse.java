@@ -1,7 +1,10 @@
 package com.kickoff.api.controller.survey.dto;
 
 import com.kickoff.core.survey.dto.SurveyHeaderDTO;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 import java.util.Map;

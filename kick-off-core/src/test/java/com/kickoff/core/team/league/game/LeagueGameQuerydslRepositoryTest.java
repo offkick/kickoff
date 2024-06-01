@@ -6,7 +6,6 @@ import com.kickoff.core.soccer.player.Player;
 import com.kickoff.core.soccer.player.PlayerPosition;
 import com.kickoff.core.soccer.player.PlayerRepository;
 import com.kickoff.core.soccer.team.Score;
-import com.kickoff.core.soccer.team.ScoreRepository;
 import com.kickoff.core.soccer.team.TeamType;
 import com.kickoff.core.soccer.team.league.*;
 import com.kickoff.core.soccer.team.league.game.LeagueGame;
@@ -20,18 +19,13 @@ import com.kickoff.core.soccer.team.league.game.player.LeagueGamePlayerStatus;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ActiveProfiles("core")
 @ContextConfiguration(classes = TestConfiguration.class)
@@ -46,9 +40,6 @@ public class LeagueGameQuerydslRepositoryTest {
 
     @Autowired
     private LeagueTeamRepository leagueTeamRepository;
-
-    @Autowired
-    private ScoreRepository scoreRepository;
 
     @Autowired
     private SeasonRepository seasonRepository;
@@ -111,12 +102,12 @@ public class LeagueGameQuerydslRepositoryTest {
                         .build()
         );
 
-        Score score = scoreRepository.save(
+        Score score =
                 Score.builder()
-                        .homeScore(1)
-                        .awayScore(3)
+                        .homeScore("1")
+                        .awayScore("3")
                         .build()
-        );
+        ;
 
         Season season = seasonRepository.save(
                 Season.builder()

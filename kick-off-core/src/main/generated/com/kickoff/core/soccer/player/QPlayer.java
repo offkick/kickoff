@@ -22,6 +22,8 @@ public class QPlayer extends EntityPathBase<Player> {
 
     public static final QPlayer player = new QPlayer("player");
 
+    public final StringPath birth = createString("birth");
+
     public final com.kickoff.core.soccer.team.league.QLeagueTeam leagueTeam;
 
     public final StringPath national = createString("national");
@@ -31,6 +33,8 @@ public class QPlayer extends EntityPathBase<Player> {
     public final StringPath playerName = createString("playerName");
 
     public final EnumPath<PlayerPosition> position = createEnum("position", PlayerPosition.class);
+
+    public final com.kickoff.core.soccer.team.league.QSeason season;
 
     public QPlayer(String variable) {
         this(Player.class, forVariable(variable), INITS);
@@ -51,6 +55,7 @@ public class QPlayer extends EntityPathBase<Player> {
     public QPlayer(Class<? extends Player> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.leagueTeam = inits.isInitialized("leagueTeam") ? new com.kickoff.core.soccer.team.league.QLeagueTeam(forProperty("leagueTeam"), inits.get("leagueTeam")) : null;
+        this.season = inits.isInitialized("season") ? new com.kickoff.core.soccer.team.league.QSeason(forProperty("season")) : null;
     }
 
 }

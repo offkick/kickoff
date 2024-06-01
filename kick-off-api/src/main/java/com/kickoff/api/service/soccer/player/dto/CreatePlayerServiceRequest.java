@@ -7,7 +7,5 @@ public record CreatePlayerServiceRequest(
         String playerName,
         PlayerPosition playerPosition,
         Long leagueTeamId
-
-
 ) {
 }

@@ -12,18 +12,16 @@ import com.querydsl.core.types.Path;
 /**
  * QScore is a Querydsl query type for Score
  */
-@Generated("com.querydsl.codegen.DefaultEntitySerializer")
-public class QScore extends EntityPathBase<Score> {
+@Generated("com.querydsl.codegen.DefaultEmbeddableSerializer")
+public class QScore extends BeanPath<Score> {
 
     private static final long serialVersionUID = 1633232105L;
 
     public static final QScore score = new QScore("score");
 
-    public final NumberPath<Integer> awayScore = createNumber("awayScore", Integer.class);
+    public final StringPath awayScore = createString("awayScore");
 
-    public final NumberPath<Integer> homeScore = createNumber("homeScore", Integer.class);
-
-    public final NumberPath<Long> scoreId = createNumber("scoreId", Long.class);
+    public final StringPath homeScore = createString("homeScore");
 
     public QScore(String variable) {
         super(Score.class, forVariable(variable));

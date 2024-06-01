@@ -21,16 +21,21 @@ public class League {
 
     private String tier;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "season_id")
+    private Season season;
+
     @Builder
     public League(
             Long leagueId,
             String leagueName,
             National national,
-            String tier
-    ) {
+            String tier,
+            Season season) {
         this.leagueId = leagueId;
         this.leagueName = leagueName;
         this.national = national;
         this.tier = tier;
+        this.season = season;
     }
 }
