@@ -1,9 +1,9 @@
 spring:
   datasource:
-    url: jdbc:mysql://kickoff.cenaplivbfbr.us-east-1.rds.amazonaws.com:3306/kick_off?createDatabaseIfNotExist=true
+    url: jdbc:mysql://localhost:3306/kick_off?createDatabaseIfNotExist=true
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: kickadmin
-    password: kickadmin123!
+    username: root
+    password: Abcd123@
   jpa:
     hibernate:
       ddl-auto: create

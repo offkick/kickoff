@@ -58,4 +58,11 @@ public class PlayerService {
 
     }
 
+    public FindPlayerResponse findPlayers(Long playerId)
+    {
+        Player player = playerRepository.findById(playerId).orElseThrow(()->new IllegalArgumentException());
+        return FindPlayerResponse.from(player);
+
+    }
+
 }

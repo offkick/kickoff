@@ -3,6 +3,8 @@ package com.kickoff.api.service.soccer.player;
 import com.kickoff.api.service.soccer.player.dto.CreatePlayerServiceRequest;
 import com.kickoff.core.soccer.player.Player;
 import com.kickoff.core.soccer.player.PlayerRepository;
+import com.kickoff.core.soccer.player.dto.FindPlayerResponse;
+import com.kickoff.core.soccer.player.service.PlayerService;
 import com.kickoff.core.soccer.team.league.LeagueTeam;
 import com.kickoff.core.soccer.team.league.LeagueTeamRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ApiPlayerService {
     private final PlayerRepository playerRepository;
     private final LeagueTeamRepository leagueTeamRepository;
+    private final PlayerService playerService;
 
     public Long createPlayer(CreatePlayerServiceRequest request)
     {
@@ -30,6 +33,14 @@ public class ApiPlayerService {
 
         return playerRepository.save(player).getPlayerId();
     }
+//    public FindPlayerResponse findPlayerResponse(Long playerId)
+//    {
+//        FindPlayerResponse players = playerService.findPlayers(playerId);
+//        return players;
+//
+//    }
+
+
 
 
 

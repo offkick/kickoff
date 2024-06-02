@@ -1,0 +1,24 @@
+package com.kickoff.api.controller.soccer.player;
+
+import com.kickoff.core.soccer.player.dto.FindPlayerResponse;
+import com.kickoff.core.soccer.player.service.PlayerService;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@Tag(name = "선수 컨트롤러", description = "선수 관련 리소스 CRUD")
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/api/player")
+public class PlayerController {
+    private final PlayerService playerService;
+    @GetMapping("/{playerId}")
+    public FindPlayerResponse findPlayer(@PathVariable(value = "playerId") Long playerId)
+    {
+        return playerService.findPlayers(playerId);
+    }
+
+}
