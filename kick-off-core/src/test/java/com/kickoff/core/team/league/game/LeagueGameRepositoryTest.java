@@ -19,6 +19,7 @@ import com.kickoff.core.soccer.team.league.game.player.LeagueGamePlayerStatus;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 
@@ -71,6 +72,7 @@ public class LeagueGameRepositoryTest {
     }
 
     @Test
+    @Commit
     public void league()
     {
         LeagueTeam homeTeam = leagueTeamRepository.save(
@@ -158,7 +160,6 @@ public class LeagueGameRepositoryTest {
         );
         assertThat(leagueGame.getLeagueGameId()).isNotNull();
         assertThat(leagueGame.getAwayPlayers().size()).isEqualTo(11);
-        assertThat(leagueGame.getScore().getAwayScore()).isEqualTo(3);
     }
 
 

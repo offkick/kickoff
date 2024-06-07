@@ -1,5 +1,7 @@
 package com.kickoff.core.soccer.team.league.service;
 
+import com.kickoff.core.soccer.team.league.game.LeagueGame;
+import com.kickoff.core.soccer.team.league.game.LeagueGameRepository;
 import com.kickoff.core.soccer.team.league.game.LeagueGameRepositoryImpl;
 import com.kickoff.core.soccer.team.league.game.dto.FindLeagueGameResponse;
 import com.kickoff.core.soccer.team.league.game.dto.GameSearchCondition;
@@ -14,8 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class LeagueGameService {
 
-    private final LeagueGameRepositoryImpl leagueGameRepository;
+    private final LeagueGameRepositoryImpl leagueGameRepositoryImpl;
+    private final LeagueGameRepository leagueGameRepository;
     public Page<FindLeagueGameResponse> findGames(GameSearchCondition gameSearchCondition, Pageable pageable){
-        return leagueGameRepository.searchGame(gameSearchCondition,pageable);
+        return leagueGameRepositoryImpl.searchGame(gameSearchCondition,pageable);
     }
 }
