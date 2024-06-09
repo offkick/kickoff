@@ -1,7 +1,10 @@
 package com.kickoff.api.service.soccer.team.league.game;
 
 import com.kickoff.api.service.soccer.team.league.dto.FindLeagueGameResponseDto;
+import com.kickoff.core.soccer.team.league.game.LeagueGame;
+import com.kickoff.core.soccer.team.league.game.LeagueGameRepository;
 import com.kickoff.core.soccer.team.league.game.LeagueGameRepositoryImpl;
+import com.kickoff.api.controller.team.league.dto.FindLeagueGamePlayerResponse;
 import com.kickoff.core.soccer.team.league.game.dto.FindLeagueGameResponse;
 import com.kickoff.core.soccer.team.league.game.dto.GameSearchCondition;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +28,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ApiLeagueGameFindService {
     private final LeagueGameRepositoryImpl leagueGameRepositoryImpl;
+    private final LeagueGameRepository leagueGameRepository;
 
     public Page<FindLeagueGameResponseDto> findLeagueGames(LocalDate startDate, LocalDate endDate, Long leagueId, Pageable pageable) {
         GameSearchCondition condition = new GameSearchCondition(startDate, endDate, leagueId);
@@ -44,5 +48,11 @@ public class ApiLeagueGameFindService {
                 .collect(Collectors.toList());
 
         return new PageImpl<>(convertedResponses, pageable, responses.getTotalElements());
+    }
+
+    public FindLeagueGamePlayerResponse findGamePlayer(Long leagueGameId)
+    {
+        LeagueGame leagueGame = leagueGameRepository.findById(leagueGameId).orElseThrow(() -> new IllegalArgumentException());
+        return FindLeagueGamePlayerResponse.from(leagueGame);
     }
 }
