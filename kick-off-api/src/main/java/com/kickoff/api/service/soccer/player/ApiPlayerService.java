@@ -33,17 +33,4 @@ public class ApiPlayerService {
 
         return playerRepository.save(player).getPlayerId();
     }
-//    public FindPlayerResponse findPlayerResponse(Long playerId)
-//    {
-//        FindPlayerResponse players = playerService.findPlayers(playerId);
-//        return players;
-//
-//    }
-
-
-
-
-
-
-
 }

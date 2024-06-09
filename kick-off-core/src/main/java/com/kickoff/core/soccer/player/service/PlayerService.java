@@ -27,7 +27,6 @@ public class PlayerService {
     private final PlayerQuerydslRepository playerQuerydslRepository;
     private final PlayerRepositoryImpl playerRepositoryImpl;
 
-
     public Long save(CreatePlayerRequest request)
     {
         LeagueTeam leagueTeam = leagueTeamRepository.findById(request.leagueTeamId()).orElseThrow(() -> new EntityNotFoundException());
@@ -55,14 +54,11 @@ public class PlayerService {
 
     public Page<FindPlayerResponse> searchPlayers(PlayerSearchCondition condition, Pageable pageable){
         return playerRepositoryImpl.searchPlayer(condition,pageable);
-
     }
 
     public FindPlayerResponse findPlayers(Long playerId)
     {
-        Player player = playerRepository.findById(playerId).orElseThrow(()->new IllegalArgumentException());
+        Player player = playerRepository.findById(playerId).orElseThrow(()->new EntityNotFoundException());
         return FindPlayerResponse.from(player);
-
     }
-
 }
