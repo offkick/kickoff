@@ -42,7 +42,8 @@ public class PlayerQuerydslRepository {
                 p.getNational(),
                 p.getPlayerName(),
                 p.getPosition(),
-                p.getLeagueTeam()))
+                p.getLeagueTeam().getLeagueTeamName(),
+                        p.getLeagueTeam().getLeagueTeamId()))
                 .collect(Collectors.toList());
 
         return findPlayerResponse;

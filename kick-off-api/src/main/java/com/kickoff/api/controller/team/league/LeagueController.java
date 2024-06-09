@@ -14,6 +14,7 @@ import java.util.List;
 
 @Tag(name = "리그 컨트롤러", description = "리그 관련 리소스 CRUD")
 @Slf4j
+@Tag(name = "리그 컨트롤러", description = "리그 관련 리소스 검색/변경")
 @RequestMapping("/api/league")
 @RequiredArgsConstructor
 @RestController

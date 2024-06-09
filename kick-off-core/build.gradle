@@ -1,6 +1,5 @@
 plugins {
     id 'java'
-//    id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
 }
 
 repositories {
@@ -29,7 +28,6 @@ test {
     useJUnitPlatform()
 }
 
-
 bootJar {
     enabled = false
 }
@@ -37,22 +35,3 @@ bootJar {
 jar {
     enabled = true
 }
-
-//// Querydsl 설정부
-//def generated = 'src/main/generated'
-//
-//querydsl {
-//    jpa = true
-//    querydslSourcesDir = generated
-//}
-//sourceSets {
-//    main.java.srcDir generated
-//}
-//
-//compileQuerydsl{
-//    options.annotationProcessorPath = configurations.querydsl
-//}
-//
-//compileJava {
-//    options.compilerArgs << '-parameters'
-//}
