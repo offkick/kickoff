@@ -1,5 +1,6 @@
 package com.kickoff.api.service.soccer.player;
 
+import com.kickoff.api.controller.soccer.player.dto.FindPlayerResponseDto;
 import com.kickoff.api.service.soccer.player.dto.CreatePlayerServiceRequest;
 import com.kickoff.core.soccer.player.Player;
 import com.kickoff.core.soccer.player.PlayerRepository;
@@ -32,5 +33,11 @@ public class ApiPlayerService {
                 .build();
 
         return playerRepository.save(player).getPlayerId();
+    }
+
+    public FindPlayerResponseDto findPlayers(Long playerId)
+    {
+        FindPlayerResponse players = playerService.findPlayers(playerId);
+        return FindPlayerResponseDto.from(players);
     }
 }
