@@ -1,5 +1,6 @@
 package com.kickoff.api.service.soccer.team.league.game;
 
+import com.kickoff.api.controller.team.league.dto.DateLeagueGameResponse;
 import com.kickoff.api.service.soccer.team.league.dto.FindLeagueGameResponseDto;
 import com.kickoff.core.soccer.team.league.dto.FindLeagueGamePlayerResponse;
 import com.kickoff.core.soccer.team.league.game.LeagueGame;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -57,5 +59,15 @@ public class ApiLeagueGameFindService {
     {
         FindLeagueGamePlayerResponse response = leagueGameService.findByLeagueGameId(leagueGameId);
         return FindLeagueGamePlayerResponseDto.from(response);
+    }
+
+    public DateLeagueGameResponse findLeagueGameByDate(LocalDate date)
+    {
+        LocalTime endTime = LocalTime.of(23, 59, 59);
+        List<LeagueGame> leagueGames = leagueGameRepository.findByGameDateBetween(
+                date.atStartOfDay(),
+                date.atTime(endTime)
+        );
+        return DateLeagueGameResponse.of(leagueGames);
     }
 }

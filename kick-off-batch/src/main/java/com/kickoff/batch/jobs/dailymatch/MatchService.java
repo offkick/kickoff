@@ -35,15 +35,6 @@ public class MatchService {
     {
         LocalDate currentDateTimeFrom = targetDateFrom;
 
-//        if (targetDateFrom.plusDays(DIFF_DAYS).isAfter(targetDateTo))
-//        {
-//            currentDateTimeFrom = targetDateFrom;
-//        }
-//        else
-//        {
-//            currentDateTimeFrom = targetDateFrom.plusDays(DIFF_DAYS);
-//        }
-
         while (currentDateTimeFrom.isBefore(targetDateTo))
         {
             log.info("!!!! : {}", currentDateTimeFrom);
@@ -55,6 +46,7 @@ public class MatchService {
                 String awayTeamName = match.awayTeam().name();
                 String homeTeamName = match.homeTeam().name();
 
+                log.info("awayTeam : {}, homeTeam: {}", awayTeamName, homeTeamName);
                 LeagueTeam awayTeam = leagueTeamRepository.findByLeagueTeamName(awayTeamName)
                         .orElse(LeagueTeam.builder().leagueTeamName(awayTeamName).build());
 

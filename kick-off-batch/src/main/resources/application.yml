@@ -1,7 +1,7 @@
 spring:
   profiles:
     active: batch
-    include: domain
+    include: core
   batch:
     job:
       name: dailyMatchInsertJob
