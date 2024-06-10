@@ -1,5 +1,7 @@
 package com.kickoff.api.controller.soccer.player;
 
+import com.kickoff.api.controller.soccer.player.dto.FindPlayerResponseDto;
+import com.kickoff.api.service.soccer.player.ApiPlayerService;
 import com.kickoff.core.soccer.player.dto.FindPlayerResponse;
 import com.kickoff.core.soccer.player.service.PlayerService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -14,12 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("/api/player")
 public class PlayerController {
-    private final PlayerService playerService;
+    private final ApiPlayerService apiPlayerService;
 
     @GetMapping("/{playerId}")
-    public FindPlayerResponse findPlayer(@PathVariable(value = "playerId") Long playerId)
+    public FindPlayerResponseDto findPlayer(@PathVariable(value = "playerId") Long playerId)
     {
-        return playerService.findPlayers(playerId);
+        return apiPlayerService.findPlayers(playerId);
     }
 
 }

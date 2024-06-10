@@ -1,12 +1,14 @@
 package com.kickoff.api.service.soccer.team.league.game;
 
 import com.kickoff.api.service.soccer.team.league.dto.FindLeagueGameResponseDto;
+import com.kickoff.core.soccer.team.league.dto.FindLeagueGamePlayerResponse;
 import com.kickoff.core.soccer.team.league.game.LeagueGame;
 import com.kickoff.core.soccer.team.league.game.LeagueGameRepository;
 import com.kickoff.core.soccer.team.league.game.LeagueGameRepositoryImpl;
-import com.kickoff.api.controller.team.league.dto.FindLeagueGamePlayerResponse;
+import com.kickoff.api.controller.team.league.dto.FindLeagueGamePlayerResponseDto;
 import com.kickoff.core.soccer.team.league.game.dto.FindLeagueGameResponse;
 import com.kickoff.core.soccer.team.league.game.dto.GameSearchCondition;
+import com.kickoff.core.soccer.team.league.service.LeagueGameService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -29,6 +31,7 @@ import java.util.stream.Collectors;
 public class ApiLeagueGameFindService {
     private final LeagueGameRepositoryImpl leagueGameRepositoryImpl;
     private final LeagueGameRepository leagueGameRepository;
+    private final LeagueGameService leagueGameService;
 
     public Page<FindLeagueGameResponseDto> findLeagueGames(LocalDate startDate, LocalDate endDate, Long leagueId, Pageable pageable) {
         GameSearchCondition condition = new GameSearchCondition(startDate, endDate, leagueId);
@@ -50,9 +53,9 @@ public class ApiLeagueGameFindService {
         return new PageImpl<>(convertedResponses, pageable, responses.getTotalElements());
     }
 
-    public FindLeagueGamePlayerResponse findGamePlayer(Long leagueGameId)
+    public FindLeagueGamePlayerResponseDto findByLeagueGameId(Long leagueGameId)
     {
-        LeagueGame leagueGame = leagueGameRepository.findById(leagueGameId).orElseThrow(() -> new IllegalArgumentException());
-        return FindLeagueGamePlayerResponse.from(leagueGame);
+        FindLeagueGamePlayerResponse response = leagueGameService.findByLeagueGameId(leagueGameId);
+        return FindLeagueGamePlayerResponseDto.from(response);
     }
 }

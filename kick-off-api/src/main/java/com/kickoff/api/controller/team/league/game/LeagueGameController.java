@@ -1,10 +1,9 @@
 package com.kickoff.api.controller.team.league.game;
 
 
-import com.kickoff.api.controller.team.league.dto.FindLeagueGamePlayerResponse;
+import com.kickoff.api.controller.team.league.dto.FindLeagueGamePlayerResponseDto;
 import com.kickoff.api.service.soccer.team.league.dto.FindLeagueGameResponseDto;
 import com.kickoff.api.service.soccer.team.league.game.ApiLeagueGameFindService;
-import com.kickoff.core.soccer.team.league.game.LeagueGame;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,9 +34,9 @@ public class LeagueGameController {
         Pageable pageable = PageRequest.of(page, size);
         return apiLeagueGameFindService.findLeagueGames(startDate, endDate, leagueId,pageable);
     }
-    @GetMapping("/{playerId}")
-    public FindLeagueGamePlayerResponse findLeagueGamePlayer(@PathVariable(value="leagueGameId") Long leagueGameId)
+    @GetMapping("/{leagueGameId}")
+    public FindLeagueGamePlayerResponseDto findLeagueGamePlayer(@PathVariable(value="leagueGameId") Long leagueGameId)
     {
-        return apiLeagueGameFindService.findGamePlayer(leagueGameId);
+        return apiLeagueGameFindService.findByLeagueGameId(leagueGameId);
     }
 }
