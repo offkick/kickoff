@@ -2,7 +2,6 @@ package com.kickoff.api.controller.team.league.game;
 
 
 import com.kickoff.api.controller.team.league.dto.FindLeagueGamePlayerResponseDto;
-import com.kickoff.api.controller.team.league.dto.FindLeagueGamePlayerResponse;
 import com.kickoff.api.controller.team.league.dto.DateLeagueGameResponse;
 import com.kickoff.api.service.soccer.team.league.dto.FindLeagueGameResponseDto;
 import com.kickoff.api.service.soccer.team.league.game.ApiLeagueGameFindService;
@@ -41,6 +40,7 @@ public class LeagueGameController {
     public FindLeagueGamePlayerResponseDto findLeagueGamePlayer(@PathVariable(value="leagueGameId") Long leagueGameId)
     {
         return apiLeagueGameFindService.findByLeagueGameId(leagueGameId);
+    }
 
     @GetMapping("/date/{targetDate}")
     public DateLeagueGameResponse findLeagueGameByDate(@PathVariable String targetDate)
