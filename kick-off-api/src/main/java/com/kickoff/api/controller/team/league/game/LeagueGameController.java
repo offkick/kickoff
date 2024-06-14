@@ -3,14 +3,14 @@ package com.kickoff.api.controller.team.league.game;
 
 import com.kickoff.api.controller.team.league.dto.FindLeagueGamePlayerResponseDto;
 import com.kickoff.api.controller.team.league.dto.DateLeagueGameResponse;
-import com.kickoff.api.service.soccer.team.league.dto.FindLeagueGameResponseDto;
 import com.kickoff.api.service.soccer.team.league.game.ApiLeagueGameFindService;
+import com.kickoff.core.soccer.team.league.game.LeagueGameQuerydslRepository;
+import com.kickoff.core.soccer.team.league.game.dto.FindGameCond;
+import com.kickoff.core.soccer.team.league.game.dto.FindLeagueGamesResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -23,17 +23,24 @@ import java.time.LocalDate;
 public class LeagueGameController {
 
     private final ApiLeagueGameFindService apiLeagueGameFindService;
+    private final LeagueGameQuerydslRepository leagueGameQuerydslRepository;
 
     @GetMapping("/all")
-    public Page<FindLeagueGameResponseDto> searchGames(
+    public FindLeagueGamesResponse searchGames(
             @RequestParam("startDate") LocalDate startDate,
             @RequestParam("endDate") LocalDate endDate,
             @RequestParam("leagueId") Long leagueId,
             @RequestParam(name = "page", defaultValue = "0") int page,
             @RequestParam(name = "size", defaultValue = "10") int size
     ) {
-        Pageable pageable = PageRequest.of(page, size);
-        return apiLeagueGameFindService.findLeagueGames(startDate, endDate, leagueId,pageable);
+        FindGameCond cond = new FindGameCond(
+                startDate,
+                endDate,
+                leagueId,
+                PageRequest.of(page,size)
+        );
+        return leagueGameQuerydslRepository.findLeagueGames(cond);
+
     }
 
     @GetMapping("/{leagueGameId}")

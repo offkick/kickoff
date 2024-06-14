@@ -82,7 +82,8 @@ public class PlayerAdminService {
                         p.national(),
                         p.playerName(),
                         p.position(),
-                        p.leagueTeam()
+                        p.leagueTeamName(),
+                        p.leagueTeamId()
                 )).collect(Collectors.toList());
 
 

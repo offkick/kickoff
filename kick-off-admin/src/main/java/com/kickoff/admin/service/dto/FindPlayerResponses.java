@@ -10,7 +10,8 @@ public record FindPlayerResponses(
         String national,
         String playerName,
         PlayerPosition position,
-        LeagueTeam leagueTeam
+        String leagueTeamName,
+        Long leagueTeamId
 ) {
     public static FindPlayerResponse from(Player player){
         return new FindPlayerResponse(
@@ -18,7 +19,8 @@ public record FindPlayerResponses(
                 player.getNational(),
                 player.getPlayerName(),
                 player.getPosition(),
-                player.getLeagueTeam()
+                player.getLeagueTeam().getLeagueTeamName(),
+                player.getLeagueTeam().getLeagueTeamId()
         );
     }
 }
