@@ -1,5 +1,6 @@
-package com.kickoff.core.board.post;
+package com.kickoff.core.board.postImage;
 
+import com.kickoff.core.board.post.Post;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
