@@ -1,5 +1,6 @@
 package com.kickoff.core.board.post;
 
+import com.kickoff.core.board.postcomment.PostComment;
 import com.kickoff.core.member.Member;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -7,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
