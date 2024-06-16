@@ -2,7 +2,6 @@ package com.kickoff.core.soccer.player.dto;
 
 import com.kickoff.core.soccer.player.Player;
 import com.kickoff.core.soccer.player.PlayerPosition;
-import com.kickoff.core.soccer.team.league.LeagueTeam;
 
 public record FindPlayerResponse(
         Long playerId,

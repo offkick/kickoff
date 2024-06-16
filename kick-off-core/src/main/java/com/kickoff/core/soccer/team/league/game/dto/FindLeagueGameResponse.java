@@ -1,17 +1,14 @@
 package com.kickoff.core.soccer.team.league.game.dto;
 
-import com.kickoff.core.soccer.player.Player;
 import com.kickoff.core.soccer.team.Score;
 import com.kickoff.core.soccer.team.league.LeagueTeam;
 import com.kickoff.core.soccer.team.league.Season;
-import com.kickoff.core.soccer.team.league.dto.GamePlayer;
 import com.kickoff.core.soccer.team.league.game.LeagueGame;
 import com.kickoff.core.soccer.team.league.game.LeagueGameStatus;
 import com.kickoff.core.soccer.team.league.game.player.LeagueGamePlayer;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public record FindLeagueGameResponse (
         Long leagueGameId,
