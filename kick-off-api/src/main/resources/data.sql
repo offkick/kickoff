@@ -20,7 +20,6 @@ INSERT INTO league_team (league_id, league_team_id, season_id, league_team_name,
 INSERT INTO league_team (league_id, league_team_id, season_id, league_team_name, team_type) VALUES (null, 18, null, 'Sheffield United FC', null);
 INSERT INTO league_team (league_id, league_team_id, season_id, league_team_name, team_type) VALUES (null, 19, null, 'AFC Bournemouth', null);
 INSERT INTO league_team (league_id, league_team_id, season_id, league_team_name, team_type) VALUES (null, 20, null, 'Wolverhampton Wanderers FC', null);
-
 INSERT INTO league_game (count, away_team_id, game_date, home_team_id, league_game_id, season_id, away_score, home_score, league_game_status) VALUES (0, 1, '2024-01-02 05:00:00.000000', 2, 1, null, '2', '4', 'END');
 INSERT INTO league_game (count, away_team_id, game_date, home_team_id, league_game_id, season_id, away_score, home_score, league_game_status) VALUES (0, 3, '2024-01-03 04:30:00.000000', 4, 2, null, '0', '0', 'END');
 INSERT INTO league_game (count, away_team_id, game_date, home_team_id, league_game_id, season_id, away_score, home_score, league_game_status) VALUES (0, 5, '2024-01-13 04:45:00.000000', 6, 3, null, '1', '1', 'END');
