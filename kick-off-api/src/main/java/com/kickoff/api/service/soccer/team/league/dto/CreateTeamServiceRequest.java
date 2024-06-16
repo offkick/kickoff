@@ -6,6 +6,4 @@ public record CreateTeamServiceRequest(
         String leagueTeamName,
         TeamType teamType,
         Long leagueId
-
-) {
-}
+) {}

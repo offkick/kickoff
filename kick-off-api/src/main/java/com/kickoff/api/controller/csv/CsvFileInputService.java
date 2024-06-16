@@ -24,7 +24,6 @@ import static com.kickoff.core.soccer.player.PlayerPosition.*;
 @RequiredArgsConstructor
 @Service
 public class CsvFileInputService {
-
     private final LeagueTeamRepository leagueTeamRepository;
     private final PlayerRepository playerRepository;
 

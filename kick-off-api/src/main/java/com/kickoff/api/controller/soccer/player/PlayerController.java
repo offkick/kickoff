@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Tag(name = "선수 컨트롤러", description = "선수 관련 리소스 검색/변경")
+@Tag(name = "선수 컨트롤러", description = "선수 관련 검색 / 변경")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/player")

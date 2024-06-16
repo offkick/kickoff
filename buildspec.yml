@@ -1,0 +1,29 @@
+version: 0.2
+
+phases:
+  build:
+    commands:
+      - echo Entered the build phase...
+      - echo Build Starting on `date`
+      - ./gradlew kick-off-api:bootJar -x test
+  post_build:
+    commands:
+      - echo Entered the post_build phase...
+      - echo Build completed on `date`
+      - echo $(basename ./build/libs/*.jar)
+      - pwd
+      - ls
+
+################################################################
+artifacts:
+  files:
+    - appspec.yml
+    - kick-off-api/build/libs/*.jar
+    - scripts/**
+  discard-paths: yes
+#  base-directory: kickoff  # 기본 루트 디렉토리를 설정해준다. 없으면 그냥 해당 설정 자체를 없엔다.
+###################################################
+
+cache:
+  paths:
+    - '/root/.gradle/caches/**/*'

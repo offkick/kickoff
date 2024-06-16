@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.awt.*;
 import java.util.List;
 
 
@@ -23,7 +24,8 @@ public class LeagueController {
     private final ApiLeagueService apiLeagueService;
 
     @GetMapping("/all")
-    public List<FindLeagueResponseDto> findAllLeagues(){
+    public List<FindLeagueResponseDto> findAllLeagues()
+    {
         return apiLeagueService.findAllLeagues();
     }
 }
