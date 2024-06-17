@@ -7,5 +7,9 @@ public record UpdatePostServiceRequest(
         Long postId
 
 ) {
+        public UpdatePostServiceRequest toServiceDto()
+        {
+                return new UpdatePostServiceRequest(title, content, category, postId);
+        }
 
 }

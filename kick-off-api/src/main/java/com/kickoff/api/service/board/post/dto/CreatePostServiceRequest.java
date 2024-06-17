@@ -5,4 +5,8 @@ public record CreatePostServiceRequest(
         String content,
         String category
 ) {
+        public CreatePostServiceRequest toServiceDto()
+        {
+                return new CreatePostServiceRequest(title,content,category);
+        }
 }
