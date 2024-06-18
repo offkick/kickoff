@@ -1,12 +1,14 @@
 package com.kickoff.api.controller.team.league.game;
 
 
-import com.kickoff.api.controller.team.league.dto.FindLeagueGamePlayerResponseDto;
 import com.kickoff.api.controller.team.league.dto.DateLeagueGameResponse;
+import com.kickoff.api.controller.team.league.dto.FindLeagueGamePlayerResponse;
 import com.kickoff.api.service.soccer.team.league.game.ApiLeagueGameFindService;
 import com.kickoff.core.soccer.team.league.game.LeagueGameQuerydslRepository;
 import com.kickoff.core.soccer.team.league.game.dto.FindGameCond;
 import com.kickoff.core.soccer.team.league.game.dto.FindLeagueGamesResponse;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +28,11 @@ public class LeagueGameController {
     private final LeagueGameQuerydslRepository leagueGameQuerydslRepository;
 
     @GetMapping("/all")
+    @Parameters({
+            @Parameter(name = "startDate", description = "검색 시작 날짜"),
+            @Parameter(name = "endDate", description = "검색 끝 날짜"),
+            @Parameter(name = "leagueId", description = "리그id"),
+    })
     public FindLeagueGamesResponse searchGames(
             @RequestParam("startDate") LocalDate startDate,
             @RequestParam("endDate") LocalDate endDate,
@@ -44,7 +51,7 @@ public class LeagueGameController {
     }
 
     @GetMapping("/{leagueGameId}")
-    public FindLeagueGamePlayerResponseDto findLeagueGamePlayer(@PathVariable(value="leagueGameId") Long leagueGameId)
+    public FindLeagueGamePlayerResponse findLeagueGamePlayer(@PathVariable(value="leagueGameId") Long leagueGameId)
     {
         return apiLeagueGameFindService.findByLeagueGameId(leagueGameId);
     }

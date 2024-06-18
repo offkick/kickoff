@@ -1,4 +1,4 @@
-package com.kickoff.core.soccer.team.league.dto;
+package com.kickoff.api.controller.team.league.dto;
 
 import com.kickoff.core.soccer.player.PlayerPosition;
 

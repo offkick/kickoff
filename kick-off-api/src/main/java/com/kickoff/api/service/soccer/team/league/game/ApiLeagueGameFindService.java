@@ -1,10 +1,9 @@
 package com.kickoff.api.service.soccer.team.league.game;
 
 import com.kickoff.api.controller.team.league.dto.DateLeagueGameResponse;
-import com.kickoff.core.soccer.team.league.dto.FindLeagueGamePlayerResponse;
+import com.kickoff.api.controller.team.league.dto.FindLeagueGamePlayerResponse;
 import com.kickoff.core.soccer.team.league.game.LeagueGame;
 import com.kickoff.core.soccer.team.league.game.LeagueGameRepository;
-import com.kickoff.api.controller.team.league.dto.FindLeagueGamePlayerResponseDto;
 import com.kickoff.core.soccer.team.league.service.LeagueGameService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,10 +24,10 @@ import java.util.List;
 public class ApiLeagueGameFindService {
     private final LeagueGameRepository leagueGameRepository;
     private final LeagueGameService leagueGameService;
-    public FindLeagueGamePlayerResponseDto findByLeagueGameId(Long leagueGameId)
+    public FindLeagueGamePlayerResponse findByLeagueGameId(Long leagueGameId)
     {
-        FindLeagueGamePlayerResponse response = leagueGameService.findByLeagueGameId(leagueGameId);
-        return FindLeagueGamePlayerResponseDto.from(response);
+        LeagueGame leagueGame = leagueGameRepository.findById(leagueGameId).orElseThrow(() -> new IllegalArgumentException());
+        return FindLeagueGamePlayerResponse.from(leagueGame);
     }
 
     public DateLeagueGameResponse findLeagueGameByDate(LocalDate date)

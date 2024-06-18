@@ -76,12 +76,11 @@ public class ApiMemberServiceTest {
 
         UpdateMemberServiceRequest request = new UpdateMemberServiceRequest(
                 "updated",
-                "2345",
-                member.getMemberId()
+                "2345"
         );
 
         //when
-        Long memberId = apiMemberService.updateMember(request);
+        Long memberId = apiMemberService.updateMember(member.getMemberId(),request);
 
         //then
         assertThat(memberId).isNotNull();
