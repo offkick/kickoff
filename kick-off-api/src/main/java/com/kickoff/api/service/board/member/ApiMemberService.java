@@ -24,9 +24,9 @@ public class ApiMemberService {
         return memberRepository.save(member).getMemberId();
     }
 
-    public Long updateMember(UpdateMemberServiceRequest request)
+    public Long updateMember(Long memberId,UpdateMemberServiceRequest request)
     {
-        Member member = memberRepository.findById(request.memberId())
+        Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new IllegalArgumentException());
 
         Member updateMember = Member.builder()

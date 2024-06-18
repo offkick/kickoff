@@ -7,6 +7,8 @@ import com.kickoff.api.service.soccer.team.league.game.ApiLeagueGameFindService;
 import com.kickoff.core.soccer.team.league.game.LeagueGameQuerydslRepository;
 import com.kickoff.core.soccer.team.league.game.dto.FindGameCond;
 import com.kickoff.core.soccer.team.league.game.dto.FindLeagueGamesResponse;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +28,11 @@ public class LeagueGameController {
     private final LeagueGameQuerydslRepository leagueGameQuerydslRepository;
 
     @GetMapping("/all")
+    @Parameters({
+            @Parameter(name = "startDate", description = "검색 시작 날짜"),
+            @Parameter(name = "endDate", description = "검색 끝 날짜"),
+            @Parameter(name = "leagueId", description = "리그id"),
+    })
     public FindLeagueGamesResponse searchGames(
             @RequestParam("startDate") LocalDate startDate,
             @RequestParam("endDate") LocalDate endDate,

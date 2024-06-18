@@ -15,7 +15,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class PostService {
+public class ApiPostService {
 
     private final PostRepository postRepository;
     private final MemberRepository memberRepository;
@@ -43,8 +43,8 @@ public class PostService {
         postRepository.delete(post);
     }
 
-    public Long update(UpdatePostServiceRequest request){
-        Post post = postRepository.findById(request.postId())
+    public Long update(Long postId,UpdatePostServiceRequest request){
+        Post post = postRepository.findById(postId)
                 .orElseThrow(()-> new IllegalArgumentException());
         Post updatePost = Post.builder()
                 .title(request.title())
