@@ -1,8 +1,8 @@
 package com.kickoff.api.controller.team.league.game;
 
 
-import com.kickoff.api.controller.team.league.dto.FindLeagueGamePlayerResponseDto;
 import com.kickoff.api.controller.team.league.dto.DateLeagueGameResponse;
+import com.kickoff.api.controller.team.league.dto.FindLeagueGamePlayerResponse;
 import com.kickoff.api.service.soccer.team.league.game.ApiLeagueGameFindService;
 import com.kickoff.core.soccer.team.league.game.LeagueGameQuerydslRepository;
 import com.kickoff.core.soccer.team.league.game.dto.FindGameCond;
@@ -44,7 +44,7 @@ public class LeagueGameController {
     }
 
     @GetMapping("/{leagueGameId}")
-    public FindLeagueGamePlayerResponseDto findLeagueGamePlayer(@PathVariable(value="leagueGameId") Long leagueGameId)
+    public FindLeagueGamePlayerResponse findLeagueGamePlayer(@PathVariable(value="leagueGameId") Long leagueGameId)
     {
         return apiLeagueGameFindService.findByLeagueGameId(leagueGameId);
     }

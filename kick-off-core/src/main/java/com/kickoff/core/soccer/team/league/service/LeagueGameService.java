@@ -1,7 +1,6 @@
 package com.kickoff.core.soccer.team.league.service;
 
-import com.kickoff.core.soccer.team.league.dto.FindLeagueGamePlayerResponse;
-import com.kickoff.core.soccer.team.league.game.LeagueGame;
+
 import com.kickoff.core.soccer.team.league.game.LeagueGameRepository;
 import com.kickoff.core.soccer.team.league.game.LeagueGameRepositoryImpl;
 import com.kickoff.core.soccer.team.league.game.dto.FindLeagueGameResponse;
@@ -22,11 +21,4 @@ public class LeagueGameService {
     public Page<FindLeagueGameResponse> findGames(GameSearchCondition gameSearchCondition, Pageable pageable){
         return leagueGameRepositoryImpl.searchGame(gameSearchCondition,pageable);
     }
-    public FindLeagueGamePlayerResponse findByLeagueGameId(Long leagueGameId)
-    {
-        LeagueGame leagueGame = leagueGameRepository.findById(leagueGameId).orElseThrow(() -> new IllegalArgumentException());
-        return FindLeagueGamePlayerResponse.from(leagueGame);
-    }
-
-
 }
