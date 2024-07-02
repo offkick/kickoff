@@ -1,10 +1,7 @@
 package com.kickoff.admin.controller;
 
 import com.kickoff.admin.service.PlayerAdminService;
-import com.kickoff.admin.service.dto.CreatePlayerAdminRequest;
-import com.kickoff.admin.service.dto.FindLeagueGameResponses;
-import com.kickoff.admin.service.dto.FindLeagueResponses;
-import com.kickoff.admin.service.dto.FindPlayerResponses;
+import com.kickoff.admin.service.dto.*;
 import com.kickoff.core.soccer.player.Player;
 import com.kickoff.core.soccer.player.dto.PlayerSearchCondition;
 import com.kickoff.core.soccer.team.league.LeagueTeam;
@@ -78,7 +75,7 @@ public class PlayerAdminController {
         model.addAttribute("size", size);
         Pageable pageable = PageRequest.of(page, size);
         Page<FindLeagueGameResponses> leagueGames = playerAdminService.findLeagueGames(condition, pageable);
-        List<FindLeagueResponses> leagueResponseList = playerAdminService.findAllLeagues();
+        List<LeagueTeamDto> leagueResponseList = playerAdminService.findAllLeagueTeam();
         model.addAttribute("league", leagueResponseList);
 
 

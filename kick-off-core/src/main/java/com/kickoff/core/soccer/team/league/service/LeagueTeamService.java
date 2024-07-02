@@ -15,6 +15,5 @@ public class LeagueTeamService {
     private final LeagueTeamRepository leagueTeamRepository;
     public List<LeagueTeam> findAll() {
         return leagueTeamRepository.findAll();
-
     }
 }

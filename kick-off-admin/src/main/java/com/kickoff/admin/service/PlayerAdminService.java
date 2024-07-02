@@ -1,9 +1,6 @@
 package com.kickoff.admin.service;
 
-import com.kickoff.admin.service.dto.CreatePlayerAdminRequest;
-import com.kickoff.admin.service.dto.FindLeagueGameResponses;
-import com.kickoff.admin.service.dto.FindLeagueResponses;
-import com.kickoff.admin.service.dto.FindPlayerResponses;
+import com.kickoff.admin.service.dto.*;
 import com.kickoff.core.soccer.player.Player;
 import com.kickoff.core.soccer.player.dto.FindPlayerResponse;
 import com.kickoff.core.soccer.player.dto.PlayerSearchCondition;
@@ -11,9 +8,11 @@ import com.kickoff.core.soccer.player.service.PlayerService;
 import com.kickoff.core.soccer.player.service.dto.CreatePlayerRequest;
 import com.kickoff.core.soccer.team.league.League;
 import com.kickoff.core.soccer.team.league.LeagueRepository;
+import com.kickoff.core.soccer.team.league.LeagueTeam;
 import com.kickoff.core.soccer.team.league.game.LeagueGameRepositoryImpl;
 import com.kickoff.core.soccer.team.league.game.dto.FindLeagueGameResponse;
 import com.kickoff.core.soccer.team.league.game.dto.GameSearchCondition;
+import com.kickoff.core.soccer.team.league.service.LeagueTeamService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -27,7 +26,7 @@ import java.util.stream.Collectors;
 @Service
 public class PlayerAdminService {
     private final PlayerService playerService;
-    private final LeagueRepository leagueRepository;
+    private final LeagueTeamService leagueTeamService;
     private final LeagueGameRepositoryImpl leagueGameRepositoryImpl;
 
     public Long save(CreatePlayerAdminRequest request)
@@ -45,11 +44,13 @@ public class PlayerAdminService {
         return playerService.findPlayerById(id);
     }
 
-    public List<FindLeagueResponses> findAllLeagues()
+    public List<LeagueTeamDto> findAllLeagueTeam()
     {
-        List<League> leagues = leagueRepository.findAll();
-        return leagues.stream()
-                .map(FindLeagueResponses::of)
+        List<LeagueTeam> leagueTeamList = leagueTeamService.findAll();
+
+
+        return leagueTeamList.stream()
+                .map(LeagueTeamDto::from)
                 .collect(Collectors.toList());
     }
 

@@ -15,12 +15,14 @@ public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberId;
+    private String email;
     private String nickName;
     private String password;
 
     @Builder
-    public Member(Long memberId, String nickName, String password) {
+    public Member(Long memberId, String email, String nickName, String password) {
         this.memberId = memberId;
+        this.email = email;
         this.nickName = nickName;
         this.password = password;
     }
@@ -29,6 +31,15 @@ public class Member {
     {
         setNickName(updateMember.getNickName());
         setPassword(updateMember.getPassword());
+    }
+
+    private void setEmail(String email)
+    {
+        if(email == null || email.isBlank())
+        {
+            return;
+        }
+        this.email = email;
     }
 
     private void setNickName(String nickName)

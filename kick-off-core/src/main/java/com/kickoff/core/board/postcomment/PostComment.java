@@ -25,6 +25,21 @@ public class PostComment {
     @JoinColumn(name = "post_id")
     private Post post;
 
+    public void update(PostComment updateComment)
+    {
+        setPostComment(updateComment.getComment());
+    }
+
+    private void setPostComment(String comment)
+    {
+        if(comment == null || comment.isBlank())
+        {
+            return;
+        }
+        this.comment=comment;
+
+    }
+
     @Builder
     public PostComment(Long commentId, String comment, Member member, Post post) {
         this.commentId = commentId;

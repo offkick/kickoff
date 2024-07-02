@@ -29,7 +29,7 @@ public class PostLikeServiceTest {
     PostLikeRepository postLikeRepository;
 
     @Autowired
-    PostLikeService postLikeService;
+    ApiPostLikeService apiPostLikeService;
 
     @Test
     @DisplayName("좋아요 테스트")
@@ -54,7 +54,7 @@ public class PostLikeServiceTest {
                 member.getMemberId()
         );
 
-        postLikeService.like(request);
+        apiPostLikeService.like(request);
 
         List<PostLike> all = postLikeRepository.findAll();
 
