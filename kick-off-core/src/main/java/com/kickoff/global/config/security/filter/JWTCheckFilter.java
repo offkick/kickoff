@@ -13,6 +13,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -22,7 +23,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Component
 @Log4j2
-public class JWTCheckFilter {
+public class JWTCheckFilter extends OncePerRequestFilter {
     private final TokenProvider tokenProvider;
     private final CustomUserDetailsService customUserDetailsService;
 

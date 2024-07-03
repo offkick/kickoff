@@ -1,4 +1,4 @@
-package com.kickoff.global.config.security;
+package com.kickoff.global.config.security.handler;
 
 import com.google.gson.Gson;
 import jakarta.servlet.ServletException;

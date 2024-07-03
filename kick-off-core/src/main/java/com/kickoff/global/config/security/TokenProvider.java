@@ -1,6 +1,5 @@
 package com.kickoff.global.config.security;
 
-import com.kickoff.global.config.MemberDTO;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;

@@ -1,6 +1,7 @@
 package com.kickoff.global.config.security;
 
 import com.kickoff.global.config.security.filter.JWTCheckFilter;
+import com.kickoff.global.config.security.handler.CustomAccessDeniedHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;

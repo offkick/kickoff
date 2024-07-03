@@ -2,17 +2,19 @@ package com.kickoff.global.config.security;
 
 import com.kickoff.core.member.Member;
 import com.kickoff.core.member.MemberRepository;
-import com.kickoff.global.config.MemberDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
+
+import java.util.stream.Collectors;
 
 @Log4j2
 @RequiredArgsConstructor
 @Component
-public class CustomUserDetailsService {
+public class CustomUserDetailsService implements UserDetailsService {
     private final MemberRepository memberRepository;
 
     @Override
@@ -30,7 +32,10 @@ public class CustomUserDetailsService {
                 member.getEmail(),
                 member.getPassword(),
                 member.getNickName(),
-                member.getMemberId().toString()
+                member.getMemberId().toString(),
+                member.getMemberRoles().stream()
+                        .map(Enum::name)
+                        .collect(Collectors.toList())
         );
     }
 }
