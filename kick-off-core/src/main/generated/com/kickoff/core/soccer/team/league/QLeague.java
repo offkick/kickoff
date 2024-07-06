@@ -22,6 +22,8 @@ public class QLeague extends EntityPathBase<League> {
 
     public static final QLeague league = new QLeague("league");
 
+    public final StringPath emblem = createString("emblem");
+
     public final NumberPath<Long> leagueId = createNumber("leagueId", Long.class);
 
     public final StringPath leagueName = createString("leagueName");

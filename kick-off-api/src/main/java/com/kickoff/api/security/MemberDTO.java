@@ -1,4 +1,4 @@
-package com.kickoff.global.config.security;
+package com.kickoff.api.security;
 
 import com.kickoff.core.member.Member;
 import lombok.Getter;
@@ -6,10 +6,7 @@ import lombok.ToString;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @ToString
@@ -22,7 +19,7 @@ public class MemberDTO extends User {
     private String password;
 
     private String nickName;
-    private List<String> roleNames = new ArrayList<>();
+    private static List<String> roleNames = Arrays.asList("");
 
     public String getUsername()
     {
@@ -33,8 +30,7 @@ public class MemberDTO extends User {
             String email,
             String password,
             String nickName,
-            String memberId,
-            List<String> roleNames)
+            String memberId)
     {
         super(
                 email,
@@ -64,11 +60,11 @@ public class MemberDTO extends User {
                 member.getEmail(),
                 member.getPassword(),
                 member.getNickName(),
-                member.getMemberId().toString(),
-                member.getMemberRoles()
-                        .stream()
-                        .map(str -> "ROLE_" + str)
-                        .collect(Collectors.toList())
+                member.getMemberId().toString()
+//                member.getMemberRoles()
+//                        .stream()
+//                        .map(str -> "ROLE_" + str)
+//                        .collect(Collectors.toList())
         );
     }
 }

@@ -1,4 +1,4 @@
-package com.kickoff.global.config.security;
+package com.kickoff.api.security;
 
 public enum MemberRole {
     USER, ADMIN

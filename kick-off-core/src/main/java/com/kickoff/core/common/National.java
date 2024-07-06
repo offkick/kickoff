@@ -5,5 +5,14 @@ public enum National {
     ENGLAND,
     JAPAN,
     BRAZIL,
-
+    OTHER
+    ;
+    public static National of(String competition)
+    {
+        // PL -> ENGLAND
+        return switch (competition) {
+            case "PL" -> National.ENGLAND;
+            default -> National.OTHER;
+        };
+    }
 }

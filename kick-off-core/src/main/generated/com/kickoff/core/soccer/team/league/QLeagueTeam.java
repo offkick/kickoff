@@ -28,6 +28,8 @@ public class QLeagueTeam extends EntityPathBase<LeagueTeam> {
 
     public final StringPath leagueTeamName = createString("leagueTeamName");
 
+    public final StringPath logo = createString("logo");
+
     public final QSeason season;
 
     public final EnumPath<com.kickoff.core.soccer.team.TeamType> teamType = createEnum("teamType", com.kickoff.core.soccer.team.TeamType.class);

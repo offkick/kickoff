@@ -15,12 +15,12 @@ import org.springframework.context.annotation.Configuration;
 public class SwaggerConfig {
     @Bean
     public GroupedOpenApi kickoffOpenApi() {
-        String[] paths = {"/api/**"};
+        String[] paths = {"/**"};
 
         return GroupedOpenApi.builder()
                 .group("KICKOFF API v1")
                 .pathsToMatch(paths)
-                .pathsToExclude("/api/survey/**", "/init", "/api/search/soccer-player/**")
+                .pathsToExclude("/api/survey/**", "/init", "/api/search/soccer-player/**", "/**")
                 .build();
     }
 }

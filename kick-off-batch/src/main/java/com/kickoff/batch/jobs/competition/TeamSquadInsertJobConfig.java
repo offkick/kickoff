@@ -1,5 +1,6 @@
-package com.kickoff.batch.jobs.dailiysoccerschedule;
+package com.kickoff.batch.jobs.competition;
 
+import com.kickoff.batch.jobs.competition.service.DailyTeamSquadService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
@@ -20,21 +21,23 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 import java.util.concurrent.Executor;
 
+/**
+ * 리그 or 대회 팀 + 선수들을 업데이트한다.
+ */
 @Configuration
 @RequiredArgsConstructor
 @Slf4j
-public class DailyImportSoccerScheduleJobConfig {
-
+public class TeamSquadInsertJobConfig {
     private final PlatformTransactionManager platformTransactionManager;
-    private final SoccerScheduleService soccerScheduleService;
+    private final DailyTeamSquadService dailyTeamSquadService;
 
     @Bean
-    public Job dailyImportSoccerScheduleJob(JobRepository jobRepository)
+    public Job teamSquadInsertJob(JobRepository jobRepository)
     {
-        return new JobBuilder("dailyImportSoccerScheduleJob", jobRepository)
+        return new JobBuilder("teamSquadInsertJob", jobRepository)
                 .preventRestart()
                 .incrementer(new RunIdIncrementer())
-                .start(dailyImportSoccerScheduleStep(jobRepository))
+                .start(teamSquadInsertStep(jobRepository))
                 .build();
     }
 
@@ -51,9 +54,9 @@ public class DailyImportSoccerScheduleJobConfig {
     }
 
     @Bean
-    public Step dailyImportSoccerScheduleStep(JobRepository jobRepository)
+    public Step teamSquadInsertStep(JobRepository jobRepository)
     {
-        return new StepBuilder("dailyImportSoccerScheduleStep", jobRepository)
+        return new StepBuilder("teamSquadInsertStep", jobRepository)
                 .tasklet(dailyImportSoccerTasklet(), platformTransactionManager)
                 .build();
     }
@@ -63,13 +66,15 @@ public class DailyImportSoccerScheduleJobConfig {
     {
         return (contribution, chunkContext) ->
         {
+            log.info("[Start teamSquadInsertJob]");
             StepContext stepContext = StepSynchronizationManager.getContext();
             if (stepContext != null)
             {
                 JobParameters jobParameters = stepContext.getStepExecution().getJobParameters();
-                String target = jobParameters.getString("target");
-                log.info("[Start DailyImportSoccerTasklet]");
-                soccerScheduleService.competitionInsert(target);
+                String competition = jobParameters.getString("competition");
+                String year = jobParameters.getString("year");
+                log.info("[PARAMETER] year : {}, competition : {}", year, competition);
+                dailyTeamSquadService.insertTeamSquad(year, competition);
             }
             log.info("[End DailyImportSoccerTasklet]");
             return RepeatStatus.FINISHED;

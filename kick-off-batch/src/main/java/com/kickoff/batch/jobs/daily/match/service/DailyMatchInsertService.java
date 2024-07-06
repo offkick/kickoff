@@ -1,4 +1,4 @@
-package com.kickoff.batch.jobs.dailymatch;
+package com.kickoff.batch.jobs.daily.match.service;
 
 import com.kickoff.batch.config.feign.SoccerApiFeign;
 import com.kickoff.batch.config.feign.api.MatchResultResponse;
@@ -22,25 +22,27 @@ import java.time.format.DateTimeFormatter;
 @RequiredArgsConstructor
 @Transactional
 @Service
-public class MatchService {
+public class DailyMatchInsertService {
     private static final Integer DIFF_DAYS = 10;
-
     private final SoccerApiFeign soccerApiFeign;
     private final LeagueGameRepository leagueGameRepository;
     private final LeagueTeamRepository leagueTeamRepository;
 
-    // targetDateFrom : 2024-05-01
-    // targetDateTo : 2024-06-09
-    public void save(LocalDate targetDateFrom, LocalDate targetDateTo)
+    /**
+     * TODO ADD DESCRIPTION
+     * 경기 결과르 조회해서 경기 결과 업데이트 한다. [경기 스코어 홈 팀, 어웨이 팀]
+     * @param targetDateFrom
+     * @param targetDateTo
+     * @param competitions
+     */
+    public void insertMatch(LocalDate targetDateFrom, LocalDate targetDateTo, String competitions)
     {
         LocalDate currentDateTimeFrom = targetDateFrom;
 
         while (currentDateTimeFrom.isBefore(targetDateTo))
         {
-            log.info("!!!! : {}", currentDateTimeFrom);
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            MatchResultResponse matchResultResponse = soccerApiFeign.getMatchResultResponse("PL", currentDateTimeFrom.format(formatter), currentDateTimeFrom.plusDays(DIFF_DAYS).format(formatter));
-            log.info("Start currentDateTimeFrom : {}", currentDateTimeFrom);
+            MatchResultResponse matchResultResponse = soccerApiFeign.getMatchResultResponse(competitions, currentDateTimeFrom.format(formatter), currentDateTimeFrom.plusDays(DIFF_DAYS).format(formatter));
             for (MatchResultResponse.Match match : matchResultResponse.matches())
             {
                 String awayTeamName = match.awayTeam().name();
@@ -61,6 +63,7 @@ public class MatchService {
                         .awayScore(match.score().fullTime().away())
                         .homeScore(match.score().fullTime().home())
                         .build();
+
                 LeagueGame leagueGame = LeagueGame.builder()
                         .leagueGameStatus(LeagueGameStatus.END)
                         .away(awayTeam)
@@ -72,8 +75,10 @@ public class MatchService {
                 leagueGameRepository.save(leagueGame);
             }
 
+            // add Date parameter
             currentDateTimeFrom = currentDateTimeFrom.plusDays(10);
 
+            // 외부 API 시간당 제한 때문에 2초 sleep...
             try {
                 Thread.sleep(2000L);
             } catch (InterruptedException e) {

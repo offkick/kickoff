@@ -1,4 +1,4 @@
-package com.kickoff.global.config.security;
+package com.kickoff.api.security;
 
 import com.kickoff.core.member.Member;
 import com.kickoff.core.member.MemberRepository;
@@ -32,10 +32,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                 member.getEmail(),
                 member.getPassword(),
                 member.getNickName(),
-                member.getMemberId().toString(),
-                member.getMemberRoles().stream()
-                        .map(Enum::name)
-                        .collect(Collectors.toList())
+                member.getMemberId().toString()
         );
     }
 }

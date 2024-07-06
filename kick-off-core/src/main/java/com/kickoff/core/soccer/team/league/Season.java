@@ -8,6 +8,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.Year;
+
 @Entity
 @Getter
 @NoArgsConstructor
@@ -17,12 +19,13 @@ public class Season {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long seasonId;
 
-    // TODO : Pattern ==> 23-24
-    private String season;
+    // TODO ADD Converter
+    private Year year;
 
     @Builder
-    public Season(Long seasonId, String season) {
+    public Season(Long seasonId, Year year)
+    {
         this.seasonId = seasonId;
-        this.season = season;
+        this.year = year;
     }
 }

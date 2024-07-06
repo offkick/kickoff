@@ -1,7 +1,7 @@
-package com.kickoff.global.config.security;
+package com.kickoff.api.security;
 
-import com.kickoff.global.config.security.filter.JWTCheckFilter;
-import com.kickoff.global.config.security.handler.CustomAccessDeniedHandler;
+import com.kickoff.api.security.filter.JWTCheckFilter;
+import com.kickoff.api.security.handler.CustomAccessDeniedHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -37,16 +37,17 @@ public class CustomSecurityConfig {
     }
 
     @Bean
-    public WebSecurityCustomizer configure(){
+    public WebSecurityCustomizer configure()
+    {
         return (web) -> web.ignoring()
-//                .requestMatchers(toH2Console())
                 .requestMatchers(AntPathRequestMatcher.antMatcher("/static/**"))
                 .requestMatchers(AntPathRequestMatcher.antMatcher("/v3/**"))
                 .requestMatchers(AntPathRequestMatcher.antMatcher("/login"))
                 .requestMatchers(AntPathRequestMatcher.antMatcher("/signup"))
-                .requestMatchers(AntPathRequestMatcher.antMatcher("/swagger-ui/**"))
+                .requestMatchers(AntPathRequestMatcher.antMatcher("/swagger-ui"))
                 ;
     }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception{
         log.info("---- security config -----");

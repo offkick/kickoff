@@ -1,5 +1,6 @@
-package com.kickoff.batch.jobs.dailymatch;
+package com.kickoff.batch.jobs.daily.match;
 
+import com.kickoff.batch.jobs.daily.match.service.DailyMatchInsertService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
@@ -20,12 +21,16 @@ import org.springframework.transaction.PlatformTransactionManager;
 import java.time.LocalDate;
 import java.util.Objects;
 
+/**
+ * 일 단위로 경기 리스트를 조회해서 경기 + 팀 정보를 업데이트 한다.
+ */
 @Slf4j
 @RequiredArgsConstructor
 @Configuration
 public class DailyMatchInsertJobConfig {
     private final PlatformTransactionManager platformTransactionManager;
-    private final MatchService matchService;
+    private final DailyMatchInsertService dailyMatchInsertService;
+
     @Bean
     public Job dailyMatchInsertJob(JobRepository jobRepository)
     {
@@ -45,8 +50,7 @@ public class DailyMatchInsertJobConfig {
     }
 
     @Bean
-    public Tasklet dailyMatchInsertTasklet()
-    {
+    public Tasklet dailyMatchInsertTasklet() {
         return (contribution, chunkContext) ->
         {
             log.info("[Start dailyMatchInsertTasklet]");
@@ -56,8 +60,9 @@ public class DailyMatchInsertJobConfig {
                 JobParameters jobParameters = stepContext.getStepExecution().getJobParameters();
                 LocalDate targetDateFrom = jobParameters.getString("targetDateFrom") == null ? LocalDate.now() : LocalDate.parse(Objects.requireNonNull(jobParameters.getString("targetDateFrom")));
                 LocalDate targetDateTo = jobParameters.getString("targetDateTo")  == null ? LocalDate.now() : LocalDate.parse(Objects.requireNonNull(jobParameters.getString("targetDateTo")));
-                log.info("Input Parameter targetDateFrom : {}, targetDateTo : {}", targetDateFrom, targetDateTo);
-                matchService.save(targetDateFrom, targetDateTo);
+                String competitions = jobParameters.getString("competitions")  == null ? "PL" : jobParameters.getString("competitions");
+                log.info("Input Parameter targetDateFrom : {}, targetDateTo : {}, competitions :{}", targetDateFrom, targetDateTo, competitions);
+                dailyMatchInsertService.insertMatch(targetDateFrom, targetDateTo, competitions);
             }
             log.info("[End DailyImportSoccerTasklet]");
             return RepeatStatus.FINISHED;

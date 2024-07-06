@@ -17,11 +17,11 @@ public class QSeason extends EntityPathBase<Season> {
 
     private static final long serialVersionUID = -1784735975L;
 
-    public static final QSeason season1 = new QSeason("season1");
-
-    public final StringPath season = createString("season");
+    public static final QSeason season = new QSeason("season");
 
     public final NumberPath<Long> seasonId = createNumber("seasonId", Long.class);
+
+    public final ComparablePath<java.time.Year> year = createComparable("year", java.time.Year.class);
 
     public QSeason(String variable) {
         super(Season.class, forVariable(variable));

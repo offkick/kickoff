@@ -1,6 +1,6 @@
 package com.kickoff.batch.jobs.initial;
 
-import com.kickoff.batch.jobs.dailiysoccerschedule.SoccerScheduleService;
+import com.kickoff.batch.jobs.competition.service.DailyTeamSquadService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
@@ -18,13 +18,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import java.time.LocalDate;
+import java.util.Objects;
+
 
 @Slf4j
 @RequiredArgsConstructor
 @Configuration
 public class InitialPlayerInsertJobConfig {
 
-    private final SoccerScheduleService soccerScheduleService;
+    private final DailyTeamSquadService dailyTeamSquadService;
     private final PlatformTransactionManager platformTransactionManager;
 
     @Bean
@@ -49,15 +52,16 @@ public class InitialPlayerInsertJobConfig {
     public Tasklet competitionInsertTasklet()
     {
         return (contribution, chunkContext) -> {
+            log.info("start competitionInsertJob");
             StepContext stepContext = StepSynchronizationManager.getContext();
-            String target = null;
 
             if (stepContext != null)
             {
                 JobParameters jobParameters = stepContext.getStepExecution().getJobParameters();
-                target = jobParameters.getString("target");
-                log.info("start competitionInsertTasklet... {}", target);
-                soccerScheduleService.competitionInsert(target);
+                String year = jobParameters.getString("year");
+                String competition = jobParameters.getString("competition");
+                log.info("[PARAMETER] year : {}, competition : {}", year, competition);
+                dailyTeamSquadService.insertTeamSquad(year, competition);
             }
             else {
                 log.info("target parameter is null");

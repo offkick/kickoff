@@ -10,14 +10,31 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient(value = "soccerApi", url = "https://api.football-data.org", configuration = FeignCustomConfig.class)
 public interface SoccerApiFeign {
+    /**
+     *
+     * @param competition
+     * @return
+     */
+    @GetMapping("/v4/competitions/{competition}/matches")
+    MatchesFeignResponse getLatestClMatch(@PathVariable(value = "competition") String competition);
 
-    @GetMapping("/v4/competitions/CL/matches")
-    MatchesFeignResponse getLatestClMatch();
-
+    /**
+     *
+     * @param competition
+     * @param season
+     * @return
+     */
     @GetMapping("/v4/competitions/{competition}/teams")
     CompetitionTeamsResponse getCompetitionTeams(@PathVariable(value = "competition") String competition,
                                                  @RequestParam(required = true, name = "season") String season);
 
+    /**
+     * 매치를 조회 한다.
+     * @param competitions 대회 이름 ex : PL(프리미어리그), CL(챔피언스리그)
+     * @param dateFrom 경기 시작 파라미터
+     * @param dateTo 경기 끝 파라미터
+     * @return 해당 날짜에 해당 되는 대회의 모든 경기 리스트
+     */
     @GetMapping("/v4/matches")
     MatchResultResponse getMatchResultResponse(
             @RequestParam(name = "competitions") String competitions,

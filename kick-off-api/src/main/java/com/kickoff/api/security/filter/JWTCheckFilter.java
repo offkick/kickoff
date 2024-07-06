@@ -1,8 +1,8 @@
-package com.kickoff.global.config.security.filter;
+package com.kickoff.api.security.filter;
 
 import com.google.gson.Gson;
-import com.kickoff.global.config.security.CustomUserDetailsService;
-import com.kickoff.global.config.security.TokenProvider;
+import com.kickoff.api.security.CustomUserDetailsService;
+import com.kickoff.api.security.TokenProvider;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -40,7 +40,8 @@ public class JWTCheckFilter extends OncePerRequestFilter {
                 "/api/post/search",
                 "/api/post",
                 "/images/",
-                "/api/image/post/"
+                "/api/image/post/",
+                "/api/**",
         };
 
         String path = request.getRequestURI();

@@ -30,17 +30,20 @@ public class LeagueTeam {
     @JoinColumn(name = "season_id")
     private Season season;
 
+    private String logo;
     @Builder
     public LeagueTeam(
             Long leagueTeamId,
             String leagueTeamName,
             TeamType teamType,
+            String logo,
             League league,
             Season season) {
         this.leagueTeamId = leagueTeamId;
         this.leagueTeamName = leagueTeamName;
         this.teamType = teamType;
         this.league = league;
+        this.logo = logo;
         this.season = season;
     }
 }

@@ -19,6 +19,7 @@ public class League {
     @Enumerated(EnumType.STRING)
     private National national;
 
+    private String emblem;
     private String tier;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -31,11 +32,13 @@ public class League {
             String leagueName,
             National national,
             String tier,
+            String emblem,
             Season season) {
         this.leagueId = leagueId;
         this.leagueName = leagueName;
         this.national = national;
         this.tier = tier;
         this.season = season;
+        this.emblem = emblem;
     }
 }
