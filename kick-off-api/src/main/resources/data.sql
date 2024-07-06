@@ -1,4 +1,4 @@
-INSERT INTO season (year, season_id) VALUES ('2023', 1);
+INSERT INTO season (season_id, year) VALUES (1, '2023');
 INSERT INTO league (league_id, season_id, emblem, league_name, national, tier) VALUES (1, 1, 'https://crests.football-data.org/PL.png', 'PL', 'ENGLAND', null);
 INSERT INTO league_team (league_id, league_team_id, season_id, league_team_name, logo, team_type) VALUES (1, 1, 1, 'Arsenal FC', 'https://crests.football-data.org/57.png', 'LEAGUE');
 INSERT INTO league_team (league_id, league_team_id, season_id, league_team_name, logo, team_type) VALUES (1, 2, 1, 'Aston Villa FC', 'https://crests.football-data.org/58.png', 'LEAGUE');
