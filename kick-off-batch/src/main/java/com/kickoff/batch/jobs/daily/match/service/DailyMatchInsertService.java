@@ -76,7 +76,7 @@ public class DailyMatchInsertService {
             }
 
             // add Date parameter
-            currentDateTimeFrom = currentDateTimeFrom.plusDays(10);
+            currentDateTimeFrom = currentDateTimeFrom.plusDays(DIFF_DAYS);
 
             // 외부 API 시간당 제한 때문에 2초 sleep...
             try {

@@ -31,6 +31,7 @@ public class LeagueTeam {
     private Season season;
 
     private String logo;
+
     @Builder
     public LeagueTeam(
             Long leagueTeamId,
