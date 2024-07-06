@@ -21,7 +21,7 @@ public class QSeason extends EntityPathBase<Season> {
 
     public final NumberPath<Long> seasonId = createNumber("seasonId", Long.class);
 
-    public final StringPath year = createString("year");
+    public final StringPath years = createString("years");
 
     public QSeason(String variable) {
         super(Season.class, forVariable(variable));
