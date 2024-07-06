@@ -23,7 +23,9 @@ public record DateLeagueGameResponse(
             String homeTeamName,
             String awayTeamName,
             String homeScore,
-            String awayScore
+            String awayScore,
+            String homeLogo,
+            String awayLogo
     ) {
         public static LeagueGameResponse of(LeagueGame leagueGame)
         {
@@ -32,7 +34,9 @@ public record DateLeagueGameResponse(
                     leagueGame.getHome().getLeagueTeamName(),
                     leagueGame.getAway().getLeagueTeamName(),
                     leagueGame.getScore().getHomeScore(),
-                    leagueGame.getScore().getAwayScore()
+                    leagueGame.getScore().getAwayScore(),
+                    leagueGame.getHome().getLogo(),
+                    leagueGame.getAway().getLogo()
             );
         }
     }
