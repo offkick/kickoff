@@ -12,8 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Year;
-
 
 @Transactional
 @RequiredArgsConstructor
@@ -29,7 +27,7 @@ public class DailyTeamSquadService {
     {
         CompetitionTeamsResponse competitionTeams = soccerApiFeign.getCompetitionTeams(competition, year);
 
-        Season season = seasonRepository.findByYear(year).orElse(Season.builder().year(year).build());
+        Season season = seasonRepository.findByYears(year).orElse(Season.builder().year(year).build());
         seasonRepository.save(season);
 
         League league = League.builder()
