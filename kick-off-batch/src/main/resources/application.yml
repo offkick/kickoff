@@ -4,6 +4,6 @@ spring:
     include: core
   batch:
     job:
-      name: teamSquadInsertJob
+      name: dailyMatchInsertJob
     jdbc:
       initialize-schema: always

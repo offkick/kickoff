@@ -19,10 +19,6 @@ public class Member {
     private String nickName;
     private String password;
 
-//    @ElementCollection(fetch = FetchType.LAZY)
-//    @CollectionTable(name = "member_roles_mapping", joinColumns = @JoinColumn(name = "member_id"))
-//    private List<MemberRole> memberRoles = new ArrayList<>();
-
     @Builder
     public Member(Long memberId, String email, String nickName, String password) {
         this.memberId = memberId;

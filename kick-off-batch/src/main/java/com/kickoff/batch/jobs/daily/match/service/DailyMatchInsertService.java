@@ -5,6 +5,8 @@ import com.kickoff.batch.config.feign.api.MatchResultResponse;
 import com.kickoff.core.soccer.team.Score;
 import com.kickoff.core.soccer.team.league.LeagueTeam;
 import com.kickoff.core.soccer.team.league.LeagueTeamRepository;
+import com.kickoff.core.soccer.team.league.Season;
+import com.kickoff.core.soccer.team.league.SeasonRepository;
 import com.kickoff.core.soccer.team.league.game.LeagueGame;
 import com.kickoff.core.soccer.team.league.game.LeagueGameRepository;
 import com.kickoff.core.soccer.team.league.game.LeagueGameStatus;
@@ -13,9 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 
 @Slf4j
@@ -27,6 +27,7 @@ public class DailyMatchInsertService {
     private final SoccerApiFeign soccerApiFeign;
     private final LeagueGameRepository leagueGameRepository;
     private final LeagueTeamRepository leagueTeamRepository;
+    private final SeasonRepository seasonRepository;
 
     /**
      * TODO ADD DESCRIPTION
@@ -38,7 +39,10 @@ public class DailyMatchInsertService {
     public void insertMatch(LocalDate targetDateFrom, LocalDate targetDateTo, String competitions)
     {
         LocalDate currentDateTimeFrom = targetDateFrom;
+        Season season = seasonRepository.findByYear(Year.parse("2023"))
+                .orElse(Season.builder().year(Year.parse("2023")).build());
 
+        seasonRepository.save(season);
         while (currentDateTimeFrom.isBefore(targetDateTo))
         {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -63,12 +67,17 @@ public class DailyMatchInsertService {
                         .awayScore(match.score().fullTime().away())
                         .homeScore(match.score().fullTime().home())
                         .build();
+                System.out.println("a = " + match.utcDate());
+
+                Instant instant = match.utcDate().toInstant();
+                LocalDateTime gameDate = instant.atZone(ZoneId.systemDefault()).toLocalDateTime();
 
                 LeagueGame leagueGame = LeagueGame.builder()
                         .leagueGameStatus(LeagueGameStatus.END)
                         .away(awayTeam)
+                        .season(season)
                         .home(homeTeam)
-                        .gameDate(LocalDateTime.ofInstant(match.utcDate().toInstant(), ZoneId.systemDefault()))
+                        .gameDate(gameDate)
                         .score(score)
                         .build();
 
@@ -80,7 +89,7 @@ public class DailyMatchInsertService {
 
             // 외부 API 시간당 제한 때문에 2초 sleep...
             try {
-                Thread.sleep(2000L);
+                Thread.sleep(5000L);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

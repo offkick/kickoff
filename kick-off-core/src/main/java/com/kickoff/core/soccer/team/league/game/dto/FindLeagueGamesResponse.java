@@ -17,13 +17,15 @@ import java.util.stream.Collectors;
 public record FindLeagueGamesResponse(
         List<FindLeagueGames> findLeagueGames,
         int totalPages,
-        long totalElements
+        long totalElements,
+        String leagueName
 ) {
     public static FindLeagueGamesResponse of(Page<LeagueGame> leagueGames)
     {
         List<FindLeagueGames> findLeagueGames = leagueGames.stream()
                 .map(FindLeagueGames::from)
                 .collect(Collectors.toList());
+
         return FindLeagueGamesResponse.builder()
                 .findLeagueGames(findLeagueGames)
                 .totalElements(leagueGames.getTotalElements())
@@ -31,6 +33,7 @@ public record FindLeagueGamesResponse(
                 .build();
 
     }
+    // TODO Entity 제거
     public record FindLeagueGames(
             Long leagueGameId,
             LocalDateTime gameDate,

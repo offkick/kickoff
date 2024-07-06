@@ -25,8 +25,9 @@ public interface SoccerApiFeign {
      * @return
      */
     @GetMapping("/v4/competitions/{competition}/teams")
-    CompetitionTeamsResponse getCompetitionTeams(@PathVariable(value = "competition") String competition,
-                                                 @RequestParam(required = true, name = "season") String season);
+    CompetitionTeamsResponse getCompetitionTeams(
+            @PathVariable(value = "competition") String competition,
+            @RequestParam(name = "season") String season);
 
     /**
      * 매치를 조회 한다.
