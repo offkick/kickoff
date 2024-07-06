@@ -29,8 +29,7 @@ public class DailyTeamSquadService {
     {
         CompetitionTeamsResponse competitionTeams = soccerApiFeign.getCompetitionTeams(competition, year);
 
-        Year parsedYear = Year.parse(year);
-        Season season = seasonRepository.findByYear(parsedYear).orElse(Season.builder().year(parsedYear).build());
+        Season season = seasonRepository.findByYear(year).orElse(Season.builder().year(year).build());
         seasonRepository.save(season);
 
         League league = League.builder()

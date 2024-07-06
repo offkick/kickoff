@@ -39,8 +39,8 @@ public class DailyMatchInsertService {
     public void insertMatch(LocalDate targetDateFrom, LocalDate targetDateTo, String competitions)
     {
         LocalDate currentDateTimeFrom = targetDateFrom;
-        Season season = seasonRepository.findByYear(Year.parse("2023"))
-                .orElse(Season.builder().year(Year.parse("2023")).build());
+        Season season = seasonRepository.findByYear("2023")
+                .orElse(Season.builder().year("2023").build());
 
         seasonRepository.save(season);
         while (currentDateTimeFrom.isBefore(targetDateTo))

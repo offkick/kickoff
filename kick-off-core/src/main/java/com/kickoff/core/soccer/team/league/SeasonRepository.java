@@ -6,5 +6,5 @@ import java.time.Year;
 import java.util.Optional;
 
 public interface SeasonRepository extends JpaRepository<Season,Long> {
-    Optional<Season> findByYear(Year year);
+    Optional<Season> findByYear(String year);
 }

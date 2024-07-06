@@ -19,11 +19,10 @@ public class Season {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long seasonId;
 
-    // TODO ADD Converter
-    private Year year;
+    private String year;
 
     @Builder
-    public Season(Long seasonId, Year year)
+    public Season(Long seasonId, String year)
     {
         this.seasonId = seasonId;
         this.year = year;
