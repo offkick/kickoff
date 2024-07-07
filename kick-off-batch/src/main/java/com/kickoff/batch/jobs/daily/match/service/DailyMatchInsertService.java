@@ -40,7 +40,7 @@ public class DailyMatchInsertService {
     {
         LocalDate currentDateTimeFrom = targetDateFrom;
         Season season = seasonRepository.findByYears("2023")
-                .orElse(Season.builder().year("2023").build());
+                .orElse(Season.builder().years("2023").build());
 
         seasonRepository.save(season);
         while (currentDateTimeFrom.isBefore(targetDateTo))
