@@ -33,6 +33,7 @@ public record FindLeagueGamesResponse(
                 .build();
 
     }
+
     // TODO Entity 제거
     public record FindLeagueGames(
             Long leagueGameId,

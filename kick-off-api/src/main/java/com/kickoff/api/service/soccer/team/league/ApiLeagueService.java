@@ -27,7 +27,8 @@ public class ApiLeagueService {
         return leagueRepository.save(league).getLeagueId();
     }
 
-    public List<FindLeagueResponseDto> findAllLeagues() {
+    public List<FindLeagueResponseDto> findAllLeagues()
+    {
         List<League> leagues = leagueRepository.findAll();
         return leagues.stream()
                 .map(FindLeagueResponseDto::from)

@@ -10,21 +10,23 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
-public record FindLeagueGamePlayerResponse(
-        List<LeagueGamePlayerResponse> responses
-
-){
-    public static FindLeagueGamePlayerResponse of(List<LeagueGame> leagueGames) {
+public record FindLeagueGamePlayerResponse(List<LeagueGamePlayerResponse> responses) {
+    public static FindLeagueGamePlayerResponse of(List<LeagueGame> leagueGames)
+    {
         List<LeagueGamePlayerResponse> leagueGamePlayerResponses = leagueGames.stream()
                 .map(LeagueGamePlayerResponse::of)
                 .collect(Collectors.toList());
+
         return new FindLeagueGamePlayerResponse(leagueGamePlayerResponses);
     }
-    public static FindLeagueGamePlayerResponse from(LeagueGame leagueGame) {
+
+    public static FindLeagueGamePlayerResponse from(LeagueGame leagueGame)
+    {
         return new FindLeagueGamePlayerResponse(
                 List.of(LeagueGamePlayerResponse.of(leagueGame))
         );
     }
+
     public record LeagueGamePlayerResponse(
             Long leagueGameId,
             LocalDateTime gameDate,
@@ -34,10 +36,11 @@ public record FindLeagueGamePlayerResponse(
             Score score,
             LeagueGameStatus leagueGameStatus,
             Season season,
+            // TODO inner DTO
             List<GamePlayer> homePlayers,
             List<GamePlayer> awayPlayers
 
-    ){
+    ) {
         public static LeagueGamePlayerResponse of(LeagueGame leagueGame){
             List<GamePlayer> homePlayers = leagueGame.getHomePlayers().stream()
                     .map(player -> new GamePlayer(

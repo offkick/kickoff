@@ -61,4 +61,7 @@ public class LeagueGameController {
     {
         return apiLeagueGameFindService.findLeagueGameByDate(LocalDate.parse(targetDate));
     }
+
+    // season(string) ex: 2024, month(input) : 2024-04  --> 2024-04-01 2024-04-31
+    // TODO 특정 월 & season 게임 조회 API
 }
