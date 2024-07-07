@@ -2,10 +2,19 @@ package com.kickoff.core.config;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;
+import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+
+import java.util.List;
+
 @OpenAPIDefinition(
         info = @Info(title = "Kick Off",
                 description = "kick off api명세",
@@ -13,14 +22,41 @@ import org.springframework.context.annotation.Configuration;
 @RequiredArgsConstructor
 @Configuration
 public class SwaggerConfig {
+
     @Bean
     public GroupedOpenApi kickoffOpenApi() {
         String[] paths = {"/api/**"};
 
         return GroupedOpenApi.builder()
-                .group("KICKOFF API v1")
+                .group("kick-off")
                 .pathsToMatch(paths)
-                .pathsToExclude("/api/survey/**", "/init", "/api/search/soccer-player/**")
+                .pathsToExclude(
+                        "/api/survey/**",
+                        "/api/search/soccer-player/**",
+                        "/swagger-resources/**",
+                        "/api/swagger-config",
+                        "/swagger-ui.html",
+                        "/api-docs",
+                        "/webjars/**")
                 .build();
     }
+
+    @Bean
+    public OpenAPI api()
+    {
+        SecurityScheme apiKey = new SecurityScheme()
+                .type(SecurityScheme.Type.APIKEY)
+                .in(SecurityScheme.In.HEADER)
+                .name("Authorization")
+                .scheme("Bearer")
+                .bearerFormat("JWT");
+
+        SecurityRequirement securityRequirement = new SecurityRequirement()
+                .addList("Bearer Token");
+
+        return new OpenAPI()
+                .components(new Components().addSecuritySchemes("Bearer Token", apiKey))
+                .addSecurityItem(securityRequirement);
+    }
+
 }

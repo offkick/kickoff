@@ -111,7 +111,7 @@ public class LeagueGameQuerydslRepositoryTest {
 
         Season season = seasonRepository.save(
                 Season.builder()
-                        .season("22-23")
+                        .years("2023")
                         .build()
         );
 
@@ -178,9 +178,7 @@ public class LeagueGameQuerydslRepositoryTest {
         LocalDate endDate = LocalDate.of(2024, 12, 10);
         Long leagueGameId = leagueGame.getLeagueGameId();
         GameSearchCondition condition = new GameSearchCondition(startDate, endDate, league.getLeagueId());
-        System.out.println(condition.leagueId());
 //        List<LeagueGame> content = leagueGameRepositoryImpl.searchGame(condition, PageRequest.of(0, 10)).getContent();
-//        System.out.println(content.size());
 //        assertEquals(1,content.size());
     }
 

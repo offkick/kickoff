@@ -67,7 +67,6 @@ public class DailyMatchInsertService {
                         .awayScore(match.score().fullTime().away())
                         .homeScore(match.score().fullTime().home())
                         .build();
-                System.out.println("a = " + match.utcDate());
 
                 Instant instant = match.utcDate().toInstant();
                 LocalDateTime gameDate = instant.atZone(ZoneId.systemDefault()).toLocalDateTime();

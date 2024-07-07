@@ -1,14 +1,15 @@
 spring:
-  datasource:
-    url: jdbc:h2:~/KickOffApplication
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
 #  datasource:
-#    url: jdbc:mysql://localhost:3306/kick_off?createDatabaseIfNotExist=true
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    username: root
+#    url: jdbc:h2:~/KickOffApplication
+#    driver-class-name: org.h2.Driver
+#    username: sa
 #    password:
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/kick_off?createDatabaseIfNotExist=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password:
   jpa:
     hibernate:
       ddl-auto: create
@@ -28,9 +29,9 @@ springdoc:
     display-request-duration: true
   api-docs:
     path: /api-docs
+    enabled: true
   show-actuator: true
   default-consumes-media-type: application/json
   default-produces-media-type: application/json
   paths-to-match:
     - /**
-

@@ -7,6 +7,7 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -22,6 +23,8 @@ public class QMember extends EntityPathBase<Member> {
     public final StringPath email = createString("email");
 
     public final NumberPath<Long> memberId = createNumber("memberId", Long.class);
+
+    public final ListPath<com.kickoff.global.config.security.MemberRole, EnumPath<com.kickoff.global.config.security.MemberRole>> memberRoles = this.<com.kickoff.global.config.security.MemberRole, EnumPath<com.kickoff.global.config.security.MemberRole>>createList("memberRoles", com.kickoff.global.config.security.MemberRole.class, EnumPath.class, PathInits.DIRECT2);
 
     public final StringPath nickName = createString("nickName");
 

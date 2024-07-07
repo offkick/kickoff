@@ -1,5 +1,6 @@
 package com.kickoff.core.member;
 
+import com.kickoff.global.config.security.MemberRole;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,6 +19,10 @@ public class Member {
     private String email;
     private String nickName;
     private String password;
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(name = "member_roles_mapping", joinColumns = @JoinColumn(name = "member_id"))
+    private List<MemberRole> memberRoles = new ArrayList<>();
 
     @Builder
     public Member(Long memberId, String email, String nickName, String password) {

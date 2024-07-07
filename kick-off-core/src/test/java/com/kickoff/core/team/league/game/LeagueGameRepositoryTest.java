@@ -96,7 +96,7 @@ public class LeagueGameRepositoryTest {
 
         Season season = seasonRepository.save(
                 Season.builder()
-                        .season("22-23")
+                        .years("2023")
                         .build()
         );
 
