@@ -3,7 +3,9 @@ package com.kickoff.api.controller.team.league.game;
 
 import com.kickoff.api.controller.team.league.dto.DateLeagueGameResponse;
 import com.kickoff.api.controller.team.league.dto.FindLeagueGamePlayerResponse;
+import com.kickoff.api.controller.team.league.dto.SeasonLeagueGameResponse;
 import com.kickoff.api.service.soccer.team.league.game.ApiLeagueGameFindService;
+import com.kickoff.core.soccer.team.league.Season;
 import com.kickoff.core.soccer.team.league.game.LeagueGameQuerydslRepository;
 import com.kickoff.core.soccer.team.league.game.dto.FindGameCond;
 import com.kickoff.core.soccer.team.league.game.dto.FindLeagueGamesResponse;
@@ -16,6 +18,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
 
 @Tag(name = "리그 게임 컨트롤러", description = "리그 게임 관련 리소스 검색/변경")
 @Slf4j
@@ -64,4 +67,11 @@ public class LeagueGameController {
 
     // season(string) ex: 2024, month(input) : 2024-04  --> 2024-04-01 2024-04-31
     // TODO 특정 월 & season 게임 조회 API
+    @GetMapping("/league/{leagueId}/yearmonth/{yearMonth}")
+    public SeasonLeagueGameResponse findLeagueGameBySeason(@PathVariable Long leagueId, @PathVariable String yearMonth)
+    {
+        YearMonth yearMonth1 = YearMonth.parse(yearMonth);
+        return apiLeagueGameFindService.findLeagueGameBySeason(leagueId,yearMonth1);
+    }
+
 }
