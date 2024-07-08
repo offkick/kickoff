@@ -68,7 +68,6 @@ public class LeagueGameController {
     @GetMapping("/league/{leagueId}/{yearMonth}")
     public SeasonLeagueGameResponse findLeagueGameBySeason(@PathVariable Long leagueId, @PathVariable String yearMonth)
     {
-        YearMonth yearMonth1 = YearMonth.parse(yearMonth);
-        return apiLeagueGameFindService.findLeagueGameBySeason(leagueId,yearMonth1);
+        return apiLeagueGameFindService.findLeagueGameBySeason(leagueId,YearMonth.parse(yearMonth));
     }
 }
