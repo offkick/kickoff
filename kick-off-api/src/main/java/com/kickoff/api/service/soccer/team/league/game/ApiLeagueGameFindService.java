@@ -2,15 +2,19 @@ package com.kickoff.api.service.soccer.team.league.game;
 
 import com.kickoff.api.controller.team.league.dto.DateLeagueGameResponse;
 import com.kickoff.api.controller.team.league.dto.FindLeagueGamePlayerResponse;
+import com.kickoff.api.controller.team.league.dto.SeasonLeagueGameResponse;
 import com.kickoff.core.soccer.team.league.game.LeagueGame;
 import com.kickoff.core.soccer.team.league.game.LeagueGameRepository;
 import com.kickoff.core.soccer.team.league.service.LeagueGameService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.YearMonth;
 import java.util.List;
 
 /**
@@ -38,5 +42,14 @@ public class ApiLeagueGameFindService {
                 date.atTime(endTime)
         );
         return DateLeagueGameResponse.of(leagueGames);
+    }
+
+    public SeasonLeagueGameResponse findLeagueGameBySeason(Long leagueId, YearMonth yearMonth)
+    {
+        LocalDateTime startDateTime = yearMonth.atDay(1).atStartOfDay();
+        LocalDateTime endDateTime = yearMonth.atEndOfMonth().atTime(23, 59, 59);
+        List<LeagueGame> leagueGameList = leagueGameRepository.findBySeasonBetween(leagueId, startDateTime, endDateTime);
+
+        return SeasonLeagueGameResponse.of(leagueGameList);
     }
 }
