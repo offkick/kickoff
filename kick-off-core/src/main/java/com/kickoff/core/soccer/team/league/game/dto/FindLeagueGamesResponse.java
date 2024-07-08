@@ -1,11 +1,12 @@
 package com.kickoff.core.soccer.team.league.game.dto;
 
+import com.kickoff.core.soccer.player.PlayerPosition;
 import com.kickoff.core.soccer.team.Score;
-import com.kickoff.core.soccer.team.league.LeagueTeam;
+import com.kickoff.core.soccer.team.TeamType;
 import com.kickoff.core.soccer.team.league.Season;
 import com.kickoff.core.soccer.team.league.game.LeagueGame;
 import com.kickoff.core.soccer.team.league.game.LeagueGameStatus;
-import com.kickoff.core.soccer.team.league.game.player.LeagueGamePlayer;
+import com.kickoff.core.soccer.team.league.game.player.LeagueGamePlayerStatus;
 import lombok.Builder;
 import org.springframework.data.domain.Page;
 
@@ -34,32 +35,71 @@ public record FindLeagueGamesResponse(
 
     }
 
-    // TODO Entity 제거
+    public record LeagueTeamDTO(
+            Long leagueTeamId,
+            String leagueTeamName,
+            TeamType teamType,
+            String league,
+            String season,
+            String logo
+    ) {
+        public static LeagueTeamDTO of(com.kickoff.core.soccer.team.league.LeagueTeam leagueTeam)
+        {
+            return new LeagueTeamDTO(
+                    leagueTeam.getLeagueTeamId(),
+                    leagueTeam.getLeagueTeamName(),
+                    leagueTeam.getTeamType(),
+                    leagueTeam.getLeague().getLeagueName(),
+                    leagueTeam.getSeason().getYears(),
+                    leagueTeam.getLogo()
+            );
+        }
+    }
+
+    public record PlayerDTO(
+            Long playerId,
+            String national,
+            String playerName,
+            PlayerPosition position,
+            LeagueTeamDTO leagueTeam,
+            String birth,
+            String season
+    ) {}
+
+    public record LeagueGamePlayerDTO(
+            Long LeagueGamePlayerId,
+            LeagueGamePlayerStatus status,
+            int playedTime,
+            int subTime,
+            PlayerPosition position,
+            PlayerDTO player
+    ) {}
+
     public record FindLeagueGames(
             Long leagueGameId,
             LocalDateTime gameDate,
             int count,
-            LeagueTeam away,
-            LeagueTeam home,
+            LeagueTeamDTO away,
+            LeagueTeamDTO home,
             Score score,
             LeagueGameStatus leagueGameStatus,
             Season season,
-            List<LeagueGamePlayer> homePlayers,
-            List<LeagueGamePlayer> awayPlayers
-    ){
+            List<LeagueGamePlayerDTO> homePlayers,
+            List<LeagueGamePlayerDTO> awayPlayers
+    ) {
         public static FindLeagueGames from(LeagueGame leagueGame)
         {
             return new FindLeagueGames(
                     leagueGame.getLeagueGameId(),
                     leagueGame.getGameDate(),
                     leagueGame.getCount(),
-                    leagueGame.getAway(),
-                    leagueGame.getHome(),
+                    LeagueTeamDTO.of(leagueGame.getAway()),
+                    LeagueTeamDTO.of(leagueGame.getHome()),
                     leagueGame.getScore(),
                     leagueGame.getLeagueGameStatus(),
                     leagueGame.getSeason(),
-                    leagueGame.getHomePlayers(),
-                    leagueGame.getAwayPlayers()
+                    null,
+                    null
             );
         }
     }

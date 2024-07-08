@@ -29,7 +29,7 @@ public class PlayerService {
 
     public Long save(CreatePlayerRequest request)
     {
-        LeagueTeam leagueTeam = leagueTeamRepository.findById(request.leagueTeamId()).orElseThrow(() -> new EntityNotFoundException());
+        LeagueTeam leagueTeam = leagueTeamRepository.findById(request.leagueTeamId()).orElseThrow(EntityNotFoundException::new);
 
         Player player = Player.builder()
                 .playerName(request.playerName())
@@ -47,7 +47,7 @@ public class PlayerService {
 
     public Player findPlayerById(Long playerId)
     {
-        return playerQuerydslRepository.findPlayer(playerId).orElseThrow((() -> new EntityNotFoundException()));
+        return playerQuerydslRepository.findPlayer(playerId).orElseThrow(EntityNotFoundException::new);
     }
 
     public List<FindPlayerResponse> findPlayer(String playerName, String national, Long leagueTeamId)
@@ -62,7 +62,7 @@ public class PlayerService {
 
     public FindPlayerResponse findPlayers(Long playerId)
     {
-        Player player = playerRepository.findById(playerId).orElseThrow(()->new EntityNotFoundException());
+        Player player = playerRepository.findById(playerId).orElseThrow(EntityNotFoundException::new);
         return FindPlayerResponse.from(player);
     }
 }

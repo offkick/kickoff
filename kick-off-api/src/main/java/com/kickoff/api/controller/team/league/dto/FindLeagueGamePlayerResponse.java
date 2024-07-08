@@ -1,5 +1,6 @@
 package com.kickoff.api.controller.team.league.dto;
 
+import com.kickoff.core.soccer.player.PlayerPosition;
 import com.kickoff.core.soccer.team.Score;
 import com.kickoff.core.soccer.team.league.Season;
 import com.kickoff.core.soccer.team.league.game.LeagueGame;
@@ -27,6 +28,13 @@ public record FindLeagueGamePlayerResponse(List<LeagueGamePlayerResponse> respon
         );
     }
 
+    public record GamePlayer(
+            String name,
+            int playedTime,
+            int subTime,
+            PlayerPosition position
+    ) {}
+
     public record LeagueGamePlayerResponse(
             Long leagueGameId,
             LocalDateTime gameDate,
@@ -36,10 +44,8 @@ public record FindLeagueGamePlayerResponse(List<LeagueGamePlayerResponse> respon
             Score score,
             LeagueGameStatus leagueGameStatus,
             Season season,
-            // TODO inner DTO
             List<GamePlayer> homePlayers,
             List<GamePlayer> awayPlayers
-
     ) {
         public static LeagueGamePlayerResponse of(LeagueGame leagueGame){
             List<GamePlayer> homePlayers = leagueGame.getHomePlayers().stream()
@@ -59,7 +65,6 @@ public record FindLeagueGamePlayerResponse(List<LeagueGamePlayerResponse> respon
 
                     ))
                     .collect(Collectors.toList());
-
 
             return new LeagueGamePlayerResponse(
                     leagueGame.getLeagueGameId(),
