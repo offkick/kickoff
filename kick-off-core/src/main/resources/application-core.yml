@@ -1,24 +1,3 @@
-spring:
-  datasource:
-    url: jdbc:h2:~/KickOffApplication
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
-#  datasource:
-#    url: jdbc:mysql://localhost:3306/kick_off?createDatabaseIfNotExist=true
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    username: root
-#    password: Abcd123@
-  jpa:
-    hibernate:
-      ddl-auto: create
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
-    defer-datasource-initialization: true
-jwt:
-  secret-key: 56ab0682dda585b2997d3871c0921fb6929ef195501ab98b18c6870bdc808970fb041463f6792ae02a4c7458bc3e375095a03508f3bb2925eddf618a56d41540
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
@@ -34,3 +13,41 @@ springdoc:
   default-produces-media-type: application/json
   paths-to-match:
     - /**
+jwt:
+  secret-key: 56ab0682dda585b2997d3871c0921fb6929ef195501ab98b18c6870bdc808970fb041463f6792ae02a4c7458bc3e375095a03508f3bb2925eddf618a56d41540
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+  datasource:
+    url: jdbc:mysql://localhost:3306/kick_off?createDatabaseIfNotExist=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    defer-datasource-initialization: true
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    url: jdbc:h2:~/KickOffApplication
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    defer-datasource-initialization: true
