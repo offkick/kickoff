@@ -31,7 +31,7 @@ public class ApiLeagueGameFindService {
     public FindLeagueGamePlayerResponse findByLeagueGameId(Long leagueGameId)
     {
         LeagueGame leagueGame = leagueGameRepository.findById(leagueGameId).orElseThrow(() -> new IllegalArgumentException());
-        return FindLeagueGamePlayerResponse.from(leagueGame);
+        return FindLeagueGamePlayerResponse.of(leagueGame);
     }
 
     public DateLeagueGameResponse findLeagueGameByDate(LocalDate date)
