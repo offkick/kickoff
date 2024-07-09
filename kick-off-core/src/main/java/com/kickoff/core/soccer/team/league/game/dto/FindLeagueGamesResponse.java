@@ -17,14 +17,15 @@ import java.util.stream.Collectors;
 @Builder
 public record FindLeagueGamesResponse(
         List<FindLeagueGames> findLeagueGames,
-        int totalPages,
         long totalElements,
-        String leagueName
+        int totalPages
+
+//        String leagueName
 ) {
     public static FindLeagueGamesResponse of(Page<LeagueGame> leagueGames)
     {
         List<FindLeagueGames> findLeagueGames = leagueGames.stream()
-                .map(FindLeagueGames::from)
+                .map(FindLeagueGames::of)
                 .collect(Collectors.toList());
 
         return FindLeagueGamesResponse.builder()
@@ -79,25 +80,25 @@ public record FindLeagueGamesResponse(
             Long leagueGameId,
             LocalDateTime gameDate,
             int count,
-            LeagueTeamDTO away,
-            LeagueTeamDTO home,
+            String away,
+            String home,
             Score score,
             LeagueGameStatus leagueGameStatus,
-            Season season,
+//            Season season
             List<LeagueGamePlayerDTO> homePlayers,
             List<LeagueGamePlayerDTO> awayPlayers
     ) {
-        public static FindLeagueGames from(LeagueGame leagueGame)
+        public static FindLeagueGames of(LeagueGame leagueGame)
         {
             return new FindLeagueGames(
                     leagueGame.getLeagueGameId(),
                     leagueGame.getGameDate(),
                     leagueGame.getCount(),
-                    LeagueTeamDTO.of(leagueGame.getAway()),
-                    LeagueTeamDTO.of(leagueGame.getHome()),
+                    leagueGame.getAway().getLeagueTeamName(),
+                    leagueGame.getHome().getLeagueTeamName(),
                     leagueGame.getScore(),
                     leagueGame.getLeagueGameStatus(),
-                    leagueGame.getSeason(),
+//                    leagueGame.getSeason(),
                     null,
                     null
             );
