@@ -27,16 +27,17 @@ public class PlayerAdminController {
     @PostMapping("/players")
     public String save(@ModelAttribute CreatePlayerAdminRequest request)
     {
-        Long save = playerAdminService.save(request);
+        playerAdminService.save(request);
         return "page/player";
     }
 
     @GetMapping("/admin/all-players")
-    public String allPlayers(@ModelAttribute PlayerSearchCondition condition,
-                             @RequestParam(name = "page", defaultValue = "0") int page,
-                             @RequestParam(name = "size", defaultValue = "10") int size,
-                             Model model)
-    {
+    public String allPlayers(
+            @ModelAttribute PlayerSearchCondition condition,
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "10") int size,
+            Model model
+    ) {
         model.addAttribute("size", size);
         Pageable pageable = PageRequest.of(page, size);
         Page<FindPlayerResponses> players= playerAdminService.findPlayers(condition,pageable);
@@ -49,13 +50,14 @@ public class PlayerAdminController {
 
         return "page/allPlayers";
     }
-    private void pageModelPut(Page<FindPlayerResponses> players, Model model) {
+
+    private void pageModelPut(Page<FindPlayerResponses> players, Model model)
+    {
         model.addAttribute("totalCount", players.getTotalElements());
         model.addAttribute("number", players.getPageable().getPageNumber());
         model.addAttribute("maxPage",5);
         model.addAttribute("totalPages",players.getTotalPages());
     }
-
 
     @GetMapping("/admin/all-players/{playerId}")
     public String getPlayer(@PathVariable("playerId") Long id,Model model)
@@ -67,11 +69,12 @@ public class PlayerAdminController {
     }
 
     @GetMapping("/admin/games")
-    public String allGames(@ModelAttribute GameSearchCondition condition,
-                           @RequestParam(name = "page", defaultValue = "0") int page,
-                           @RequestParam(name = "size", defaultValue = "10") int size,
-                           Model model)
-    {
+    public String allGames(
+            @ModelAttribute GameSearchCondition condition,
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "10") int size,
+            Model model
+    ) {
         model.addAttribute("size", size);
         Pageable pageable = PageRequest.of(page, size);
         Page<FindLeagueGameResponses> leagueGames = playerAdminService.findLeagueGames(condition, pageable);
@@ -86,7 +89,9 @@ public class PlayerAdminController {
 
         return "page/game";
     }
-    private void pageLeaguePut(Page<FindLeagueGameResponses> leagueGames, Model model) {
+
+    private void pageLeaguePut(Page<FindLeagueGameResponses> leagueGames, Model model)
+    {
         model.addAttribute("totalCount", leagueGames.getTotalElements());
         model.addAttribute("number", leagueGames.getPageable().getPageNumber());
         model.addAttribute("maxPage",5);

@@ -13,13 +13,6 @@ public class ExcludedModuleSecurityConfig  {
     @Bean
     public WebSecurityCustomizer configure(){
         return (web) -> web.ignoring()
-                .requestMatchers(AntPathRequestMatcher.antMatcher("/static/**"))
-                .requestMatchers(AntPathRequestMatcher.antMatcher("/login"))
-                .requestMatchers(AntPathRequestMatcher.antMatcher("/signup"))
-                .requestMatchers(AntPathRequestMatcher.antMatcher("/swagger-resources/**"))
-                .requestMatchers(AntPathRequestMatcher.antMatcher("/swagger-ui/**"))
-                .requestMatchers(AntPathRequestMatcher.antMatcher( "/api-docs"))
-                .requestMatchers(AntPathRequestMatcher.antMatcher("/webjars/**"))
                 .requestMatchers(AntPathRequestMatcher.antMatcher("/**"))
                 ;
     }

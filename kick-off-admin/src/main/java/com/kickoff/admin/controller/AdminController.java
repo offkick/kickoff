@@ -33,7 +33,6 @@ public class AdminController {
         return "page/player";
     }
 
-
     @GetMapping("/vote")
     public String vote()
     {

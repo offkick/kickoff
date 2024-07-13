@@ -15,7 +15,8 @@ public class PostCommentController {
     private final PostCommentRepository postCommentRepository;
 
     @GetMapping("/{postId}")
-    public PostCommentResponse findComments(@PathVariable(value = "postId") Long postId){
+    public PostCommentResponse findComments(@PathVariable(value = "postId") Long postId)
+    {
         return PostCommentResponse.of(postCommentRepository.findCommentsByPostId(postId));
     }
 }
