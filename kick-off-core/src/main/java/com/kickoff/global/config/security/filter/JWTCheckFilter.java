@@ -42,7 +42,8 @@ public class JWTCheckFilter extends OncePerRequestFilter {
                 "/api/image/**",
                 "/images/",
                 "/api-docs",
-                "/**"
+                "/**",
+                "/admin"
         };
 
         String path = request.getRequestURI();

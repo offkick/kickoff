@@ -36,7 +36,7 @@ public class AdminController {
     @GetMapping("/vote")
     public String vote()
     {
-        return "page/vote";
+        return "page/checkout";
     }
 
     @GetMapping("/game")
