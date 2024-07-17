@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -82,6 +83,7 @@ public class JWTCheckFilter extends OncePerRequestFilter {
             Gson gson = new Gson();
             String msg = gson.toJson(Map.of("error", "ERROR_ACCESS_TOKEN"));
             response.setContentType("application/json");
+            response.setStatus(HttpStatus.FORBIDDEN.value());
             PrintWriter printWriter = response.getWriter();
             printWriter.println(msg);
             printWriter.close();
