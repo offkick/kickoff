@@ -1,23 +1,14 @@
 package com.kickoff.api.config;
 
-import jakarta.servlet.ServletContext;
-import jakarta.servlet.ServletException;
-import org.springframework.boot.web.servlet.ServletContextInitializer;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class WebConfig {
+public class WebConfig implements WebMvcConfigurer {
 
-    @Bean
-    public ServletContextInitializer servletContextInitializer() {
-        return new ServletContextInitializer() {
-            @Override
-            public void onStartup(ServletContext servletContext) throws ServletException {
-                servletContext.getServletRegistrations().forEach((key, value) -> {
-                    value.addMapping("/api/*");
-                });
-            }
-        };
+    @Override
+    public void configurePathMatch(PathMatchConfigurer configurer) {
+        configurer.addPathPrefix("api", c -> true);
     }
 }
