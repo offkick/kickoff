@@ -7,6 +7,7 @@ import com.kickoff.core.soccer.player.dto.PlayerSearchCondition;
 import com.kickoff.core.soccer.team.league.LeagueTeam;
 import com.kickoff.core.soccer.team.league.game.dto.GameSearchCondition;
 import com.kickoff.core.soccer.team.league.service.LeagueTeamService;
+import com.kickoff.core.soccer.team.league.service.dto.LeagueTeamDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -43,7 +44,7 @@ public class PlayerAdminController {
         Page<FindPlayerResponses> players= playerAdminService.findPlayers(condition,pageable);
         model.addAttribute("players",players);
         model.addAttribute("condition",condition);
-        List<LeagueTeam> list = leagueTeamService.findAll();
+        List<LeagueTeamDTO> list = leagueTeamService.findAll();
         model.addAttribute("leagueteam",list);
 
         pageModelPut(players, model);

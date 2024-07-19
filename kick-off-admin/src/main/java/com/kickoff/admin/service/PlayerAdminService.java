@@ -13,6 +13,7 @@ import com.kickoff.core.soccer.team.league.game.LeagueGameRepositoryImpl;
 import com.kickoff.core.soccer.team.league.game.dto.FindLeagueGameResponse;
 import com.kickoff.core.soccer.team.league.game.dto.GameSearchCondition;
 import com.kickoff.core.soccer.team.league.service.LeagueTeamService;
+import com.kickoff.core.soccer.team.league.service.dto.LeagueTeamDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -46,7 +47,7 @@ public class PlayerAdminService {
 
     public List<LeagueTeamDto> findAllLeagueTeam()
     {
-        List<LeagueTeam> leagueTeamList = leagueTeamService.findAll();
+        List<LeagueTeamDTO> leagueTeamList = leagueTeamService.findAll();
 
 
         return leagueTeamList.stream()

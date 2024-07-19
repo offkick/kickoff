@@ -1,17 +1,17 @@
 package com.kickoff.admin.service.dto;
 
-import com.kickoff.core.soccer.team.league.LeagueTeam;
+import com.kickoff.core.soccer.team.league.service.dto.LeagueTeamDTO;
 
 public record LeagueTeamDto(
         Long leagueTeamId,
         String leagueTeamName
 
 ) {
-    public static LeagueTeamDto from(LeagueTeam team)
+    public static LeagueTeamDto from(LeagueTeamDTO team)
     {
         return new LeagueTeamDto(
-                team.getLeagueTeamId(),
-                team.getLeagueTeamName()
+                team.leagueTeamId(),
+                team.leagueTeamName()
         );
     }
 }

@@ -2,6 +2,7 @@ package com.kickoff.admin.controller;
 
 import com.kickoff.core.soccer.team.league.LeagueTeam;
 import com.kickoff.core.soccer.team.league.service.LeagueTeamService;
+import com.kickoff.core.soccer.team.league.service.dto.LeagueTeamDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -28,7 +29,7 @@ public class AdminController {
     public String player(Model model)
     {
         model.addAttribute("leagueTeam",new LeagueTeam());
-        List<LeagueTeam> list = leagueTeamService.findAll();
+        List<LeagueTeamDTO> list = leagueTeamService.findAll();
         model.addAttribute("leagueteam",list);
         return "page/player";
     }
