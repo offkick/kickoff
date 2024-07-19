@@ -82,17 +82,13 @@
 
             </div>
             <div class="col-md">
-<!--                <div class="form-floating">-->
-<!--                    <input type="search" class="form-control" id="floatingInputGrid3" name="leagueId" th:value="${condition.leagueId()}">-->
-<!--                    <label for="floatingInputGrid3">리그</label>-->
-<!--                </div>-->
                 <div class="form-floating">
                     <select class="form-select" id="floatingSelectGrid" name="leagueId">
                         <option></option>
                         <option th:each="league : ${league}"
-                                th:value="${league?.leagueId}"
-                                th:text="${league?.leagueName}"
-                                th:selected="${league?.leagueId == condition?.leagueId()}">
+                                th:value="${league.leagueTeamId}"
+                                th:text="${league?.leagueTeamName}"
+                                th:selected="${league?.leagueTeamId == condition?.leagueId()}">
                         </option>
                     </select>
 
