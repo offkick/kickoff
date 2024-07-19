@@ -22,6 +22,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
+
 @Configuration
 @Slf4j
 @RequiredArgsConstructor
@@ -39,7 +41,7 @@ public class CustomSecurityConfig {
     @Bean
     public WebSecurityCustomizer configure(){
         return (web) -> web.ignoring()
-//                .requestMatchers(toH2Console())
+                .requestMatchers(toH2Console())
                 .requestMatchers(AntPathRequestMatcher.antMatcher("/static/**"))
                 .requestMatchers(AntPathRequestMatcher.antMatcher("/login"))
                 .requestMatchers(AntPathRequestMatcher.antMatcher("/signup"))
@@ -48,6 +50,7 @@ public class CustomSecurityConfig {
                 .requestMatchers(AntPathRequestMatcher.antMatcher( "/api-docs"))
                 .requestMatchers(AntPathRequestMatcher.antMatcher("/webjars/**"))
                 .requestMatchers(AntPathRequestMatcher.antMatcher("/**"))
+                .requestMatchers(AntPathRequestMatcher.antMatcher("/admin"))
 
                 ;
     }
