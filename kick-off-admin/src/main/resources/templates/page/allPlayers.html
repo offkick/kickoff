@@ -91,15 +91,7 @@
 
             </div>
         </form>
-
-
-
             <div class="card">
-
-<!--                    <div class="card-header">화면</div>-->
-<!--                    <div class="card-body">-->
-<!--                        <p th:text="${national}"></p>-->
-<!--                    </div>-->
                 <div>
                     <table class="table">
                         <thead>
@@ -109,18 +101,15 @@
                             <th>리그팀</th>
                             <th>포지션</th>
                             <th>조회</th>
-
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:each="players : ${players}">
-<!--                            <td><a href="item.html" th:href="@{/boards/{uid}(uid=${board.uid})}" th:text="${board.subject}">제목</a></td>-->
                             <td th:text="${players.national}">국가</td>
                             <td th:text="${players.playerName}">선수이름</td>
-                            <td th:text="${players.leagueTeam.leagueTeamName}">리그팀</td>
+                            <td th:text="${players.leagueTeamName}">리그팀</td>
                             <td th:text="${players.position}">포지션</td>
                             <td><a th:href="@{/admin/all-players/{playerId}( playerId=${players.playerId} )}"  type="button" class="btn btn-warning">조회</a></td>
-<!--                            <td> <button th:href="@{/post/write.do( id=${post.id} )}" type="button" class="btn btn-warning">조회</button></td>-->
                         </tr>
                         </tbody>
                     </table>

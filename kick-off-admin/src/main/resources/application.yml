@@ -1,7 +1,4 @@
 spring:
-  profiles:
-    active: admin
-    include: core
   h2:
     console:
       enabled: true
@@ -11,6 +8,21 @@ spring:
     enabled: true
     prefix: classpath:/templates/
     suffix: .html
+  profiles:
+    active: local
+    include: core
+  sql:
+    init:
+      mode: always
+---
+spring:
+  sql:
+    init:
+      mode: always
+  profiles:
+    active: prod
+    include: core
+
 server:
   port: 8082
 
