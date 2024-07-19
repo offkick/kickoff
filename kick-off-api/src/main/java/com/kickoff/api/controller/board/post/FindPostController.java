@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
-@RequestMapping("/api/post/search")
+@RequestMapping("/post/search")
 @RestController
 @Tag(name = "게시물 조회 컨트롤러", description = "모든 게시물 조회")
 public class FindPostController {

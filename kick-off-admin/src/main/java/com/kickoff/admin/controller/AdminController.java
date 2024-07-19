@@ -14,7 +14,6 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping(value = "/admin")
 @Slf4j
 public class AdminController {
     private final LeagueTeamService leagueTeamService;

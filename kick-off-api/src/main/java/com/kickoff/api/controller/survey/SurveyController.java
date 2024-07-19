@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/survey")
+@RequestMapping("/survey")
 public class SurveyController {
     private final SurveyService surveyRequestService;
     private final OptionGroupService optionGroupService;

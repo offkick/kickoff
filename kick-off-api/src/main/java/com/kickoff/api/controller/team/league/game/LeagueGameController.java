@@ -22,7 +22,7 @@ import java.time.YearMonth;
 
 @Tag(name = "리그 게임 컨트롤러", description = "리그 게임 관련 리소스 검색/변경")
 @Slf4j
-@RequestMapping("/api/leagueGame")
+@RequestMapping("/leagueGame")
 @RequiredArgsConstructor
 @RestController
 public class LeagueGameController {

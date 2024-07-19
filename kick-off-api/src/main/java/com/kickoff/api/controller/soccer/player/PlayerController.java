@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "선수 컨트롤러", description = "선수 관련 검색 / 변경")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/player")
+@RequestMapping("/player")
 public class PlayerController {
     private final ApiPlayerService apiPlayerService;
 

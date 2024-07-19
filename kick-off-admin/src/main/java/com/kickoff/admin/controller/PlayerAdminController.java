@@ -32,7 +32,7 @@ public class PlayerAdminController {
         return "page/player";
     }
 
-    @GetMapping("/admin/all-players")
+    @GetMapping("/all-players")
     public String allPlayers(
             @ModelAttribute PlayerSearchCondition condition,
             @RequestParam(name = "page", defaultValue = "0") int page,
@@ -60,7 +60,7 @@ public class PlayerAdminController {
         model.addAttribute("totalPages",players.getTotalPages());
     }
 
-    @GetMapping("/admin/all-players/{playerId}")
+    @GetMapping("/all-players/{playerId}")
     public String getPlayer(@PathVariable("playerId") Long id,Model model)
     {
         Player player = playerAdminService.findPlayer(id);
@@ -69,7 +69,7 @@ public class PlayerAdminController {
         return "page/getPlayer";
     }
 
-    @GetMapping("/admin/games")
+    @GetMapping("/games")
     public String allGames(
             @ModelAttribute GameSearchCondition condition,
             @RequestParam(name = "page", defaultValue = "0") int page,

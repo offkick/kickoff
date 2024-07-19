@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "게시물 컨트롤러", description = "게시물 관련 CUD")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/post")
+@RequestMapping("/post")
 public class PostController {
     private final ApiPostService apiPostService;
 

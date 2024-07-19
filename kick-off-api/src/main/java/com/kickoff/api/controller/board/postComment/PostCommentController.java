@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
-@RequestMapping("/api/postComment/search")
+@RequestMapping("/postComment/search")
 @RestController
 public class PostCommentController {
     private final PostCommentRepository postCommentRepository;
