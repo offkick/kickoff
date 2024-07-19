@@ -1,6 +1,7 @@
 package com.kickoff.api.controller.team.league.dto;
 
 import com.kickoff.core.soccer.team.league.game.LeagueGame;
+import com.kickoff.core.soccer.team.league.service.dto.LeagueGameDTO;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -11,15 +12,14 @@ import java.util.stream.Collectors;
 public record SeasonLeagueGameResponse(
         List<DateResponse> responses
 ) {
-
-    public static SeasonLeagueGameResponse of(List<LeagueGame> leagueGames) {
-        Map<LocalDate, List<LeagueGame>> gamesByDate = leagueGames.stream()
-                .collect(Collectors.groupingBy(game -> game.getGameDate().toLocalDate()));
+    public static SeasonLeagueGameResponse of(List<LeagueGameDTO> leagueGames) {
+        Map<LocalDate, List<LeagueGameDTO>> gamesByDate = leagueGames.stream()
+                .collect(Collectors.groupingBy(s -> s.gameDate().toLocalDate()));
 
         List<DateResponse> dateResponses = gamesByDate.entrySet().stream()
                 .map(entry -> {
                     LocalDate date = entry.getKey();
-                    List<LeagueGame> games = entry.getValue();
+                    List<LeagueGameDTO> games = entry.getValue();
                     List<LeagueGameResponse> gameResponses = games.stream()
                             .map(LeagueGameResponse::of)
                             .collect(Collectors.toList());
@@ -30,11 +30,7 @@ public record SeasonLeagueGameResponse(
         return new SeasonLeagueGameResponse(dateResponses);
     }
 
-    public record DateResponse(
-            LocalDate date,
-            List<LeagueGameResponse> games
-    ) {
-    }
+    public record DateResponse(LocalDate date, List<LeagueGameResponse> games) {}
 
     public record LeagueGameResponse(
             LocalDateTime date,
@@ -45,15 +41,15 @@ public record SeasonLeagueGameResponse(
             String homeLogo,
             String awayLogo
     ) {
-        public static LeagueGameResponse of(LeagueGame leagueGame) {
+        public static LeagueGameResponse of(LeagueGameDTO leagueGame) {
             return new LeagueGameResponse(
-                    leagueGame.getGameDate(),
-                    leagueGame.getHome().getLeagueTeamName(),
-                    leagueGame.getAway().getLeagueTeamName(),
-                    leagueGame.getScore().getHomeScore(),
-                    leagueGame.getScore().getAwayScore(),
-                    leagueGame.getHome().getLogo(),
-                    leagueGame.getAway().getLogo()
+                    leagueGame.gameDate(),
+                    leagueGame.home().leagueTeamName(),
+                    leagueGame.away().leagueTeamName(),
+                    leagueGame.score().homeScore(),
+                    leagueGame.score().awayScore(),
+                    leagueGame.home().logo(),
+                    leagueGame.away().logo()
             );
         }
     }

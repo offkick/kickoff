@@ -1,6 +1,5 @@
 package com.kickoff.core.member;
 
-import com.kickoff.global.config.security.MemberRole;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package com.kickoff.global.config.security;
+package com.kickoff.api.config.security;
 
 import com.kickoff.core.member.Member;
 import lombok.Getter;

@@ -1,7 +1,7 @@
-package com.kickoff.global.config.security;
+package com.kickoff.api.config.security;
 
-import com.kickoff.global.config.security.filter.JWTCheckFilter;
-import com.kickoff.global.config.security.handler.CustomAccessDeniedHandler;
+import com.kickoff.api.config.security.filter.JWTCheckFilter;
+import com.kickoff.api.config.security.handler.CustomAccessDeniedHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -21,8 +21,6 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
 import java.util.List;
-
-import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
 
 @Configuration
 @Slf4j

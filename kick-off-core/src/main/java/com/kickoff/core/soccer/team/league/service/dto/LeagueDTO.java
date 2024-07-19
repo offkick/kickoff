@@ -8,5 +8,5 @@ public record LeagueDTO(
         National national,
         String emblem,
         String tier,
-        SeasonDTO seasonDTO
+        String seasonYear
 ) {}

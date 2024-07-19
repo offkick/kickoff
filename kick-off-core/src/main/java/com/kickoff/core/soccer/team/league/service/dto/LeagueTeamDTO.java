@@ -19,9 +19,9 @@ public record LeagueTeamDTO(
                         entity.getLeague().getLeagueId(),
                         entity.getLeagueTeamName(),
                         entity.getLeague().getNational(),
-                        null,
+                        entity.getLogo(),
                         entity.getLeague().getTier(),
-                        new SeasonDTO(entity.getLeague().getSeason().getSeasonId(), entity.getLeague().getSeason().getYears())
+                        entity.getLeague().getSeason().getYears()
                 ),
                 entity.getLogo()
         );

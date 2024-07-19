@@ -1,4 +1,4 @@
-package com.kickoff.global.config.security;
+package com.kickoff.api.config.security;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 

@@ -1,6 +1,6 @@
 package com.kickoff.api.controller.team.league.dto;
 
-import com.kickoff.core.soccer.team.league.game.LeagueGame;
+import com.kickoff.core.soccer.team.league.service.dto.LeagueGameDTO;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -10,7 +10,7 @@ public record DateLeagueGameResponse(
         List<LeagueGameResponse> responses
 ) {
 
-    public static DateLeagueGameResponse of(List<LeagueGame> leagueGames)
+    public static DateLeagueGameResponse of(List<LeagueGameDTO> leagueGames)
     {
         List<LeagueGameResponse> leagueGameResponses = leagueGames.stream()
                 .map(LeagueGameResponse::of)
@@ -27,16 +27,16 @@ public record DateLeagueGameResponse(
             String homeLogo,
             String awayLogo
     ) {
-        public static LeagueGameResponse of(LeagueGame leagueGame)
+        public static LeagueGameResponse of(LeagueGameDTO leagueGame)
         {
             return new LeagueGameResponse(
-                    leagueGame.getGameDate(),
-                    leagueGame.getHome().getLeagueTeamName(),
-                    leagueGame.getAway().getLeagueTeamName(),
-                    leagueGame.getScore().getHomeScore(),
-                    leagueGame.getScore().getAwayScore(),
-                    leagueGame.getHome().getLogo(),
-                    leagueGame.getAway().getLogo()
+                    leagueGame.gameDate(),
+                    leagueGame.home().leagueTeamName(),
+                    leagueGame.away().leagueTeamName(),
+                    leagueGame.score().homeScore(),
+                    leagueGame.score().awayScore(),
+                    leagueGame.home().logo(),
+                    leagueGame.away().logo()
             );
         }
     }

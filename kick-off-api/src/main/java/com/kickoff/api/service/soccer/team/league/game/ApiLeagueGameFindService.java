@@ -6,6 +6,8 @@ import com.kickoff.api.controller.team.league.dto.SeasonLeagueGameResponse;
 import com.kickoff.core.soccer.team.league.game.LeagueGame;
 import com.kickoff.core.soccer.team.league.game.LeagueGameRepository;
 import com.kickoff.core.soccer.team.league.service.LeagueGameService;
+import com.kickoff.core.soccer.team.league.service.dto.LeagueGameDTO;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
@@ -17,30 +19,26 @@ import java.time.LocalTime;
 import java.time.YearMonth;
 import java.util.List;
 
-/**
- * 경기 아이디를 받아서 경기 상세 조회 findGameById(gameId)
- * 기능 : 경기 조회
- * 경기 일자, 경기 팀 2개, 스코 팀마다 출전 선수 있을거고 (player + game)
- */
 @Transactional(readOnly = true)
 @Service
 @RequiredArgsConstructor
 public class ApiLeagueGameFindService {
-    private final LeagueGameRepository leagueGameRepository;
     private final LeagueGameService leagueGameService;
+
     public FindLeagueGamePlayerResponse findByLeagueGameId(Long leagueGameId)
     {
-        LeagueGame leagueGame = leagueGameRepository.findById(leagueGameId).orElseThrow(() -> new IllegalArgumentException());
+        LeagueGameDTO leagueGame = leagueGameService.findById(leagueGameId).orElseThrow(EntityNotFoundException::new);
         return FindLeagueGamePlayerResponse.of(leagueGame);
     }
 
     public DateLeagueGameResponse findLeagueGameByDate(LocalDate date)
     {
         LocalTime endTime = LocalTime.of(23, 59, 59);
-        List<LeagueGame> leagueGames = leagueGameRepository.findByGameDateBetween(
+        List<LeagueGameDTO> leagueGames = leagueGameService.findByGameDateBetween(
                 date.atStartOfDay(),
                 date.atTime(endTime)
         );
+
         return DateLeagueGameResponse.of(leagueGames);
     }
 
@@ -48,7 +46,7 @@ public class ApiLeagueGameFindService {
     {
         LocalDateTime startDateTime = yearMonth.atDay(1).atStartOfDay();
         LocalDateTime endDateTime = yearMonth.atEndOfMonth().atTime(23, 59, 59);
-        List<LeagueGame> leagueGameList = leagueGameRepository.findBySeasonBetween(leagueId, startDateTime, endDateTime);
+        List<LeagueGameDTO> leagueGameList = leagueGameService.findBySeasonBetween(leagueId, startDateTime, endDateTime);
 
         return SeasonLeagueGameResponse.of(leagueGameList);
     }

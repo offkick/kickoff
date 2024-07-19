@@ -1,4 +1,4 @@
-package com.kickoff.core.config;
+package com.kickoff.api.config;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;
@@ -34,7 +34,7 @@ public class SwaggerConfig {
                         "/api/survey/**",
                         "/api/search/soccer-player/**",
                         "/swagger-resources/**",
-                        "/api/swagger-config",
+                        "/swagger-config",
                         "/swagger-ui.html",
                         "/api-docs",
                         "/webjars/**")

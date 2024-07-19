@@ -17,7 +17,6 @@ public class NationalGame {
     @JoinColumn(name = "national_team_id")
     private NationalTeam nationalTeam;
 
-    // TODO : NationalGame
     @Enumerated(EnumType.STRING)
     private NationalGameType nationalGameType;
 }

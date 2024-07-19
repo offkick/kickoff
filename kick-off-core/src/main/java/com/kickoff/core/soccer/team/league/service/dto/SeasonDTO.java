@@ -1,6 +1,10 @@
 package com.kickoff.core.soccer.team.league.service.dto;
 
-public record SeasonDTO(
-        Long seasonId,
-        String years
-) {}
+import com.kickoff.core.soccer.team.league.Season;
+
+public record SeasonDTO(String years) {
+    public static SeasonDTO of(Season season)
+    {
+        return new SeasonDTO(season.getYears());
+    }
+}

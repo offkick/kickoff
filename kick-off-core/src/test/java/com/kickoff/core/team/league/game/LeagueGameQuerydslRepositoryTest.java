@@ -10,7 +10,6 @@ import com.kickoff.core.soccer.team.TeamType;
 import com.kickoff.core.soccer.team.league.*;
 import com.kickoff.core.soccer.team.league.game.LeagueGame;
 import com.kickoff.core.soccer.team.league.game.LeagueGameRepository;
-import com.kickoff.core.soccer.team.league.game.LeagueGameRepositoryImpl;
 import com.kickoff.core.soccer.team.league.game.LeagueGameStatus;
 import com.kickoff.core.soccer.team.league.game.dto.GameSearchCondition;
 import com.kickoff.core.soccer.team.league.game.player.LeagueGamePlayer;

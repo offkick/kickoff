@@ -8,6 +8,7 @@ import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
@@ -24,10 +25,12 @@ import static com.kickoff.core.soccer.team.league.game.QLeagueGame.leagueGame;
 @RequiredArgsConstructor
 public class LeagueGameQuerydslRepository {
     private final JPAQueryFactory jpaQueryFactory;
+
     public FindLeagueGamesResponse findLeagueGames(FindGameCond condition)
     {
         QLeagueGame leagueGame = QLeagueGame.leagueGame;
         Pageable pageable = condition.pageable();
+
         List<LeagueGame> leagueGames = jpaQueryFactory.selectFrom(leagueGame)
                 .where(gameDateEq(condition.startDate(), condition.endDate()),
                         leagueIdEq(condition.leagueId())
@@ -36,6 +39,7 @@ public class LeagueGameQuerydslRepository {
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
+
         Long count = jpaQueryFactory.select(leagueGame.leagueGameId.count())
                 .from(leagueGame)
                 .where(gameDateEq(condition.startDate(), condition.endDate()),
@@ -49,6 +53,7 @@ public class LeagueGameQuerydslRepository {
                 )
         );
     }
+
     private BooleanExpression gameDateEq(LocalDate startDate, LocalDate endDate)
     {
         if (startDate != null && endDate != null)
@@ -69,5 +74,25 @@ public class LeagueGameQuerydslRepository {
     private BooleanExpression leagueIdEq(Long leagueId)
     {
         return leagueId != null ? leagueGame.away.league.leagueId.eq(leagueId) : null;
+    }
+
+    public Page<FindLeagueGameResponse> searchGame(GameSearchCondition condition, Pageable pageable)
+    {
+        QLeagueGame leagueGame = QLeagueGame.leagueGame;
+        QueryResults<LeagueGame> results = jpaQueryFactory.selectFrom(leagueGame)
+                .where(gameDateEq(condition.startDate(), condition.endDate()),
+                        leagueIdEq(condition.leagueId())
+                )
+                .orderBy(leagueGame.gameDate.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetchResults();
+
+        List<LeagueGame> content = results.getResults();
+        long total = results.getTotal();
+        List<FindLeagueGameResponse> responses = content.stream()
+                .map(FindLeagueGameResponse::from)
+                .collect(Collectors.toList());
+        return new PageImpl<>(responses,pageable,total);
     }
 }

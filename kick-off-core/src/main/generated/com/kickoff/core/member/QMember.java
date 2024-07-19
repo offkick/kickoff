@@ -24,7 +24,7 @@ public class QMember extends EntityPathBase<Member> {
 
     public final NumberPath<Long> memberId = createNumber("memberId", Long.class);
 
-    public final ListPath<com.kickoff.global.config.security.MemberRole, EnumPath<com.kickoff.global.config.security.MemberRole>> memberRoles = this.<com.kickoff.global.config.security.MemberRole, EnumPath<com.kickoff.global.config.security.MemberRole>>createList("memberRoles", com.kickoff.global.config.security.MemberRole.class, EnumPath.class, PathInits.DIRECT2);
+    public final ListPath<MemberRole, EnumPath<MemberRole>> memberRoles = this.<MemberRole, EnumPath<MemberRole>>createList("memberRoles", MemberRole.class, EnumPath.class, PathInits.DIRECT2);
 
     public final StringPath nickName = createString("nickName");
 

@@ -6,10 +6,7 @@ import com.kickoff.core.soccer.player.dto.FindPlayerResponse;
 import com.kickoff.core.soccer.player.dto.PlayerSearchCondition;
 import com.kickoff.core.soccer.player.service.PlayerService;
 import com.kickoff.core.soccer.player.service.dto.CreatePlayerRequest;
-import com.kickoff.core.soccer.team.league.League;
-import com.kickoff.core.soccer.team.league.LeagueRepository;
-import com.kickoff.core.soccer.team.league.LeagueTeam;
-import com.kickoff.core.soccer.team.league.game.LeagueGameRepositoryImpl;
+import com.kickoff.core.soccer.team.league.game.LeagueGameQuerydslRepository;
 import com.kickoff.core.soccer.team.league.game.dto.FindLeagueGameResponse;
 import com.kickoff.core.soccer.team.league.game.dto.GameSearchCondition;
 import com.kickoff.core.soccer.team.league.service.LeagueTeamService;
@@ -28,8 +25,7 @@ import java.util.stream.Collectors;
 public class PlayerAdminService {
     private final PlayerService playerService;
     private final LeagueTeamService leagueTeamService;
-    private final LeagueGameRepositoryImpl leagueGameRepositoryImpl;
-
+    private final LeagueGameQuerydslRepository leagueGameQuerydslRepository;
     public Long save(CreatePlayerAdminRequest request)
     {
         CreatePlayerRequest createPlayerRequest = new CreatePlayerRequest(
@@ -57,7 +53,7 @@ public class PlayerAdminService {
 
     public Page<FindLeagueGameResponses> findLeagueGames(GameSearchCondition gameSearchCondition, Pageable pageable)
     {
-        Page<FindLeagueGameResponse> responses = leagueGameRepositoryImpl.searchGame(gameSearchCondition, pageable);
+        Page<FindLeagueGameResponse> responses = leagueGameQuerydslRepository.searchGame(gameSearchCondition, pageable);
 
         List<FindLeagueGameResponses> convertedResponses = responses.getContent().stream()
                 .map(response -> new FindLeagueGameResponses(response.leagueGameId(),

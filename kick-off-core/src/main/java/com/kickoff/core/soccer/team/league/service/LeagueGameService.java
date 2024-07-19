@@ -1,24 +1,43 @@
 package com.kickoff.core.soccer.team.league.service;
 
-
+import com.kickoff.core.soccer.team.league.game.LeagueGame;
+import com.kickoff.core.soccer.team.league.game.LeagueGameQuerydslRepository;
 import com.kickoff.core.soccer.team.league.game.LeagueGameRepository;
-import com.kickoff.core.soccer.team.league.game.LeagueGameRepositoryImpl;
-import com.kickoff.core.soccer.team.league.game.dto.FindLeagueGameResponse;
-import com.kickoff.core.soccer.team.league.game.dto.GameSearchCondition;
+import com.kickoff.core.soccer.team.league.service.dto.LeagueGameDTO;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
 public class LeagueGameService {
-
-    private final LeagueGameRepositoryImpl leagueGameRepositoryImpl;
     private final LeagueGameRepository leagueGameRepository;
-    public Page<FindLeagueGameResponse> findGames(GameSearchCondition gameSearchCondition, Pageable pageable){
-        return leagueGameRepositoryImpl.searchGame(gameSearchCondition,pageable);
+    private final LeagueGameQuerydslRepository leagueGameQuerydslRepository;
+
+    public List<LeagueGameDTO> findByGameDateBetween(LocalDateTime start, LocalDateTime end)
+    {
+        List<LeagueGame> byGameDateBetween = leagueGameRepository.findByGameDateBetween(start, end);
+        return byGameDateBetween.stream()
+                .map(LeagueGameDTO::of)
+                .collect(Collectors.toList());
+    }
+
+    public Optional<LeagueGameDTO> findById(Long leagueGameId)
+    {
+        return leagueGameRepository.findById(leagueGameId).map(LeagueGameDTO::of);
+    }
+
+    public List<LeagueGameDTO> findBySeasonBetween(Long leagueId, LocalDateTime startDateTime, LocalDateTime endDateTime)
+    {
+        return leagueGameRepository.findBySeasonBetween(leagueId, startDateTime, endDateTime)
+                .stream()
+                .map(LeagueGameDTO::of)
+                .collect(Collectors.toList());
     }
 }
