@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- 60초 마다 설정 파일의 변경을 확인 하여 변경시 갱신 -->
-<configuration  scan="true" scanPeriod="5 seconds">
+<configuration  scan="true" scanPeriod="60 seconds">
     <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter" />
 
     <property name="CONSOLE_LOG_PATTERN"
@@ -18,10 +18,10 @@
 
     <!-- 파일(FILE) -->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <!--     log 기록할 파일 위치 설정 -->
+        <!-- log 기록할 파일 위치 설정 -->
         <file>${LOG_PATH}/${LOG_FILE}</file>
 
-        <!--     log 기록 타입 인코딩 -->
+        <!-- log 기록 타입 인코딩 -->
         <encoder>
             <pattern>${FILE_LOG_PATTERN}</pattern>
         </encoder>
@@ -38,11 +38,9 @@
     <springProfile name="local">
         <root level="info">
             <appender-ref ref="STDOUT"/>
-            <appender-ref ref="FILE" />
         </root>
     </springProfile>
 
-    <!--  dev 환경  -->
     <springProfile name="prod">
         <root level="INFO">
             <appender-ref ref="STDOUT" />

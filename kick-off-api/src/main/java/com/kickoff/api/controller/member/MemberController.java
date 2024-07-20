@@ -1,4 +1,4 @@
-package com.kickoff.api.controller.board.member;
+package com.kickoff.api.controller.member;
 
 import com.kickoff.api.service.board.member.ApiMemberService;
 import com.kickoff.api.service.board.member.dto.CreateMemberServiceRequest;
