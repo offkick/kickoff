@@ -36,7 +36,10 @@ spring:
     defer-datasource-initialization: true
 logging:
   level:
-    root: debug
+    root: info
+  file:
+    path: ./logs
+    name: local.log
 ---
 spring:
   config:
@@ -57,4 +60,7 @@ spring:
     defer-datasource-initialization: true
 logging:
   level:
-    root: error
+    root: info
+  file:
+    path: /home/ubuntu/logs
+    name: prod.log
