@@ -40,6 +40,11 @@ logging:
   file:
     path: ./logs
     name: local.log
+server:
+  tomcat:
+    basedir: /Users/sangyoon/Desktop/testlog2
+    accesslog:
+      enabled: true
 ---
 spring:
   config:
@@ -58,6 +63,13 @@ spring:
       hibernate:
         format_sql: true
     defer-datasource-initialization: true
+
+server:
+  tomcat:
+    basedir: /home/ubuntu/logs/tomcat
+    accesslog:
+      enabled: true
+
 logging:
   level:
     root: info
