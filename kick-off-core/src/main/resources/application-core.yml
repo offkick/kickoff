@@ -13,6 +13,7 @@ springdoc:
   default-produces-media-type: application/json
   paths-to-match:
     - /**
+
 jwt:
   secret-key: 56ab0682dda585b2997d3871c0921fb6929ef195501ab98b18c6870bdc808970fb041463f6792ae02a4c7458bc3e375095a03508f3bb2925eddf618a56d41540
 ---
@@ -33,6 +34,9 @@ spring:
       hibernate:
         format_sql: true
     defer-datasource-initialization: true
+logging:
+  level:
+    root: debug
 ---
 spring:
   config:
@@ -51,3 +55,6 @@ spring:
       hibernate:
         format_sql: true
     defer-datasource-initialization: true
+logging:
+  level:
+    root: error

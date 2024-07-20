@@ -1,10 +1,9 @@
 package com.kickoff.api.service.soccer.player;
 
-import com.kickoff.api.controller.soccer.player.dto.FindPlayerResponseDto;
+import com.kickoff.api.controller.soccer.player.dto.FindPlayerResponse;
 import com.kickoff.api.service.soccer.player.dto.CreatePlayerServiceRequest;
 import com.kickoff.core.soccer.player.Player;
 import com.kickoff.core.soccer.player.PlayerRepository;
-import com.kickoff.core.soccer.player.dto.FindPlayerResponse;
 import com.kickoff.core.soccer.player.service.PlayerService;
 import com.kickoff.core.soccer.team.league.LeagueTeam;
 import com.kickoff.core.soccer.team.league.LeagueTeamRepository;
@@ -35,9 +34,9 @@ public class ApiPlayerService {
         return playerRepository.save(player).getPlayerId();
     }
 
-    public FindPlayerResponseDto findPlayers(Long playerId)
+    public FindPlayerResponse findPlayers(Long playerId)
     {
-        FindPlayerResponse players = playerService.findPlayers(playerId);
-        return FindPlayerResponseDto.from(players);
+        com.kickoff.core.soccer.player.dto.FindPlayerResponse players = playerService.findPlayers(playerId);
+        return FindPlayerResponse.from(players);
     }
 }

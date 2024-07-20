@@ -45,6 +45,7 @@ public class LeagueGameQuerydslRepository {
                 .where(gameDateEq(condition.startDate(), condition.endDate()),
                         leagueIdEq(condition.leagueId()))
                 .fetchOne();
+
         return FindLeagueGamesResponse.of(
                 new PageImpl<>(
                         leagueGames,
