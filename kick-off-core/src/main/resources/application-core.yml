@@ -61,6 +61,8 @@ spring:
 logging:
   level:
     root: info
+    org:
+      apache.catalina: INFO
   file:
     path: /home/ubuntu/logs
     name: prod.log
