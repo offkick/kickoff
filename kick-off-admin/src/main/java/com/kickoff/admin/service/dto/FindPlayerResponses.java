@@ -2,8 +2,7 @@ package com.kickoff.admin.service.dto;
 
 import com.kickoff.core.soccer.player.Player;
 import com.kickoff.core.soccer.player.PlayerPosition;
-import com.kickoff.core.soccer.player.dto.FindPlayerResponse;
-import com.kickoff.core.soccer.team.league.LeagueTeam;
+import com.kickoff.core.soccer.player.dto.PlayerDTO;
 
 public record FindPlayerResponses(
         Long playerId,
@@ -13,8 +12,8 @@ public record FindPlayerResponses(
         String leagueTeamName,
         Long leagueTeamId
 ) {
-    public static FindPlayerResponse from(Player player){
-        return new FindPlayerResponse(
+    public static PlayerDTO from(Player player){
+        return new PlayerDTO(
                 player.getPlayerId(),
                 player.getNational(),
                 player.getPlayerName(),

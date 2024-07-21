@@ -2,7 +2,7 @@ package com.kickoff.admin.service;
 
 import com.kickoff.admin.service.dto.*;
 import com.kickoff.core.soccer.player.Player;
-import com.kickoff.core.soccer.player.dto.FindPlayerResponse;
+import com.kickoff.core.soccer.player.dto.PlayerDTO;
 import com.kickoff.core.soccer.player.dto.PlayerSearchCondition;
 import com.kickoff.core.soccer.player.service.PlayerService;
 import com.kickoff.core.soccer.player.service.dto.CreatePlayerRequest;
@@ -73,7 +73,7 @@ public class PlayerAdminService {
 
     public Page<FindPlayerResponses> findPlayers(PlayerSearchCondition condition, Pageable pageable)
     {
-        Page<FindPlayerResponse> findPlayerResponses = playerService.searchPlayers(condition, pageable);
+        Page<PlayerDTO> findPlayerResponses = playerService.searchPlayers(condition, pageable);
         List<FindPlayerResponses> playerList = findPlayerResponses.getContent().stream()
                 .map(p -> new FindPlayerResponses(
                         p.playerId(),

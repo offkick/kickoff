@@ -1,5 +1,6 @@
 package com.kickoff.core.soccer.team.league.service;
 
+import com.kickoff.core.soccer.team.league.LeagueTeam;
 import com.kickoff.core.soccer.team.league.LeagueTeamRepository;
 import com.kickoff.core.soccer.team.league.service.dto.LeagueTeamDTO;
 import lombok.RequiredArgsConstructor;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,5 +24,14 @@ public class LeagueTeamService {
                 .stream()
                 .map(LeagueTeamDTO::of)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public LeagueTeamDTO findById(Long leagueTeamId)
+    {
+        LeagueTeam leagueTeam = leagueTeamRepository.findById(leagueTeamId)
+                .orElseThrow();
+
+        return LeagueTeamDTO.of(leagueTeam);
     }
 }

@@ -1,8 +1,9 @@
 package com.kickoff.api.controller.soccer.player.dto;
 
 import com.kickoff.core.soccer.player.PlayerPosition;
+import com.kickoff.core.soccer.player.dto.PlayerDTO;
 
-public record FindPlayerResponse(
+public record FindPlayerApiResponse(
     Long playerId,
     String national,
     String playerName,
@@ -10,8 +11,8 @@ public record FindPlayerResponse(
     String leagueTeamName,
     Long leagueTeamId
 ) {
-    public static FindPlayerResponse from(com.kickoff.core.soccer.player.dto.FindPlayerResponse response){
-        return new FindPlayerResponse(
+    public static FindPlayerApiResponse from(PlayerDTO response){
+        return new FindPlayerApiResponse(
                 response.playerId(),
                 response.national(),
                 response.playerName(),

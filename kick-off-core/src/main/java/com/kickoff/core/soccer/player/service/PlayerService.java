@@ -4,7 +4,7 @@ import com.kickoff.core.soccer.player.Player;
 import com.kickoff.core.soccer.player.PlayerQuerydslRepository;
 import com.kickoff.core.soccer.player.PlayerRepository;
 import com.kickoff.core.soccer.player.PlayerRepositoryImpl;
-import com.kickoff.core.soccer.player.dto.FindPlayerResponse;
+import com.kickoff.core.soccer.player.dto.PlayerDTO;
 import com.kickoff.core.soccer.player.dto.PlayerSearchCondition;
 import com.kickoff.core.soccer.player.service.dto.CreatePlayerRequest;
 import com.kickoff.core.soccer.team.league.LeagueTeam;
@@ -50,19 +50,19 @@ public class PlayerService {
         return playerQuerydslRepository.findPlayer(playerId).orElseThrow(EntityNotFoundException::new);
     }
 
-    public List<FindPlayerResponse> findPlayer(String playerName, String national, Long leagueTeamId)
+    public List<PlayerDTO> findPlayer(String playerName, String national, Long leagueTeamId)
     {
         return playerQuerydslRepository.findAllByUsers(playerName,national,leagueTeamId);
     }
 
-    public Page<FindPlayerResponse> searchPlayers(PlayerSearchCondition condition, Pageable pageable)
+    public Page<PlayerDTO> searchPlayers(PlayerSearchCondition condition, Pageable pageable)
     {
         return playerRepositoryImpl.searchPlayer(condition,pageable);
     }
 
-    public FindPlayerResponse findPlayers(Long playerId)
+    public PlayerDTO findPlayers(Long playerId)
     {
         Player player = playerRepository.findById(playerId).orElseThrow(EntityNotFoundException::new);
-        return FindPlayerResponse.from(player);
+        return PlayerDTO.from(player);
     }
 }

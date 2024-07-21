@@ -1,6 +1,6 @@
 package com.kickoff.core.soccer.player;
 
-import com.kickoff.core.soccer.player.dto.FindPlayerResponse;
+import com.kickoff.core.soccer.player.dto.PlayerDTO;
 import com.kickoff.core.soccer.team.league.QLeagueTeam;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -31,14 +31,14 @@ public class PlayerQuerydslRepository {
         return Optional.ofNullable(findPlayer);
     }
 
-    public List<FindPlayerResponse> findAllByUsers(String playerName, String national, Long LeagueTeamId) {
+    public List<PlayerDTO> findAllByUsers(String playerName, String national, Long LeagueTeamId) {
         QPlayer player = QPlayer.player;
         List<Player> playerList = jpaQueryFactory.selectFrom(player)
                 .where(playerNameEq(playerName),
                         nationalEq(national),
                         leagueTeamEq(LeagueTeamId))
                 .fetch();
-        List<FindPlayerResponse> findPlayerResponse = playerList.stream().map(p -> new FindPlayerResponse(p.getPlayerId(),
+        List<PlayerDTO> playerDTO = playerList.stream().map(p -> new PlayerDTO(p.getPlayerId(),
                 p.getNational(),
                 p.getPlayerName(),
                 p.getPosition(),
@@ -46,7 +46,7 @@ public class PlayerQuerydslRepository {
                         p.getLeagueTeam().getLeagueTeamId()))
                 .collect(Collectors.toList());
 
-        return findPlayerResponse;
+        return playerDTO;
     }
     private BooleanExpression playerNameEq(String playerName) {
         QPlayer player = QPlayer.player;

@@ -1,6 +1,6 @@
 package com.kickoff.core.soccer.player;
 
-import com.kickoff.core.soccer.player.dto.FindPlayerResponse;
+import com.kickoff.core.soccer.player.dto.PlayerDTO;
 import com.kickoff.core.soccer.player.dto.PlayerSearchCondition;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -22,7 +22,7 @@ public class PlayerRepositoryImpl implements PlayerRepositoryCustom{
     private final JPAQueryFactory jpaQueryFactory;
 
     @Override
-    public Page<FindPlayerResponse> searchPlayer(PlayerSearchCondition condition, Pageable pageable)
+    public Page<PlayerDTO> searchPlayer(PlayerSearchCondition condition, Pageable pageable)
     {
         QPlayer player = QPlayer.player;
         QueryResults<Player> results = jpaQueryFactory.selectFrom(player)
@@ -35,8 +35,8 @@ public class PlayerRepositoryImpl implements PlayerRepositoryCustom{
                 .fetchResults();
         List<Player> content = results.getResults();
         long total = results.getTotal();
-        List<FindPlayerResponse> responses = content.stream()
-                .map(FindPlayerResponse::from)
+        List<PlayerDTO> responses = content.stream()
+                .map(PlayerDTO::from)
                 .collect(Collectors.toList());
         return new PageImpl<>(responses,pageable,total);
 

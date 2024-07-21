@@ -1,6 +1,6 @@
 package com.kickoff.api.controller.soccer.player;
 
-import com.kickoff.api.controller.soccer.player.dto.FindPlayerResponse;
+import com.kickoff.api.controller.soccer.player.dto.FindPlayerApiResponse;
 import com.kickoff.api.service.soccer.player.ApiPlayerService;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -24,7 +24,7 @@ public class PlayerController {
             @Parameter(name = "playerId", description = "선수id"),
     })
     @GetMapping("/{playerId}")
-    public FindPlayerResponse findPlayer(@PathVariable(value = "playerId") Long playerId)
+    public FindPlayerApiResponse findPlayer(@PathVariable(value = "playerId") Long playerId)
     {
         log.debug("출력");
         return apiPlayerService.findPlayers(playerId);
