@@ -33,8 +33,15 @@ public class Player {
     private Season season;
 
     @Builder
-    public Player(Long playerId, String national, String playerName, PlayerPosition position, LeagueTeam leagueTeam, String birth, Season season)
-    {
+    public Player(
+            Long playerId,
+            String national,
+            String playerName,
+            PlayerPosition position,
+            LeagueTeam leagueTeam,
+            String birth,
+            Season season
+    ) {
         this.playerId = playerId;
         this.national = national;
         this.playerName = playerName;

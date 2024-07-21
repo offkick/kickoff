@@ -40,20 +40,11 @@ public class PlayerService {
         return playerRepository.save(player).getPlayerId();
     }
 
-    public List<Player> findPlayers()
-    {
-        return playerRepository.findAll();
-    }
-
     public Player findPlayerById(Long playerId)
     {
         return playerQuerydslRepository.findPlayer(playerId).orElseThrow(EntityNotFoundException::new);
     }
 
-    public List<PlayerDTO> findPlayer(String playerName, String national, Long leagueTeamId)
-    {
-        return playerQuerydslRepository.findAllByUsers(playerName,national,leagueTeamId);
-    }
 
     public Page<PlayerDTO> searchPlayers(PlayerSearchCondition condition, Pageable pageable)
     {
