@@ -3,13 +3,13 @@ package com.kickoff.api.service.soccer.team.league.game;
 import com.kickoff.api.controller.team.league.dto.DateLeagueGameResponse;
 import com.kickoff.api.controller.team.league.dto.FindLeagueGamePlayerResponse;
 import com.kickoff.api.controller.team.league.dto.SeasonLeagueGameResponse;
-import com.kickoff.core.soccer.team.league.game.LeagueGame;
-import com.kickoff.core.soccer.team.league.game.LeagueGameRepository;
+import com.kickoff.core.soccer.team.league.game.LeagueGameQuerydslRepository;
+import com.kickoff.core.soccer.team.league.game.dto.FindGameCond;
+import com.kickoff.core.soccer.team.league.game.dto.FindLeagueGamesResponse;
 import com.kickoff.core.soccer.team.league.service.LeagueGameService;
 import com.kickoff.core.soccer.team.league.service.dto.LeagueGameDTO;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,8 +22,14 @@ import java.util.List;
 @Transactional(readOnly = true)
 @Service
 @RequiredArgsConstructor
-public class ApiLeagueGameFindService {
+public class LeagueGameFindService {
     private final LeagueGameService leagueGameService;
+    private final LeagueGameQuerydslRepository leagueGameQuerydslRepository;
+
+    public FindLeagueGamesResponse searchGames(FindGameCond cond)
+    {
+        return leagueGameQuerydslRepository.findLeagueGames(cond);
+    }
 
     public FindLeagueGamePlayerResponse findByLeagueGameId(Long leagueGameId)
     {

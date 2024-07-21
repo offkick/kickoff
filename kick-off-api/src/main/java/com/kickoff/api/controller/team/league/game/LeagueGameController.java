@@ -4,9 +4,7 @@ package com.kickoff.api.controller.team.league.game;
 import com.kickoff.api.controller.team.league.dto.DateLeagueGameResponse;
 import com.kickoff.api.controller.team.league.dto.FindLeagueGamePlayerResponse;
 import com.kickoff.api.controller.team.league.dto.SeasonLeagueGameResponse;
-import com.kickoff.api.service.soccer.team.league.game.ApiLeagueGameFindService;
-import com.kickoff.core.soccer.team.league.Season;
-import com.kickoff.core.soccer.team.league.game.LeagueGameQuerydslRepository;
+import com.kickoff.api.service.soccer.team.league.game.LeagueGameFindService;
 import com.kickoff.core.soccer.team.league.game.dto.FindGameCond;
 import com.kickoff.core.soccer.team.league.game.dto.FindLeagueGamesResponse;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -26,9 +24,7 @@ import java.time.YearMonth;
 @RequiredArgsConstructor
 @RestController
 public class LeagueGameController {
-
-    private final ApiLeagueGameFindService apiLeagueGameFindService;
-    private final LeagueGameQuerydslRepository leagueGameQuerydslRepository;
+    private final LeagueGameFindService leagueGameFindService;
 
     @GetMapping("/all")
     @Parameters({
@@ -49,25 +45,24 @@ public class LeagueGameController {
                 leagueId,
                 PageRequest.of(page,size)
         );
-        return leagueGameQuerydslRepository.findLeagueGames(cond);
-
+        return leagueGameFindService.searchGames(cond);
     }
 
     @GetMapping("/{leagueGameId}")
     public FindLeagueGamePlayerResponse findLeagueGamePlayer(@PathVariable(value="leagueGameId") Long leagueGameId)
     {
-        return apiLeagueGameFindService.findByLeagueGameId(leagueGameId);
+        return leagueGameFindService.findByLeagueGameId(leagueGameId);
     }
 
     @GetMapping("/date/{targetDate}")
     public DateLeagueGameResponse findLeagueGameByDate(@PathVariable String targetDate)
     {
-        return apiLeagueGameFindService.findLeagueGameByDate(LocalDate.parse(targetDate));
+        return leagueGameFindService.findLeagueGameByDate(LocalDate.parse(targetDate));
     }
 
     @GetMapping("/league/{leagueId}/{yearMonth}")
     public SeasonLeagueGameResponse findLeagueGameBySeason(@PathVariable Long leagueId, @PathVariable String yearMonth)
     {
-        return apiLeagueGameFindService.findLeagueGameBySeason(leagueId,YearMonth.parse(yearMonth));
+        return leagueGameFindService.findLeagueGameBySeason(leagueId,YearMonth.parse(yearMonth));
     }
 }
