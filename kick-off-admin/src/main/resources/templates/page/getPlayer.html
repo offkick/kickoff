@@ -50,9 +50,16 @@
             <div style="align-content: center">
                 <div class="card" style="width: 50rem; height: 40rem" th:each="player : ${player}">
                     <img src="..." class="card-img">
-<!--                    <div class="card-body">-->
-<!--&lt;!&ndash;                        <h5 class="card-title" th:text="${player.playerName}">Card title</h5>&ndash;&gt;-->
-<!--                    </div>-->
+                    <div class="d-flex justify-content-end gap-2 mb-3">
+                        <form th:action="@{/admin/image/upload/{playerId}(playerId=${player.playerId})}" method="POST" enctype="multipart/form-data">
+                            <div class="mb-3">
+                                <label for="file" class="form-label">이미지 파일</label>
+                                <input type="file" class="form-control" id="file" name="file" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">업로드</button>
+                            <button class="btn btn-primary" type="button">삭제</button>
+                        </form>
+                    </div>
                     <ul class="list-group list-group-flush" >
                         <li class="list-group-item" th:text="${player.playerName}">An item</li>
                         <li class="list-group-item" th:text="${player.leagueTeam.leagueTeamName}">A second item</li>
