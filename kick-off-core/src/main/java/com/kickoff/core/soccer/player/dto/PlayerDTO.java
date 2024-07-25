@@ -9,7 +9,8 @@ public record PlayerDTO(
         String playerName,
         PlayerPosition position,
         String leagueTeamName,
-        Long leagueTeamId
+        Long leagueTeamId,
+        Set<String> images
 ) {
     public static PlayerDTO from(Player player){
         return new PlayerDTO(
@@ -18,7 +19,8 @@ public record PlayerDTO(
                 player.getPlayerName(),
                 player.getPosition(),
                 player.getLeagueTeam().getLeagueTeamName(),
-                player.getLeagueTeam().getLeagueTeamId()
+                player.getLeagueTeam().getLeagueTeamId(),
+                player.getPlayerImages().stream().map(PlayerImage::getUrl).collect(Collectors.toSet())
         );
     }
 }
