@@ -26,6 +26,7 @@ public class PlayerService {
     private final LeagueTeamRepository leagueTeamRepository;
     private final PlayerQuerydslRepository playerQuerydslRepository;
     private final PlayerRepositoryImpl playerRepositoryImpl;
+    private final PlayerImageRepository playerImageRepository;
 
     public Long save(CreatePlayerRequest request)
     {
@@ -38,6 +39,19 @@ public class PlayerService {
                 .position(request.playerPosition()).build();
 
         return playerRepository.save(player).getPlayerId();
+    }
+    
+    public Player addPlayerImage(Long playerId, String imageUrl){
+        Optional<Player> player = playerRepository.findById(playerId);
+        if(player.isPresent()) {
+            Player player1 = player.get();
+            PlayerImage playerImage = new PlayerImage(imageUrl, player1);
+            player1.getPlayerImages().add(playerImage);
+            playerImageRepository.save(playerImage);
+            return player1;
+        }else{
+            throw new RuntimeException();
+        }
     }
 
     public Player findPlayerById(Long playerId)
