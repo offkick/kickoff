@@ -25,7 +25,9 @@ public class PlayerRepositoryImpl implements PlayerRepositoryCustom{
     public Page<PlayerDTO> searchPlayer(PlayerSearchCondition condition, Pageable pageable)
     {
         QPlayer player = QPlayer.player;
+        QPlayerImage image = QPlayerImage.playerImage;
         QueryResults<Player> results = jpaQueryFactory.selectFrom(player)
+                .leftJoin(player.playerImages,image).fetchJoin()
                 .where(playerNameEq(condition.playerName()),
                         nationalEq(condition.national()),
                         leagueTeamEq(condition.leagueTeamId()))
