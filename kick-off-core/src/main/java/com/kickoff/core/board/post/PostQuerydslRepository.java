@@ -1,8 +1,8 @@
 package com.kickoff.core.board.post;
 
-import com.kickoff.core.board.post.dto.FindPostCond;
-import com.kickoff.core.board.post.dto.FindPostResponse;
-import com.kickoff.core.board.post.dto.FindPostsResponse;
+import com.kickoff.core.board.post.dto.PostSearchCondition;
+import com.kickoff.core.board.post.dto.PostSearchResponse;
+import com.kickoff.core.board.post.dto.PostSearchResponses;
 import com.kickoff.core.board.postcomment.PostCommentRepository;
 import com.kickoff.core.board.postlike.PostLike;
 import com.kickoff.core.board.postlike.PostLikeRepository;
@@ -26,7 +26,7 @@ public class PostQuerydslRepository {
     private final PostLikeRepository postLikeRepository;
     private final PostCommentRepository postCommentRepository;
 
-    public FindPostsResponse findPosts(FindPostCond condition)
+    public PostSearchResponses findPosts(PostSearchCondition condition)
     {
         QPost post = QPost.post;
         Pageable pageable = condition.pageable();
@@ -47,7 +47,7 @@ public class PostQuerydslRepository {
                 .where(categoryEq(condition.postCategory()))
                 .fetchOne();
 
-        return FindPostsResponse.of(
+        return PostSearchResponses.of(
                 new PageImpl<>(
                         posts,
                         pageable,
@@ -63,7 +63,7 @@ public class PostQuerydslRepository {
     }
 
     @Transactional
-    public FindPostResponse findPost(Long postId)
+    public PostSearchResponse findPost(Long postId)
     {
         QPost qPost = QPost.post;
         Post post = jpaQueryFactory.select(qPost)
@@ -74,6 +74,6 @@ public class PostQuerydslRepository {
         int likeCount = postLikeRepository.countByPostId(post.getPostId());
         int commentSize = postCommentRepository.findCommentsByPostId(post.getPostId()).size();
 
-        return FindPostResponse.of(post, likeCount, commentSize);
+        return PostSearchResponse.of(post, likeCount, commentSize);
     }
 }

@@ -1,9 +1,9 @@
 package com.kickoff.api.controller.board.post;
 
 import com.kickoff.core.board.post.PostQuerydslRepository;
-import com.kickoff.core.board.post.dto.FindPostCond;
-import com.kickoff.core.board.post.dto.FindPostResponse;
-import com.kickoff.core.board.post.dto.FindPostsResponse;
+import com.kickoff.core.board.post.dto.PostSearchCondition;
+import com.kickoff.core.board.post.dto.PostSearchResponse;
+import com.kickoff.core.board.post.dto.PostSearchResponses;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/post/search")
 @RestController
 @Tag(name = "게시물 조회 컨트롤러", description = "모든 게시물 조회")
-public class FindPostController {
+public class PostSearchController {
     private final PostQuerydslRepository postQuerydslRepository;
 
     @Parameters({
@@ -23,12 +23,12 @@ public class FindPostController {
             @Parameter(name = "size", description = "페이지당 컨텐츠 개수, 기본 10")
     })
     @GetMapping
-    public FindPostsResponse findPosts(
+    public PostSearchResponses findPosts(
             @RequestParam(value = "size", defaultValue = "10") int size,
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "category", required = false) String postCategory
     ) {
-        FindPostCond cond = new FindPostCond(
+        PostSearchCondition cond = new PostSearchCondition(
                 PageRequest.of(page,size),
                 postCategory
         );
@@ -39,7 +39,7 @@ public class FindPostController {
             @Parameter(name = "postId", description = "게시물 ID")
     })
     @GetMapping("/{postId}")
-    public FindPostResponse findPost(@PathVariable Long postId)
+    public PostSearchResponse findPost(@PathVariable Long postId)
     {
         return postQuerydslRepository.findPost(postId);
     }

@@ -12,8 +12,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Builder
-public record FindPostsResponse(List<FindPost> findPosts, int totalPages, long totalElements) {
-    public static FindPostsResponse of(Page<Post> posts, List<PostLike> postLikes)
+public record PostSearchResponses(List<FindPost> findPosts, int totalPages, long totalElements) {
+    public static PostSearchResponses of(Page<Post> posts, List<PostLike> postLikes)
     {
         Map<Long, Long> postLikeMap = postLikes.stream()
                 .collect(Collectors.groupingBy(s -> s.getPost().getPostId(), Collectors.counting()));
@@ -22,7 +22,7 @@ public record FindPostsResponse(List<FindPost> findPosts, int totalPages, long t
                 .map(post -> FindPost.from(post, postLikeMap.getOrDefault(post.getPostId(), 0L)))
                 .collect(Collectors.toList());
 
-        return FindPostsResponse.builder()
+        return PostSearchResponses.builder()
                 .findPosts(findPosts)
                 .totalElements(posts.getTotalElements())
                 .totalPages(posts.getTotalPages())

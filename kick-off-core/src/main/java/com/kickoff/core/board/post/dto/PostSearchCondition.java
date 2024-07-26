@@ -2,7 +2,7 @@ package com.kickoff.core.board.post.dto;
 
 import org.springframework.data.domain.Pageable;
 
-public record FindPostCond(
+public record PostSearchCondition(
         Pageable pageable,
         String postCategory
 ) {}

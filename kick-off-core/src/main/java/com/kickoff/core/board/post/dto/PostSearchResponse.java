@@ -5,7 +5,7 @@ import com.kickoff.core.board.post.Post;
 
 import java.time.LocalDateTime;
 
-public record FindPostResponse(
+public record PostSearchResponse(
         Long postId,
         String title,
         String content,
@@ -18,9 +18,9 @@ public record FindPostResponse(
         int likeCount,
         int commentSize
 ) {
-    public static FindPostResponse of(Post post, int likeCount, int commentSize)
+    public static PostSearchResponse of(Post post, int likeCount, int commentSize)
     {
-        return new FindPostResponse(
+        return new PostSearchResponse(
                 post.getPostId(),
                 post.getTitle(),
                 post.getContent(),
