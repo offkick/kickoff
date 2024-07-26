@@ -31,23 +31,23 @@ public class PlayerQuerydslRepository {
         return Optional.ofNullable(findPlayer);
     }
 
-    public List<PlayerDTO> findAllByUsers(String playerName, String national, Long LeagueTeamId) {
-        QPlayer player = QPlayer.player;
-        List<Player> playerList = jpaQueryFactory.selectFrom(player)
-                .where(playerNameEq(playerName),
-                        nationalEq(national),
-                        leagueTeamEq(LeagueTeamId))
-                .fetch();
-        List<PlayerDTO> playerDTO = playerList.stream().map(p -> new PlayerDTO(p.getPlayerId(),
-                p.getNational(),
-                p.getPlayerName(),
-                p.getPosition(),
-                p.getLeagueTeam().getLeagueTeamName(),
-                        p.getLeagueTeam().getLeagueTeamId()))
-                .collect(Collectors.toList());
+    // public List<PlayerDTO> findAllByUsers(String playerName, String national, Long LeagueTeamId) {
+    //     QPlayer player = QPlayer.player;
+    //     List<Player> playerList = jpaQueryFactory.selectFrom(player)
+    //             .where(playerNameEq(playerName),
+    //                     nationalEq(national),
+    //                     leagueTeamEq(LeagueTeamId))
+    //             .fetch();
+    //     List<PlayerDTO> playerDTO = playerList.stream().map(p -> new PlayerDTO(p.getPlayerId(),
+    //             p.getNational(),
+    //             p.getPlayerName(),
+    //             p.getPosition(),
+    //             p.getLeagueTeam().getLeagueTeamName(),
+    //                     p.getLeagueTeam().getLeagueTeamId()))
+    //             .collect(Collectors.toList());
 
-        return playerDTO;
-    }
+    //     return playerDTO;
+    // }
     private BooleanExpression playerNameEq(String playerName) {
         QPlayer player = QPlayer.player;
         return playerName != null && !playerName.isEmpty()? player.playerName.contains(playerName): null;

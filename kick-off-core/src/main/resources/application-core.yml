@@ -25,7 +25,7 @@ spring:
     url: jdbc:mysql://localhost:3306/kick_off?createDatabaseIfNotExist=true
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password:
+    password: Abcd123@
   jpa:
     hibernate:
       ddl-auto: create
@@ -42,7 +42,7 @@ logging:
     name: local.log
 server:
   tomcat:
-    basedir: /Users/sangyoon/Desktop/testlog2
+    basedir: /Users/shinhee/Desktop/testlog2
     accesslog:
       enabled: true
 ---

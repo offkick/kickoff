@@ -24,4 +24,6 @@ spring:
   profiles:
     active: prod
     include: core
-
+upload:
+  image:
+    player: /Users/shinhee/Desktop/images/

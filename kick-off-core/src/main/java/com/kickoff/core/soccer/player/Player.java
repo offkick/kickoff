@@ -6,6 +6,9 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import java.util.HashSet;
+import java.util.Set;
+
 
 @Entity
 @Getter
@@ -31,6 +34,10 @@ public class Player {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "season_id")
     private Season season;
+
+    @OneToMany(mappedBy = "player", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<PlayerImage> playerImages = new HashSet<>();
+
 
     @Builder
     public Player(

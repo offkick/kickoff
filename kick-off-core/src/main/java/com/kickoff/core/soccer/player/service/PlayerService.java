@@ -1,9 +1,6 @@
 package com.kickoff.core.soccer.player.service;
 
-import com.kickoff.core.soccer.player.Player;
-import com.kickoff.core.soccer.player.PlayerQuerydslRepository;
-import com.kickoff.core.soccer.player.PlayerRepository;
-import com.kickoff.core.soccer.player.PlayerRepositoryImpl;
+import com.kickoff.core.soccer.player.*;
 import com.kickoff.core.soccer.player.dto.PlayerDTO;
 import com.kickoff.core.soccer.player.dto.PlayerSearchCondition;
 import com.kickoff.core.soccer.player.service.dto.CreatePlayerRequest;
@@ -17,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Transactional
 @Service
@@ -26,6 +24,7 @@ public class PlayerService {
     private final LeagueTeamRepository leagueTeamRepository;
     private final PlayerQuerydslRepository playerQuerydslRepository;
     private final PlayerRepositoryImpl playerRepositoryImpl;
+    private final PlayerImageRepository playerImageRepository;
 
     public Long save(CreatePlayerRequest request)
     {
@@ -38,6 +37,19 @@ public class PlayerService {
                 .position(request.playerPosition()).build();
 
         return playerRepository.save(player).getPlayerId();
+    }
+    
+    public Player addPlayerImage(Long playerId, String imageUrl){
+        Optional<Player> player = playerRepository.findById(playerId);
+        if(player.isPresent()) {
+            Player player1 = player.get();
+            PlayerImage playerImage = new PlayerImage(imageUrl, player1);
+            player1.getPlayerImages().add(playerImage);
+            playerImageRepository.save(playerImage);
+            return player1;
+        }else{
+            throw new RuntimeException();
+        }
     }
 
     public Player findPlayerById(Long playerId)

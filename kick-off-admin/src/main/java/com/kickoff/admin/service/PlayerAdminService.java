@@ -2,6 +2,7 @@ package com.kickoff.admin.service;
 
 import com.kickoff.admin.service.dto.*;
 import com.kickoff.core.soccer.player.Player;
+import com.kickoff.core.soccer.player.PlayerImage;
 import com.kickoff.core.soccer.player.dto.PlayerDTO;
 import com.kickoff.core.soccer.player.dto.PlayerSearchCondition;
 import com.kickoff.core.soccer.player.service.PlayerService;
@@ -18,6 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -81,11 +83,16 @@ public class PlayerAdminService {
                         p.playerName(),
                         p.position(),
                         p.leagueTeamName(),
-                        p.leagueTeamId()
+                        p.leagueTeamId(),
+                        p.images()
                 )).collect(Collectors.toList());
 
 
         return new PageImpl<>(playerList,pageable,findPlayerResponses.getTotalElements());
+    }
+
+    public Player addPlayerImage(Long playerId, String imageUrl){
+        return playerService.addPlayerImage(playerId,imageUrl);
     }
 
 }
