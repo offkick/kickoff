@@ -5,10 +5,13 @@ import com.kickoff.admin.service.upload.LocalPlayerImageUploadServiceImpl;
 import com.kickoff.admin.service.upload.PlayerImageUploadService;
 import com.kickoff.core.soccer.player.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.IOException;
 
@@ -54,7 +57,9 @@ public class PlayerImageUploadController {
             String savePath = localPlayerImageUploadService.upload(multipartFile);
             String imageUrl = "/images/" + savePath;
             playerAdminService.addPlayerImage(playerId,imageUrl);
-            return ResponseEntity.ok(" 성공");
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Location", "/admin/all-players/" + playerId);
+            return new ResponseEntity<>(headers, HttpStatus.FOUND);
         }catch (IOException e) {
             e.printStackTrace();
             return ResponseEntity.status(500).body("업로드 실패: IO 오류");

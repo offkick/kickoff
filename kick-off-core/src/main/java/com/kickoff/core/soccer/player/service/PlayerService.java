@@ -1,9 +1,6 @@
 package com.kickoff.core.soccer.player.service;
 
-import com.kickoff.core.soccer.player.Player;
-import com.kickoff.core.soccer.player.PlayerQuerydslRepository;
-import com.kickoff.core.soccer.player.PlayerRepository;
-import com.kickoff.core.soccer.player.PlayerRepositoryImpl;
+import com.kickoff.core.soccer.player.*;
 import com.kickoff.core.soccer.player.dto.PlayerDTO;
 import com.kickoff.core.soccer.player.dto.PlayerSearchCondition;
 import com.kickoff.core.soccer.player.service.dto.CreatePlayerRequest;
@@ -17,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Transactional
 @Service

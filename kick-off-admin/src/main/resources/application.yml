@@ -26,4 +26,4 @@ spring:
     include: core
 upload:
   image:
-    player: C:\Users\박신희\images\
+    player: /Users/shinhee/Desktop/images/

@@ -1,7 +1,11 @@
 package com.kickoff.core.soccer.player.dto;
 
 import com.kickoff.core.soccer.player.Player;
+import com.kickoff.core.soccer.player.PlayerImage;
 import com.kickoff.core.soccer.player.PlayerPosition;
+
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public record PlayerDTO(
         Long playerId,
