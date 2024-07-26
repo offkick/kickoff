@@ -38,7 +38,7 @@ public class Post {
         this.title = title;
         this.content = content;
         this.category = category;
-        this.postDate = postDate;
+        this.postDate = LocalDateTime.now();
         this.member = member;
     }
 
