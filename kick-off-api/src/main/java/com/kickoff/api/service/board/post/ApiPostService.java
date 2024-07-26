@@ -10,20 +10,16 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 @Transactional
 public class ApiPostService {
-
     private final PostRepository postRepository;
     private final MemberRepository memberRepository;
 
     public Long create(Long memberId,CreatePostServiceRequest request)
     {
-        Optional<Member> byId = memberRepository.findById(memberId);
-        Member member = byId.orElseThrow(() -> new IllegalArgumentException());
+        Member member = memberRepository.findById(memberId).orElseThrow(IllegalArgumentException::new);
 
         Post post = Post.builder()
                 .title(request.title())
@@ -44,8 +40,7 @@ public class ApiPostService {
     }
 
     public Long update(Long postId,UpdatePostServiceRequest request){
-        Post post = postRepository.findById(postId)
-                .orElseThrow(()-> new IllegalArgumentException());
+        Post post = postRepository.findById(postId).orElseThrow(IllegalArgumentException::new);
         Post updatePost = Post.builder()
                 .title(request.title())
                 .content(request.content())

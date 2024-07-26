@@ -1,22 +1,21 @@
 package com.kickoff.api.controller.board.postComment;
 
-import com.kickoff.api.controller.board.postComment.dto.PostCommentResponse;
-import com.kickoff.core.board.postcomment.PostCommentRepository;
+import com.kickoff.api.controller.board.postComment.dto.PostCommentCreateRequest;
+import com.kickoff.api.service.board.postComment.PostCommentService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+@Tag(name = "댓글 컨트롤러", description = "댓글 수정/삭제")
 @RequiredArgsConstructor
-@RequestMapping("/postComment/search")
+@RequestMapping("/postComment")
 @RestController
 public class PostCommentController {
-    private final PostCommentRepository postCommentRepository;
+    private final PostCommentService postCommentService;
 
-    @GetMapping("/{postId}")
-    public PostCommentResponse findComments(@PathVariable(value = "postId") Long postId)
+    @PostMapping("/{postId}")
+    public Long createComments(@PathVariable(value = "postId") Long postId, @RequestBody PostCommentCreateRequest request)
     {
-        return PostCommentResponse.of(postCommentRepository.findCommentsByPostId(postId));
+        return postCommentService.create(postId, request);
     }
 }

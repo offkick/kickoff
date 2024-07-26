@@ -9,8 +9,8 @@ public enum National {
     ;
     public static National of(String competition)
     {
-        // PL -> ENGLAND
-        return switch (competition) {
+        return switch (competition)
+        {
             case "PL" -> National.ENGLAND;
             default -> National.OTHER;
         };

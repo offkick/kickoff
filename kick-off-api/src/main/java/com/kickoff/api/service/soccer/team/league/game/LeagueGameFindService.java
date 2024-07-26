@@ -39,10 +39,9 @@ public class LeagueGameFindService {
 
     public DateLeagueGameResponse findLeagueGameByDate(LocalDate date)
     {
-        LocalTime endTime = LocalTime.of(23, 59, 59);
         List<LeagueGameDTO> leagueGames = leagueGameService.findByGameDateBetween(
                 date.atStartOfDay(),
-                date.atTime(endTime)
+                date.atTime(LocalTime.MAX)
         );
 
         return DateLeagueGameResponse.of(leagueGames);

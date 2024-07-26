@@ -1,11 +1,11 @@
 package com.kickoff.core.board.post;
 
 import com.kickoff.core.board.post.dto.FindPostCond;
+import com.kickoff.core.board.post.dto.FindPostResponse;
 import com.kickoff.core.board.post.dto.FindPostsResponse;
-import com.kickoff.core.board.post.dto.SearchPostResponse;
-import com.kickoff.core.board.postcomment.PostComment;
-import com.kickoff.core.board.postcomment.QPostComment;
-import com.kickoff.core.member.QMember;
+import com.kickoff.core.board.postcomment.PostCommentRepository;
+import com.kickoff.core.board.postlike.PostLike;
+import com.kickoff.core.board.postlike.PostLikeRepository;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -15,12 +15,16 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Transactional(readOnly = true)
 @Component
 @RequiredArgsConstructor
 public class PostQuerydslRepository {
     private final JPAQueryFactory jpaQueryFactory;
+    private final PostLikeRepository postLikeRepository;
+    private final PostCommentRepository postCommentRepository;
 
     public FindPostsResponse findPosts(FindPostCond condition)
     {
@@ -32,18 +36,25 @@ public class PostQuerydslRepository {
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
+
+        Set<Long> postIds = posts.stream()
+                .map(Post::getPostId).collect(Collectors.toSet());
+
+        List<PostLike> byPostIds = postLikeRepository.findByPostIds(postIds);
+
         Long count = jpaQueryFactory.select(post.postId.count())
                 .from(post)
                 .where(categoryEq(condition.postCategory()))
                 .fetchOne();
+
         return FindPostsResponse.of(
                 new PageImpl<>(
                         posts,
                         pageable,
                         count
-                )
+                ),
+                byPostIds
         );
-
     }
 
     private BooleanExpression categoryEq(String category)
@@ -51,25 +62,18 @@ public class PostQuerydslRepository {
         return category != null ? QPost.post.category.eq(category) : null;
     }
 
+    @Transactional
+    public FindPostResponse findPost(Long postId)
+    {
+        QPost qPost = QPost.post;
+        Post post = jpaQueryFactory.select(qPost)
+                .from(qPost)
+                .where(qPost.postId.eq(postId))
+                .fetchOne();
+        post.addViewCount();
+        int likeCount = postLikeRepository.countByPostId(post.getPostId());
+        int commentSize = postCommentRepository.findCommentsByPostId(post.getPostId()).size();
 
-
-
-//    public SearchPostResponse searchPost(Long postId)
-//    {
-//        QPostComment postComment = QPostComment.postComment;
-//        QPost post = QPost.post;
-//        QMember member = QMember.member;
-//        jpaQueryFactory.select(post)
-//                .from(post)
-//                .join(post.member, member).fetchJoin()
-//                .where(
-//
-//                )
-//        List<PostComment> postComments = jpaQueryFactory.selectFrom(postComment)
-//                .leftJoin(postComment.post, QPost.post).fetchJoin()
-//                .leftJoin(postComment.member, QMember.member).fetchJoin()
-//                .where(postComment.post.postId.eq(postId))
-//                .fetch();
-//        return SearchPostResponse.from(postComments);
-//    }
+        return FindPostResponse.of(post, likeCount, commentSize);
+    }
 }

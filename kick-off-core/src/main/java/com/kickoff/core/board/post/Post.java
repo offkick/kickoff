@@ -1,6 +1,5 @@
 package com.kickoff.core.board.post;
 
-import com.kickoff.core.board.postcomment.PostComment;
 import com.kickoff.core.member.Member;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -8,14 +7,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Getter
 @NoArgsConstructor
 public class Post {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long postId;
@@ -32,8 +28,16 @@ public class Post {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    private int viewCount;
     @Builder
-    public Post(Long postId, String title, String content, String category, LocalDateTime postDate, Member member) {
+    public Post(
+            Long postId,
+            String title,
+            String content,
+            String category,
+            LocalDateTime postDate,
+            Member member
+    ) {
         this.postId = postId;
         this.title = title;
         this.content = content;
@@ -57,6 +61,7 @@ public class Post {
         }
         this.content = content;
     }
+
     private void setTitle(String title)
     {
         if(title == null || title.isBlank())
@@ -65,6 +70,7 @@ public class Post {
         }
         this.title = title;
     }
+
     private void setCategory(String category)
     {
         if(category == null || category.isBlank())
@@ -72,5 +78,9 @@ public class Post {
             return ;
         }
         this.category = category;
+    }
+
+    public void addViewCount() {
+        this.viewCount = this.viewCount + 1;
     }
 }

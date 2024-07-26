@@ -2,17 +2,14 @@ package com.kickoff.api.controller.board.post;
 
 import com.kickoff.core.board.post.PostQuerydslRepository;
 import com.kickoff.core.board.post.dto.FindPostCond;
+import com.kickoff.core.board.post.dto.FindPostResponse;
 import com.kickoff.core.board.post.dto.FindPostsResponse;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RequestMapping("/post/search")
@@ -38,4 +35,12 @@ public class FindPostController {
         return postQuerydslRepository.findPosts(cond);
     }
 
+    @Parameters({
+            @Parameter(name = "postId", description = "게시물 ID")
+    })
+    @GetMapping("/{postId}")
+    public FindPostResponse findPost(@PathVariable Long postId)
+    {
+        return postQuerydslRepository.findPost(postId);
+    }
 }

@@ -37,6 +37,7 @@ public record SearchPostResponse(
                 postComments.stream().map(CommentResponse::from).collect(Collectors.toList())
         );
     }
+
     public record CommentResponse(
             Long commentId,
             String comment,

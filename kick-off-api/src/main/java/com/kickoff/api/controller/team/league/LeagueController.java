@@ -1,7 +1,7 @@
 package com.kickoff.api.controller.team.league;
 
-import com.kickoff.api.service.soccer.team.league.ApiLeagueService;
-import com.kickoff.api.service.soccer.team.league.dto.FindLeagueResponseDto;
+import com.kickoff.api.service.soccer.team.league.LeagueFindService;
+import com.kickoff.api.service.soccer.team.league.dto.FindLeagueResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,11 +19,11 @@ import java.util.List;
 @RestController
 public class LeagueController {
 
-    private final ApiLeagueService apiLeagueService;
+    private final LeagueFindService leagueFindService;
 
     @GetMapping("/all")
-    public List<FindLeagueResponseDto> findAllLeagues()
+    public List<FindLeagueResponse> findAllLeagues()
     {
-        return apiLeagueService.findAllLeagues();
+        return leagueFindService.findAllLeagues();
     }
 }

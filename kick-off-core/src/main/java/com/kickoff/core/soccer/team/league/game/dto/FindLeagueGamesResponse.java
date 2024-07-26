@@ -3,7 +3,6 @@ package com.kickoff.core.soccer.team.league.game.dto;
 import com.kickoff.core.soccer.player.PlayerPosition;
 import com.kickoff.core.soccer.team.Score;
 import com.kickoff.core.soccer.team.TeamType;
-import com.kickoff.core.soccer.team.league.Season;
 import com.kickoff.core.soccer.team.league.game.LeagueGame;
 import com.kickoff.core.soccer.team.league.game.LeagueGameStatus;
 import com.kickoff.core.soccer.team.league.game.player.LeagueGamePlayerStatus;
@@ -15,13 +14,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Builder
-public record FindLeagueGamesResponse(
-        List<FindLeagueGames> findLeagueGames,
-        long totalElements,
-        int totalPages
+public record FindLeagueGamesResponse(List<FindLeagueGames> findLeagueGames, long totalElements, int totalPages) {
 
-//        String leagueName
-) {
     public static FindLeagueGamesResponse of(Page<LeagueGame> leagueGames)
     {
         List<FindLeagueGames> findLeagueGames = leagueGames.stream()
@@ -33,7 +27,6 @@ public record FindLeagueGamesResponse(
                 .totalElements(leagueGames.getTotalElements())
                 .totalPages(leagueGames.getTotalPages())
                 .build();
-
     }
 
     public record LeagueTeamDTO(
@@ -84,7 +77,6 @@ public record FindLeagueGamesResponse(
             String home,
             Score score,
             LeagueGameStatus leagueGameStatus,
-//            Season season
             List<LeagueGamePlayerDTO> homePlayers,
             List<LeagueGamePlayerDTO> awayPlayers
     ) {
@@ -98,7 +90,6 @@ public record FindLeagueGamesResponse(
                     leagueGame.getHome().getLeagueTeamName(),
                     leagueGame.getScore(),
                     leagueGame.getLeagueGameStatus(),
-//                    leagueGame.getSeason(),
                     null,
                     null
             );
