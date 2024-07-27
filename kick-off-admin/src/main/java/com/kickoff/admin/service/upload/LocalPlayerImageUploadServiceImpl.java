@@ -1,11 +1,12 @@
 package com.kickoff.admin.service.upload;
 
+import com.google.common.collect.Sets;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import com.google.common.collect.Sets;
 
-import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.UUID;
 
 @Service
@@ -26,14 +27,15 @@ public class LocalPlayerImageUploadServiceImpl implements PlayerImageUploadServi
         String fileExtension = fileName.substring(index);
         String imgType = fileName.substring(index+1).toLowerCase();
 
-        if(!Sets.newHashSet("jpg","jpeg","png").contains(imgType))
+        if(!Sets.newHashSet("jpg", "jpeg", "png").contains(imgType))
         {
             throw new RuntimeException();
         }
+
         String savePath = UUID.randomUUID() +fileExtension;
 
-        File file = new File(playerImagePath + savePath);
-        multipartFile.transferTo(file);
+        Path path = Paths.get(playerImagePath + savePath).toAbsolutePath();
+        multipartFile.transferTo(path.toFile());
         return savePath;
     }
 }

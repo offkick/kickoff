@@ -13,7 +13,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 @Transactional
@@ -39,7 +38,8 @@ public class PlayerService {
         return playerRepository.save(player).getPlayerId();
     }
     
-    public Player addPlayerImage(Long playerId, String imageUrl){
+    public Player addPlayerImage(Long playerId, String imageUrl)
+    {
         Optional<Player> player = playerRepository.findById(playerId);
         if(player.isPresent()) {
             Player player1 = player.get();
@@ -56,7 +56,6 @@ public class PlayerService {
     {
         return playerQuerydslRepository.findPlayer(playerId).orElseThrow(EntityNotFoundException::new);
     }
-
 
     public Page<PlayerDTO> searchPlayers(PlayerSearchCondition condition, Pageable pageable)
     {

@@ -16,6 +16,12 @@ spring:
   sql:
     init:
       mode: always
+  servlet:
+    multipart:
+      enabled: true
+      location: './images'
+      max-request-size: 300MB
+      max-file-size: 300MB
 ---
 spring:
   sql:
@@ -26,4 +32,4 @@ spring:
     include: core
 upload:
   image:
-    player: /Users/shinhee/Desktop/images/
+    player: ./images/

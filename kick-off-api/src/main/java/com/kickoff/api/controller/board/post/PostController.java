@@ -1,9 +1,9 @@
 package com.kickoff.api.controller.board.post;
 
 import com.kickoff.api.config.security.AuthUtil;
-import com.kickoff.api.service.board.post.ApiPostService;
-import com.kickoff.api.service.board.post.dto.CreatePostServiceRequest;
-import com.kickoff.api.service.board.post.dto.UpdatePostServiceRequest;
+import com.kickoff.api.service.board.post.PostApiService;
+import com.kickoff.core.board.post.dto.CreatePostServiceRequest;
+import com.kickoff.core.board.post.dto.UpdatePostServiceRequest;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -13,23 +13,23 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/post")
 public class PostController {
-    private final ApiPostService apiPostService;
+    private final PostApiService postApiService;
 
     @PostMapping
     public Long createPost(@RequestBody CreatePostServiceRequest request)
     {
-        return apiPostService.create(AuthUtil.currentUserId(), request.toServiceDto());
+        return postApiService.create(AuthUtil.currentUserId(), request.toServiceDto());
     }
 
     @PutMapping("/{postId}")
     public Long updatePost(@PathVariable Long postId, @RequestBody UpdatePostServiceRequest request)
     {
-        return apiPostService.update(postId, request.toServiceDto());
+        return postApiService.update(postId, request.toServiceDto());
     }
     
     @DeleteMapping("/{postId}")
     public void deletePost(@PathVariable(value="postId") Long postId)
     {
-        apiPostService.delete(postId);
+        postApiService.delete(postId);
     }
 }

@@ -1,4 +1,4 @@
-package com.kickoff.api.service.board.post.dto;
+package com.kickoff.core.board.post.dto;
 
 public record CreatePostServiceRequest(
         String title,

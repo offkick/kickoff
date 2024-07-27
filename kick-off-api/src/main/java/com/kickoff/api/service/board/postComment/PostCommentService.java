@@ -25,7 +25,6 @@ public class PostCommentService {
         Post post = postRepository.findById(postId).orElseThrow();
         Long memberId = AuthUtil.currentUserId();
 
-
         Member member = memberRepository.findById(memberId).orElseThrow();
 
         PostComment postComment = PostComment.builder()
