@@ -13,23 +13,27 @@ spring:
   profiles:
     active: local
     include: core
-  sql:
-    init:
-      mode: always
   servlet:
     multipart:
       enabled: true
       location: './images'
       max-request-size: 300MB
       max-file-size: 300MB
+upload:
+  image:
+    player: ./images/
+
 ---
 spring:
-  sql:
-    init:
-      mode: always
   profiles:
     active: prod
     include: core
+  servlet:
+    multipart:
+      enabled: true
+      location: './images'
+      max-request-size: 300MB
+      max-file-size: 300MB
 upload:
   image:
     player: ./images/

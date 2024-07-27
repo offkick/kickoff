@@ -1,8 +1,7 @@
 package com.kickoff.api.controller.board.post;
 
-import com.kickoff.api.config.security.AuthUtil;
 import com.kickoff.api.service.board.post.PostApiService;
-import com.kickoff.core.board.post.dto.CreatePostServiceRequest;
+import com.kickoff.api.service.board.post.dto.CreatePostRequest;
 import com.kickoff.core.board.post.dto.UpdatePostServiceRequest;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -16,9 +15,9 @@ public class PostController {
     private final PostApiService postApiService;
 
     @PostMapping
-    public Long createPost(@RequestBody CreatePostServiceRequest request)
+    public Long createPost(@RequestBody CreatePostRequest request)
     {
-        return postApiService.create(AuthUtil.currentUserId(), request.toServiceDto());
+        return postApiService.create(request);
     }
 
     @PutMapping("/{postId}")
