@@ -28,7 +28,7 @@ public class Post {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    private int viewCount;
+    private int viewCount =0;
     @Builder
     public Post(
             Long postId,
