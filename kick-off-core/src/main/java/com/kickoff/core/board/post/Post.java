@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDateTime;
 
@@ -28,7 +29,8 @@ public class Post {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    private int viewCount =0;
+    @ColumnDefault(value = "0")
+    private int viewCount;
     @Builder
     public Post(
             Long postId,
