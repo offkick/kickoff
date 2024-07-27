@@ -70,10 +70,14 @@ public class PostQuerydslRepository {
                 .from(qPost)
                 .where(qPost.postId.eq(postId))
                 .fetchOne();
-        post.addViewCount();
-        int likeCount = postLikeRepository.countByPostId(post.getPostId());
-        int commentSize = postCommentRepository.findCommentsByPostId(post.getPostId()).size();
+        if (post != null) {
+            post.addViewCount();
+            int likeCount = postLikeRepository.countByPostId(post.getPostId());
+            int commentSize = postCommentRepository.findCommentsByPostId(post.getPostId()).size();
 
-        return PostSearchResponse.of(post, likeCount, commentSize);
+            return PostSearchResponse.of(post, likeCount, commentSize);
+        }
+
+        return null;
     }
 }
