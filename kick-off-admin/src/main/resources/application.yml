@@ -1,0 +1,39 @@
+server:
+  port: 8082
+spring:
+  h2:
+    console:
+      enabled: true
+  thymeleaf:
+    cache: false
+    check-template-location: false
+    enabled: true
+    prefix: classpath:/templates/
+    suffix: .html
+  profiles:
+    active: local
+    include: core
+  servlet:
+    multipart:
+      enabled: true
+      location: './images'
+      max-request-size: 300MB
+      max-file-size: 300MB
+upload:
+  image:
+    player: ./images/
+
+---
+spring:
+  profiles:
+    active: prod
+    include: core
+  servlet:
+    multipart:
+      enabled: true
+      location: './images'
+      max-request-size: 300MB
+      max-file-size: 300MB
+upload:
+  image:
+    player: ./images/

@@ -1,0 +1,99 @@
+package com.kickoff.core.soccer.team.league.game;
+
+import com.kickoff.core.soccer.team.league.game.dto.FindGameCond;
+import com.kickoff.core.soccer.team.league.game.dto.FindLeagueGameResponse;
+import com.kickoff.core.soccer.team.league.game.dto.FindLeagueGamesResponse;
+import com.kickoff.core.soccer.team.league.game.dto.GameSearchCondition;
+import com.querydsl.core.QueryResults;
+import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.impl.JPAQueryFactory;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static com.kickoff.core.soccer.team.league.game.QLeagueGame.leagueGame;
+
+@Transactional(readOnly = true)
+@Component
+@RequiredArgsConstructor
+public class LeagueGameQuerydslRepository {
+    private final JPAQueryFactory jpaQueryFactory;
+
+    public FindLeagueGamesResponse findLeagueGames(FindGameCond condition)
+    {
+        QLeagueGame leagueGame = QLeagueGame.leagueGame;
+        Pageable pageable = condition.pageable();
+
+        List<LeagueGame> leagueGames = jpaQueryFactory.selectFrom(leagueGame)
+                .where(gameDateEq(condition.startDate(), condition.endDate()),
+                        leagueIdEq(condition.leagueId())
+                )
+                .orderBy(leagueGame.gameDate.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+
+        Long count = jpaQueryFactory.select(leagueGame.leagueGameId.count())
+                .from(leagueGame)
+                .where(gameDateEq(condition.startDate(), condition.endDate()),
+                        leagueIdEq(condition.leagueId()))
+                .fetchOne();
+
+        return FindLeagueGamesResponse.of(
+                new PageImpl<>(
+                        leagueGames,
+                        pageable,
+                        count
+                )
+        );
+    }
+
+    private BooleanExpression gameDateEq(LocalDate startDate, LocalDate endDate)
+    {
+        if (startDate != null && endDate != null)
+        {
+            return QLeagueGame.leagueGame.gameDate.between(startDate.atStartOfDay(), endDate.atTime(23, 59, 59));
+        } else if (startDate != null)
+        {
+            return QLeagueGame.leagueGame.gameDate.goe(startDate.atStartOfDay());
+        } else if (endDate != null)
+        {
+            return QLeagueGame.leagueGame.gameDate.loe(endDate.atTime(23, 59, 59));
+        } else
+        {
+            return null;
+        }
+    }
+
+    private BooleanExpression leagueIdEq(Long leagueId)
+    {
+        return leagueId != null ? leagueGame.away.league.leagueId.eq(leagueId) : null;
+    }
+
+    public Page<FindLeagueGameResponse> searchGame(GameSearchCondition condition, Pageable pageable)
+    {
+        QLeagueGame leagueGame = QLeagueGame.leagueGame;
+        QueryResults<LeagueGame> results = jpaQueryFactory.selectFrom(leagueGame)
+                .where(gameDateEq(condition.startDate(), condition.endDate()),
+                        leagueIdEq(condition.leagueId())
+                )
+                .orderBy(leagueGame.gameDate.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetchResults();
+
+        List<LeagueGame> content = results.getResults();
+        long total = results.getTotal();
+        List<FindLeagueGameResponse> responses = content.stream()
+                .map(FindLeagueGameResponse::from)
+                .collect(Collectors.toList());
+        return new PageImpl<>(responses,pageable,total);
+    }
+}

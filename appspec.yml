@@ -1,0 +1,17 @@
+# appspec.yml
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /home/ubuntu/kickoff/kick-off-api/build/
+permissions:
+  - object: /
+    pattern : "**"
+    mode : 755
+    owner : ubuntu
+    group : ubuntu
+hooks:
+  ApplicationStart:
+    - location: deploy.sh
+      timeout: 60
+      runas: ubuntu

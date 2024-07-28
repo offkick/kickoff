@@ -1,0 +1,9 @@
+spring:
+  profiles:
+    active: batch
+    include: core
+  batch:
+    job:
+      name: dailyMatchInsertJob
+    jdbc:
+      initialize-schema: always

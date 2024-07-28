@@ -1,4 +1,4 @@
-HELP.md
+FHELP.md
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
@@ -20,6 +20,7 @@ bin/
 ### IntelliJ IDEA ###
 .idea
 *.iws
+*.log
 *.iml
 *.ipr
 out/
