@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 @Builder
 public record PostSearchResponses(List<FindPost> findPosts, int totalPages, long totalElements) {
+
     public static PostSearchResponses of(Page<Post> posts, List<PostLike> postLikes)
     {
         Map<Long, Long> postLikeMap = postLikes.stream()

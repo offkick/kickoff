@@ -1,6 +1,6 @@
 package com.kickoff.api.service.board.post;
 
-import com.kickoff.api.config.security.AuthUtil;
+import com.kickoff.core.config.security.AuthUtil;
 import com.kickoff.api.service.board.post.dto.CreatePostRequest;
 import com.kickoff.core.board.post.dto.UpdatePostServiceRequest;
 import com.kickoff.core.board.post.service.PostService;

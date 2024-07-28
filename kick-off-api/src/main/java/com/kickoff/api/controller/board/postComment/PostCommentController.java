@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "댓글 컨트롤러", description = "댓글 수정/삭제")
 @RequiredArgsConstructor
-@RequestMapping("/postComment")
+@RequestMapping("/comment")
 @RestController
 public class PostCommentController {
     private final PostCommentService postCommentService;

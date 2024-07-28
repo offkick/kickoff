@@ -18,15 +18,15 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.time.YearMonth;
 
-@Tag(name = "리그 게임 컨트롤러", description = "리그 게임 관련 리소스 검색/변경")
+@Tag(name = "리그 게임 컨트롤러", description = "리그 게임 관련 리소스 검색")
 @Slf4j
-@RequestMapping("/leagueGame")
+@RequestMapping("/league-game/search")
 @RequiredArgsConstructor
 @RestController
-public class LeagueGameController {
+public class LeagueGameSearchController {
     private final LeagueGameFindService leagueGameFindService;
 
-    @GetMapping("/all")
+    @GetMapping
     @Parameters({
             @Parameter(name = "startDate", description = "검색 시작 날짜"),
             @Parameter(name = "endDate", description = "검색 끝 날짜"),
@@ -60,7 +60,7 @@ public class LeagueGameController {
         return leagueGameFindService.findLeagueGameByDate(LocalDate.parse(targetDate));
     }
 
-    @GetMapping("/league/{leagueId}/{yearMonth}")
+    @GetMapping("/{leagueId}/{yearMonth}")
     public SeasonLeagueGameResponse findLeagueGameBySeason(@PathVariable Long leagueId, @PathVariable String yearMonth)
     {
         return leagueGameFindService.findLeagueGameBySeason(leagueId,YearMonth.parse(yearMonth));

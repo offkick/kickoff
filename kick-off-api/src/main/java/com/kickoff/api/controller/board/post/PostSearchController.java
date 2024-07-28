@@ -4,6 +4,7 @@ import com.kickoff.core.board.post.PostQuerydslRepository;
 import com.kickoff.core.board.post.dto.PostSearchCondition;
 import com.kickoff.core.board.post.dto.PostSearchResponse;
 import com.kickoff.core.board.post.dto.PostSearchResponses;
+import com.kickoff.core.config.security.AuthUtil;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -42,5 +43,12 @@ public class PostSearchController {
     public PostSearchResponse findPost(@PathVariable Long postId)
     {
         return postQuerydslRepository.findPost(postId);
+    }
+
+
+    @GetMapping("/me")
+    public PostSearchResponses findMyPosts()
+    {
+        return postQuerydslRepository.findMemberPosts(AuthUtil.currentUserId());
     }
 }

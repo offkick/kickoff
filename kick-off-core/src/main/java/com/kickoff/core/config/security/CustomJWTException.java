@@ -1,4 +1,4 @@
-package com.kickoff.api.config.security;
+package com.kickoff.core.config.security;
 
 public class CustomJWTException extends RuntimeException {
 

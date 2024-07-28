@@ -1,8 +1,10 @@
 package com.kickoff.api.controller.member;
 
-import com.kickoff.api.service.board.member.ApiMemberService;
-import com.kickoff.api.service.board.member.dto.CreateMemberServiceRequest;
+import com.kickoff.api.controller.member.dto.MemberJoinRequest;
+import com.kickoff.api.service.board.member.MemberApiService;
+import com.kickoff.api.service.board.member.MemberInfoResponse;
 import com.kickoff.api.service.board.member.dto.UpdateMemberServiceRequest;
+import com.kickoff.core.config.security.AuthUtil;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -12,25 +14,36 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/member")
 public class MemberController {
-    private final ApiMemberService apiMemberService;
+    private final MemberApiService memberApiService;
 
     @PostMapping
-    public Long createMember(@RequestBody CreateMemberServiceRequest request)
+    public Long join(@RequestBody MemberJoinRequest request)
     {
-        return apiMemberService.createMember(request);
+        return memberApiService.join(request.toServiceDto());
     }
 
-    @PutMapping("/{memberId}")
+    @PutMapping("/info")
     public Long updateMember(
-            @PathVariable(value = "memberId") Long memberId,
             @RequestBody UpdateMemberServiceRequest request)
     {
-        return apiMemberService.updateMember(memberId,request);
+        return memberApiService.updateMember(request);
     }
 
-    @DeleteMapping("/{memberId}")
-    public void deleteMember(@PathVariable(value = "memberId") Long memberId)
+    @DeleteMapping
+    public void deleteMember()
     {
-        apiMemberService.deleteMember(memberId);
+        memberApiService.deleteMember(AuthUtil.currentUserId());
+    }
+
+    @GetMapping("/info")
+    public MemberInfoResponse findMemberInfo()
+    {
+        return memberApiService.findMemberInfo(AuthUtil.currentUserId());
+    }
+
+    @PutMapping("/password")
+    public void passwordChange(@RequestBody PasswordChangeRequest request)
+    {
+        memberApiService.passwordChange(request.currentPassword(), request.newPassword());
     }
 }

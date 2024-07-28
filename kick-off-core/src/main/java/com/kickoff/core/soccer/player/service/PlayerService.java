@@ -13,7 +13,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Transactional
 @Service
@@ -66,5 +68,12 @@ public class PlayerService {
     {
         Player player = playerRepository.findById(playerId).orElseThrow(EntityNotFoundException::new);
         return PlayerDTO.from(player);
+    }
+
+    public List<PlayerDTO> findAll()
+    {
+        return playerRepository.findAll().stream()
+                .map(dto -> PlayerDTO.from(dto))
+                .collect(Collectors.toList());
     }
 }

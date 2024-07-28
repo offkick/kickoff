@@ -10,6 +10,7 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -79,5 +80,31 @@ public class PostQuerydslRepository {
         }
 
         return null;
+    }
+
+    public PostSearchResponses findMemberPosts(Long memberId) {
+        QPost post = QPost.post;
+        List<Post> posts = jpaQueryFactory.select(post)
+                .from(post)
+                .where(post.member.memberId.eq(memberId))
+                .fetch();
+
+        Set<Long> postIds = posts.stream().map(Post::getPostId).collect(Collectors.toSet());
+
+        List<PostLike> byPostIds = postLikeRepository.findByPostIds(postIds);
+
+        Long count = jpaQueryFactory.select(post.postId.count())
+                .from(post)
+                .where(post.member.memberId.eq(memberId))
+                .fetchOne();
+
+        return PostSearchResponses.of(
+                new PageImpl<>(
+                        posts,
+                        PageRequest.of(0, 100000),
+                        count
+                ),
+                byPostIds
+        );
     }
 }

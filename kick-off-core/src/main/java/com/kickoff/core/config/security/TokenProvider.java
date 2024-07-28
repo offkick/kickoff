@@ -1,4 +1,4 @@
-package com.kickoff.api.config.security;
+package com.kickoff.core.config.security;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
@@ -61,27 +61,27 @@ public class TokenProvider {
         }
         catch(MalformedJwtException malformedJwtException)
         {
-            log.error("malformedJwtException ...");
+            log.warn("malformedJwtException ...");
             throw new CustomJWTException("MalFormed");
         }
         catch(ExpiredJwtException expiredJwtException)
         {
-            log.error("expiredJwtException ...");
+            log.warn("expiredJwtException ...");
             throw new CustomJWTException("Expired");
         }
         catch(InvalidClaimException invalidClaimException)
         {
-            log.error("invalidClaimException ...");
+            log.warn("invalidClaimException ...");
             throw new CustomJWTException("Invalid");
         }
         catch(JwtException jwtException)
         {
-            log.error("jwtException ...");
+            log.warn("jwtException ...");
             throw new CustomJWTException("JWTError");
         }
         catch(Exception e)
         {
-            log.error("Exception ...");
+            log.warn("Exception ...");
             throw new CustomJWTException("Error");
         }
         return claim;

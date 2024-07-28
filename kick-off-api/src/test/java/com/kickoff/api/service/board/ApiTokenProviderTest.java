@@ -2,7 +2,7 @@ package com.kickoff.api.service.board;
 
 import com.kickoff.KickOffApiApplication;
 import com.kickoff.core.member.MemberRepository;
-import com.kickoff.api.config.security.TokenProvider;
+import com.kickoff.core.config.security.TokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
