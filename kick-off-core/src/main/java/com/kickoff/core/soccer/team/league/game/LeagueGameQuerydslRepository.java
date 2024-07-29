@@ -26,6 +26,24 @@ import static com.kickoff.core.soccer.team.league.game.QLeagueGame.leagueGame;
 public class LeagueGameQuerydslRepository {
     private final JPAQueryFactory jpaQueryFactory;
 
+    public FindLeagueGamesResponse leagueTeamGame(Long leagueTeamId, Pageable pageable)
+    {
+        QLeagueGame leagueGame = QLeagueGame.leagueGame;
+        List<LeagueGame> leagueTeamGames = jpaQueryFactory.selectFrom(leagueGame)
+                .where(leagueGame.home.leagueTeamId.eq(leagueTeamId)
+                        .or(leagueGame.away.leagueTeamId.eq(leagueTeamId)))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+        return FindLeagueGamesResponse.of(
+                new PageImpl<>(
+                        leagueTeamGames,
+                        pageable,
+                        leagueTeamGames.size()
+                )
+        );
+    }
+
     public FindLeagueGamesResponse findLeagueGames(FindGameCond condition)
     {
         QLeagueGame leagueGame = QLeagueGame.leagueGame;
