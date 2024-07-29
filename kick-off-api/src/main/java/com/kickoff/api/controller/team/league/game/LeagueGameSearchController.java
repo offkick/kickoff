@@ -68,8 +68,8 @@ public class LeagueGameSearchController {
     }
 
     @GetMapping("/team/{leagueTeamId}")
-    public FindLeagueGamesResponse leagueTeamGame(@PathVariable(value = "leagueTeamId") Long leagueGameTeamId, Pageable pageable)
+    public FindLeagueGamesResponse findLeagueTeamGame(@PathVariable(value = "leagueTeamId") Long leagueGameTeamId, Pageable pageable)
     {
-        return leagueGameFindService.leagueTeamGames(leagueGameTeamId, pageable);
+        return leagueGameFindService.findLeagueTeamGame(leagueGameTeamId, pageable);
     }
 }

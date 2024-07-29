@@ -45,6 +45,6 @@ public class LeagueGameService {
 
     public FindLeagueGamesResponse leagueTeamGames(Long leagueTeamId, Pageable pageable)
     {
-        return leagueGameQuerydslRepository.leagueTeamGame(leagueTeamId,pageable);
+        return leagueGameQuerydslRepository.findLeagueTeamGame(leagueTeamId,pageable);
     }
 }

@@ -57,8 +57,8 @@ public class LeagueGameFindService {
         return SeasonLeagueGameResponse.of(leagueGameList);
     }
 
-    public FindLeagueGamesResponse leagueTeamGames(Long leagueTeamId, Pageable pageable)
+    public FindLeagueGamesResponse findLeagueTeamGame(Long leagueTeamId, Pageable pageable)
     {
-        return leagueGameQuerydslRepository.leagueTeamGame(leagueTeamId,pageable);
+        return leagueGameQuerydslRepository.findLeagueTeamGame(leagueTeamId, pageable);
     }
 }

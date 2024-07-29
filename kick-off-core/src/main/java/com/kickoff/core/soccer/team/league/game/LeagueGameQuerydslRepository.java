@@ -26,7 +26,7 @@ import static com.kickoff.core.soccer.team.league.game.QLeagueGame.leagueGame;
 public class LeagueGameQuerydslRepository {
     private final JPAQueryFactory jpaQueryFactory;
 
-    public FindLeagueGamesResponse leagueTeamGame(Long leagueTeamId, Pageable pageable)
+    public FindLeagueGamesResponse findLeagueTeamGame(Long leagueTeamId, Pageable pageable)
     {
         QLeagueGame leagueGame = QLeagueGame.leagueGame;
         List<LeagueGame> leagueTeamGames = jpaQueryFactory.selectFrom(leagueGame)
