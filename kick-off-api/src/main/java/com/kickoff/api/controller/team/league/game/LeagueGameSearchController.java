@@ -13,6 +13,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -64,5 +65,11 @@ public class LeagueGameSearchController {
     public SeasonLeagueGameResponse findLeagueGameBySeason(@PathVariable Long leagueId, @PathVariable String yearMonth)
     {
         return leagueGameFindService.findLeagueGameBySeason(leagueId,YearMonth.parse(yearMonth));
+    }
+
+    @GetMapping("/team/{leagueTeamId}")
+    public FindLeagueGamesResponse leagueTeamGame(@PathVariable(value = "leagueTeamId") Long leagueGameTeamId, Pageable pageable)
+    {
+        return leagueGameFindService.leagueTeamGames(leagueGameTeamId, pageable);
     }
 }

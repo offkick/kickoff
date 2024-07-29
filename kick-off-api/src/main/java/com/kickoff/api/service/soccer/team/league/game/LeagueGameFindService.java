@@ -10,6 +10,7 @@ import com.kickoff.core.soccer.team.league.service.LeagueGameService;
 import com.kickoff.core.soccer.team.league.service.dto.LeagueGameDTO;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -54,5 +55,10 @@ public class LeagueGameFindService {
         List<LeagueGameDTO> leagueGameList = leagueGameService.findBySeasonBetween(leagueId, startDateTime, endDateTime);
 
         return SeasonLeagueGameResponse.of(leagueGameList);
+    }
+
+    public FindLeagueGamesResponse leagueTeamGames(Long leagueTeamId, Pageable pageable)
+    {
+        return leagueGameQuerydslRepository.leagueTeamGame(leagueTeamId,pageable);
     }
 }
