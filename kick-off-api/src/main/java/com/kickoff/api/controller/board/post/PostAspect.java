@@ -31,11 +31,10 @@ public class PostAspect {
     public void viewCountValidation(Long postId, HttpServletRequest request, HttpServletResponse response)
     {
         Cookie cookie = CookieUtils.getCookie(request, POST_VIEW_COOKIE, postId.toString());
-
         if (cookie == null)
         {
             postService.addViewCount(postId);
-            CookieUtils.setCookie(response, POST_VIEW_COOKIE, postId.toString());
+            CookieUtils.setCookie(request, response, POST_VIEW_COOKIE, postId.toString());
         }
     }
 }

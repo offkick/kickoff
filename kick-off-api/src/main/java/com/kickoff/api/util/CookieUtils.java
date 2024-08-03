@@ -36,12 +36,12 @@ public class CookieUtils {
         return null;
     }
 
-    public static void setCookie(HttpServletResponse response, String name, String value)
+    public static void setCookie(HttpServletRequest request, HttpServletResponse response, String name, String value)
     {
         Cookie cookie = new Cookie(name, value);
         long todayEndSecond = LocalDate.now().atTime(LocalTime.MAX).toEpochSecond(ZoneOffset.UTC);
         long currentSecond = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
-        cookie.setPath("/api/post/search/" + value);
+        cookie.setPath(request.getRequestURI());
         cookie.setMaxAge((int) (todayEndSecond - currentSecond));
         response.addCookie(cookie);
     }
