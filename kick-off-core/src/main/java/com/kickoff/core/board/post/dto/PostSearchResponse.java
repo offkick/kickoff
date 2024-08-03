@@ -18,6 +18,11 @@ public record PostSearchResponse(
         int likeCount,
         int commentSize
 ) {
+    public static PostSearchResponse empty()
+    {
+        return new PostSearchResponse(null, null, null, null, null, null, null, 0, 0, 0);
+    }
+
     public static PostSearchResponse of(Post post, int likeCount, int commentSize)
     {
         return new PostSearchResponse(

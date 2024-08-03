@@ -44,7 +44,7 @@ public class PostSearchController {
     @GetMapping("/{postId}")
     public PostSearchResponse findPost(@PathVariable Long postId, HttpServletRequest request, HttpServletResponse response)
     {
-        return postQuerydslRepository.findPost(postId, request, response);
+        return postQuerydslRepository.findPost(postId);
     }
 
     @GetMapping("/me")

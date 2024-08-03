@@ -8,8 +8,6 @@ import com.kickoff.core.board.postlike.PostLike;
 import com.kickoff.core.board.postlike.PostLikeRepository;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.PageImpl;
@@ -68,7 +66,7 @@ public class PostQuerydslRepository {
     }
 
     @Transactional
-    public PostSearchResponse findPost(Long postId, HttpServletRequest request, HttpServletResponse response)
+    public PostSearchResponse findPost(Long postId)
     {
         QPost qPost = QPost.post;
         Post post = jpaQueryFactory.select(qPost)
