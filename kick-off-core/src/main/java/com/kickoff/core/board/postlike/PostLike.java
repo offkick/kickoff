@@ -1,5 +1,6 @@
 package com.kickoff.core.board.postlike;
 
+import com.kickoff.core.BaseEntity;
 import com.kickoff.core.board.post.Post;
 import com.kickoff.core.member.Member;
 import jakarta.persistence.*;
@@ -11,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @Table(indexes = @Index(name = "post_like_idx", unique = true, columnList = "member_id, post_id"))
-public class PostLike {
+public class PostLike extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,10 +26,23 @@ public class PostLike {
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
 
+    @Column(columnDefinition = "boolean default false")
+    private Boolean isDeleted;
+
+
     @Builder
     public PostLike(Long postLikeId, Post post, Member member) {
         this.postLikeId = postLikeId;
         this.post = post;
         this.member = member;
     }
+
+    public void delete()
+    {
+        if (!isDeleted)
+        {
+            this.isDeleted = true;
+        }
+    }
+
 }

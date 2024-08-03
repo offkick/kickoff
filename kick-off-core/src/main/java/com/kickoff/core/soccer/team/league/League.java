@@ -1,5 +1,6 @@
 package com.kickoff.core.soccer.team.league;
 
+import com.kickoff.core.BaseEntity;
 import com.kickoff.core.common.National;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -9,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor
-public class League {
+public class League extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long leagueId;
@@ -26,6 +27,9 @@ public class League {
     @JoinColumn(name = "season_id")
     private Season season;
 
+    @Column(columnDefinition = "boolean default false")
+    private Boolean isDeleted;
+
     @Builder
     public League(
             Long leagueId,
@@ -40,5 +44,14 @@ public class League {
         this.tier = tier;
         this.season = season;
         this.emblem = emblem;
+        isDeleted = Boolean.FALSE;
+    }
+
+    public void delete()
+    {
+        if (!isDeleted)
+        {
+            this.isDeleted = true;
+        }
     }
 }

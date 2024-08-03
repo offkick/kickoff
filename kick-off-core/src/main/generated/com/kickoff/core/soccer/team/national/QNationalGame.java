@@ -22,11 +22,21 @@ public class QNationalGame extends EntityPathBase<NationalGame> {
 
     public static final QNationalGame nationalGame = new QNationalGame("nationalGame");
 
+    public final com.kickoff.core.QBaseEntity _super = new com.kickoff.core.QBaseEntity(this);
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
+
+    public final BooleanPath isDeleted = createBoolean("isDeleted");
+
     public final EnumPath<NationalGameType> nationalGameType = createEnum("nationalGameType", NationalGameType.class);
 
     public final NumberPath<Long> nationalScheduleId = createNumber("nationalScheduleId", Long.class);
 
     public final QNationalTeam nationalTeam;
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> updatedAt = _super.updatedAt;
 
     public QNationalGame(String variable) {
         this(NationalGame.class, forVariable(variable), INITS);

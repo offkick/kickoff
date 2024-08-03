@@ -22,13 +22,23 @@ public class QPostComment extends EntityPathBase<PostComment> {
 
     public static final QPostComment postComment = new QPostComment("postComment");
 
+    public final com.kickoff.core.QBaseEntity _super = new com.kickoff.core.QBaseEntity(this);
+
     public final StringPath comment = createString("comment");
 
     public final NumberPath<Long> commentId = createNumber("commentId", Long.class);
 
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
+
+    public final BooleanPath isDeleted = createBoolean("isDeleted");
+
     public final com.kickoff.core.member.QMember member;
 
     public final com.kickoff.core.board.post.QPost post;
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> updatedAt = _super.updatedAt;
 
     public QPostComment(String variable) {
         this(PostComment.class, forVariable(variable), INITS);

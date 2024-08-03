@@ -19,9 +19,19 @@ public class QSurveyInputType extends EntityPathBase<SurveyInputType> {
 
     public static final QSurveyInputType surveyInputType = new QSurveyInputType("surveyInputType");
 
+    public final com.kickoff.core.QBaseEntity _super = new com.kickoff.core.QBaseEntity(this);
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
+
     public final StringPath inputTypeName = createString("inputTypeName");
 
+    public final BooleanPath isDeleted = createBoolean("isDeleted");
+
     public final NumberPath<Long> surveyInputTypeId = createNumber("surveyInputTypeId", Long.class);
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> updatedAt = _super.updatedAt;
 
     public QSurveyInputType(String variable) {
         super(SurveyInputType.class, forVariable(variable));

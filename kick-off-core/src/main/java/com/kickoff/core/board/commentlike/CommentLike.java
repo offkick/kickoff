@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @Table(indexes = @Index(name = "comment_like_idx", unique = true, columnList = "member_id, comment_id"))
-public class CommentLike {
+public class CommentLike{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

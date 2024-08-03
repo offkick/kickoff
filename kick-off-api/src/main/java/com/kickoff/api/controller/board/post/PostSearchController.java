@@ -8,6 +8,8 @@ import com.kickoff.core.config.security.AuthUtil;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
@@ -40,11 +42,10 @@ public class PostSearchController {
             @Parameter(name = "postId", description = "게시물 ID")
     })
     @GetMapping("/{postId}")
-    public PostSearchResponse findPost(@PathVariable Long postId)
+    public PostSearchResponse findPost(@PathVariable Long postId, HttpServletRequest request, HttpServletResponse response)
     {
-        return postQuerydslRepository.findPost(postId);
+        return postQuerydslRepository.findPost(postId, request, response);
     }
-
 
     @GetMapping("/me")
     public PostSearchResponses findMyPosts()

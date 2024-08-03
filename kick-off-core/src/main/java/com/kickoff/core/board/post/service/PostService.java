@@ -6,21 +6,29 @@ import com.kickoff.core.board.post.dto.CreatePostServiceRequest;
 import com.kickoff.core.board.post.dto.UpdatePostServiceRequest;
 import com.kickoff.core.member.Member;
 import com.kickoff.core.member.service.MemberService;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 @RequiredArgsConstructor
 @Service
+@Log4j2
 public class PostService {
     private final PostRepository postRepository;
     private final MemberService memberService;
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void addViewCount(Long postId)
+    {
+        postRepository.incrementViewCount(postId);
+    }
+
     public Long update(Long postId, UpdatePostServiceRequest request)
     {
-        Post post = postRepository.findById(postId).orElseThrow(IllegalArgumentException::new);
+        Post post = findById(postId);
         Post updatePost = Post.builder()
                 .title(request.title())
                 .content(request.content())
@@ -48,12 +56,13 @@ public class PostService {
 
     public void delete(Long postId)
     {
-        Post post = postRepository.findById(postId).orElseThrow(EntityNotFoundException::new);
-        postRepository.delete(post);
+        Post post = findById(postId);
+        post.delete();
     }
 
+    @Transactional(readOnly = true)
     public Post findById(Long postId)
     {
-        return postRepository.findById(postId).orElseThrow();
+        return postRepository.findByPostIdAndIsDeletedFalse(postId).orElseThrow();
     }
 }

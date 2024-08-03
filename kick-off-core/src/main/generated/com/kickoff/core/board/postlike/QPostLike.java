@@ -22,11 +22,21 @@ public class QPostLike extends EntityPathBase<PostLike> {
 
     public static final QPostLike postLike = new QPostLike("postLike");
 
+    public final com.kickoff.core.QBaseEntity _super = new com.kickoff.core.QBaseEntity(this);
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
+
+    public final BooleanPath isDeleted = createBoolean("isDeleted");
+
     public final com.kickoff.core.member.QMember member;
 
     public final com.kickoff.core.board.post.QPost post;
 
     public final NumberPath<Long> postLikeId = createNumber("postLikeId", Long.class);
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> updatedAt = _super.updatedAt;
 
     public QPostLike(String variable) {
         this(PostLike.class, forVariable(variable), INITS);

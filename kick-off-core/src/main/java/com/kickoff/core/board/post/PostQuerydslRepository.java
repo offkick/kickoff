@@ -8,7 +8,10 @@ import com.kickoff.core.board.postlike.PostLike;
 import com.kickoff.core.board.postlike.PostLikeRepository;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -22,6 +25,7 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = true)
 @Component
 @RequiredArgsConstructor
+@Log4j2
 public class PostQuerydslRepository {
     private final JPAQueryFactory jpaQueryFactory;
     private final PostLikeRepository postLikeRepository;
@@ -33,7 +37,7 @@ public class PostQuerydslRepository {
         Pageable pageable = condition.pageable();
         List<Post> posts = jpaQueryFactory.select(post)
                 .from(post)
-                .where(categoryEq(condition.postCategory()))
+                .where(categoryEq(condition.postCategory()).and(post.isDeleted.isFalse()))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
@@ -64,18 +68,18 @@ public class PostQuerydslRepository {
     }
 
     @Transactional
-    public PostSearchResponse findPost(Long postId)
+    public PostSearchResponse findPost(Long postId, HttpServletRequest request, HttpServletResponse response)
     {
         QPost qPost = QPost.post;
         Post post = jpaQueryFactory.select(qPost)
                 .from(qPost)
-                .where(qPost.postId.eq(postId))
+                .where(qPost.postId.eq(postId).and(qPost.isDeleted.isFalse()))
                 .fetchOne();
-        if (post != null) {
-            post.addViewCount();
+
+        if (post != null)
+        {
             int likeCount = postLikeRepository.countByPostId(post.getPostId());
             int commentSize = postCommentRepository.findCommentsByPostId(post.getPostId()).size();
-
             return PostSearchResponse.of(post, likeCount, commentSize);
         }
 

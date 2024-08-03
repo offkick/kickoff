@@ -22,9 +22,11 @@ public class QPlayerImage extends EntityPathBase<PlayerImage> {
 
     public static final QPlayerImage playerImage = new QPlayerImage("playerImage");
 
+    public final com.kickoff.core.QBaseEntity _super = new com.kickoff.core.QBaseEntity(this);
+
     public final DateTimePath<java.time.LocalDateTime> createdAt = createDateTime("createdAt", java.time.LocalDateTime.class);
 
-    public final DateTimePath<java.time.LocalDateTime> deletedAt = createDateTime("deletedAt", java.time.LocalDateTime.class);
+    public final BooleanPath isDeleted = createBoolean("isDeleted");
 
     public final QPlayer player;
 

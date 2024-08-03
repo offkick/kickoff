@@ -1,5 +1,6 @@
 package com.kickoff.core.survey;
 
+import com.kickoff.core.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,7 +15,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class SurveySections {
+public class SurveySections extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long surveySectionId;
@@ -27,6 +28,9 @@ public class SurveySections {
     @JoinColumn(name = "survey_headers_id")
     private SurveyHeaders surveyHeaders;
 
+    @Column(columnDefinition = "boolean default false")
+    private Boolean isDeleted;
+
     @Builder
     public SurveySections(Long surveySectionId, String sectionName, String sectionTitle, boolean sectionRequiredYn, SurveyHeaders surveyHeaders) {
         this.surveySectionId = surveySectionId;
@@ -34,5 +38,14 @@ public class SurveySections {
         this.sectionTitle = sectionTitle;
         this.sectionRequiredYn = sectionRequiredYn;
         this.surveyHeaders = surveyHeaders;
+        isDeleted = Boolean.FALSE;
+    }
+
+    public void delete()
+    {
+        if (!isDeleted)
+        {
+            this.isDeleted = true;
+        }
     }
 }

@@ -21,10 +21,23 @@ public class UserSurveySections {
     @Column(name = "member_id")
     private Long memberId;
 
+    @Column(columnDefinition = "boolean default false")
+    private Boolean isDeleted;
+
+
     @Builder
     public UserSurveySections(Long userSurveySectionsId, SurveySections surveySections, Long memberId) {
         this.userSurveySectionsId = userSurveySectionsId;
         this.surveySections = surveySections;
         this.memberId = memberId;
+        isDeleted = Boolean.FALSE;
+    }
+
+    public void delete()
+    {
+        if (!isDeleted)
+        {
+            this.isDeleted = true;
+        }
     }
 }

@@ -25,9 +25,9 @@ public class QMember extends EntityPathBase<Member> {
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
 
-    public final BooleanPath deleted = createBoolean("deleted");
-
     public final StringPath email = createString("email");
+
+    public final BooleanPath isDeleted = createBoolean("isDeleted");
 
     public final NumberPath<Long> memberId = createNumber("memberId", Long.class);
 

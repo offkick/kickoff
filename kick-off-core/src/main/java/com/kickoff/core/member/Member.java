@@ -24,7 +24,7 @@ public class Member extends BaseEntity {
     private String password;
 
     @Column(columnDefinition = "boolean default false")
-    private Boolean deleted;
+    private Boolean isDeleted;
 
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "member_roles_mapping", joinColumns = @JoinColumn(name = "member_id"))
@@ -37,6 +37,7 @@ public class Member extends BaseEntity {
         this.nickName = nickName;
         this.password = password;
         this.memberRoles = memberRoles;
+        this.isDeleted = Boolean.FALSE;
     }
 
     public void update(Member updateMember)

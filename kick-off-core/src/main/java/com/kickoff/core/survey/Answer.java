@@ -1,5 +1,6 @@
 package com.kickoff.core.survey;
 
+import com.kickoff.core.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -8,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor
-public class Answer {
+public class Answer extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long answerId;
@@ -22,6 +23,9 @@ public class Answer {
     private QuestionOptions questionOptions;
 
     private Long memberId;
+
+    @Column(columnDefinition = "boolean default false")
+    private Boolean isDeleted;
 
     @Builder
     public Answer(
@@ -37,10 +41,19 @@ public class Answer {
         this.answerYn = answerYn;
         this.questionOptions = questionOptions;
         this.memberId = memberId;
+        isDeleted = Boolean.FALSE;
 
         if (answerYn && answerNumber == null && answerText == null)
         {
             throw new IllegalArgumentException("Create answer entity Error");
+        }
+    }
+
+    public void delete()
+    {
+        if (!isDeleted)
+        {
+            this.isDeleted = true;
         }
     }
 }

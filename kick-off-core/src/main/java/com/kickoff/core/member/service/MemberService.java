@@ -22,7 +22,7 @@ public class MemberService {
     @Transactional(readOnly = true)
     public Member findById(Long memberId)
     {
-        return memberRepository.findById(memberId).orElseThrow(IllegalArgumentException::new);
+        return memberRepository.findByMemberIdAndIsDeletedFalse(memberId).orElseThrow(IllegalArgumentException::new);
     }
 
     @Transactional

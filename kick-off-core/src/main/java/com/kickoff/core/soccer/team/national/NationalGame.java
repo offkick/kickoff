@@ -1,5 +1,6 @@
 package com.kickoff.core.soccer.team.national;
 
+import com.kickoff.core.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 @Entity
-public class NationalGame {
+public class NationalGame extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,4 +20,9 @@ public class NationalGame {
 
     @Enumerated(EnumType.STRING)
     private NationalGameType nationalGameType;
+
+    @Column(columnDefinition = "boolean default false")
+    private Boolean isDeleted;
+
+
 }

@@ -22,11 +22,21 @@ public class QPostImage extends EntityPathBase<PostImage> {
 
     public static final QPostImage postImage = new QPostImage("postImage");
 
+    public final com.kickoff.core.QBaseEntity _super = new com.kickoff.core.QBaseEntity(this);
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
+
     public final NumberPath<Long> imageId = createNumber("imageId", Long.class);
+
+    public final BooleanPath isDeleted = createBoolean("isDeleted");
 
     public final com.kickoff.core.board.post.QPost post;
 
     public final NumberPath<Integer> postImageOrder = createNumber("postImageOrder", Integer.class);
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> updatedAt = _super.updatedAt;
 
     public final StringPath url = createString("url");
 

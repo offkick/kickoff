@@ -22,6 +22,8 @@ public class QUserSurveySections extends EntityPathBase<UserSurveySections> {
 
     public static final QUserSurveySections userSurveySections = new QUserSurveySections("userSurveySections");
 
+    public final BooleanPath isDeleted = createBoolean("isDeleted");
+
     public final NumberPath<Long> memberId = createNumber("memberId", Long.class);
 
     public final QSurveySections surveySections;

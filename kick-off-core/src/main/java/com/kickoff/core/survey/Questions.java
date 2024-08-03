@@ -1,5 +1,6 @@
 package com.kickoff.core.survey;
 
+import com.kickoff.core.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @Getter
-public class Questions {
+public class Questions extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +28,9 @@ public class Questions {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "survey_section_id")
     private SurveySections surveySection;
+
+    @Column(columnDefinition = "boolean default false")
+    private Boolean isDeleted;
 
     private Long optionGroupsId;
     private Long surveyInputTypeId;
@@ -50,5 +54,14 @@ public class Questions {
         this.surveySection = surveySection;
         this.optionGroupsId = optionGroupsId;
         this.surveyInputTypeId = surveyInputTypeId;
+        isDeleted = Boolean.FALSE;
+    }
+
+    public void delete()
+    {
+        if (!isDeleted)
+        {
+            this.isDeleted = true;
+        }
     }
 }

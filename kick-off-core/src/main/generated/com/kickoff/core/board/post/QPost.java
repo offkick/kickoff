@@ -22,9 +22,16 @@ public class QPost extends EntityPathBase<Post> {
 
     public static final QPost post = new QPost("post");
 
+    public final com.kickoff.core.QBaseEntity _super = new com.kickoff.core.QBaseEntity(this);
+
     public final StringPath category = createString("category");
 
     public final StringPath content = createString("content");
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
+
+    public final BooleanPath isDeleted = createBoolean("isDeleted");
 
     public final com.kickoff.core.member.QMember member;
 
@@ -33,6 +40,9 @@ public class QPost extends EntityPathBase<Post> {
     public final NumberPath<Long> postId = createNumber("postId", Long.class);
 
     public final StringPath title = createString("title");
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> updatedAt = _super.updatedAt;
 
     public final NumberPath<Integer> viewCount = createNumber("viewCount", Integer.class);
 

@@ -1,9 +1,6 @@
 package com.kickoff.core.survey;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,10 +19,23 @@ public class SurveyHeaders {
 
     private String instruction;
 
+    @Column(columnDefinition = "boolean default false")
+    private Boolean isDeleted;
+
     @Builder
     public SurveyHeaders(Long surveyHeaderId, String surveyName, String instruction) {
         this.surveyHeaderId = surveyHeaderId;
         this.surveyName = surveyName;
         this.instruction = instruction;
+        isDeleted = Boolean.FALSE;
+
+    }
+
+    public void delete()
+    {
+        if (!isDeleted)
+        {
+            this.isDeleted = true;
+        }
     }
 }

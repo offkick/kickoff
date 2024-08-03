@@ -22,6 +22,13 @@ public class QLeagueTeam extends EntityPathBase<LeagueTeam> {
 
     public static final QLeagueTeam leagueTeam = new QLeagueTeam("leagueTeam");
 
+    public final com.kickoff.core.QBaseEntity _super = new com.kickoff.core.QBaseEntity(this);
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
+
+    public final BooleanPath isDeleted = createBoolean("isDeleted");
+
     public final QLeague league;
 
     public final NumberPath<Long> leagueTeamId = createNumber("leagueTeamId", Long.class);
@@ -33,6 +40,9 @@ public class QLeagueTeam extends EntityPathBase<LeagueTeam> {
     public final QSeason season;
 
     public final EnumPath<com.kickoff.core.soccer.team.TeamType> teamType = createEnum("teamType", com.kickoff.core.soccer.team.TeamType.class);
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> updatedAt = _super.updatedAt;
 
     public QLeagueTeam(String variable) {
         this(LeagueTeam.class, forVariable(variable), INITS);

@@ -30,6 +30,8 @@ public class QPlayerComment extends EntityPathBase<PlayerComment> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+    public final BooleanPath isDeleted = createBoolean("isDeleted");
+
     public final NumberPath<Long> memberId = createNumber("memberId", Long.class);
 
     public final NumberPath<Long> playerId = createNumber("playerId", Long.class);

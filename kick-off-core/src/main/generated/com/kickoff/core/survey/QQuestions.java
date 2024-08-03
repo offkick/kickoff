@@ -22,7 +22,14 @@ public class QQuestions extends EntityPathBase<Questions> {
 
     public static final QQuestions questions = new QQuestions("questions");
 
+    public final com.kickoff.core.QBaseEntity _super = new com.kickoff.core.QBaseEntity(this);
+
     public final BooleanPath answerRequiredYn = createBoolean("answerRequiredYn");
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
+
+    public final BooleanPath isDeleted = createBoolean("isDeleted");
 
     public final BooleanPath multipleOptionAnswers = createBoolean("multipleOptionAnswers");
 
@@ -37,6 +44,9 @@ public class QQuestions extends EntityPathBase<Questions> {
     public final NumberPath<Long> surveyInputTypeId = createNumber("surveyInputTypeId", Long.class);
 
     public final QSurveySections surveySection;
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> updatedAt = _super.updatedAt;
 
     public QQuestions(String variable) {
         this(Questions.class, forVariable(variable), INITS);

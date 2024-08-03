@@ -22,11 +22,21 @@ public class QOptionChoices extends EntityPathBase<OptionChoices> {
 
     public static final QOptionChoices optionChoices = new QOptionChoices("optionChoices");
 
+    public final com.kickoff.core.QBaseEntity _super = new com.kickoff.core.QBaseEntity(this);
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
+
+    public final BooleanPath isDeleted = createBoolean("isDeleted");
+
     public final StringPath optionChoiceName = createString("optionChoiceName");
 
     public final NumberPath<Long> optionChoicesId = createNumber("optionChoicesId", Long.class);
 
     public final QOptionGroups optionGroups;
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> updatedAt = _super.updatedAt;
 
     public QOptionChoices(String variable) {
         this(OptionChoices.class, forVariable(variable), INITS);

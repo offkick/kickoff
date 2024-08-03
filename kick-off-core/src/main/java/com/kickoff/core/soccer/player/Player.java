@@ -1,5 +1,6 @@
 package com.kickoff.core.soccer.player;
 
+import com.kickoff.core.BaseEntity;
 import com.kickoff.core.soccer.team.league.LeagueTeam;
 import com.kickoff.core.soccer.team.league.Season;
 import jakarta.persistence.*;
@@ -13,7 +14,7 @@ import java.util.Set;
 @Entity
 @Getter
 @NoArgsConstructor
-public class Player {
+public class Player extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,6 +39,8 @@ public class Player {
     @OneToMany(mappedBy = "player", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<PlayerImage> playerImages = new HashSet<>();
 
+    @Column(columnDefinition = "boolean default false")
+    private Boolean isDeleted;
 
     @Builder
     public Player(
@@ -56,5 +59,14 @@ public class Player {
         this.leagueTeam = leagueTeam;
         this.birth = birth;
         this.season = season;
+        isDeleted = Boolean.FALSE;
+    }
+
+    public void delete()
+    {
+        if (!isDeleted)
+        {
+            this.isDeleted = true;
+        }
     }
 }

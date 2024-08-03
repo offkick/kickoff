@@ -1,5 +1,6 @@
 package com.kickoff.core.board.postcomment;
 
+import com.kickoff.core.BaseEntity;
 import com.kickoff.core.board.post.Post;
 import com.kickoff.core.member.Member;
 import jakarta.persistence.*;
@@ -10,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor
-public class PostComment {
+public class PostComment extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +25,9 @@ public class PostComment {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
     private Post post;
+
+    @Column(columnDefinition = "boolean default false")
+    private Boolean isDeleted;
 
     public void update(PostComment updateComment)
     {
@@ -40,11 +44,20 @@ public class PostComment {
 
     }
 
+    public void delete()
+    {
+        if (!isDeleted)
+        {
+            this.isDeleted = true;
+        }
+    }
+
     @Builder
     public PostComment(Long commentId, String comment, Member member, Post post) {
         this.commentId = commentId;
         this.comment = comment;
         this.member = member;
         this.post = post;
+        isDeleted = Boolean.FALSE;
     }
 }

@@ -22,6 +22,13 @@ public class QSurveySections extends EntityPathBase<SurveySections> {
 
     public static final QSurveySections surveySections = new QSurveySections("surveySections");
 
+    public final com.kickoff.core.QBaseEntity _super = new com.kickoff.core.QBaseEntity(this);
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
+
+    public final BooleanPath isDeleted = createBoolean("isDeleted");
+
     public final StringPath sectionName = createString("sectionName");
 
     public final BooleanPath sectionRequiredYn = createBoolean("sectionRequiredYn");
@@ -31,6 +38,9 @@ public class QSurveySections extends EntityPathBase<SurveySections> {
     public final QSurveyHeaders surveyHeaders;
 
     public final NumberPath<Long> surveySectionId = createNumber("surveySectionId", Long.class);
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> updatedAt = _super.updatedAt;
 
     public QSurveySections(String variable) {
         this(SurveySections.class, forVariable(variable), INITS);

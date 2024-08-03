@@ -22,6 +22,8 @@ public class QAnswer extends EntityPathBase<Answer> {
 
     public static final QAnswer answer = new QAnswer("answer");
 
+    public final com.kickoff.core.QBaseEntity _super = new com.kickoff.core.QBaseEntity(this);
+
     public final NumberPath<Long> answerId = createNumber("answerId", Long.class);
 
     public final NumberPath<Long> answerNumber = createNumber("answerNumber", Long.class);
@@ -30,9 +32,17 @@ public class QAnswer extends EntityPathBase<Answer> {
 
     public final BooleanPath answerYn = createBoolean("answerYn");
 
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
+
+    public final BooleanPath isDeleted = createBoolean("isDeleted");
+
     public final NumberPath<Long> memberId = createNumber("memberId", Long.class);
 
     public final QQuestionOptions questionOptions;
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> updatedAt = _super.updatedAt;
 
     public QAnswer(String variable) {
         this(Answer.class, forVariable(variable), INITS);

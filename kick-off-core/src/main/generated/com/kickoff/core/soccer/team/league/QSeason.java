@@ -19,7 +19,17 @@ public class QSeason extends EntityPathBase<Season> {
 
     public static final QSeason season = new QSeason("season");
 
+    public final com.kickoff.core.QBaseEntity _super = new com.kickoff.core.QBaseEntity(this);
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
+
+    public final BooleanPath isDeleted = createBoolean("isDeleted");
+
     public final NumberPath<Long> seasonId = createNumber("seasonId", Long.class);
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> updatedAt = _super.updatedAt;
 
     public final StringPath years = createString("years");
 

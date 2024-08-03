@@ -1,5 +1,6 @@
 package com.kickoff.core.board.post;
 
+import com.kickoff.core.BaseEntity;
 import com.kickoff.core.member.Member;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -12,7 +13,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @NoArgsConstructor
-public class Post {
+public class Post extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long postId;
@@ -31,6 +32,10 @@ public class Post {
 
     @ColumnDefault(value = "0")
     private int viewCount;
+
+    @Column(columnDefinition = "boolean default false")
+    private Boolean isDeleted;
+
     @Builder
     public Post(
             Long postId,
@@ -46,6 +51,7 @@ public class Post {
         this.category = category;
         this.postDate = LocalDateTime.now();
         this.member = member;
+        isDeleted = Boolean.FALSE;
     }
 
     public void update(Post updatePost)
@@ -82,7 +88,11 @@ public class Post {
         this.category = category;
     }
 
-    public void addViewCount() {
-        this.viewCount = this.viewCount + 1;
+    public void delete()
+    {
+        if (!isDeleted)
+        {
+            this.isDeleted = true;
+        }
     }
 }

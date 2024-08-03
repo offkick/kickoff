@@ -22,7 +22,14 @@ public class QPlayer extends EntityPathBase<Player> {
 
     public static final QPlayer player = new QPlayer("player");
 
+    public final com.kickoff.core.QBaseEntity _super = new com.kickoff.core.QBaseEntity(this);
+
     public final StringPath birth = createString("birth");
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
+
+    public final BooleanPath isDeleted = createBoolean("isDeleted");
 
     public final com.kickoff.core.soccer.team.league.QLeagueTeam leagueTeam;
 
@@ -37,6 +44,9 @@ public class QPlayer extends EntityPathBase<Player> {
     public final EnumPath<PlayerPosition> position = createEnum("position", PlayerPosition.class);
 
     public final com.kickoff.core.soccer.team.league.QSeason season;
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> updatedAt = _super.updatedAt;
 
     public QPlayer(String variable) {
         this(Player.class, forVariable(variable), INITS);

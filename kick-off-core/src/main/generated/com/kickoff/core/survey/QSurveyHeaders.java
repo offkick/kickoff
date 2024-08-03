@@ -21,6 +21,8 @@ public class QSurveyHeaders extends EntityPathBase<SurveyHeaders> {
 
     public final StringPath instruction = createString("instruction");
 
+    public final BooleanPath isDeleted = createBoolean("isDeleted");
+
     public final NumberPath<Long> surveyHeaderId = createNumber("surveyHeaderId", Long.class);
 
     public final StringPath surveyName = createString("surveyName");

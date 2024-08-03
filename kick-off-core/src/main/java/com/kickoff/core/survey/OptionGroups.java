@@ -1,5 +1,6 @@
 package com.kickoff.core.survey;
 
+import com.kickoff.core.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,7 +15,7 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @Getter
-public class OptionGroups {
+public class OptionGroups extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long optionGroupId;
@@ -23,6 +24,9 @@ public class OptionGroups {
 
     @OneToMany(mappedBy = "optionGroups", cascade = CascadeType.ALL)
     private List<OptionChoices> optionChoicesList = new ArrayList<>();
+
+    @Column(columnDefinition = "boolean default false")
+    private Boolean isDeleted;
 
     public void addOptionChoice(OptionChoices optionChoices) {
         if (this.optionChoicesList == null) {
@@ -39,5 +43,6 @@ public class OptionGroups {
     ) {
         this.optionGroupId = optionGroupId;
         this.optionGroupName = optionGroupName;
+        isDeleted = Boolean.FALSE;
     }
 }

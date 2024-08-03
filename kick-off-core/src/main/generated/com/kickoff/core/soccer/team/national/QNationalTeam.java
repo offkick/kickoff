@@ -19,11 +19,21 @@ public class QNationalTeam extends EntityPathBase<NationalTeam> {
 
     public static final QNationalTeam nationalTeam = new QNationalTeam("nationalTeam");
 
+    public final com.kickoff.core.QBaseEntity _super = new com.kickoff.core.QBaseEntity(this);
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
+
+    public final BooleanPath isDeleted = createBoolean("isDeleted");
+
     public final NumberPath<Long> nationalTeamId = createNumber("nationalTeamId", Long.class);
 
     public final StringPath nationalTeamName = createString("nationalTeamName");
 
     public final EnumPath<com.kickoff.core.soccer.team.TeamType> teamType = createEnum("teamType", com.kickoff.core.soccer.team.TeamType.class);
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> updatedAt = _super.updatedAt;
 
     public QNationalTeam(String variable) {
         super(NationalTeam.class, forVariable(variable));
