@@ -1,6 +1,7 @@
 package com.kickoff.api.controller.team.league.dto;
 
 import com.kickoff.core.soccer.team.league.game.LeagueGame;
+import com.kickoff.core.soccer.team.league.game.LeagueGameStatus;
 import com.kickoff.core.soccer.team.league.service.dto.LeagueGameDTO;
 
 import java.time.LocalDate;
@@ -33,21 +34,25 @@ public record SeasonLeagueGameResponse(
     public record DateResponse(LocalDate date, List<LeagueGameResponse> games) {}
 
     public record LeagueGameResponse(
+            Long leagueGameId,  
             LocalDateTime date,
             String homeTeamName,
             String awayTeamName,
             String homeScore,
             String awayScore,
+            LeagueGameStatus leagueGameStatus,
             String homeLogo,
             String awayLogo
     ) {
         public static LeagueGameResponse of(LeagueGameDTO leagueGame) {
             return new LeagueGameResponse(
+                    leagueGame.leagueGameId(),
                     leagueGame.gameDate(),
                     leagueGame.home().leagueTeamName(),
                     leagueGame.away().leagueTeamName(),
                     leagueGame.score().homeScore(),
                     leagueGame.score().awayScore(),
+                    leagueGame.leagueGameStatus(),
                     leagueGame.home().logo(),
                     leagueGame.away().logo()
             );
