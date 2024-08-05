@@ -33,6 +33,19 @@ public record SeasonLeagueGameResponse(
 
     public record DateResponse(LocalDate date, List<LeagueGameResponse> games) {}
 
+    public record TeamResponse(
+            Long homeTeamId,
+            Long awayTeamId
+    ){
+        public static TeamResponse of(LeagueGameDTO leagueGameDTO) {
+            return new TeamResponse(
+                    leagueGameDTO.home().leagueTeamId(),
+                    leagueGameDTO.away().leagueTeamId()
+            );
+
+        }
+    }
+
     public record LeagueGameResponse(
             Long leagueGameId,  
             LocalDateTime date,
@@ -42,7 +55,8 @@ public record SeasonLeagueGameResponse(
             String awayScore,
             LeagueGameStatus leagueGameStatus,
             String homeLogo,
-            String awayLogo
+            String awayLogo,
+            List<TeamResponse> teamId
     ) {
         public static LeagueGameResponse of(LeagueGameDTO leagueGame) {
             return new LeagueGameResponse(
@@ -54,7 +68,8 @@ public record SeasonLeagueGameResponse(
                     leagueGame.score().awayScore(),
                     leagueGame.leagueGameStatus(),
                     leagueGame.home().logo(),
-                    leagueGame.away().logo()
+                    leagueGame.away().logo(),
+                    List.of(TeamResponse.of(leagueGame))
             );
         }
     }
