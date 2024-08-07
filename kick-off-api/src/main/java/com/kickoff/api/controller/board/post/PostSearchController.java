@@ -38,9 +38,7 @@ public class PostSearchController {
         return postQuerydslRepository.findPosts(cond);
     }
 
-    @Parameters({
-            @Parameter(name = "postId", description = "게시물 ID")
-    })
+    @Parameters({@Parameter(name = "postId", description = "게시물 ID")})
     @GetMapping("/{postId}")
     public PostSearchResponse findPost(@PathVariable Long postId, HttpServletRequest request, HttpServletResponse response)
     {

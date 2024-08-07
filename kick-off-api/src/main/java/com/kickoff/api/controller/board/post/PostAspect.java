@@ -25,10 +25,10 @@ public class PostAspect {
     public void searchAdvice(JoinPoint joinPoint, Long postId, HttpServletRequest request, HttpServletResponse response, Object result)
     {
         PostSearchResponse res = (PostSearchResponse) result;
-        viewCountValidation(res.postId(), request, response);
+        addViewCount(res.postId(), request, response);
     }
 
-    public void viewCountValidation(Long postId, HttpServletRequest request, HttpServletResponse response)
+    public void addViewCount(Long postId, HttpServletRequest request, HttpServletResponse response)
     {
         Cookie cookie = CookieUtils.getCookie(request, POST_VIEW_COOKIE, postId.toString());
         if (cookie == null)
