@@ -44,6 +44,7 @@ public class JWTCheckFilter extends OncePerRequestFilter {
                 "/api/images/",
                 "/api/api-docs",
                 "/admin/**",
+                "/api/member/join",
                 "/api/auth/authentication"
         };
 

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class MemberController {
     private final MemberApiService memberApiService;
 
-    @PostMapping
+    @PostMapping("/join")
     public Long join(@RequestBody MemberJoinRequest request)
     {
         return memberApiService.join(request.toServiceDto());
