@@ -37,6 +37,7 @@ public class MemberApiService {
     public void deleteMember(Long memberId)
     {
         Member member = memberService.findById(memberId);
+        member.delete();
         memberService.delete(member);
     }
 

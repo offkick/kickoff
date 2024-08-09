@@ -54,7 +54,7 @@ public class ApiPlayerService {
     @Transactional(readOnly = true)
     public PlayerCommentResponse findPlayerComments(Long playerId)
     {
-        List<PlayerComment> players = playerCommentRepository.findByPlayerId(playerId);
+        List<PlayerComment> players = playerCommentRepository.findByPlayerIdOrderByCreatedAt(playerId);
         Set<Long> memberIds = players.stream()
                 .map(PlayerComment::getMemberId)
                 .collect(Collectors.toSet());

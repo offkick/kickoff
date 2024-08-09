@@ -31,8 +31,7 @@ public class Member extends BaseEntity {
     private List<MemberRole> memberRoles = new ArrayList<>();
 
     @Builder
-    public Member(Long memberId, String email, String nickName, String password, List<MemberRole> memberRoles) {
-        this.memberId = memberId;
+    public Member( String email, String nickName, String password, List<MemberRole> memberRoles) {
         this.email = email;
         this.nickName = nickName;
         this.password = password;
@@ -43,6 +42,14 @@ public class Member extends BaseEntity {
     public void update(Member updateMember)
     {
         setNickName(updateMember.getNickName());
+    }
+
+    public void delete()
+    {
+        if(!isDeleted)
+        {
+            this.isDeleted = true;
+        }
     }
 
     private void setEmail(String email)
