@@ -26,7 +26,6 @@ import java.util.stream.Collectors;
 public class ApiPlayerService {
     private final PlayerService playerService;
     private final MemberService memberService;
-    // TODO 이동
     private final PlayerCommentRepository playerCommentRepository;
 
     public FindPlayerApiResponse findPlayers(Long playerId)
@@ -35,13 +34,12 @@ public class ApiPlayerService {
         return FindPlayerApiResponse.from(players);
     }
 
-
     public AllPlayerResponse findPlayers()
     {
         List<PlayerDTO> players = playerService.findAll();
 
         return new AllPlayerResponse(players.stream()
-                .map(s-> FindPlayerApiResponse.from(s))
+                .map(FindPlayerApiResponse::from)
                 .collect(Collectors.toList()));
     }
 

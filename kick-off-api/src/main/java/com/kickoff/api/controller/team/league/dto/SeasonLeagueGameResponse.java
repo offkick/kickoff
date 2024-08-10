@@ -1,6 +1,5 @@
 package com.kickoff.api.controller.team.league.dto;
 
-import com.kickoff.core.soccer.team.league.game.LeagueGame;
 import com.kickoff.core.soccer.team.league.game.LeagueGameStatus;
 import com.kickoff.core.soccer.team.league.service.dto.LeagueGameDTO;
 
@@ -51,6 +50,8 @@ public record SeasonLeagueGameResponse(
             LocalDateTime date,
             String homeTeamName,
             String awayTeamName,
+            Long homeTeamId,
+            Long awayTeamId,
             String homeScore,
             String awayScore,
             LeagueGameStatus leagueGameStatus,
@@ -64,6 +65,8 @@ public record SeasonLeagueGameResponse(
                     leagueGame.gameDate(),
                     leagueGame.home().leagueTeamName(),
                     leagueGame.away().leagueTeamName(),
+                    leagueGame.home().leagueTeamId(),
+                    leagueGame.away().leagueTeamId(),
                     leagueGame.score().homeScore(),
                     leagueGame.score().awayScore(),
                     leagueGame.leagueGameStatus(),

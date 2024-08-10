@@ -20,6 +20,7 @@ public record PlayerCommentResponse(
                         map.get(s.getMemberId()).getNickName(),
                         map.get(s.getMemberId()).getMemberId()
                 ))
+                .sorted((a, b) -> b.createdAt.compareTo(a.createdAt))
                 .collect(Collectors.toList()));
     }
 
