@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+
 @Service
 @RequiredArgsConstructor
 public class AuthService {
@@ -28,5 +30,15 @@ public class AuthService {
         String accessToken = tokenProvider.generateAccessToken(dto);
         String refreshToken = tokenProvider.generateRefreshToken(dto);
         return new AuthenticationResponse(accessToken, refreshToken, member.getEmail());
+    }
+
+    public void authentication(String jwtToken)
+    {
+        Map<String, Object> stringObjectMap = tokenProvider.validateToken(jwtToken);
+
+        if (stringObjectMap == null)
+        {
+            throw new IllegalArgumentException("Invalid Jwt Token");
+        }
     }
 }

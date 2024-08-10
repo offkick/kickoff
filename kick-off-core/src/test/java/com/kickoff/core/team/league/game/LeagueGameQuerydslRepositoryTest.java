@@ -46,8 +46,6 @@ public class LeagueGameQuerydslRepositoryTest {
     @Autowired
     private PlayerRepository playerRepository;
 
-    @Autowired
-    private LeagueGameRepositoryImpl leagueGameRepositoryImpl;
 
     @Autowired
     private LeagueRepository leagueRepository;

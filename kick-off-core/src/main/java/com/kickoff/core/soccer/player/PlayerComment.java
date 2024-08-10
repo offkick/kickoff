@@ -32,9 +32,6 @@ public class PlayerComment extends BaseEntity {
 
     public void delete()
     {
-        if (!isDeleted)
-        {
-            this.isDeleted = true;
-        }
+        this.isDeleted = true;
     }
 }
