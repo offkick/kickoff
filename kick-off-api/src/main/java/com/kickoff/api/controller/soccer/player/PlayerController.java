@@ -18,9 +18,7 @@ import org.springframework.web.bind.annotation.*;
 public class PlayerController {
     private final ApiPlayerService apiPlayerService;
 
-    @Parameters({
-            @Parameter(name = "playerId", description = "선수id"),
-    })
+    @Parameters({@Parameter(name = "playerId", description = "선수id")})
     @GetMapping("/search/{playerId}")
     public FindPlayerApiResponse findPlayer(@PathVariable(value = "playerId") Long playerId)
     {

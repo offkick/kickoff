@@ -8,7 +8,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
-// TODO 전체 Entity extends 구현
 @EntityListeners(AuditingEntityListener.class)
 @Getter
 @MappedSuperclass
