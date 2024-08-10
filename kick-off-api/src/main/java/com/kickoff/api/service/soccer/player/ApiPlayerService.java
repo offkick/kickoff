@@ -43,7 +43,6 @@ public class ApiPlayerService {
                 .collect(Collectors.toList()));
     }
 
-
     public void addComment(Long playerId, PlayerAddCommentRequest request)
     {
         playerCommentRepository.save(new PlayerComment(request.getComment(), playerId, AuthUtil.currentUserId()));
