@@ -11,12 +11,9 @@ import lombok.NoArgsConstructor;
 public class PlayerComment extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long playerCommentId;
 
     private String comment;
-
-    @Column(columnDefinition = "boolean default false")
-    private Boolean deleted;
 
     @Column(columnDefinition = "boolean default false")
     private Boolean isDeleted;
@@ -26,10 +23,11 @@ public class PlayerComment extends BaseEntity {
 
     public PlayerComment(String comment, Long playerId, Long memberId)
     {
+
         this.comment = comment;
         this.playerId = playerId;
         this.memberId = memberId;
-        this.deleted = Boolean.FALSE;
+        this.isDeleted = Boolean.FALSE;
     }
 
     public void delete()
