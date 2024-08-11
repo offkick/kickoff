@@ -20,7 +20,7 @@ public class LeagueTeamQuerydslRepository {
 
     public List<TeamByLeagueDTO> findTeamByLeague(String years, Long leagueId)
     {
-        List<LeagueTeam> teams = jpaQueryFactory.select(leagueTeam)
+        List<LeagueTeam> teams = jpaQueryFactory.selectFrom(leagueTeam)
                 .where(
                        leagueIdEq(leagueId),
                         yearsEq(years)
