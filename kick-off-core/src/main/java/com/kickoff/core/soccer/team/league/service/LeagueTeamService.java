@@ -1,8 +1,10 @@
 package com.kickoff.core.soccer.team.league.service;
 
 import com.kickoff.core.soccer.team.league.LeagueTeam;
+import com.kickoff.core.soccer.team.league.LeagueTeamQuerydslRepository;
 import com.kickoff.core.soccer.team.league.LeagueTeamRepository;
 import com.kickoff.core.soccer.team.league.service.dto.LeagueTeamDTO;
+import com.kickoff.core.soccer.team.league.service.dto.TeamByLeagueDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +18,7 @@ import java.util.stream.Collectors;
 @Transactional
 public class LeagueTeamService {
     private final LeagueTeamRepository leagueTeamRepository;
+    private final LeagueTeamQuerydslRepository leagueTeamQuerydslRepository;
 
     @Transactional(readOnly = true)
     public List<LeagueTeamDTO> findAll()
@@ -33,5 +36,10 @@ public class LeagueTeamService {
                 .orElseThrow();
 
         return LeagueTeamDTO.of(leagueTeam);
+    }
+
+     public List<TeamByLeagueDTO> findLeagueTeam(String years, Long leagueId)
+    {
+        return leagueTeamQuerydslRepository.findTeamByLeague(years,leagueId);
     }
 }
