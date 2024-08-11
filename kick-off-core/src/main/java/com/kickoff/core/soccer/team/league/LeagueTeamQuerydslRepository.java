@@ -22,7 +22,7 @@ public class LeagueTeamQuerydslRepository {
     {
         List<LeagueTeam> teams = jpaQueryFactory.selectFrom(leagueTeam)
                 .where(
-                       leagueIdEq(leagueId),
+                        leagueIdEq(leagueId),
                         yearsEq(years)
                 )
                 .fetch();
