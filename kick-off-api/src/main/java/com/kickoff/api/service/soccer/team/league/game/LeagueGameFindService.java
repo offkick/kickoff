@@ -3,6 +3,7 @@ package com.kickoff.api.service.soccer.team.league.game;
 import com.kickoff.api.controller.team.league.dto.DateLeagueGameResponse;
 import com.kickoff.api.controller.team.league.dto.FindLeagueGamePlayerResponse;
 import com.kickoff.api.controller.team.league.dto.SeasonLeagueGameResponse;
+import com.kickoff.core.soccer.team.league.game.LeagueGame;
 import com.kickoff.core.soccer.team.league.game.LeagueGameQuerydslRepository;
 import com.kickoff.core.soccer.team.league.game.dto.FindGameCond;
 import com.kickoff.core.soccer.team.league.game.dto.FindLeagueGamesResponse;
@@ -55,6 +56,15 @@ public class LeagueGameFindService {
         List<LeagueGameDTO> leagueGameList = leagueGameService.findBySeasonBetween(leagueId, startDateTime, endDateTime);
 
         return SeasonLeagueGameResponse.of(leagueGameList);
+    }
+
+    public SeasonLeagueGameResponse findLeagueTeamBySeason(Long leagueTeamId, YearMonth yearMonth)
+    {
+        LocalDateTime startDateTime = yearMonth.atDay(1).atStartOfDay();
+        LocalDateTime endDateTime = yearMonth.atEndOfMonth().atTime(23,59,59);
+        List<LeagueGameDTO> byLeagueTeam = leagueGameService.findByLeagueTeam(leagueTeamId, startDateTime, endDateTime);
+        return SeasonLeagueGameResponse.of(byLeagueTeam);
+
     }
 
     public FindLeagueGamesResponse findLeagueTeamGame(Long leagueTeamId, Pageable pageable)
