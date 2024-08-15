@@ -26,6 +26,8 @@ public class QPlayer extends EntityPathBase<Player> {
 
     public final StringPath birth = createString("birth");
 
+    public final QContract contract;
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
 
@@ -66,6 +68,7 @@ public class QPlayer extends EntityPathBase<Player> {
 
     public QPlayer(Class<? extends Player> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
+        this.contract = inits.isInitialized("contract") ? new QContract(forProperty("contract")) : null;
         this.leagueTeam = inits.isInitialized("leagueTeam") ? new com.kickoff.core.soccer.team.league.QLeagueTeam(forProperty("leagueTeam"), inits.get("leagueTeam")) : null;
         this.season = inits.isInitialized("season") ? new com.kickoff.core.soccer.team.league.QSeason(forProperty("season")) : null;
     }

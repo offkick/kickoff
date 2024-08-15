@@ -19,6 +19,7 @@ public record MatchesFeignResponse(
     public record HalfTime(int home, int away) {}
     record Odds(String msg) {}
     record Referee(int id, String name, String type, String nationality) {}
+
     record Season(
             int id,
             String startDate,
@@ -26,6 +27,7 @@ public record MatchesFeignResponse(
             int currentMatchday,
             String winner
     ) {}
+
     public record Match(Area area,
                         Competition competition,
                         Season season,

@@ -37,11 +37,6 @@ public interface SoccerApiFeign {
             @RequestParam(name = "dateTo") String dateTo
     );
 
-
     @GetMapping("/v4/matches/{matchId}")
     MatchResultResponse getMatchResponse(@PathVariable Long matchId);
-
-
-
-
 }

@@ -41,6 +41,7 @@ public class DailyMatchInsertJobConfig {
                 .build();
     }
 
+    // java -jar param1=dddd
     @Bean
     public Step dailyMatchInsertStep(JobRepository jobRepository)
     {
