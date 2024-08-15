@@ -46,7 +46,13 @@ public record CompetitionTeamsResponse(
             String name,
             String position,
             String dateOfBirth,
-            String nationality
+            String nationality,
+            Contract contract
+    ) {}
+
+    public record Contract(
+            String start,
+            String until
     ) {}
 
     public record Team(

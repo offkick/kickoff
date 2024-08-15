@@ -36,6 +36,9 @@ public class Player extends BaseEntity {
     @JoinColumn(name = "season_id")
     private Season season;
 
+    @Embedded
+    private Contract contract;
+
     @OneToMany(mappedBy = "player", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<PlayerImage> playerImages = new HashSet<>();
 
@@ -50,8 +53,8 @@ public class Player extends BaseEntity {
             PlayerPosition position,
             LeagueTeam leagueTeam,
             String birth,
-            Season season
-    ) {
+            Season season,
+            Contract contract) {
         this.playerId = playerId;
         this.national = national;
         this.playerName = playerName;
@@ -59,6 +62,7 @@ public class Player extends BaseEntity {
         this.leagueTeam = leagueTeam;
         this.birth = birth;
         this.season = season;
+        this.contract = contract;
         isDeleted = Boolean.FALSE;
     }
 

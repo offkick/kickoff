@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class MemberApiService {
+public class MemberCommandService {
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
 
@@ -41,18 +41,6 @@ public class MemberApiService {
         memberService.delete(member);
     }
 
-    @Transactional(readOnly = true)
-    public MemberInfoResponse findMemberInfo(Long memberId)
-    {
-        Member member = memberService.findById(memberId);
-        return new MemberInfoResponse(
-                memberId,
-                member.getEmail(),
-                member.getNickName()
-        );
-    }
-
-    @Transactional
     public void passwordChange(String currentPassword, String newPassword) {
         Member member = memberService.findById(AuthUtil.currentUserId());
 

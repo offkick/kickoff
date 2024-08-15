@@ -3,6 +3,7 @@ package com.kickoff.batch.jobs.competition.service;
 import com.kickoff.batch.config.feign.SoccerApiFeign;
 import com.kickoff.batch.config.feign.api.CompetitionTeamsResponse;
 import com.kickoff.core.common.National;
+import com.kickoff.core.soccer.player.Contract;
 import com.kickoff.core.soccer.player.Player;
 import com.kickoff.core.soccer.player.PlayerPosition;
 import com.kickoff.core.soccer.player.PlayerRepository;
@@ -26,8 +27,7 @@ public class DailyTeamSquadService {
     public void insertTeamSquad(String year, String competition)
     {
         CompetitionTeamsResponse competitionTeams = soccerApiFeign.getCompetitionTeams(competition, year);
-
-        Season season = seasonRepository.findByYears(year).orElse(Season.builder().year(year).build());
+        Season season = seasonRepository.findByYears(year).orElse(Season.builder().years(year).build());
         seasonRepository.save(season);
 
         League league = League.builder()
@@ -55,6 +55,7 @@ public class DailyTeamSquadService {
             {
                 Player player = Player.builder()
                         .leagueTeam(leagueTeam)
+                        .contract(new Contract(squad.contract().start(), squad.contract().until()))
                         .national(squad.nationality())
                         .position(convertPosition(squad.position()))
                         .playerName(squad.name())

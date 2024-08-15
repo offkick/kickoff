@@ -10,19 +10,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient(value = "soccerApi", url = "https://api.football-data.org", configuration = FeignCustomConfig.class)
 public interface SoccerApiFeign {
-    /**
-     *
-     * @param competition
-     * @return
-     */
+
     @GetMapping("/v4/competitions/{competition}/matches")
     MatchesFeignResponse getLatestClMatch(@PathVariable(value = "competition") String competition);
 
     /**
-     *
-     * @param competition
-     * @param season
-     * @return
+     * @param competition ex) PL
+     * @param season 시즌 ex) 2023
      */
     @GetMapping("/v4/competitions/{competition}/teams")
     CompetitionTeamsResponse getCompetitionTeams(
@@ -42,5 +36,12 @@ public interface SoccerApiFeign {
             @RequestParam(name = "dateFrom") String dateFrom,
             @RequestParam(name = "dateTo") String dateTo
     );
+
+
+    @GetMapping("/v4/matches/{matchId}")
+    MatchResultResponse getMatchResponse(@PathVariable Long matchId);
+
+
+
 
 }
