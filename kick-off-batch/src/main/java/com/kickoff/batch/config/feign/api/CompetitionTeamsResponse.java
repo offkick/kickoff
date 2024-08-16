@@ -1,7 +1,8 @@
 package com.kickoff.batch.config.feign.api;
 
 
-import java.util.Date;
+import com.kickoff.batch.config.feign.api.temp.Team;
+
 import java.util.List;
 
 public record CompetitionTeamsResponse(
@@ -55,21 +56,4 @@ public record CompetitionTeamsResponse(
             String until
     ) {}
 
-    public record Team(
-            Area area,
-            int id,
-            String name,
-            String shortName,
-            String tla,
-            String crest,
-            String address,
-            String website,
-            int founded,
-            String clubColors,
-            String venue,
-            List<RunningCompetition> runningCompetitions,
-            List<Object> staff,
-            List<Squad> squad,
-            Date lastUpdated
-    ) {}
 }

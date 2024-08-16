@@ -1,6 +1,7 @@
 package com.kickoff.batch.jobs.competition.service;
 
 import com.kickoff.batch.config.feign.SoccerApiFeign;
+import com.kickoff.batch.config.feign.api.temp.Team;
 import com.kickoff.batch.config.feign.api.CompetitionTeamsResponse;
 import com.kickoff.core.common.National;
 import com.kickoff.core.soccer.player.Contract;
@@ -39,7 +40,7 @@ public class DailyTeamSquadService {
 
         leagueRepository.save(league);
 
-        for (CompetitionTeamsResponse.Team team : competitionTeams.teams())
+        for (Team.Team team : competitionTeams.teams())
         {
             LeagueTeam leagueTeam = LeagueTeam.builder()
                     .teamType(TeamType.of(competition))
