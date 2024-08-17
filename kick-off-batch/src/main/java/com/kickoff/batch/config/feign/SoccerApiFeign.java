@@ -9,11 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.time.LocalDate;
-
 @FeignClient(value = "soccerApi", url = "https://api.football-data.org", configuration = FeignCustomConfig.class)
 public interface SoccerApiFeign {
-
     @GetMapping("/v4/competitions/{competition}/matches")
     MatchesFeignResponse getLatestClMatch(@PathVariable(value = "competition") String competition);
 
@@ -41,10 +38,11 @@ public interface SoccerApiFeign {
     );
 
     @GetMapping("/v4/matches/{matchId}")
-    MatchResultResponse getMatchResponse(@PathVariable Long matchId);
+    MatchResultResponse getMatchResponse(@PathVariable(value = "matchId") Long matchId);
 
-    @GetMapping("/v4/competitions/{leagueId}/standings")
-    StandingResponse getStandings(@RequestParam String season,
-                                  @RequestParam LocalDate date,
-                                  @RequestParam LocalDate matchday);
+    @GetMapping("/v4/competitions/PL/standings")
+    StandingResponse getStandings(
+            @RequestParam(name = "season") String season,
+            @RequestParam(name = "matchday") Long matchday
+    );
 }

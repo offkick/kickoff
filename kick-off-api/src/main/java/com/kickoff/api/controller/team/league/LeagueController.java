@@ -1,16 +1,15 @@
 package com.kickoff.api.controller.team.league;
 
+import com.kickoff.api.controller.team.league.dto.TeamRankInfo;
 import com.kickoff.api.service.soccer.team.league.ApiLeagueTeamService;
 import com.kickoff.api.service.soccer.team.league.LeagueFindService;
+import com.kickoff.api.service.soccer.team.league.TeamStandingService;
 import com.kickoff.api.service.soccer.team.league.dto.FindLeagueResponse;
 import com.kickoff.api.service.soccer.team.league.dto.LeagueTeamResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,6 +23,7 @@ public class LeagueController {
 
     private final LeagueFindService leagueFindService;
     private final ApiLeagueTeamService leagueTeamService;
+    private final TeamStandingService teamStandingService;
 
     @GetMapping("/all")
     public List<FindLeagueResponse> findAllLeagues()
@@ -31,9 +31,19 @@ public class LeagueController {
         return leagueFindService.findAllLeagues();
     }
 
-     @GetMapping("/{years}/{leagueId}")
-    public List<LeagueTeamResponse> findLeagueTeam(@PathVariable(value = "years") String years, @PathVariable(value = "leagueId") Long leagueId)
-    {
+    @GetMapping("/{years}/{leagueId}")
+    public List<LeagueTeamResponse> findLeagueTeam(
+            @PathVariable(value = "years") String years,
+            @PathVariable(value = "leagueId") Long leagueId
+    ) {
         return leagueTeamService.findLeagueTeam(years,leagueId);
+    }
+
+    @GetMapping("/rank/{season}/PL")
+    public TeamRankInfo getTeamRanks(
+            @PathVariable(value = "season") String  season,
+            @RequestParam(defaultValue = "", required = false) Long matchDay)
+    {
+        return TeamRankInfo.of(teamStandingService.teamStandings(matchDay, season));
     }
 }

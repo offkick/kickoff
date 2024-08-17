@@ -55,5 +55,4 @@ public record CompetitionTeamsResponse(
             String start,
             String until
     ) {}
-
 }

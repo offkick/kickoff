@@ -1,5 +1,6 @@
 package com.kickoff.core.soccer.team.league.game;
 
+import com.kickoff.core.BaseEntity;
 import com.kickoff.core.soccer.player.PlayerPosition;
 import com.kickoff.core.soccer.team.Score;
 import com.kickoff.core.soccer.team.league.LeagueTeam;
@@ -12,7 +13,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,7 +27,7 @@ import static com.kickoff.core.soccer.player.PlayerPosition.values;
 @NoArgsConstructor
 @Entity
 @ToString(exclude = {"homePlayers", "awayPlayers"})
-public class LeagueGame {
+public class LeagueGame extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

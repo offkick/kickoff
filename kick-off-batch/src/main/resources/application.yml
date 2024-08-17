@@ -1,9 +1,11 @@
 spring:
   profiles:
-    active: batch
+    active: local
     include: core
   batch:
     job:
-      name: dailyMatchInsertJob
+      name: teamSquadInsertJob
     jdbc:
       initialize-schema: always
+server:
+  port: 8083

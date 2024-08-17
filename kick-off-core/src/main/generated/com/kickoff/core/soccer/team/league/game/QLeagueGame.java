@@ -22,11 +22,16 @@ public class QLeagueGame extends EntityPathBase<LeagueGame> {
 
     public static final QLeagueGame leagueGame = new QLeagueGame("leagueGame");
 
+    public final com.kickoff.core.QBaseEntity _super = new com.kickoff.core.QBaseEntity(this);
+
     public final com.kickoff.core.soccer.team.league.QLeagueTeam away;
 
     public final ListPath<com.kickoff.core.soccer.team.league.game.player.LeagueGamePlayer, com.kickoff.core.soccer.team.league.game.player.QLeagueGamePlayer> awayPlayers = this.<com.kickoff.core.soccer.team.league.game.player.LeagueGamePlayer, com.kickoff.core.soccer.team.league.game.player.QLeagueGamePlayer>createList("awayPlayers", com.kickoff.core.soccer.team.league.game.player.LeagueGamePlayer.class, com.kickoff.core.soccer.team.league.game.player.QLeagueGamePlayer.class, PathInits.DIRECT2);
 
     public final NumberPath<Integer> count = createNumber("count", Integer.class);
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
 
     public final DateTimePath<java.time.LocalDateTime> gameDate = createDateTime("gameDate", java.time.LocalDateTime.class);
 
@@ -41,6 +46,9 @@ public class QLeagueGame extends EntityPathBase<LeagueGame> {
     public final com.kickoff.core.soccer.team.QScore score;
 
     public final com.kickoff.core.soccer.team.league.QSeason season;
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> updatedAt = _super.updatedAt;
 
     public QLeagueGame(String variable) {
         this(LeagueGame.class, forVariable(variable), INITS);

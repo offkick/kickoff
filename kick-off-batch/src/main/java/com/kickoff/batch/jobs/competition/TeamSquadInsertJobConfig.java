@@ -71,8 +71,10 @@ public class TeamSquadInsertJobConfig {
             if (stepContext != null)
             {
                 JobParameters jobParameters = stepContext.getStepExecution().getJobParameters();
-                String competition = jobParameters.getString("competition");
-                String year = jobParameters.getString("year");
+//                String competition = jobParameters.getString("competition");
+//                String year = jobParameters.getString("year");
+                String competition = "PL";
+                String year = "2023";
                 log.info("[PARAMETER] year : {}, competition : {}", year, competition);
                 dailyTeamSquadService.insertTeamSquad(year, competition);
             }
