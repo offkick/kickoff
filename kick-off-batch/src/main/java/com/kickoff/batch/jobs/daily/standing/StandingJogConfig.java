@@ -56,7 +56,7 @@ public class StandingJogConfig {
             Long leagueId = JobParameterUtil.getIfPresentLongParameter(jobParameters, "leagueId");
 
             for (int i=  1; i <= 38; i++) {
-                Thread.sleep(2000L);
+                Thread.sleep(4000L);
                 standingBatchService.insertStanding(season, (long) i, leagueId);
             }
             return RepeatStatus.FINISHED;

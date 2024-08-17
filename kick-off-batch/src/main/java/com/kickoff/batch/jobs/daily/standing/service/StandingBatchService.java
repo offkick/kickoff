@@ -28,6 +28,7 @@ public class StandingBatchService {
             return ;
         }
 
+        log.info("Start insertStanding: {}, {}", season, matchday);
         StandingResponse standings = soccerApiFeign.getStandings(season, matchday);
         for (Standings d : standings.standings())
         {
@@ -43,12 +44,14 @@ public class StandingBatchService {
 
                 Long teamId = externalTeamIdMapping.getExternalTeamId();
                 TeamStanding save = teamStandingRepository.save(TeamStanding.builder()
-                        .rank(t.position())
+                        .ranks(t.position())
+                        .leagueId(1L)
                         .round(matchday)
                         .teamId(externalTeamIdMapping.getTeamId())
                         .draw(t.draw())
                         .won(t.won())
                         .goalsAgainst(t.goalsAgainst())
+                        .points(t.points())
                         .goalsFor(t.goalsFor())
                         .season(String.valueOf(season))
                         .lost(t.lost())

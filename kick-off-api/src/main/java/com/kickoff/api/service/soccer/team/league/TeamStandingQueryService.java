@@ -1,6 +1,8 @@
 package com.kickoff.api.service.soccer.team.league;
 
 import com.kickoff.core.soccer.standing.QTeamStanding;
+import com.kickoff.core.soccer.standing.TeamStanding;
+import com.kickoff.core.soccer.standing.TeamStandingRepository;
 import com.kickoff.core.soccer.standing.dto.TeamStandingQueryResult;
 import com.kickoff.core.soccer.team.league.QLeagueTeam;
 import com.kickoff.core.soccer.team.league.service.LeagueService;
@@ -12,13 +14,16 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class TeamStandingQueryService {
     private final JPAQueryFactory jpaQueryFactory;
     private final LeagueService leagueService;
+    private final TeamStandingRepository teamStandingRepository;
 
     @Transactional(readOnly = true)
     public List<TeamStandingQueryResult> teamStandings(Long matchDay, String season, Long leagueId)
@@ -41,19 +46,36 @@ public class TeamStandingQueryService {
                 .from(QTeamStanding.teamStanding)
                 .join(QLeagueTeam.leagueTeam)
                 .on(QLeagueTeam.leagueTeam.leagueTeamId.eq(teamStanding.teamId))
-                .where(teamStanding.season.eq(season), eqMatchDay(matchDay), eqLeagueId(leagueId))
+                .where(teamStanding.season.eq(season), eqMatchDay(season, matchDay), eqLeagueId(leagueId))
                 .fetch();
     }
 
     private BooleanExpression eqLeagueId(Long leagueId)
     {
-        // default league 는 프리미어리그
-        LeagueDTO defaultLeague = leagueService.findByLeagueName("PL");
-        return leagueId != null ? QTeamStanding.teamStanding.leagueId.eq(leagueId) : QTeamStanding.teamStanding.leagueId.eq(defaultLeague.leagueId());
+        if (leagueId == null)
+        {
+            // default league 는 프리미어리그
+            LeagueDTO findLeague = leagueService.findByLeagueName("PL");
+            return QTeamStanding.teamStanding.leagueId.eq(findLeague.leagueId());
+        }
+
+        return QTeamStanding.teamStanding.leagueId.eq(leagueId);
     }
 
-    private BooleanExpression eqMatchDay(Long matchDay)
+    private BooleanExpression eqMatchDay(String season, Long matchDay)
     {
-        return matchDay == null? null : QTeamStanding.teamStanding.round.eq(matchDay);
+        if (matchDay == null)
+        {
+            Optional<TeamStanding> maxRound = teamStandingRepository.findBySeason(season).stream().max(Comparator.comparingLong(TeamStanding::getRound));
+
+            if (maxRound.isEmpty())
+            {
+                throw new IllegalArgumentException("not found season match standings");
+            }
+
+            return QTeamStanding.teamStanding.round.eq(maxRound.get().getRound());
+        }
+
+        return QTeamStanding.teamStanding.round.eq(matchDay);
     }
 }
