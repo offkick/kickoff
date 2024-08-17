@@ -1,7 +1,6 @@
 package com.kickoff.core.soccer.standing.dto;
 
 public record TeamStandingQueryResult(
-        Long teamStandingId,
         Long teamId,
         Long round,
         Integer ranks,
@@ -11,6 +10,7 @@ public record TeamStandingQueryResult(
         Integer points,
         Integer goalsFor,
         Integer goalsAgainst,
-        String season
+        String season,
+        String teamName
 ) {
 }

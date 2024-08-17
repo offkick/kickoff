@@ -30,6 +30,8 @@ public class QTeamStanding extends EntityPathBase<TeamStanding> {
 
     public final NumberPath<Integer> goalsFor = createNumber("goalsFor", Integer.class);
 
+    public final NumberPath<Long> leagueId = createNumber("leagueId", Long.class);
+
     public final NumberPath<Integer> lost = createNumber("lost", Integer.class);
 
     public final NumberPath<Integer> points = createNumber("points", Integer.class);

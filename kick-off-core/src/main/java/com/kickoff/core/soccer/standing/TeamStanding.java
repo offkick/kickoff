@@ -26,5 +26,6 @@ public class TeamStanding extends BaseEntity {
     private Integer points;
     private Integer goalsFor;
     private Integer goalsAgainst;
+    private Long leagueId;
     private String season;
 }
