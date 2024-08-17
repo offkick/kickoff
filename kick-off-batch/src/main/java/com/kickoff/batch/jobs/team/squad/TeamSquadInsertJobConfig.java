@@ -1,6 +1,6 @@
-package com.kickoff.batch.jobs.competition;
+package com.kickoff.batch.jobs.team.squad;
 
-import com.kickoff.batch.jobs.competition.service.DailyTeamSquadService;
+import com.kickoff.batch.jobs.team.squad.service.DailyTeamSquadService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;

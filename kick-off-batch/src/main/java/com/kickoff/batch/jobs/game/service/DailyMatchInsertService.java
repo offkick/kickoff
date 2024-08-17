@@ -1,4 +1,4 @@
-package com.kickoff.batch.jobs.daily.match.service;
+package com.kickoff.batch.jobs.game.service;
 
 import com.kickoff.batch.config.feign.SoccerApiFeign;
 import com.kickoff.batch.config.feign.api.MatchResultResponse;

@@ -1,6 +1,6 @@
-package com.kickoff.batch.jobs.daily.match;
+package com.kickoff.batch.jobs.game;
 
-import com.kickoff.batch.jobs.daily.match.service.DailyMatchInsertService;
+import com.kickoff.batch.jobs.game.service.DailyMatchInsertService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;

@@ -1,6 +1,6 @@
-package com.kickoff.batch.jobs.daily.standing;
+package com.kickoff.batch.jobs.team.standing;
 
-import com.kickoff.batch.jobs.daily.standing.service.StandingBatchService;
+import com.kickoff.batch.jobs.team.standing.service.StandingBatchService;
 import com.kickoff.batch.util.JobParameterUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +19,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
 
+/**
+ * 리그 팀 순위를 가져온다
+ */
 @Slf4j
 @RequiredArgsConstructor
 @Configuration

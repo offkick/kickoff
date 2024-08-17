@@ -1,4 +1,4 @@
-package com.kickoff.batch.jobs.daily.standing.service;
+package com.kickoff.batch.jobs.team.standing.service;
 
 import com.kickoff.batch.config.feign.SoccerApiFeign;
 import com.kickoff.batch.config.feign.api.temp.StandingResponse;

@@ -1,4 +1,4 @@
-package com.kickoff.batch.jobs;
+package com.kickoff.batch.jobs.team.squad.dto;
 
 import com.kickoff.core.soccer.team.league.game.LeagueGame;
 import com.kickoff.core.soccer.team.league.game.LeagueGameStatus;
