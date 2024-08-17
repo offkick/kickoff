@@ -4,7 +4,7 @@ spring:
     include: core
   batch:
     job:
-      name: dailyStandingInfoJob
+      name: dailyMatchInsertJob
     jdbc:
       initialize-schema: always
 server:
