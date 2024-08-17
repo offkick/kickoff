@@ -1,6 +1,6 @@
 package com.kickoff.api.controller.team.league.dto;
 
-import com.kickoff.core.soccer.standing.dto.TeamStandingQueryResult;
+import com.kickoff.core.soccer.team.standing.dto.TeamStandingQueryResult;
 
 import java.util.Comparator;
 import java.util.List;

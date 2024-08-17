@@ -1,6 +1,6 @@
-package com.kickoff.core.soccer.standing.service;
+package com.kickoff.core.soccer.team.standing.service;
 
-import com.kickoff.core.soccer.standing.TeamStandingRepository;
+import com.kickoff.core.soccer.team.standing.TeamStandingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.kickoff.core.soccer.standing;
+package com.kickoff.core.soccer.team.standing;
 
 import com.kickoff.core.BaseEntity;
 import jakarta.persistence.*;

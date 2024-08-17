@@ -1,4 +1,4 @@
-package com.kickoff.core.soccer.standing.dto;
+package com.kickoff.core.soccer.team.standing.dto;
 
 public record TeamStandingQueryResult(
         Long teamId,

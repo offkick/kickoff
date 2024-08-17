@@ -1,4 +1,4 @@
-package com.kickoff.core.soccer.standing;
+package com.kickoff.core.soccer.team.standing;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

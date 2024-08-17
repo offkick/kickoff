@@ -1,9 +1,9 @@
 package com.kickoff.api.service.soccer.team.league;
 
 import com.kickoff.core.soccer.standing.QTeamStanding;
-import com.kickoff.core.soccer.standing.TeamStanding;
-import com.kickoff.core.soccer.standing.TeamStandingRepository;
-import com.kickoff.core.soccer.standing.dto.TeamStandingQueryResult;
+import com.kickoff.core.soccer.team.standing.TeamStanding;
+import com.kickoff.core.soccer.team.standing.TeamStandingRepository;
+import com.kickoff.core.soccer.team.standing.dto.TeamStandingQueryResult;
 import com.kickoff.core.soccer.team.league.QLeagueTeam;
 import com.kickoff.core.soccer.team.league.service.LeagueService;
 import com.kickoff.core.soccer.team.league.service.dto.LeagueDTO;

@@ -2,6 +2,7 @@ package com.kickoff.core.soccer.standing;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
+import com.kickoff.core.soccer.team.standing.TeamStanding;
 import com.querydsl.core.types.dsl.*;
 
 import com.querydsl.core.types.PathMetadata;

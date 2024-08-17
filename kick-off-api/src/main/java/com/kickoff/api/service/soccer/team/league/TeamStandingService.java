@@ -1,6 +1,6 @@
 package com.kickoff.api.service.soccer.team.league;
 
-import com.kickoff.core.soccer.standing.dto.TeamStandingQueryResult;
+import com.kickoff.core.soccer.team.standing.dto.TeamStandingQueryResult;
 import com.kickoff.core.soccer.team.league.service.LeagueService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
