@@ -3,6 +3,7 @@ package com.kickoff.api.controller.board.postComment.dto;
 import com.kickoff.core.board.postcomment.PostComment;
 import lombok.Builder;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,7 +25,9 @@ public record PostCommentResponse(
             Long commentId,
             Long postId,
             Long memberId,
-            String memberName
+            String memberName,
+            LocalDateTime createdAt,
+            LocalDateTime updatedAt
     )
     {
         public static FindComment from(PostComment postComment)
@@ -34,7 +37,9 @@ public record PostCommentResponse(
                     postComment.getCommentId(),
                     postComment.getPost().getPostId(),
                     postComment.getMember().getMemberId(),
-                    postComment.getMember().getNickName()
+                    postComment.getMember().getNickName(),
+                    postComment.getCreatedAt(),
+                    postComment.getUpdatedAt()
             );
         }
     }

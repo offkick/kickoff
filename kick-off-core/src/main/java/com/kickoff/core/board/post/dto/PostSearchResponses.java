@@ -14,13 +14,13 @@ import java.util.stream.Collectors;
 @Builder
 public record PostSearchResponses(List<FindPost> findPosts, int totalPages, long totalElements) {
 
-    public static PostSearchResponses of(Page<Post> posts, List<PostLike> postLikes)
+    public static PostSearchResponses of(Page<Post> posts, List<PostLike> postLikes, Map<Long, Long> postCommentCountingMap)
     {
         Map<Long, Long> postLikeMap = postLikes.stream()
                 .collect(Collectors.groupingBy(s -> s.getPost().getPostId(), Collectors.counting()));
 
         List<FindPost> findPosts = posts.stream()
-                .map(post -> FindPost.from(post, postLikeMap.getOrDefault(post.getPostId(), 0L)))
+                .map(post -> FindPost.from(post, postLikeMap.getOrDefault(post.getPostId(), 0L), postCommentCountingMap.getOrDefault(post.getPostId(), 0L)))
                 .collect(Collectors.toList());
 
         return PostSearchResponses.builder()
@@ -40,9 +40,10 @@ public record PostSearchResponses(List<FindPost> findPosts, int totalPages, long
             Long memberId,
             String memberName,
             int viewCount,
-            long likeCount
+            long likeCount,
+            long commentCount
     ) {
-        public static FindPost from(Post post, long likeCount)
+        public static FindPost from(Post post, long likeCount, long commentCount)
         {
             return new FindPost(
                     post.getPostId(),
@@ -53,7 +54,8 @@ public record PostSearchResponses(List<FindPost> findPosts, int totalPages, long
                     post.getMember().getMemberId(),
                     post.getMember().getNickName(),
                     post.getViewCount(),
-                    likeCount
+                    likeCount,
+                    commentCount
             );
         }
     }

@@ -39,11 +39,12 @@ public class LeagueController {
         return leagueTeamService.findLeagueTeam(years,leagueId);
     }
 
-    @GetMapping("/rank/{season}/PL")
+    @GetMapping("/rank")
     public TeamRankInfo getTeamRanks(
-            @PathVariable(value = "season") String  season,
-            @RequestParam(defaultValue = "", required = false) Long matchDay)
+            @RequestParam(name = "season") String  season,
+            @RequestParam(name = "competition") String competition,
+            @RequestParam(required = false) Long matchDay)
     {
-        return TeamRankInfo.of(teamStandingService.teamStandings(matchDay, season));
+        return TeamRankInfo.of(teamStandingService.teamStandings(matchDay, season, competition));
     }
 }

@@ -2,6 +2,7 @@ package com.kickoff.api.controller.team.league.dto;
 
 import com.kickoff.core.soccer.standing.TeamStanding;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,6 +13,7 @@ public record TeamRankInfo(
     {
         return new TeamRankInfo(teamStandings.stream()
                 .map(TeamInfo::of)
+                .sorted(Comparator.comparingInt(a -> a.rank))
                 .collect(Collectors.toList()));
     }
 

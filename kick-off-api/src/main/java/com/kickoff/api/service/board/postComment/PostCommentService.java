@@ -1,11 +1,12 @@
 package com.kickoff.api.service.board.postComment;
 
-import com.kickoff.core.config.security.AuthUtil;
 import com.kickoff.api.controller.board.postComment.dto.PostCommentCreateRequest;
+import com.kickoff.api.service.board.postComment.dto.UpdateCommentServiceRequest;
 import com.kickoff.core.board.post.Post;
 import com.kickoff.core.board.post.PostRepository;
 import com.kickoff.core.board.postcomment.PostComment;
 import com.kickoff.core.board.postcomment.PostCommentRepository;
+import com.kickoff.core.config.security.AuthUtil;
 import com.kickoff.core.member.Member;
 import com.kickoff.core.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -35,5 +36,17 @@ public class PostCommentService {
 
         PostComment save = postCommentRepository.save(postComment);
         return save.getCommentId();
+    }
+
+    public void deleteCommentsById(Long postCommentId)
+    {
+        PostComment postComment = postCommentRepository.findById(postCommentId).orElseThrow();
+        postComment.delete();
+    }
+
+    public void updatePostComments(UpdateCommentServiceRequest updateCommentServiceRequest)
+    {
+        PostComment postComment = postCommentRepository.findById(updateCommentServiceRequest.commentId()).orElseThrow();
+        postComment.update(PostComment.builder().comment(updateCommentServiceRequest.comment()).build());
     }
 }

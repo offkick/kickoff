@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -50,13 +51,21 @@ public class PostQuerydslRepository {
                 .where(categoryEq(condition.postCategory()))
                 .fetchOne();
 
+        Map<Long, Long> postCommentCountingMap = postCommentRepository.countCommentsByPostIds(postIds)
+                .stream()
+                .collect(Collectors.toMap(
+                    result -> (Long) result[0],   // Post ID
+                    result -> (Long) result[1]    // Comment Count
+                ));
+
         return PostSearchResponses.of(
                 new PageImpl<>(
                         posts,
                         pageable,
                         count
                 ),
-                byPostIds
+                byPostIds,
+                postCommentCountingMap
         );
     }
 
@@ -106,7 +115,12 @@ public class PostQuerydslRepository {
                         PageRequest.of(0, 100000),
                         count
                 ),
-                byPostIds
-        );
+                byPostIds,
+                postCommentCountingMap);
+    }
+
+    public Map<Long, Long> postCommentCounts(List<Long> postIds)
+    {
+
     }
 }
