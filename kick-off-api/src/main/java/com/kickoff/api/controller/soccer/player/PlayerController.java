@@ -2,6 +2,8 @@ package com.kickoff.api.controller.soccer.player;
 
 import com.kickoff.api.controller.soccer.player.dto.AllPlayerResponse;
 import com.kickoff.api.controller.soccer.player.dto.FindPlayerApiResponse;
+import com.kickoff.api.controller.soccer.player.dto.PlayerAddCommentRequest;
+import com.kickoff.api.controller.soccer.player.dto.PlayerCommentResponse;
 import com.kickoff.api.service.soccer.player.ApiPlayerService;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;

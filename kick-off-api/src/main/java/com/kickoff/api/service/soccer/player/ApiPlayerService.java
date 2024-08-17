@@ -1,7 +1,7 @@
 package com.kickoff.api.service.soccer.player;
 
-import com.kickoff.api.controller.soccer.player.PlayerAddCommentRequest;
-import com.kickoff.api.controller.soccer.player.PlayerCommentResponse;
+import com.kickoff.api.controller.soccer.player.dto.PlayerAddCommentRequest;
+import com.kickoff.api.controller.soccer.player.dto.PlayerCommentResponse;
 import com.kickoff.api.controller.soccer.player.dto.AllPlayerResponse;
 import com.kickoff.api.controller.soccer.player.dto.FindPlayerApiResponse;
 import com.kickoff.core.config.security.AuthUtil;

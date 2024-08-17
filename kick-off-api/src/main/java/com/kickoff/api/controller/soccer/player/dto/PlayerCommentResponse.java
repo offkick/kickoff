@@ -1,4 +1,4 @@
-package com.kickoff.api.controller.soccer.player;
+package com.kickoff.api.controller.soccer.player.dto;
 
 import com.kickoff.core.member.Member;
 import com.kickoff.core.soccer.player.PlayerComment;

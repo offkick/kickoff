@@ -5,6 +5,7 @@ import com.kickoff.api.controller.auth.dto.AuthenticationApiResponse;
 import com.kickoff.api.service.auth.AuthService;
 import com.kickoff.api.service.auth.AuthenticationRequest;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +22,7 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/authentication")
-    public AuthenticationApiResponse login(@RequestBody AuthenticationApiRequest request)
+    public AuthenticationApiResponse login(@Valid @RequestBody AuthenticationApiRequest request)
     {
         return AuthenticationApiResponse.of(
                 authService.authentication(AuthenticationRequest.of(request.email(), request.password()))
