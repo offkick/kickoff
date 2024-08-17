@@ -103,6 +103,13 @@ public class PostQuerydslRepository {
         Set<Long> postIds = posts.stream().map(Post::getPostId).collect(Collectors.toSet());
 
         List<PostLike> byPostIds = postLikeRepository.findByPostIds(postIds);
+        Map<Long, Long> postCommentCountingMap = postCommentRepository.countCommentsByPostIds(postIds)
+                .stream()
+                .collect(Collectors.toMap(
+                        result -> (Long) result[0],   // Post ID
+                        result -> (Long) result[1]    // Comment Count
+                ));
+
 
         Long count = jpaQueryFactory.select(post.postId.count())
                 .from(post)
@@ -119,8 +126,4 @@ public class PostQuerydslRepository {
                 postCommentCountingMap);
     }
 
-    public Map<Long, Long> postCommentCounts(List<Long> postIds)
-    {
-
-    }
 }
