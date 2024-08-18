@@ -2,6 +2,7 @@ package com.kickoff.core.soccer.team.league.game;
 
 import com.kickoff.core.BaseEntity;
 import com.kickoff.core.soccer.player.PlayerPosition;
+import com.kickoff.core.soccer.team.Goal;
 import com.kickoff.core.soccer.team.Score;
 import com.kickoff.core.soccer.team.league.LeagueTeam;
 import com.kickoff.core.soccer.team.league.Season;
@@ -63,6 +64,9 @@ public class LeagueGame extends BaseEntity {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<LeagueGamePlayer> awayPlayers = new ArrayList<>();
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Goal> goals = new ArrayList<>();
+
     @Builder
     public LeagueGame(
             Long leagueGameId,
@@ -73,6 +77,9 @@ public class LeagueGame extends BaseEntity {
             Score score,
             LeagueGameStatus leagueGameStatus,
             Season season,
+            List<LeagueGamePlayer> homePlayers,
+            List<LeagueGamePlayer> awayPlayers,
+            List<Goal> goals,
             String venue, List<LeagueGamePlayer> homePlayers,
             List<LeagueGamePlayer> awayPlayers
     ) {
@@ -89,6 +96,7 @@ public class LeagueGame extends BaseEntity {
 //        validate(away, awayPlayers);
         this.homePlayers = homePlayers;
         this.awayPlayers = awayPlayers;
+        this.goals = goals;
     }
 
     private void validate(LeagueTeam leagueTeam, List<LeagueGamePlayer> leagueGamePlayers)

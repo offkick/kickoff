@@ -35,6 +35,8 @@ public class QLeagueGame extends EntityPathBase<LeagueGame> {
 
     public final DateTimePath<java.time.LocalDateTime> gameDate = createDateTime("gameDate", java.time.LocalDateTime.class);
 
+    public final ListPath<com.kickoff.core.soccer.team.Goal, com.kickoff.core.soccer.team.QGoal> goals = this.<com.kickoff.core.soccer.team.Goal, com.kickoff.core.soccer.team.QGoal>createList("goals", com.kickoff.core.soccer.team.Goal.class, com.kickoff.core.soccer.team.QGoal.class, PathInits.DIRECT2);
+
     public final com.kickoff.core.soccer.team.league.QLeagueTeam home;
 
     public final ListPath<com.kickoff.core.soccer.team.league.game.player.LeagueGamePlayer, com.kickoff.core.soccer.team.league.game.player.QLeagueGamePlayer> homePlayers = this.<com.kickoff.core.soccer.team.league.game.player.LeagueGamePlayer, com.kickoff.core.soccer.team.league.game.player.QLeagueGamePlayer>createList("homePlayers", com.kickoff.core.soccer.team.league.game.player.LeagueGamePlayer.class, com.kickoff.core.soccer.team.league.game.player.QLeagueGamePlayer.class, PathInits.DIRECT2);

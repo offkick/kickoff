@@ -9,11 +9,14 @@ public record MatchResultResponse(
         List<Match> matches
 ) {
     public record Area(int id, String name, String code, String flag) {}
-    public record Team(int id, String name, String shortName, String tla, String crest) {}
+    public record Team(int id, String name, String shortName, String tla, String crest,List<Player> lineup) {}
     public record Competition(String id, String name, String code, String type, String emblem) {}
     public record Referee(int id, String name, String type, String nationality) {}
     public record GameTime(String home, String away) {}
     public record HalfTime(int home, int away) {}
+
+    public record Player(int id, String name, String position) {}
+
     public record Match(Area area,
                         Competition competition,
                         Season season,
