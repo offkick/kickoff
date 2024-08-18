@@ -16,10 +16,7 @@ import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.transaction.PlatformTransactionManager;
-
-import java.util.concurrent.Executor;
 
 /**
  * 리그 or 대회 팀 + 선수들을 업데이트한다.
@@ -28,6 +25,7 @@ import java.util.concurrent.Executor;
 @RequiredArgsConstructor
 @Slf4j
 public class TeamSquadInsertJobConfig {
+
     private final PlatformTransactionManager platformTransactionManager;
     private final DailyTeamSquadService dailyTeamSquadService;
 
@@ -42,18 +40,6 @@ public class TeamSquadInsertJobConfig {
     }
 
     @Bean
-    public Executor taskExecutor()
-    {
-        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(5);
-        executor.setMaxPoolSize(5);
-        executor.setQueueCapacity(500);
-        executor.setThreadNamePrefix("async-");
-        executor.initialize();
-        return executor;
-    }
-
-    @Bean
     public Step teamSquadInsertStep(JobRepository jobRepository)
     {
         return new StepBuilder("teamSquadInsertStep", jobRepository)
@@ -64,22 +50,65 @@ public class TeamSquadInsertJobConfig {
     @Bean
     public Tasklet dailyImportSoccerTasklet()
     {
-        return (contribution, chunkContext) ->
-        {
-            log.info("[Start teamSquadInsertJob]");
-            StepContext stepContext = StepSynchronizationManager.getContext();
-            if (stepContext != null)
-            {
-                JobParameters jobParameters = stepContext.getStepExecution().getJobParameters();
-//                String competition = jobParameters.getString("competition");
-//                String year = jobParameters.getString("year");
-                String competition = "PL";
-                String year = "2023";
-                log.info("[PARAMETER] year : {}, competition : {}", year, competition);
-                dailyTeamSquadService.insertTeamSquad(year, competition);
-            }
-            log.info("[End DailyImportSoccerTasklet]");
+        return (contribution, chunkContext) -> {
+            log.info("[Start] teamSquadInsertJob");
+
+            JobParameters jobParameters = getJobParameters();
+
+            // 필요한 파라미터들을 가져와서 유효성 검사 및 서비스 호출
+            String competition = jobParameters.getString("competition");
+            String year = jobParameters.getString("year");
+
+            validateJobParameters(competition, year);
+            processTeamSquadInsert(competition, year);
+
+            log.info("[End] DailyImportSoccerTasklet");
             return RepeatStatus.FINISHED;
         };
+    }
+
+    // JobParameters를 가져오는 메서드
+    private JobParameters getJobParameters()
+    {
+        StepContext stepContext = StepSynchronizationManager.getContext();
+        if (stepContext == null)
+        {
+            log.error("[Error] StepContext is null, cannot retrieve job parameters.");
+            throw new IllegalStateException("StepContext not available");
+        }
+
+        JobParameters jobParameters = stepContext.getStepExecution().getJobParameters();
+        if (jobParameters == null)
+        {
+            log.error("[Error] JobParameters is null.");
+            throw new IllegalStateException("JobParameters not found");
+        }
+
+        return jobParameters;
+    }
+
+    // 파라미터 유효성 검사 메서드
+    private void validateJobParameters(String competition, String year)
+    {
+        if (competition == null || year == null)
+        {
+            log.error("[Error] Missing required job parameters: competition or year.");
+            throw new IllegalArgumentException("Required job parameters are missing");
+        }
+        log.info("[PARAMETER] year: {}, competition: {}", year, competition);
+    }
+
+    // 서비스 호출 및 예외 처리 메서드
+    private void processTeamSquadInsert(String year, String competition)
+    {
+        try
+        {
+            dailyTeamSquadService.insertTeamSquad(year, competition);
+            log.info("[Success] Team squad data inserted successfully.");
+        } catch (Exception e)
+        {
+            log.error("[Error] Failed to insert team squad data: {}", e.getMessage());
+            throw e;
+        }
     }
 }
