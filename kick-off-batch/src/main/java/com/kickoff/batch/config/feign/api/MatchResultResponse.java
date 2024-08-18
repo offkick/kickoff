@@ -26,6 +26,7 @@ public record MatchResultResponse(
                         Date lastUpdated,
                         Team homeTeam,
                         Team awayTeam,
+                        String venue,
                         Score score,
                         Odds odds,
                         List<Referee> referees

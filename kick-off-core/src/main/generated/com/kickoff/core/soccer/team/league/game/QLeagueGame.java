@@ -50,6 +50,8 @@ public class QLeagueGame extends EntityPathBase<LeagueGame> {
     //inherited
     public final DateTimePath<java.time.LocalDateTime> updatedAt = _super.updatedAt;
 
+    public final StringPath venue = createString("venue");
+
     public QLeagueGame(String variable) {
         this(LeagueGame.class, forVariable(variable), INITS);
     }

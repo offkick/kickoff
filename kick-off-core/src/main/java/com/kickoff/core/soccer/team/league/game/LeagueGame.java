@@ -55,6 +55,8 @@ public class LeagueGame extends BaseEntity {
     @JoinColumn(name = "season_id")
     private Season season;
 
+    private String venue;
+
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<LeagueGamePlayer> homePlayers = new ArrayList<>();
 
@@ -71,7 +73,7 @@ public class LeagueGame extends BaseEntity {
             Score score,
             LeagueGameStatus leagueGameStatus,
             Season season,
-            List<LeagueGamePlayer> homePlayers,
+            String venue, List<LeagueGamePlayer> homePlayers,
             List<LeagueGamePlayer> awayPlayers
     ) {
         this.leagueGameId = leagueGameId;
@@ -82,6 +84,7 @@ public class LeagueGame extends BaseEntity {
         this.score = score;
         this.leagueGameStatus = leagueGameStatus;
         this.season = season;
+        this.venue = venue;
 //        validate(home, homePlayers);
 //        validate(away, awayPlayers);
         this.homePlayers = homePlayers;

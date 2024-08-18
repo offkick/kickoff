@@ -7,6 +7,6 @@ public class TokenService {
 
     public String getToken()
     {
-        return "";
+        return "b1a0c6ed997843cdbc8d22f33523bde6";
     }
 }

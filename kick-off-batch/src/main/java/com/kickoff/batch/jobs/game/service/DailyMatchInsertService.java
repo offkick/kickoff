@@ -109,6 +109,7 @@ public class DailyMatchInsertService {
                         .leagueGameStatus(LeagueGameStatus.END)
                         .away(awayTeam)
                         .season(season)
+                        .venue(match.venue())
                         .home(homeTeam)
                         .gameDate(gameDate)
                         .count(match.matchday())
@@ -121,9 +122,9 @@ public class DailyMatchInsertService {
             // add Date parameter
             currentDateTimeFrom = currentDateTimeFrom.plusDays(DIFF_DAYS);
 
-            // 외부 API 시간당 제한 때문에 2초 sleep...
+            // 외부 API 시간당 제한 때문에 3초 sleep...
             try {
-                Thread.sleep(5000L);
+                Thread.sleep(3000L);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
