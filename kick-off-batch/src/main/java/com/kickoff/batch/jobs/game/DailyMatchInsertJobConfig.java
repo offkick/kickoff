@@ -63,7 +63,6 @@ public class DailyMatchInsertJobConfig {
 
             log.info("Input Parameter targetDateFrom: {}, targetDateTo: {}, competitions: {}", targetDateFrom, targetDateTo, competitions);
             dailyMatchInsertService.insertMatch(targetDateFrom, targetDateTo, competitions);
-
             log.info("[End dailyMatchInsertTasklet]");
             return RepeatStatus.FINISHED;
         };

@@ -77,6 +77,7 @@ public record FindLeagueGamesResponse(List<FindLeagueGames> findLeagueGames, lon
             String home,
             Score score,
             LeagueGameStatus leagueGameStatus,
+            String venue,
             List<LeagueGamePlayerDTO> homePlayers,
             List<LeagueGamePlayerDTO> awayPlayers
     ) {
@@ -90,6 +91,7 @@ public record FindLeagueGamesResponse(List<FindLeagueGames> findLeagueGames, lon
                     leagueGame.getHome().getLeagueTeamName(),
                     leagueGame.getScore(),
                     leagueGame.getLeagueGameStatus(),
+                    leagueGame.getVenue(),
                     null,
                     null
             );

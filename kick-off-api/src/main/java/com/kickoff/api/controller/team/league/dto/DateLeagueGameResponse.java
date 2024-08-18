@@ -25,7 +25,8 @@ public record DateLeagueGameResponse(
             String homeScore,
             String awayScore,
             String homeLogo,
-            String awayLogo
+            String awayLogo,
+            String venue
     ) {
         public static LeagueGameResponse of(LeagueGameDTO leagueGame)
         {
@@ -36,7 +37,8 @@ public record DateLeagueGameResponse(
                     leagueGame.score().homeScore(),
                     leagueGame.score().awayScore(),
                     leagueGame.home().logo(),
-                    leagueGame.away().logo()
+                    leagueGame.away().logo(),
+                    leagueGame.venue()
             );
         }
     }

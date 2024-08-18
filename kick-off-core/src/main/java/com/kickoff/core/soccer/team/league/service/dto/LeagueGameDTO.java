@@ -15,6 +15,7 @@ public record LeagueGameDTO(
         ScoreDTO score,
         LeagueGameStatus leagueGameStatus,
         String seasonYear,
+        String venue,
         List<LeagueGamePlayerDTO> homePlayers,
         List<LeagueGamePlayerDTO> awayPlayers
 ) {
@@ -28,6 +29,7 @@ public record LeagueGameDTO(
                 ScoreDTO.of(leagueGame.getScore()),
                 leagueGame.getLeagueGameStatus(),
                 leagueGame.getSeason().getYears(),
+                leagueGame.getVenue(),
                 null, // TODO : 선수 추가 되면 변경
                 null
         );

@@ -30,6 +30,7 @@ public record FindLeagueGamePlayerResponse(
             String homeScore,
             String awayScore,
             LeagueGameStatus leagueGameStatus,
+            String venue,
             List<GamePlayer> homePlayers,
             List<GamePlayer> awayPlayers
     ) {
@@ -42,6 +43,7 @@ public record FindLeagueGamePlayerResponse(
                     leagueGame.score().homeScore(),
                     leagueGame.score().awayScore(),
                     leagueGame.leagueGameStatus(),
+                    leagueGame.venue(),
                     null,
                     null
             );
