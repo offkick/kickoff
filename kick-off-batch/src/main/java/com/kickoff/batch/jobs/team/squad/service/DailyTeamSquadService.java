@@ -12,6 +12,7 @@ import com.kickoff.core.soccer.team.external.ExternalTeamIdMapping;
 import com.kickoff.core.soccer.team.external.ExternalTeamIdMappingRepository;
 import com.kickoff.core.soccer.team.league.*;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +21,7 @@ import java.util.Optional;
 @Transactional
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class DailyTeamSquadService {
     private final SoccerApiFeign soccerApiFeign;
     private final LeagueRepository leagueRepository;
@@ -42,8 +44,11 @@ public class DailyTeamSquadService {
 
             if (byExternalTeamId.isEmpty())
             {
+                log.info("팀 정보가 없는 리그 팀입니다.");
+
                 continue;
             }
+
             ExternalTeamIdMapping externalTeamIdMapping = byExternalTeamId.get();
 
             LeagueTeam leagueTeam = leagueTeamRepository.findById(externalTeamIdMapping.getTeamId()).orElseThrow();
@@ -67,6 +72,10 @@ public class DailyTeamSquadService {
 
     private PlayerPosition convertPosition(String position)
     {
+        if (position == null)
+        {
+            return null;
+        }
         return switch (position) {
             case "Goalkeeper" -> PlayerPosition.KEEPER;
             case "Defence" -> PlayerPosition.DEFENDER;

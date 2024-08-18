@@ -103,7 +103,7 @@ public class TeamSquadInsertJobConfig {
     {
         try
         {
-            dailyTeamSquadService.insertTeamSquad(year, competition);
+            dailyTeamSquadService.insertTeamSquad("2024", "PL");
             log.info("[Success] Team squad data inserted successfully.");
         } catch (Exception e)
         {
