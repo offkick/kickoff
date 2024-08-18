@@ -1,8 +1,7 @@
-package com.kickoff.core.soccer.standing;
+package com.kickoff.core.soccer.team.standing;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
-import com.kickoff.core.soccer.team.standing.TeamStanding;
 import com.querydsl.core.types.dsl.*;
 
 import com.querydsl.core.types.PathMetadata;
@@ -16,7 +15,7 @@ import com.querydsl.core.types.Path;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QTeamStanding extends EntityPathBase<TeamStanding> {
 
-    private static final long serialVersionUID = -621210109L;
+    private static final long serialVersionUID = 1413340354L;
 
     public static final QTeamStanding teamStanding = new QTeamStanding("teamStanding");
 

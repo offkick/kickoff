@@ -1,5 +1,6 @@
 package com.kickoff.api.service.soccer.team.league;
 
+import com.kickoff.core.soccer.team.standing.TeamStandingQueryService;
 import com.kickoff.core.soccer.team.standing.dto.TeamStandingQueryResult;
 import com.kickoff.core.soccer.team.league.service.LeagueService;
 import lombok.RequiredArgsConstructor;

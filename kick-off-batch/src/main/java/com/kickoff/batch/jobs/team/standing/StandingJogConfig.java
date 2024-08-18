@@ -55,11 +55,11 @@ public class StandingJogConfig {
             log.info("start dailyStandingInfoTasklet");
             JobParameters jobParameters = stepContext.getStepExecution().getJobParameters();
             String season = JobParameterUtil.getIfPresentStringParameter(jobParameters, "season");
-            Long matchday = Long.valueOf(JobParameterUtil.getIfPresentStringParameter(jobParameters, "matchday"));
+            Long matchDay = Long.valueOf(JobParameterUtil.getIfPresentStringParameter(jobParameters, "matchDay"));
             Long leagueId = JobParameterUtil.getIfPresentLongParameter(jobParameters, "leagueId");
 
             for (int i=  1; i <= 38; i++) {
-                Thread.sleep(4000L);
+                Thread.sleep(3000L);
                 standingBatchService.insertStanding(season, (long) i, leagueId);
             }
             return RepeatStatus.FINISHED;

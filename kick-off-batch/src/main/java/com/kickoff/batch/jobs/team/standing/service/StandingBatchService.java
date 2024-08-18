@@ -54,7 +54,8 @@ public class StandingBatchService {
         }
     }
 
-    private void processTableEntry(Standings.Table table, String season, Long matchDay, Long leagueId) {
+    private void processTableEntry(Standings.Table table, String season, Long matchDay, Long leagueId)
+    {
         int externalTeamId = table.team().id();
 
         Optional<ExternalTeamIdMapping> externalTeamIdMappingOpt = externalTeamIdMappingRepository
@@ -65,8 +66,6 @@ public class StandingBatchService {
                 () -> log.warn("외부 팀 ID 매핑을 찾을 수 없음: externalTeamId={}", externalTeamId)
         );
     }
-
-
 
     private void saveTeamStanding(Standings.Table table, String season, Long matchDay, Long leagueId, Long teamId)
     {
