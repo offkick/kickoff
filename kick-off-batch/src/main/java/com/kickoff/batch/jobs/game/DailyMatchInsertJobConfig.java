@@ -28,6 +28,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @Configuration
 public class DailyMatchInsertJobConfig {
+
     private final PlatformTransactionManager platformTransactionManager;
     private final DailyMatchInsertService dailyMatchInsertService;
 
@@ -50,22 +51,45 @@ public class DailyMatchInsertJobConfig {
     }
 
     @Bean
-    public Tasklet dailyMatchInsertTasklet() {
-        return (contribution, chunkContext) ->
-        {
+    public Tasklet dailyMatchInsertTasklet()
+    {
+        return (contribution, chunkContext) -> {
             log.info("[Start dailyMatchInsertTasklet]");
-            StepContext stepContext = StepSynchronizationManager.getContext();
-            if (stepContext != null)
-            {
-                JobParameters jobParameters = stepContext.getStepExecution().getJobParameters();
-                LocalDate targetDateFrom = jobParameters.getString("targetDateFrom") == null ? LocalDate.now() : LocalDate.parse(Objects.requireNonNull(jobParameters.getString("targetDateFrom")));
-                LocalDate targetDateTo = jobParameters.getString("targetDateTo")  == null ? LocalDate.now() : LocalDate.parse(Objects.requireNonNull(jobParameters.getString("targetDateTo")));
-                String competitions = jobParameters.getString("competitions")  == null ? "PL" : jobParameters.getString("competitions");
-                log.info("Input Parameter targetDateFrom : {}, targetDateTo : {}, competitions :{}", targetDateFrom, targetDateTo, competitions);
-                dailyMatchInsertService.insertMatch(targetDateFrom, targetDateTo, competitions);
-            }
-            log.info("[End DailyImportSoccerTasklet]");
+            JobParameters jobParameters = getJobParameters();
+
+            LocalDate targetDateFrom = parseDateOrDefault(jobParameters.getString("targetDateFrom"), LocalDate.now());
+            LocalDate targetDateTo = parseDateOrDefault(jobParameters.getString("targetDateTo"), LocalDate.now());
+            String competitions = jobParameters.getString("competitions") == null ? "PL" : jobParameters.getString("competitions");
+
+            log.info("Input Parameter targetDateFrom: {}, targetDateTo: {}, competitions: {}", targetDateFrom, targetDateTo, competitions);
+            dailyMatchInsertService.insertMatch(targetDateFrom, targetDateTo, competitions);
+
+            log.info("[End dailyMatchInsertTasklet]");
             return RepeatStatus.FINISHED;
         };
+    }
+
+    private JobParameters getJobParameters()
+    {
+        StepContext stepContext = StepSynchronizationManager.getContext();
+        if (stepContext == null)
+        {
+            log.error("[Error] StepContext is null, cannot retrieve job parameters.");
+            throw new IllegalStateException("StepContext not available");
+        }
+
+        JobParameters jobParameters = stepContext.getStepExecution().getJobParameters();
+        if (jobParameters == null)
+        {
+            log.error("[Error] JobParameters is null.");
+            throw new IllegalStateException("JobParameters not found");
+        }
+
+        return jobParameters;
+    }
+
+    private LocalDate parseDateOrDefault(String date, LocalDate defaultDate)
+    {
+        return date == null ? defaultDate : LocalDate.parse(Objects.requireNonNull(date));
     }
 }
