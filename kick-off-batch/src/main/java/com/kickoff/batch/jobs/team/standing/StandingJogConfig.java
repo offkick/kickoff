@@ -25,7 +25,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 @Slf4j
 @RequiredArgsConstructor
 @Configuration
-public class TeamStandingJogConfig {
+public class StandingJogConfig {
     private final PlatformTransactionManager platformTransactionManager;
     private final StandingBatchService standingBatchService;
 
