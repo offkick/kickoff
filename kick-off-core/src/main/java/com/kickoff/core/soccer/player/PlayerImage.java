@@ -2,6 +2,7 @@ package com.kickoff.core.soccer.player;
 
 import com.kickoff.core.BaseEntity;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -25,8 +26,8 @@ public class PlayerImage extends BaseEntity {
     @Column(columnDefinition = "boolean default false")
     private Boolean isDeleted;
 
-
-    public PlayerImage(String url, Player player) {
+    public PlayerImage(String url, Player player)
+    {
         this.url = url;
         this.player = player;
         this.createdAt = LocalDateTime.now();
@@ -41,5 +42,4 @@ public class PlayerImage extends BaseEntity {
             this.isDeleted = true;
         }
     }
-
 }

@@ -73,7 +73,7 @@ public class PlayerService {
     public List<PlayerDTO> findAll()
     {
         return playerRepository.findAll().stream()
-                .map(dto -> PlayerDTO.from(dto))
+                .map(PlayerDTO::from)
                 .collect(Collectors.toList());
     }
 }
