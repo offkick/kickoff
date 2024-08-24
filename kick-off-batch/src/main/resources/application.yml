@@ -1,0 +1,14 @@
+spring:
+  profiles:
+    active: local
+    include: core
+  batch:
+    job:
+      name: dailyMatchInsertJob
+    jdbc:
+      initialize-schema: always
+server:
+  port: 8083
+api:
+  footbool:
+    token: b1a0c6ed997843cdbc8d22f33523bde6

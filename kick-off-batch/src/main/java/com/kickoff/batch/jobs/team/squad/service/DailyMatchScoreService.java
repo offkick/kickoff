@@ -78,7 +78,7 @@ public class DailyMatchScoreService {
 
                     Long id = matchGoal.scorer().id();
                     Player player = playerRepository.findById(id)
-                            .orElseThrow(() -> new IllegalArgumentException("Player not found with id: " + id));
+                            .orElseThrow(() -> new IllegalArgumentException());
 
                     GoalType goalType = GoalType.valueOf(matchGoal.type().toUpperCase());
 

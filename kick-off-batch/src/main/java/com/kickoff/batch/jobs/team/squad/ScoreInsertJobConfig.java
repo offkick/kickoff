@@ -59,7 +59,7 @@ public class ScoreInsertJobConfig {
                 JobParameters jobParameters = stepContext.getStepExecution().getJobParameters();
                 LocalDate targetDateFrom = jobParameters.getString("targetDateFrom") == null ? LocalDate.now() : LocalDate.parse(Objects.requireNonNull(jobParameters.getString("targetDateFrom")));
                 LocalDate targetDateTo = jobParameters.getString("targetDateTo")  == null ? LocalDate.now() : LocalDate.parse(Objects.requireNonNull(jobParameters.getString("targetDateTo")));
-                Long competitions = jobParameters.getLong("competitions")  == null ? 2003 : jobParameters.getLong("competitions");
+                Long competitions = jobParameters.getLong("competitions")  == null ? 2021 : jobParameters.getLong("competitions");
 
                 dailyMatchScoreService.insertMatchScore(targetDateFrom,targetDateTo,competitions);
 
