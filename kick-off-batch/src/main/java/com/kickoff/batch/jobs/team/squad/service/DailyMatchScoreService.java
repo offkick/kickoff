@@ -23,7 +23,6 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Transactional
 @RequiredArgsConstructor
@@ -80,11 +79,8 @@ public class DailyMatchScoreService {
                             .orElse(LeagueTeam.builder().leagueTeamName(scoredName).build());
 
                     Long id = matchGoal.scorer().id();
-                    Player player = playerRepository.findById(id)
-                            .orElseThrow(() -> new IllegalArgumentException());
-
+                    Player player = playerRepository.findById(id).orElseThrow(IllegalArgumentException::new);
                     GoalType goalType = GoalType.valueOf(matchGoal.type().toUpperCase());
-
                     Goal goal = Goal.builder()
                             .player(player)
                             .scoredTeam(scoredTeam)

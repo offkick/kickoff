@@ -63,7 +63,7 @@ public class DailyMatchInsertService {
 
                 leagueTeamRepository.save(awayTeam);
 
-                if (!externalTeamIdMappingRepository.findByExternalTeamIdAndAndTeamIdAndExternalApiName((long) match.awayTeam().id(), awayTeam.getLeagueTeamId(), ExternalApiName.FOOT_BALL_API_V1).isPresent()) {
+                if (!externalTeamIdMappingRepository.findByExternalTeamIdAndTeamIdAndExternalApiName((long) match.awayTeam().id(), awayTeam.getLeagueTeamId(), ExternalApiName.FOOT_BALL_API_V1).isPresent()) {
                     externalTeamIdMappingRepository.save(
                             ExternalTeamIdMapping.builder()
                                     .externalApiName(ExternalApiName.FOOT_BALL_API_V1)
@@ -90,17 +90,18 @@ public class DailyMatchInsertService {
                         );
                 leagueTeamRepository.save(homeTeam);
 
-                if (!externalTeamIdMappingRepository.findByExternalTeamIdAndAndTeamIdAndExternalApiName((long) match.homeTeam().id(), homeTeam.getLeagueTeamId(), ExternalApiName.FOOT_BALL_API_V1).isPresent()) {
-
+                if (!externalTeamIdMappingRepository.findByExternalTeamIdAndTeamIdAndExternalApiName(
+                        (long) match.homeTeam().id(),
+                        homeTeam.getLeagueTeamId(),
+                        ExternalApiName.FOOT_BALL_API_V1).isPresent()
+                ) {
                     externalTeamIdMappingRepository.save(
                             ExternalTeamIdMapping.builder()
                                     .externalApiName(ExternalApiName.FOOT_BALL_API_V1)
                                     .teamId(homeTeam.getLeagueTeamId())
                                     .externalTeamId((long) match.homeTeam().id())
-                                    .build()
-                    );
+                                    .build());
                 }
-
 
                 Instant instant = match.utcDate().toInstant();
                 LocalDateTime gameDate = instant.atZone(ZoneId.systemDefault()).toLocalDateTime();
@@ -115,8 +116,10 @@ public class DailyMatchInsertService {
                         .count(match.matchday())
                         .score(score)
                         .build();
+                LeagueGame save = leagueGameRepository.save(leagueGame);
 
-                leagueGameRepository.save(leagueGame);
+                // [leagueId, externalGameId] save
+
             }
 
             // add Date parameter

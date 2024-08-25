@@ -3,8 +3,8 @@ package com.kickoff.batch.config.feign;
 import com.kickoff.batch.config.feign.api.CompetitionTeamsResponse;
 import com.kickoff.batch.config.feign.api.MatchResultResponse;
 import com.kickoff.batch.config.feign.api.MatchesFeignResponse;
-import com.kickoff.batch.config.feign.api.temp.StandingResponse;
 import com.kickoff.batch.config.feign.api.MatchesResultDetailResponse;
+import com.kickoff.batch.config.feign.api.temp.StandingResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,7 +42,7 @@ public interface SoccerApiFeign {
     );
 
     @GetMapping("/v4/matches/{matchId}")
-    MatchResultResponse getMatchResponse(@PathVariable(value = "matchId") Long matchId);
+    MatchResultResponse getMatchResponse2(@PathVariable(value = "matchId") Long matchId);
 
     @GetMapping("/v4/competitions/PL/standings")
     StandingResponse getStandings(

@@ -16,12 +16,10 @@ import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import java.time.LocalDate;
 import java.util.Objects;
-import java.util.concurrent.Executor;
 
 /**
  * 경기 결과 업데이트
@@ -42,6 +40,7 @@ public class ScoreInsertJobConfig {
                 .start(scoreInsertJobStep(jobRepository))
                 .build();
     }
+
     @Bean
     public Step scoreInsertJobStep(JobRepository jobRepository)
     {
@@ -49,6 +48,7 @@ public class ScoreInsertJobConfig {
                 .tasklet(dailyImportScoreTasklet(), platformTransactionManager)
                 .build();
     }
+
     @Bean
     public Tasklet dailyImportScoreTasklet()
     {
