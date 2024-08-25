@@ -32,6 +32,7 @@ public class JWTCheckFilter extends OncePerRequestFilter {
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException
     {
         String [] excludePath = {
+                "/api/**",
                 "/api/login",
                 "/api/signup",
                 "/h2-console",
