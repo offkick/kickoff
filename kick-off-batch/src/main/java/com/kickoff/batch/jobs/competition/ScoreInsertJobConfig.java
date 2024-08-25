@@ -52,7 +52,7 @@ public class ScoreInsertJobConfig {
     @Bean
     public Tasklet dailyImportScoreTasklet()
     {
-        return (contribution,chunkContext)->{
+        return (contribution, chunkContext)->{
             StepContext stepContext = StepSynchronizationManager.getContext();
             if(stepContext!=null)
             {

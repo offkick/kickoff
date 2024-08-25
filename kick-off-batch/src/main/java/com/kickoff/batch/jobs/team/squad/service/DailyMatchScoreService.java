@@ -8,9 +8,7 @@ import com.kickoff.core.soccer.team.Goal;
 import com.kickoff.core.soccer.team.GoalType;
 import com.kickoff.core.soccer.team.Score;
 import com.kickoff.core.soccer.team.league.*;
-import com.kickoff.core.soccer.team.league.game.LeagueGame;
-import com.kickoff.core.soccer.team.league.game.LeagueGameRepository;
-import com.kickoff.core.soccer.team.league.game.LeagueGameStatus;
+import com.kickoff.core.soccer.team.league.game.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -36,6 +34,7 @@ public class DailyMatchScoreService {
     private final LeagueTeamRepository leagueTeamRepository;
     private final PlayerRepository playerRepository;
     private final LeagueGameRepository leagueGameRepository;
+    private final ExternalGameMappingRepository externalGameMappingRepository;
 
     public void insertMatchScore(LocalDate targetDateFrom, LocalDate targetDateTo, Long competitionId)
     {
@@ -102,6 +101,8 @@ public class DailyMatchScoreService {
                         .goals(goalsList)
                         .build();
                 leagueGameRepository.save(leagueGame);
+
+                externalGameMappingRepository.save(ExternalGameMapping.builder().externalGameId((long) match.id()).gameId(leagueGame.getLeagueGameId()).build());
             }
             currentDateTimeFrom = currentDateTimeFrom.plusDays(DIFF_DAYS);
 
