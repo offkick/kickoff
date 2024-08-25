@@ -80,8 +80,7 @@ public class LeagueGame extends BaseEntity {
             List<LeagueGamePlayer> homePlayers,
             List<LeagueGamePlayer> awayPlayers,
             List<Goal> goals,
-            String venue, List<LeagueGamePlayer> homePlayers,
-            List<LeagueGamePlayer> awayPlayers
+            String venue
     ) {
         this.leagueGameId = leagueGameId;
         this.gameDate = gameDate;

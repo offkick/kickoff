@@ -31,7 +31,7 @@ import java.util.concurrent.Executor;
 @Slf4j
 public class ScoreInsertJobConfig {
     private final PlatformTransactionManager platformTransactionManager;
-    private DailyMatchScoreService dailyMatchScoreService;
+    private final DailyMatchScoreService dailyMatchScoreService;
 
     @Bean
     public Job scoreInsertJob(JobRepository jobRepository)
@@ -59,15 +59,13 @@ public class ScoreInsertJobConfig {
                 JobParameters jobParameters = stepContext.getStepExecution().getJobParameters();
                 LocalDate targetDateFrom = jobParameters.getString("targetDateFrom") == null ? LocalDate.now() : LocalDate.parse(Objects.requireNonNull(jobParameters.getString("targetDateFrom")));
                 LocalDate targetDateTo = jobParameters.getString("targetDateTo")  == null ? LocalDate.now() : LocalDate.parse(Objects.requireNonNull(jobParameters.getString("targetDateTo")));
-                Long competitions = jobParameters.getLong("competitions")  == null ? 2021 : jobParameters.getLong("competitions");
+                String competitions = jobParameters.getString("competitions")  == null ? "2021" : jobParameters.getString("competitions");
+                Long competitionId = Long.parseLong(competitions);
 
-                dailyMatchScoreService.insertMatchScore(targetDateFrom,targetDateTo,competitions);
-
+                dailyMatchScoreService.insertMatchScore(targetDateFrom,targetDateTo,competitionId);
 
             }
             return RepeatStatus.FINISHED;
-
         };
-
     }
 }

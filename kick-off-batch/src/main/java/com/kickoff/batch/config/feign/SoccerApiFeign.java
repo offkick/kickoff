@@ -49,7 +49,6 @@ public interface SoccerApiFeign {
             @RequestParam(name = "season") String season,
             @RequestParam(name = "matchday") Long matchday
     );
-    MatchResultResponse getMatchResponse(@PathVariable(value = "matchId")  Long matchId);
 
     @GetMapping("/v4/competitions/{competitionId}/matches")
     MatchesResultDetailResponse getCompetitionMatchResponse(

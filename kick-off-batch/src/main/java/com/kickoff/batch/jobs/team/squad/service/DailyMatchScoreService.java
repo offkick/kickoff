@@ -12,6 +12,7 @@ import com.kickoff.core.soccer.team.league.game.LeagueGame;
 import com.kickoff.core.soccer.team.league.game.LeagueGameRepository;
 import com.kickoff.core.soccer.team.league.game.LeagueGameStatus;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,6 +28,7 @@ import java.util.Optional;
 @Transactional
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class DailyMatchScoreService {
     private static final Integer DIFF_DAYS = 10;
     private final SoccerApiFeign soccerApiFeign;
@@ -45,6 +47,7 @@ public class DailyMatchScoreService {
         ) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             MatchesResultDetailResponse matchesResultDetailResponse = soccerApiFeign.getCompetitionMatchResponse(competitionId, currentDateTimeFrom.format(formatter), currentDateTimeFrom.plusDays(DIFF_DAYS).format(formatter));
+            log.info("match" ,matchesResultDetailResponse);
             for(MatchesResultDetailResponse.Match match : matchesResultDetailResponse.matches())
             {
                 String awayTeamName = match.awayTeam().name();
