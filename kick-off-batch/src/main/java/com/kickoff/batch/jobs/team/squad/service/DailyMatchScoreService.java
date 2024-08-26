@@ -7,6 +7,8 @@ import com.kickoff.core.soccer.player.PlayerRepository;
 import com.kickoff.core.soccer.team.Goal;
 import com.kickoff.core.soccer.team.GoalType;
 import com.kickoff.core.soccer.team.Score;
+import com.kickoff.core.soccer.team.external.ExternalTeamIdMapping;
+import com.kickoff.core.soccer.team.external.ExternalTeamIdMappingRepository;
 import com.kickoff.core.soccer.team.league.*;
 import com.kickoff.core.soccer.team.league.game.*;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +23,8 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 
 @Transactional
 @RequiredArgsConstructor
@@ -48,17 +52,24 @@ public class DailyMatchScoreService {
             log.info("match" ,matchesResultDetailResponse);
             for(MatchesResultDetailResponse.Match match : matchesResultDetailResponse.matches())
             {
-                String awayTeamName = match.awayTeam().name();
-                String homeTeamName = match.homeTeam().name();
-                LeagueTeam awayTeam = leagueTeamRepository.findByLeagueTeamName(awayTeamName)
-                        .orElse(LeagueTeam.builder().leagueTeamName(awayTeamName).build());
+                Optional<ExternalTeamIdMapping> byHomeTeamId = externalTeamIdMappingRepository.findByExternalTeamId((long) match.homeTeam().id());
+                Optional<ExternalTeamIdMapping> byAwayTeamId = externalTeamIdMappingRepository.findByExternalTeamId((long) match.awayTeam().id());
 
-                leagueTeamRepository.save(awayTeam);
+                Optional<ExternalGameMapping> byExternalGameId = externalGameMappingRepository.findByExternalGameId((long) match.id());
+                if(byExternalGameId.isEmpty())
+                {
+                    log.info("게임 정보가 없는 게임id입니다.");
+                    continue;
+                }
 
-                LeagueTeam homeTeam = leagueTeamRepository.findByLeagueTeamName(homeTeamName)
-                        .orElse(LeagueTeam.builder().leagueTeamName(homeTeamName).build());
+                ExternalTeamIdMapping externalTeamIdMapping = byHomeTeamId.get();
+                ExternalTeamIdMapping externalTeamIdMapping1 = byAwayTeamId.get();
+                LeagueTeam homeTeam = leagueTeamRepository.findById(externalTeamIdMapping.getTeamId()).orElseThrow();
+                LeagueTeam awayTeam = leagueTeamRepository.findById(externalTeamIdMapping1.getTeamId()).orElseThrow();
 
-                leagueTeamRepository.save(homeTeam);
+                ExternalGameMapping externalGameMapping = byExternalGameId.get();
+
+//                LeagueGame leagueGame = leagueGameRepository.findById(externalGameMapping.getId()).orElseThrow();
 
                 Score score = Score.builder()
                         .awayScore(match.score().fullTime().away())
@@ -72,10 +83,9 @@ public class DailyMatchScoreService {
                 List<Goal> goalsList = new ArrayList<>();
 
                 for (MatchesResultDetailResponse.Goals matchGoal : match.goals()) {
-                    String scoredName = matchGoal.scoreTeam().name();
-
-                    LeagueTeam scoredTeam = leagueTeamRepository.findByLeagueTeamName(scoredName)
-                            .orElse(LeagueTeam.builder().leagueTeamName(scoredName).build());
+                     Optional<ExternalTeamIdMapping> byExternalTeamId = externalTeamIdMappingRepository.findByExternalTeamId((long) matchGoal.scoreTeam().id());
+                    ExternalTeamIdMapping externalTeamIdMapping2 = byExternalTeamId.get();
+                    LeagueTeam scoredTeam = leagueTeamRepository.findById(externalTeamIdMapping2.getTeamId()).orElseThrow();
 
                     Long id = matchGoal.scorer().id();
                     Player player = playerRepository.findById(id).orElseThrow(IllegalArgumentException::new);
@@ -83,7 +93,7 @@ public class DailyMatchScoreService {
                     Goal goal = Goal.builder()
                             .player(player)
                             .scoredTeam(scoredTeam)
-                            .minute(matchGoal.minute())
+                            .playTime(matchGoal.playTime())
                             .type(goalType)
                             .build();
 
@@ -91,7 +101,7 @@ public class DailyMatchScoreService {
                     goalsList.add(goal);
                 }
 
-                LeagueGame leagueGame = LeagueGame.builder()
+                LeagueGame leagueGame1 = LeagueGame.builder()
                         .leagueGameStatus(LeagueGameStatus.END)
                         .away(awayTeam)
                         .season(season)
@@ -100,9 +110,9 @@ public class DailyMatchScoreService {
                         .score(score)
                         .goals(goalsList)
                         .build();
-                leagueGameRepository.save(leagueGame);
+                leagueGameRepository.save(leagueGame1);
 
-                externalGameMappingRepository.save(ExternalGameMapping.builder().externalGameId((long) match.id()).gameId(leagueGame.getLeagueGameId()).build());
+                externalGameMappingRepository.save(ExternalGameMapping.builder().externalGameId((long) match.id()).gameId(leagueGame1.getLeagueGameId()).build());
             }
             currentDateTimeFrom = currentDateTimeFrom.plusDays(DIFF_DAYS);
 
