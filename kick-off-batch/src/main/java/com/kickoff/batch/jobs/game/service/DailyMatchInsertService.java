@@ -34,6 +34,8 @@ public class DailyMatchInsertService {
     private final LeagueTeamRepository leagueTeamRepository;
     private final SeasonRepository seasonRepository;
     private final ExternalTeamIdMappingRepository externalTeamIdMappingRepository;
+    private final ExternalGameMappingRepository externalGameMappingRepository;
+
 
     /**
      * 경기 결과르 조회해서 경기 결과 업데이트 한다. [경기 스코어 홈 팀, 어웨이 팀]
@@ -116,7 +118,18 @@ public class DailyMatchInsertService {
                         .count(match.matchday())
                         .score(score)
                         .build();
-                LeagueGame save = leagueGameRepository.save(leagueGame);
+                leagueGameRepository.save(leagueGame);
+
+                if(!externalGameMappingRepository.findByExternalGameIdAndGameId(
+                        (long) match.id(),
+                        leagueGame.getLeagueGameId()).isPresent()){
+                    externalGameMappingRepository.save(
+                            ExternalGameMapping.builder()
+                                    .externalGameId((long) match.id())
+                                    .id(leagueGame.getLeagueGameId())
+                                    .build()
+                    );
+                }
 
                 // [leagueId, externalGameId] save
 
