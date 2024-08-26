@@ -54,7 +54,7 @@ public record MatchesResultDetailResponse(
     ){}
 
     public record Goals(
-            int minute,
+            int playTime,
             String type,
             ScoreTeam scoreTeam,
             Scorer scorer
