@@ -24,7 +24,7 @@ public record FindLeagueGamePlayerResponse(
 
     public record LeagueGamePlayerResponse(
             LocalDateTime gameDate,
-            int count,
+            int matchDay,
             String away,
             String home,
             String homeScore,
