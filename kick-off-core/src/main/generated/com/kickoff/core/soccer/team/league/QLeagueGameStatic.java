@@ -23,7 +23,7 @@ public class QLeagueGameStatic extends EntityPathBase<LeagueGameStatic> {
 
     public final StringPath awayScore = createString("awayScore");
 
-    public final NumberPath<Integer> count = createNumber("count", Integer.class);
+    public final NumberPath<Integer> count = createNumber("matchDay", Integer.class);
 
     public final DateTimePath<java.time.LocalDateTime> gameDate = createDateTime("gameDate", java.time.LocalDateTime.class);
 
