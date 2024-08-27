@@ -28,7 +28,7 @@ public class QLeagueGame extends EntityPathBase<LeagueGame> {
 
     public final ListPath<com.kickoff.core.soccer.team.league.game.player.LeagueGamePlayer, com.kickoff.core.soccer.team.league.game.player.QLeagueGamePlayer> awayPlayers = this.<com.kickoff.core.soccer.team.league.game.player.LeagueGamePlayer, com.kickoff.core.soccer.team.league.game.player.QLeagueGamePlayer>createList("awayPlayers", com.kickoff.core.soccer.team.league.game.player.LeagueGamePlayer.class, com.kickoff.core.soccer.team.league.game.player.QLeagueGamePlayer.class, PathInits.DIRECT2);
 
-    public final NumberPath<Integer> count = createNumber("count", Integer.class);
+    public final NumberPath<Integer> count = createNumber("matchDay", Integer.class);
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;

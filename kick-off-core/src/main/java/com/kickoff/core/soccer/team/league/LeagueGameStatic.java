@@ -55,7 +55,7 @@ public class LeagueGameStatic {
         return LeagueGameStatic.builder()
                 .leagueGameStaticId(leagueGame.getLeagueGameId())
                 .gameDate(leagueGame.getGameDate())
-                .count(leagueGame.getCount())
+                .count(leagueGame.getMatchDay())
                 .awayLeagueTeamId(leagueGame.getAway().getLeagueTeamId())
                 .homeLeagueTeamId(leagueGame.getHome().getLeagueTeamId())
                 .homeScore(leagueGame.getScore().getHomeScore())

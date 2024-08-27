@@ -29,7 +29,7 @@ public class LeagueGameDTO {
         return LeagueGameDTO.builder()
                 .leagueGameId(leagueGame.getLeagueGameId())
                 .gameDate(leagueGame.getGameDate())
-                .count(leagueGame.getCount())
+                .count(leagueGame.getMatchDay())
                 .awayLeagueTeamId(leagueGame.getAway().getLeagueTeamId())
                 .homeLeagueTeamId(leagueGame.getHome().getLeagueTeamId())
                 .homeScore(leagueGame.getScore().getHomeScore())

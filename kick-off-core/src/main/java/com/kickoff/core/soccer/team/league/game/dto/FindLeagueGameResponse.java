@@ -30,7 +30,7 @@ public record FindLeagueGameResponse (
         return new FindLeagueGameResponse(
                 leagueGame.getLeagueGameId(),
                 leagueGame.getGameDate(),
-                leagueGame.getCount(),
+                leagueGame.getMatchDay(),
                 leagueGame.getAway(),
                 leagueGame.getHome(),
                 leagueGame.getScore(),
