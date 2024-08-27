@@ -17,7 +17,7 @@ public record LeagueGameDTO(
         String seasonYear,
         String venue,
         List<LeagueGamePlayerDTO> homePlayers,
-        List<LeagueGamePlayerDTO> awayPlayers,
+        List<LeagueGamePlayerDTO> awayPlayers
 ) {
     public static LeagueGameDTO of(LeagueGame leagueGame) {
         return new LeagueGameDTO(
