@@ -29,7 +29,7 @@ public class PostLikeService {
 
         if (postLikeRepository.existsByPostAndMember(post, member))
         {
-            throw new IllegalArgumentException("이미 좋아요 누름")
+            throw new IllegalArgumentException("이미 좋아요 누름");
         }
 
         postLikeRepository.save(PostLike.builder()
