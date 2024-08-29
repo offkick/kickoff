@@ -37,7 +37,7 @@ public record PostCommentResponse(
                     postComment.getCommentId(),
                     postComment.getPost().getPostId(),
                     postComment.getMember().getMemberId(),
-                    postComment.getMember().getNickName(),
+                    postComment.getMember().getNickname(),
                     postComment.getCreatedAt(),
                     postComment.getUpdatedAt()
             );

@@ -38,7 +38,7 @@ public class MemberService {
             throw new MemberJoinException("중복 이메일");
         }
 
-        if (memberRepository.existsByNickName(request.nickName()))
+        if (memberRepository.existsByNickName(request.nickname()))
         {
             throw new MemberJoinException("중복 닉네임");
         }
@@ -46,6 +46,7 @@ public class MemberService {
         Member member = Member.builder()
                 .memberRoles(List.of(request.role()))
                 .email(request.email())
+                .nickname(request.nickname())
                 .memberRoles(List.of(MemberRole.USER))
                 .password(passwordEncoder.encode(request.password()))
                 .build();

@@ -1,5 +1,7 @@
 package com.kickoff.core.board.postlike;
 
+import com.kickoff.core.board.post.Post;
+import com.kickoff.core.member.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -13,4 +15,6 @@ public interface PostLikeRepository extends JpaRepository<PostLike,Long> {
 
     @Query("select pl from PostLike pl where pl.post.postId in :postIds")
     List<PostLike> findByPostIds(@Param("postIds")Set<Long> postIds);
+
+    boolean existsByPostAndMember(Post post, Member member);
 }

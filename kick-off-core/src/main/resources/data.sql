@@ -1,4 +1,4 @@
-INSERT INTO member (email, nick_name, password) VALUES ('master@master.com', 'master', '$2a$10$RYVn7jh8vLPQqk/lQrX9b..OhPta3MtvPsX/2liwv2ZbfbQMPOLee');
+INSERT INTO member (email, nickname, password) VALUES ('master@master.com', 'master', '$2a$10$RYVn7jh8vLPQqk/lQrX9b..OhPta3MtvPsX/2liwv2ZbfbQMPOLee');
 INSERT INTO season (season_id, years) VALUES (1, '2023');
 INSERT INTO season (season_id, years) VALUES (2, '2024');
 

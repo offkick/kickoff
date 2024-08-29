@@ -17,7 +17,7 @@ public record PlayerCommentResponse(
                 .map(s -> new PlayerCommentItem(
                         s.getComment(),
                         s.getCreatedAt(),
-                        map.get(s.getMemberId()).getNickName(),
+                        map.get(s.getMemberId()).getNickname(),
                         map.get(s.getMemberId()).getMemberId()
                 ))
                 .sorted((a, b) -> b.createdAt.compareTo(a.createdAt))

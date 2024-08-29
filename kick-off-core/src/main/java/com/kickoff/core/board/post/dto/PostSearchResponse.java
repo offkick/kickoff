@@ -32,7 +32,7 @@ public record PostSearchResponse(
                 post.getPostDate(),
                 post.getCategory(),
                 post.getMember().getMemberId(),
-                post.getMember().getNickName(),
+                post.getMember().getNickname(),
                 post.getViewCount(),
                 likeCount,
                 commentSize

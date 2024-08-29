@@ -39,6 +39,15 @@ public class GlobalExceptionHandler {
     }
 
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ErrorResponse handleIllegalArgumentException(IllegalArgumentException exception)
+    {
+        log.error("handleIllegalArgumentException handle : {}",exception.getMessage());
+        return ErrorResponse.badRequest(exception.getMessage());
+    }
+
+
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MemberException.class)
     public ErrorResponse handleMemberException(MemberException exception)
     {

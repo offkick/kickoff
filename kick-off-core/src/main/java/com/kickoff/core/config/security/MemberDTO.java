@@ -63,7 +63,7 @@ public class MemberDTO extends User {
         return new MemberDTO(
                 member.getEmail(),
                 member.getPassword(),
-                member.getNickName(),
+                member.getNickname(),
                 member.getMemberId().toString(),
                 member.getMemberRoles()
                         .stream()

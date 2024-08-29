@@ -39,7 +39,7 @@
 //        //given
 //        Member member = memberRepository.save(
 //                Member.builder()
-//                        .nickName("hi2")
+//                        .nickname("hi2")
 //                        .password("password")
 //                        .build()
 //        );

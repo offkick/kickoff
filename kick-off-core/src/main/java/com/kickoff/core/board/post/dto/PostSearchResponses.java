@@ -52,7 +52,7 @@ public record PostSearchResponses(List<FindPost> findPosts, int totalPages, long
                     post.getPostDate(),
                     post.getCategory(),
                     post.getMember().getMemberId(),
-                    post.getMember().getNickName(),
+                    post.getMember().getNickname(),
                     post.getViewCount(),
                     likeCount,
                     commentCount
