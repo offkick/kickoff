@@ -38,14 +38,14 @@ public class PostLikeService {
                 .build());
     }
 
-    public void checkLike(Long aLong, Long postId)
+    public void checkLike(Long memberId, Long postId)
     {
         Member member = memberService.findById(memberId);
         Post post = postService.findById(postId);
 
         if (postLikeRepository.existsByPostAndMember(post, member))
         {
-            throw new IllegalArgumentException("이미 좋아요 누름")
+            throw new IllegalArgumentException("이미 좋아요 누름");
         }
     }
 }
