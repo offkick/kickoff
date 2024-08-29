@@ -39,14 +39,17 @@ public class JWTCheckFilter extends OncePerRequestFilter {
                 "/swagger-ui",
                 "/v3",
                 "/api/static",
-                "/api/post/**",
                 "/api/image/**",
                 "/api/images/",
                 "/api/api-docs",
                 "/admin/**",
                 "/api/member/join",
                 "/api/auth/authentication",
-                "/api/post/search/**"
+                "/api/post/search/**",
+                "/api/league/**",
+                "/api/player/**",
+                "/api/comment/search/**",
+                "/api/post/search/**",
         };
 
         String path = request.getRequestURI();
