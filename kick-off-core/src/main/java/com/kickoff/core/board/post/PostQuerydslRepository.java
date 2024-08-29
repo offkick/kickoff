@@ -39,6 +39,7 @@ public class PostQuerydslRepository {
                 .where(categoryEq(condition.postCategory()).and(post.isDeleted.isFalse()))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
+                .orderBy(post.createdAt.desc())
                 .fetch();
 
         Set<Long> postIds = posts.stream()

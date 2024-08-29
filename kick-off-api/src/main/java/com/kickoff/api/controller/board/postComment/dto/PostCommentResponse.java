@@ -15,6 +15,7 @@ public record PostCommentResponse(
     {
         List<FindComment> findComments = comments.stream()
                 .map(FindComment::from)
+                .sorted((a, b) -> b.createdAt.compareTo(a.createdAt))
                 .collect(Collectors.toList());
         return PostCommentResponse.builder()
                 .findComments(findComments)
