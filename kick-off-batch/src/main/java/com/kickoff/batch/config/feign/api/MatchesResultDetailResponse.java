@@ -34,6 +34,10 @@ public record MatchesResultDetailResponse(
                         Integer id,
                         Date utcDate,
                         String status,
+                        int matchTime,
+                        int injuryTime,
+                        int attendance,
+                        String venue,
                         int matchday,
                         String stage,
                         String group,
@@ -41,9 +45,10 @@ public record MatchesResultDetailResponse(
                         Team homeTeam,
                         Team awayTeam,
                         Score score,
-
                         List<Goals> goals,
                         Penalties penalties,
+                        List<Bookings> bookings,
+                        List<Substitutions> substitutions,
                         Odds odds,
                         List<Referee> referees
     ) {}
@@ -55,9 +60,25 @@ public record MatchesResultDetailResponse(
 
     public record Goals(
             int playTime,
+            int injuryTime,
             String type,
-            ScoreTeam scoreTeam,
-            Scorer scorer
+            DetailTeam scoreTeam,
+            Scorer scorer,
+            Player assist
+    ){}
+   public record Substitutions(
+            int minute,
+            DetailTeam team,
+            Player playerOut,
+            Player playerIn
+
+    ){}
+
+    public record Bookings(
+            int minute,
+            DetailTeam team,
+            Player player,
+            String card
 
     ){}
 
@@ -74,7 +95,7 @@ public record MatchesResultDetailResponse(
             Long id,
             String name
     ){}
-    public record ScoreTeam(
+    public record DetailTeam(
             Integer id,
             String name
     ){}
