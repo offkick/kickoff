@@ -32,7 +32,7 @@ public class PostCommentRepositoryTest {
     public void save(){
         Member member = memberRepository.save(
                 Member.builder()
-                        .nickName("hi")
+                        .nickname("hi")
                         .password("password")
                         .build()
         );

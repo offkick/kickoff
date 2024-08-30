@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotBlank;
 
 public record MemberJoinRequest(
         @NotBlank(message = "닉네임은 필수입니다.")
-        String nickName,
+        String nickname,
         @NotBlank(message = "패스워드는 필수입니다.")
         String password,
         @NotBlank(message = "패스워드 확인은 필수입니다.")
@@ -20,7 +20,7 @@ public record MemberJoinRequest(
     public MemberJoinServiceRequest toServiceDto()
     {
         return new MemberJoinServiceRequest(
-                this.nickName,
+                this.nickname,
                 this.password(),
                 this.confirmPassword,
                 this.email(),

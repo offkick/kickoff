@@ -36,7 +36,7 @@ public class PostLikeServiceTest {
     void like(){
         Member member = memberRepository.save(
                 Member.builder()
-                        .nickName("name")
+                        .nickname("name")
                         .password("password")
                         .build()
         );

@@ -27,7 +27,7 @@ public record PlayerCommentResponse(
     public record PlayerCommentItem(
         String comment,
         LocalDateTime createdAt,
-        String nickName,
+        String nickname,
         Long memberId
     ) {}
 }

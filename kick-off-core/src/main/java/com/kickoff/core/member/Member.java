@@ -61,13 +61,13 @@ public class Member extends BaseEntity {
         this.email = email;
     }
 
-    private void setNickname(String nickName)
+    private void setNickname(String nickname)
     {
-        if(nickName == null || nickName.isBlank())
+        if(nickname == null || nickname.isBlank())
         {
             return;
         }
-        this.nickname = nickName;
+        this.nickname = nickname;
     }
 
     private void setPassword(String password)

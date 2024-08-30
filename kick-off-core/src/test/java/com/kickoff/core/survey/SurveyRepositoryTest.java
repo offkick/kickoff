@@ -58,7 +58,7 @@ public class SurveyRepositoryTest {
         surveyInputTypeRepository.save(surveyInputType2);
 
         Member member = Member.builder()
-                .nickName("name")
+                .nickname("name")
                 .password("password")
                 .build();
         memberRepository.save(member);

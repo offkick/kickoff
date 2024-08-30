@@ -49,7 +49,7 @@ public class SurveyRequestServiceTest {
     {
         // given
         Member member = Member.builder()
-                .nickName("name")
+                .nickname("name")
                 .password("password")
                 .build();
         memberRepository.save(member);
