@@ -7,6 +7,20 @@ public record Season(
         String startDate,
         String endDate,
         int currentMatchday,
-        String winner,
+        Winner winner,
         List<String> stages
-) {}
+) {
+    record Winner(
+            int id,
+            String name,
+            String shortName,
+            String tla,
+            String crest,
+            String address,
+            String website,
+            String founded,
+            String clubColors,
+            String venue
+
+    ) {}
+}

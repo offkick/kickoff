@@ -19,6 +19,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 /**
@@ -57,12 +59,14 @@ public class ScoreInsertJobConfig {
             if(stepContext!=null)
             {
                 JobParameters jobParameters = stepContext.getStepExecution().getJobParameters();
-                LocalDate targetDateFrom = jobParameters.getString("targetDateFrom") == null ? LocalDate.now() : LocalDate.parse(Objects.requireNonNull(jobParameters.getString("targetDateFrom")));
-                LocalDate targetDateTo = jobParameters.getString("targetDateTo")  == null ? LocalDate.now() : LocalDate.parse(Objects.requireNonNull(jobParameters.getString("targetDateTo")));
-                String competitions = jobParameters.getString("competitions")  == null ? "2021" : jobParameters.getString("competitions");
-                Long competitionId = Long.parseLong(competitions);
+                String targetDate = jobParameters.getString("targetDate");
+                LocalDate date = LocalDate.parse(targetDate);
 
-                dailyMatchScoreService.insertMatchScore(targetDateFrom,targetDateTo,competitionId);
+                LocalDateTime dateTime = date.atStartOfDay();
+                log.info("dateTime" + dateTime);
+
+
+                dailyMatchScoreService.insertMatchScore(dateTime);
 
             }
             return RepeatStatus.FINISHED;

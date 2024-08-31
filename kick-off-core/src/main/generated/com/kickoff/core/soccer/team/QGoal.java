@@ -24,9 +24,9 @@ public class QGoal extends EntityPathBase<Goal> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
-    public final NumberPath<Integer> minute = createNumber("minute", Integer.class);
-
     public final com.kickoff.core.soccer.player.QPlayer player;
+
+    public final NumberPath<Integer> playTime = createNumber("playTime", Integer.class);
 
     public final com.kickoff.core.soccer.team.league.QLeagueTeam scoredTeam;
 
