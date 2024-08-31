@@ -4,6 +4,7 @@ import com.kickoff.batch.config.feign.api.CompetitionTeamsResponse;
 import com.kickoff.batch.config.feign.api.MatchResultResponse;
 import com.kickoff.batch.config.feign.api.MatchesFeignResponse;
 import com.kickoff.batch.config.feign.api.MatchesResultDetailResponse;
+import com.kickoff.batch.config.feign.api.temp.Match;
 import com.kickoff.batch.config.feign.api.temp.StandingResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,8 +42,6 @@ public interface SoccerApiFeign {
             @RequestParam(name = "dateTo") String dateTo
     );
 
-    @GetMapping("/v4/matches/{matchId}")
-    MatchResultResponse getMatchResponse2(@PathVariable(value = "matchId") Long matchId);
 
     @GetMapping("/v4/competitions/PL/standings")
     StandingResponse getStandings(
@@ -50,9 +49,7 @@ public interface SoccerApiFeign {
             @RequestParam(name = "matchday") Long matchday
     );
 
-    @GetMapping("/v4/competitions/{competitionId}/matches")
-    MatchesResultDetailResponse getCompetitionMatchResponse(
-            @PathVariable(value = "competitionId") Long competitionId,
-            @RequestParam(name = "dateFrom") String dateFrom,
-            @RequestParam(name = "dateTo") String dateTo);
+    @GetMapping("/v4/matches/{matchId}")
+    Match getCompetitionMatchResponse(
+            @PathVariable(value = "matchId") Long matchId);
 }

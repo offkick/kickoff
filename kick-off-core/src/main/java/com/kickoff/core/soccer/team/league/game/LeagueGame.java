@@ -9,10 +9,7 @@ import com.kickoff.core.soccer.team.league.Season;
 import com.kickoff.core.soccer.team.league.game.player.LeagueGamePlayer;
 import com.kickoff.core.soccer.team.league.game.player.LeagueGamePlayerStatus;
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -23,6 +20,7 @@ import java.util.stream.Collectors;
 
 import static com.kickoff.core.soccer.player.PlayerPosition.KEEPER;
 import static com.kickoff.core.soccer.player.PlayerPosition.values;
+
 
 @Getter
 @NoArgsConstructor
@@ -47,6 +45,7 @@ public class LeagueGame extends BaseEntity {
     private LeagueTeam home;
 
     @Embedded
+    @Setter
     private Score score;
 
     @Enumerated(EnumType.STRING)
@@ -65,6 +64,7 @@ public class LeagueGame extends BaseEntity {
     private List<LeagueGamePlayer> awayPlayers = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @Setter
     private List<Goal> goals = new ArrayList<>();
 
     @Builder

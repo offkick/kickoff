@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 import java.util.HashSet;
 import java.util.Set;
 
-
 @Entity
 @Getter
 @NoArgsConstructor

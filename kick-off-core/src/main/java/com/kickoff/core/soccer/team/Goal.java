@@ -20,7 +20,7 @@ public class Goal {
     @JoinColumn(name = "player_id")
     private Player player;
 
-    private int minute;
+    private int playTime;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "home")
@@ -30,9 +30,9 @@ public class Goal {
     private GoalType type;
 
     @Builder
-    public Goal(Player player, int minute, LeagueTeam scoredTeam, LeagueTeam awayTeam, GoalType type) {
+    public Goal(Player player, int playTime, LeagueTeam scoredTeam, LeagueTeam awayTeam, GoalType type) {
         this.player = player;
-        this.minute = minute;
+        this.playTime = playTime;
         this.scoredTeam = scoredTeam;
         this.type = type;
     }

@@ -2,10 +2,12 @@ package com.kickoff.core.soccer.team.league.game;
 
 import jakarta.persistence.*;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @NoArgsConstructor
+@Getter
 @Table(name = "external_game_mapping", indexes = @Index(name = "idx_game_id", columnList = "game_id, external_game_id"))
 public class ExternalGameMapping {
     @Id

@@ -1,6 +1,7 @@
 package com.kickoff.batch.config.feign.api;
 
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -8,11 +9,11 @@ public record MatchesResultDetailResponse(
         Competition competition,
         ResultSet resultSet,
         Filters filters,
-        List<Match> matches
+        Match matches
 ) {
     record Competition(String id, String name, String code, String type, String emblem) {}
     record ResultSet(int count, String first, String last, int played) {}
-    public record Team(int id, String name, String shortName, String tla, String crest) {}
+    public record Team(int id, String name, String shortName, String tla, String crest, List<MatchResultResponse.Player> lineup, List<MatchResultResponse.Player> bench) {}
     record Filters(String season) {}
     record Area(int id, String name, String code, String flag) {}
     public record FullTime(String home, String away) {}
@@ -25,27 +26,47 @@ public record MatchesResultDetailResponse(
             String startDate,
             String endDate,
             int currentMatchday,
-            String winner
+            Winner winner
     ) {}
 
-    public record Match(Area area,
-                        Competition competition,
-                        Season season,
-                        Integer id,
-                        Date utcDate,
-                        String status,
-                        int matchday,
-                        String stage,
-                        String group,
-                        Date lastUpdated,
-                        Team homeTeam,
-                        Team awayTeam,
-                        Score score,
+    record Winner(
+            int id,
+            String name,
+            String shortName,
+            String tla,
+            String crest,
+            String address,
+            String website,
+            String founded,
+            String clubColors,
+            String venue
 
-                        List<Goals> goals,
-                        Penalties penalties,
-                        Odds odds,
-                        List<Referee> referees
+    ) {}
+
+
+    public record Match(Area area
+//                        Competition competition,
+//                        Season season,
+//                        Integer id,
+//                        Date utcDate,
+//                        String status,
+//                        int matchTime,
+//                        int injuryTime,
+//                        int attendance,
+//                        String venue,
+//                        int matchday,
+//                        String stage,
+//                        String group,
+//                        Date lastUpdated,
+//                        Team homeTeam,
+//                        Team awayTeam,
+//                        Score score,
+//                        List<Goals> goals,
+//                        Penalties penalties,
+//                        List<Bookings> bookings,
+//                        List<Substitutions> substitutions,
+//                        Odds odds,
+//                        List<Referee> referees
     ) {}
 
     public record Penalties(
@@ -55,9 +76,25 @@ public record MatchesResultDetailResponse(
 
     public record Goals(
             int minute,
+            int injuryTime,
             String type,
-            ScoreTeam scoreTeam,
-            Scorer scorer
+            DetailTeam scoreTeam,
+            Scorer scorer,
+            Player assist
+    ){}
+   public record Substitutions(
+            int minute,
+            DetailTeam team,
+            Player playerOut,
+            Player playerIn
+
+    ){}
+
+    public record Bookings(
+            int minute,
+            DetailTeam team,
+            Player player,
+            String card
 
     ){}
 
@@ -74,7 +111,7 @@ public record MatchesResultDetailResponse(
             Long id,
             String name
     ){}
-    public record ScoreTeam(
+    public record DetailTeam(
             Integer id,
             String name
     ){}
