@@ -18,22 +18,10 @@ public class Season extends BaseEntity {
 
     private String years;
 
-    @Column(columnDefinition = "boolean default false")
-    private Boolean isDeleted;
-
     @Builder
     public Season(Long seasonId, String years)
     {
         this.seasonId = seasonId;
         this.years = years;
-        isDeleted = Boolean.FALSE;
-    }
-
-    public void delete()
-    {
-        if (!isDeleted)
-        {
-            this.isDeleted = true;
-        }
     }
 }

@@ -5,7 +5,8 @@ public enum National {
     ENGLAND,
     JAPAN,
     BRAZIL,
-    OTHER
+    OTHER,
+    SPAIN
     ;
     public static National of(String competition)
     {

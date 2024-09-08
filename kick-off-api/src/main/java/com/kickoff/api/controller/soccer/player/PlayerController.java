@@ -4,7 +4,7 @@ import com.kickoff.api.controller.soccer.player.dto.AllPlayerResponse;
 import com.kickoff.api.controller.soccer.player.dto.FindPlayerApiResponse;
 import com.kickoff.api.controller.soccer.player.dto.PlayerAddCommentRequest;
 import com.kickoff.api.controller.soccer.player.dto.PlayerCommentResponse;
-import com.kickoff.api.service.soccer.player.ApiPlayerService;
+import com.kickoff.api.service.soccer.player.PlayerCommandService;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -18,31 +18,31 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/player")
 public class PlayerController {
-    private final ApiPlayerService apiPlayerService;
+    private final PlayerCommandService playerCommandService;
 
     @Parameters({@Parameter(name = "playerId", description = "선수id")})
     @GetMapping("/search/{playerId}")
     public FindPlayerApiResponse findPlayer(@PathVariable(value = "playerId") Long playerId)
     {
-        return apiPlayerService.findPlayers(playerId);
+        return playerCommandService.findPlayers(playerId);
     }
 
     @GetMapping("/search")
     public AllPlayerResponse findAllPlayer()
     {
-        return apiPlayerService.findPlayers();
+        return playerCommandService.findPlayers();
     }
 
 
     @PostMapping("/comment/{playerId}")
     public void addComment(@PathVariable Long playerId, @RequestBody PlayerAddCommentRequest request)
     {
-        apiPlayerService.addComment(playerId, request);
+        playerCommandService.addComment(playerId, request);
     }
 
     @GetMapping("/comment/search/{playerId}")
     public PlayerCommentResponse findPlayerComments(@PathVariable Long playerId)
     {
-        return apiPlayerService.findPlayerComments(playerId);
+        return playerCommandService.findPlayerComments(playerId);
     }
 }

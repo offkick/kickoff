@@ -20,9 +20,9 @@ public class ExternalTeamIdMapping {
     private ExternalApiName externalApiName;
 
     @Builder
-    public ExternalTeamIdMapping(Long externalId, Long teamId, Long externalTeamId, ExternalApiName externalApiName) {
+    public ExternalTeamIdMapping(Long externalId, Long leagueTeamId, Long externalTeamId, ExternalApiName externalApiName) {
         this.externalId = externalId;
-        this.teamId = teamId;
+        this.teamId = leagueTeamId;
         this.externalTeamId = externalTeamId;
         this.externalApiName = externalApiName;
     }
