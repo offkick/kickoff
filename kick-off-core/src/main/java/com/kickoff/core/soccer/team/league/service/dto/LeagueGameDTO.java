@@ -9,7 +9,7 @@ import java.util.List;
 public record LeagueGameDTO(
         Long leagueGameId,
         LocalDateTime gameDate,
-        int count,
+        int matchDay,
         LeagueTeamDTO away,
         LeagueTeamDTO home,
         ScoreDTO score,
@@ -23,7 +23,7 @@ public record LeagueGameDTO(
         return new LeagueGameDTO(
                 leagueGame.getLeagueGameId(),
                 leagueGame.getGameDate(),
-                leagueGame.getCount(),
+                leagueGame.getMatchDay(),
                 LeagueTeamDTO.of(leagueGame.getAway()),
                 LeagueTeamDTO.of(leagueGame.getHome()),
                 ScoreDTO.of(leagueGame.getScore()),

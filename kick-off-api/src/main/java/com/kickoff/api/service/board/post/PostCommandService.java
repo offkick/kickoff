@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class PostApiService {
+public class PostCommandService {
     private final PostService postService;
 
     public Long create(CreatePostRequest request)

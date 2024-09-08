@@ -42,7 +42,7 @@ public class AnswerRepositoryTest {
     public void save()
     {
         Member member = Member.builder()
-                .nickName("name")
+                .nickname("name")
                 .password("password")
                 .build();
         memberRepository.save(member);

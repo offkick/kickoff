@@ -41,7 +41,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         return new MemberDTO(
                 member.getEmail(),
                 member.getPassword(),
-                member.getNickName(),
+                member.getNickname(),
                 member.getMemberId().toString(),
                 member.getMemberRoles().stream()
                         .map(Enum::name)

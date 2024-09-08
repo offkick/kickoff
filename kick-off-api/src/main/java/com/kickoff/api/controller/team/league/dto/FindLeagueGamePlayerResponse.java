@@ -24,7 +24,7 @@ public record FindLeagueGamePlayerResponse(
 
     public record LeagueGamePlayerResponse(
             LocalDateTime gameDate,
-            int count,
+            int matchDay,
             String away,
             String home,
             String homeScore,
@@ -37,7 +37,7 @@ public record FindLeagueGamePlayerResponse(
         public static LeagueGamePlayerResponse of(LeagueGameDTO leagueGame) {
             return new LeagueGamePlayerResponse(
                     leagueGame.gameDate(),
-                    leagueGame.count(),
+                    leagueGame.matchDay(),
                     leagueGame.away().leagueTeamName(),
                     leagueGame.home().leagueTeamName(),
                     leagueGame.score().homeScore(),

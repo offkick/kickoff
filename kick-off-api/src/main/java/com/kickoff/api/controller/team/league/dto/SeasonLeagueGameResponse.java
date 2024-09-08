@@ -58,8 +58,9 @@ public record SeasonLeagueGameResponse(
             String homeLogo,
             String awayLogo,
             String venue,
-            List<TeamResponse> teamId
-    ) {
+            List<TeamResponse> teamId,
+            int matchDay
+            ) {
         public static LeagueGameResponse of(LeagueGameDTO leagueGame) {
             return new LeagueGameResponse(
                     leagueGame.leagueGameId(),
@@ -74,7 +75,8 @@ public record SeasonLeagueGameResponse(
                     leagueGame.home().logo(),
                     leagueGame.away().logo(),
                     leagueGame.venue(),
-                    java.util.List.of(TeamResponse.of(leagueGame))
+                    java.util.List.of(TeamResponse.of(leagueGame)),
+                    leagueGame.matchDay()
             );
         }
     }

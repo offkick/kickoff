@@ -30,17 +30,23 @@ public class MemberService {
     {
         if (!request.password().equals(request.confirmPassword()))
         {
-            throw new IllegalArgumentException("비밀번호 확인");
+            throw new MemberJoinException("비밀번호 검증 실패");
         }
 
         if (memberRepository.existsByEmail(request.email()))
         {
-            throw new IllegalStateException("이미 있는 회원");
+            throw new MemberJoinException("중복 이메일");
+        }
+
+        if (memberRepository.existsByNickname(request.nickname()))
+        {
+            throw new MemberJoinException("중복 닉네임");
         }
 
         Member member = Member.builder()
                 .memberRoles(List.of(request.role()))
                 .email(request.email())
+                .nickname(request.nickname())
                 .memberRoles(List.of(MemberRole.USER))
                 .password(passwordEncoder.encode(request.password()))
                 .build();

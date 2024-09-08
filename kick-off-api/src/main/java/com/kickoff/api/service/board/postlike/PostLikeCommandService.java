@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @RequiredArgsConstructor
 @Slf4j
-public class ApiPostLikeService {
+public class PostLikeCommandService {
     private final PostLikeService postLikeService;
     private final PostService postService;
     private final MemberService memberService;

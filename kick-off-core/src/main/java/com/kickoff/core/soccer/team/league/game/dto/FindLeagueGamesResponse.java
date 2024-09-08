@@ -72,7 +72,7 @@ public record FindLeagueGamesResponse(List<FindLeagueGames> findLeagueGames, lon
     public record FindLeagueGames(
             Long leagueGameId,
             LocalDateTime gameDate,
-            int count,
+            int matchDay,
             String away,
             String home,
             Score score,
@@ -86,7 +86,7 @@ public record FindLeagueGamesResponse(List<FindLeagueGames> findLeagueGames, lon
             return new FindLeagueGames(
                     leagueGame.getLeagueGameId(),
                     leagueGame.getGameDate(),
-                    leagueGame.getCount(),
+                    leagueGame.getMatchDay(),
                     leagueGame.getAway().getLeagueTeamName(),
                     leagueGame.getHome().getLeagueTeamName(),
                     leagueGame.getScore(),

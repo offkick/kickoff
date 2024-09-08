@@ -44,7 +44,7 @@
 //        Member member = memberRepository.save(
 //                Member.builder()
 //                        .email("nickname@naver.com")
-//                        .nickName("nickName3")
+//                        .nickname("nickName3")
 //                        .password("1234")
 //                        .build()
 //        );
@@ -66,7 +66,7 @@
 ////        //given
 ////        Member member = memberRepository.save(
 ////                Member.builder()
-////                        .nickName("nickName")
+////                        .nickname("nickname")
 ////                        .password("1234")
 ////                        .build()
 ////        );

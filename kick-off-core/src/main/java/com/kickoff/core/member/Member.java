@@ -20,7 +20,7 @@ public class Member extends BaseEntity {
 
     @Column(unique = true)
     private String email;
-    private String nickName;
+    private String nickname;
     private String password;
 
     @Column(columnDefinition = "boolean default false")
@@ -31,9 +31,9 @@ public class Member extends BaseEntity {
     private List<MemberRole> memberRoles = new ArrayList<>();
 
     @Builder
-    public Member( String email, String nickName, String password, List<MemberRole> memberRoles) {
+    public Member(String email, String nickname, String password, List<MemberRole> memberRoles) {
         this.email = email;
-        this.nickName = nickName;
+        this.nickname = nickname;
         this.password = password;
         this.memberRoles = memberRoles;
         this.isDeleted = Boolean.FALSE;
@@ -41,7 +41,7 @@ public class Member extends BaseEntity {
 
     public void update(Member updateMember)
     {
-        setNickName(updateMember.getNickName());
+        setNickname(updateMember.getNickname());
     }
 
     public void delete()
@@ -61,13 +61,13 @@ public class Member extends BaseEntity {
         this.email = email;
     }
 
-    private void setNickName(String nickName)
+    private void setNickname(String nickname)
     {
-        if(nickName == null || nickName.isBlank())
+        if(nickname == null || nickname.isBlank())
         {
             return;
         }
-        this.nickName = nickName;
+        this.nickname = nickname;
     }
 
     private void setPassword(String password)

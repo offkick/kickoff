@@ -34,7 +34,7 @@ public class LeagueGame extends BaseEntity {
 
     private LocalDateTime gameDate;
 
-    private int count;
+    private int matchDay;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "away_team_id")
@@ -71,7 +71,7 @@ public class LeagueGame extends BaseEntity {
     public LeagueGame(
             Long leagueGameId,
             LocalDateTime gameDate,
-            int count,
+            int matchDay,
             LeagueTeam away,
             LeagueTeam home,
             Score score,
@@ -84,7 +84,7 @@ public class LeagueGame extends BaseEntity {
     ) {
         this.leagueGameId = leagueGameId;
         this.gameDate = gameDate;
-        this.count = count;
+        this.matchDay = matchDay;
         this.away = away;
         this.home = home;
         this.score = score;

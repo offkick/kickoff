@@ -28,7 +28,7 @@ public class UserSurveySectionsRepositoryTest {
     {
 
         Member member = Member.builder()
-                .nickName("name")
+                .nickname("name")
                 .password("password")
                 .build();
         memberRepository.save(member);

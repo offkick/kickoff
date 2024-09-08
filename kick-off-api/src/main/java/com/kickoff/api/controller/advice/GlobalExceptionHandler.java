@@ -2,6 +2,7 @@ package com.kickoff.api.controller.advice;
 
 import com.kickoff.api.controller.advice.dto.ErrorResponse;
 import com.kickoff.api.elasticsearch.web.ElasticSearchFoundException;
+import com.kickoff.core.member.service.MemberException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
@@ -36,6 +37,24 @@ public class GlobalExceptionHandler {
         String message = "request parsing 에러";
         return ErrorResponse.badRequest(message);
     }
+
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ErrorResponse handleIllegalArgumentException(IllegalArgumentException exception)
+    {
+        log.error("handleIllegalArgumentException handle : {}",exception.getMessage());
+        return ErrorResponse.badRequest(exception.getMessage());
+    }
+
+
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MemberException.class)
+    public ErrorResponse handleMemberException(MemberException exception)
+    {
+        log.error("MemberException handle : {}",exception.getMessage());
+        return ErrorResponse.badRequest(exception.getMessage());
+    }
+
 
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     @ExceptionHandler(ElasticSearchFoundException.class)

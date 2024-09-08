@@ -32,23 +32,26 @@ public class JWTCheckFilter extends OncePerRequestFilter {
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException
     {
         String [] excludePath = {
-                "/api/**",
                 "/api/login",
                 "/api/signup",
                 "/h2-console",
                 "/swagger-ui",
                 "/v3",
                 "/api/static",
-                "/api/post/**",
-                "/api/image/**",
+                "/api/image/.*",
                 "/api/images/",
                 "/api/api-docs",
                 "/admin/**",
                 "/api/member/join",
                 "/api/auth/authentication",
-                "/api/post/search/**"
+                "/api/post/search/",
+                "/api/league/.*",
+                "/api/player/search",
+                "/api/comment/search",
+                "/api/league-game",
+                "/api/post/search",
+                "/api/league/"
         };
-
         String path = request.getRequestURI();
         return Arrays.stream(excludePath).anyMatch(path::startsWith);
     }
@@ -59,6 +62,7 @@ public class JWTCheckFilter extends OncePerRequestFilter {
             HttpServletResponse response,
             FilterChain filterChain
     ) throws ServletException, IOException {
+
         String authHeaderStr = request.getHeader("Authorization");
         try {
             String accessToken = authHeaderStr.substring(7);

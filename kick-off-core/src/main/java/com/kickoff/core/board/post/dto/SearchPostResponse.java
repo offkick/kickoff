@@ -33,7 +33,7 @@ public record SearchPostResponse(
                 post.getContent(),
                 post.getCategory(),
                 post.getMember().getMemberId(),
-                post.getMember().getNickName(),
+                post.getMember().getNickname(),
                 postComments.stream().map(CommentResponse::from).collect(Collectors.toList())
         );
     }
@@ -50,7 +50,7 @@ public record SearchPostResponse(
                     postComment.getCommentId(),
                     postComment.getComment(),
                     postComment.getMember().getMemberId(),
-                    postComment.getMember().getNickName()
+                    postComment.getMember().getNickname()
             );
         }
     }

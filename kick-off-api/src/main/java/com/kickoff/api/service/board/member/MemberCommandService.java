@@ -27,7 +27,7 @@ public class MemberCommandService {
         Member member = memberService.findById(AuthUtil.currentUserId());
 
         Member updateMember = Member.builder()
-                .nickName(request.nickName())
+                .nickname(request.nickname())
                 .build();
 
         member.update(updateMember);

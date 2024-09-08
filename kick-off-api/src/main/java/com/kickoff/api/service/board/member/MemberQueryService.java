@@ -19,7 +19,7 @@ public class MemberQueryService {
         return new MemberInfoResponse(
                 memberId,
                 member.getEmail(),
-                member.getNickName()
+                member.getNickname()
         );
     }
 }

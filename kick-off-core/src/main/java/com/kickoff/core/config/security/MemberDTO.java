@@ -21,7 +21,7 @@ public class MemberDTO extends User {
     private String memberId;
     private String password;
 
-    private String nickName;
+    private String nickname;
     private List<String> roleNames = new ArrayList<>();
 
     public String getUsername()
@@ -32,7 +32,7 @@ public class MemberDTO extends User {
     public MemberDTO(
             String email,
             String password,
-            String nickName,
+            String nickname,
             String memberId,
             List<String> roleNames)
     {
@@ -43,7 +43,7 @@ public class MemberDTO extends User {
         );
         this.email = email;
         this.password = password;
-        this.nickName = nickName;
+        this.nickname = nickname;
         this.memberId = memberId;
     }
 
@@ -52,7 +52,7 @@ public class MemberDTO extends User {
         Map<String, Object> dataMap = new HashMap<>();
         dataMap.put("email", email);
         dataMap.put("password", password);
-        dataMap.put("nickName", nickName);
+        dataMap.put("nickname", nickname);
         dataMap.put("roleNames", roleNames);
         dataMap.put("memberId", memberId);
         return dataMap;
@@ -63,7 +63,7 @@ public class MemberDTO extends User {
         return new MemberDTO(
                 member.getEmail(),
                 member.getPassword(),
-                member.getNickName(),
+                member.getNickname(),
                 member.getMemberId().toString(),
                 member.getMemberRoles()
                         .stream()

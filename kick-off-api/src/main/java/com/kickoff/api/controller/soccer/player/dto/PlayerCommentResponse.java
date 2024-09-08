@@ -17,7 +17,7 @@ public record PlayerCommentResponse(
                 .map(s -> new PlayerCommentItem(
                         s.getComment(),
                         s.getCreatedAt(),
-                        map.get(s.getMemberId()).getNickName(),
+                        map.get(s.getMemberId()).getNickname(),
                         map.get(s.getMemberId()).getMemberId()
                 ))
                 .sorted((a, b) -> b.createdAt.compareTo(a.createdAt))
@@ -27,7 +27,7 @@ public record PlayerCommentResponse(
     public record PlayerCommentItem(
         String comment,
         LocalDateTime createdAt,
-        String nickName,
+        String nickname,
         Long memberId
     ) {}
 }
