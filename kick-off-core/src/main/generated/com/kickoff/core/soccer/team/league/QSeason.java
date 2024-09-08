@@ -24,8 +24,6 @@ public class QSeason extends EntityPathBase<Season> {
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
 
-    public final BooleanPath isDeleted = createBoolean("isDeleted");
-
     public final NumberPath<Long> seasonId = createNumber("seasonId", Long.class);
 
     //inherited

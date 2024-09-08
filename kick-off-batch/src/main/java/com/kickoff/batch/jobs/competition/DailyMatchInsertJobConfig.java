@@ -1,6 +1,6 @@
-package com.kickoff.batch.jobs.competition.service;
+package com.kickoff.batch.jobs.competition;
 
-import com.kickoff.batch.jobs.game.service.DailyMatchInsertService;
+import com.kickoff.batch.jobs.game.service.DailyMatchResultInsertService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
@@ -30,7 +30,7 @@ import java.util.Objects;
 public class DailyMatchInsertJobConfig {
 
     private final PlatformTransactionManager platformTransactionManager;
-    private final DailyMatchInsertService dailyMatchInsertService;
+    private final DailyMatchResultInsertService dailyMatchResultInsertService;
 
     @Bean
     public Job dailyMatchInsertJob(JobRepository jobRepository)
@@ -60,9 +60,10 @@ public class DailyMatchInsertJobConfig {
             LocalDate targetDateFrom = parseDateOrDefault(jobParameters.getString("targetDateFrom"), LocalDate.now());
             LocalDate targetDateTo = parseDateOrDefault(jobParameters.getString("targetDateTo"), LocalDate.now());
             String competitions = jobParameters.getString("competitions") == null ? "PL" : jobParameters.getString("competitions");
+            String seasonYear = jobParameters.getString("seasonYear") == null ? String.valueOf(LocalDate.now().getYear()) : jobParameters.getString("seasonYear");
 
-            log.info("Input Parameter targetDateFrom: {}, targetDateTo: {}, competitions: {}", targetDateFrom, targetDateTo, competitions);
-            dailyMatchInsertService.insertMatch(targetDateFrom, targetDateTo, competitions);
+            log.info("Input Parameter targetDateFrom: {}, targetDateTo: {}, competitions: {}, seasonYear :{}", targetDateFrom, targetDateTo, competitions, seasonYear);
+            dailyMatchResultInsertService.insertMatch(targetDateFrom, targetDateTo, competitions, seasonYear);
             log.info("[End dailyMatchInsertTasklet]");
             return RepeatStatus.FINISHED;
         };

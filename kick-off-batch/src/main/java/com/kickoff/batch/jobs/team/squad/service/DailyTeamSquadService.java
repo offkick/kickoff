@@ -8,6 +8,8 @@ import com.kickoff.core.soccer.player.Contract;
 import com.kickoff.core.soccer.player.Player;
 import com.kickoff.core.soccer.player.PlayerPosition;
 import com.kickoff.core.soccer.player.PlayerRepository;
+import com.kickoff.core.soccer.team.TeamType;
+import com.kickoff.core.soccer.team.external.ExternalApiName;
 import com.kickoff.core.soccer.team.external.ExternalTeamIdMapping;
 import com.kickoff.core.soccer.team.external.ExternalTeamIdMappingRepository;
 import com.kickoff.core.soccer.team.league.*;
@@ -16,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Transactional
@@ -24,9 +27,9 @@ import java.util.Optional;
 @Slf4j
 public class DailyTeamSquadService {
     private final SoccerApiFeign soccerApiFeign;
-    private final LeagueRepository leagueRepository;
     private final SeasonRepository seasonRepository;
     private final LeagueTeamRepository leagueTeamRepository;
+    private final LeagueRepository leagueRepository;
     private final PlayerRepository playerRepository;
     private final ExternalTeamIdMappingRepository externalTeamIdMappingRepository;
 
@@ -36,22 +39,41 @@ public class DailyTeamSquadService {
         Season season = seasonRepository.findByYears(year).orElse(Season.builder().years(year).build());
         seasonRepository.save(season);
 
-        League league = leagueRepository.findByLeagueName("PL");
+        Optional<League> byLeagueName = leagueRepository.findByLeagueName(competition);
+        List<LeagueTeam> findLeagueTeam = leagueTeamRepository.findByLeagueName(competition);
+
+        if (!findLeagueTeam.isEmpty())
+        {
+            leagueTeamRepository.deleteAll(findLeagueTeam);
+        }
+
+        if (byLeagueName.isEmpty())
+        {
+            throw new IllegalArgumentException("Not Founded League");
+        }
 
         for (Team team : competitionTeams.teams())
         {
-            Optional<ExternalTeamIdMapping> byExternalTeamId = externalTeamIdMappingRepository.findByExternalTeamId((long) team.id());
+            LeagueTeam leagueTeam = leagueTeamRepository.findByLeagueTeamName(team.name()).orElse(
+                    LeagueTeam
+                        .builder()
+                        .leagueTeamName(team.name())
+                        .teamType(TeamType.LEAGUE)
+                        .logo(team.crest())
+                        .season(season).league(byLeagueName.get())
+                    .build()
+            );
 
-            if (byExternalTeamId.isEmpty())
-            {
-                log.info("팀 정보가 없는 리그 팀입니다.");
 
-                continue;
-            }
 
-            ExternalTeamIdMapping externalTeamIdMapping = byExternalTeamId.get();
+            ExternalTeamIdMapping externalTeamIdMapping = ExternalTeamIdMapping.builder()
+                    .externalTeamId((long) team.id())
+                    .externalApiName(ExternalApiName.FOOT_BALL_API_V1)
+                    .leagueTeamId(leagueTeam.getLeagueTeamId())
+                    .build();
 
-            LeagueTeam leagueTeam = leagueTeamRepository.findById(externalTeamIdMapping.getTeamId()).orElseThrow();
+            externalTeamIdMappingRepository.save(externalTeamIdMapping);
+            deleteIfExistsPlayers(season, leagueTeam);
 
             for (Squad squad : team.squad())
             {
@@ -70,6 +92,15 @@ public class DailyTeamSquadService {
         }
     }
 
+    private void deleteIfExistsPlayers(Season season, LeagueTeam leagueTeam) {
+        List<Player> players = playerRepository.findByLeagueTeamAndSeason(leagueTeam, season);
+
+        if (players.isEmpty())
+        {
+            playerRepository.deleteAll(players);
+        }
+    }
+
     private PlayerPosition convertPosition(String position)
     {
         if (position == null)
@@ -80,7 +111,15 @@ public class DailyTeamSquadService {
             case "Goalkeeper" -> PlayerPosition.KEEPER;
             case "Defence" -> PlayerPosition.DEFENDER;
             case "Midfield" -> PlayerPosition.MID_FIELDER;
+            case "Left-Back" -> PlayerPosition.LEFT_BACK;
+            case "Right-Back" -> PlayerPosition.RIGHT_BACK;
+            case "Centre-Back" -> PlayerPosition.CENTER_BACK;
             case "Offence" -> PlayerPosition.FORWARD;
+            case "Centre-Forward" -> PlayerPosition.CENTER_FORWARD;
+            case "Central Midfield" -> PlayerPosition.CENTRAL_MID_FIELDER;
+            case "Right Winger" -> PlayerPosition.RIGHT_WINGER;
+            case "Left Winger" -> PlayerPosition.LEFT_WINGER;
+            case "Attacking Midfield" -> PlayerPosition.ATTACKING_MIDFIELD;
             default -> null;
         };
     }

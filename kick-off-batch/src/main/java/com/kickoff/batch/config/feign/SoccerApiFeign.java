@@ -3,7 +3,6 @@ package com.kickoff.batch.config.feign;
 import com.kickoff.batch.config.feign.api.CompetitionTeamsResponse;
 import com.kickoff.batch.config.feign.api.MatchResultResponse;
 import com.kickoff.batch.config.feign.api.MatchesFeignResponse;
-import com.kickoff.batch.config.feign.api.MatchesResultDetailResponse;
 import com.kickoff.batch.config.feign.api.temp.Match;
 import com.kickoff.batch.config.feign.api.temp.StandingResponse;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -15,9 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface SoccerApiFeign {
     @GetMapping("/v4/competitions/{competition}/matches")
     MatchesFeignResponse getLatestClMatch(@PathVariable(value = "competition") String competition);
-
-//    @GetMapping("/v4/competitions/{competition}/matches")
-//    MatchesFeignResponse getLatestClMatch(@PathVariable(value = "competition") String competition);
 
     /**
      * @param competition ex) PL

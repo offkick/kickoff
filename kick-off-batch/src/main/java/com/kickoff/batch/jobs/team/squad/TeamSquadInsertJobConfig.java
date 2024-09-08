@@ -18,6 +18,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * 리그 or 대회 팀 + 선수들을 업데이트한다.
  */
@@ -56,18 +60,17 @@ public class TeamSquadInsertJobConfig {
             JobParameters jobParameters = getJobParameters();
 
             // 필요한 파라미터들을 가져와서 유효성 검사 및 서비스 호출
-            String competition = jobParameters.getString("competition");
+            String competitions = jobParameters.getString("competitions");
             String year = jobParameters.getString("year");
 
-            validateJobParameters(competition, year);
-            processTeamSquadInsert(competition, year);
+            validateJobParameters(competitions, year);
+            processTeamSquadInsert(Arrays.stream(competitions.split(",")).collect(Collectors.toList()), year);
 
             log.info("[End] DailyImportSoccerTasklet");
             return RepeatStatus.FINISHED;
         };
     }
 
-    // JobParameters를 가져오는 메서드
     private JobParameters getJobParameters()
     {
         StepContext stepContext = StepSynchronizationManager.getContext();
@@ -87,7 +90,6 @@ public class TeamSquadInsertJobConfig {
         return jobParameters;
     }
 
-    // 파라미터 유효성 검사 메서드
     private void validateJobParameters(String competition, String year)
     {
         if (competition == null || year == null)
@@ -98,13 +100,16 @@ public class TeamSquadInsertJobConfig {
         log.info("[PARAMETER] year: {}, competition: {}", year, competition);
     }
 
-    // 서비스 호출 및 예외 처리 메서드
-    private void processTeamSquadInsert(String year, String competition)
+    private void processTeamSquadInsert(List<String> competitions, String year)
     {
         try
         {
-            dailyTeamSquadService.insertTeamSquad("2024", "PL");
-            log.info("[Success] Team squad data inserted successfully.");
+            for (String competition: competitions)
+            {
+                log.info("competition insert : {}", competition);
+                dailyTeamSquadService.insertTeamSquad(year, competition);
+            }
+
         } catch (Exception e)
         {
             log.error("[Error] Failed to insert team squad data: {}", e.getMessage());

@@ -1,6 +1,6 @@
 package com.kickoff.batch.jobs.competition;
 
-import com.kickoff.batch.jobs.competition.service.DailyMatchScoreService;
+import com.kickoff.batch.jobs.competition.service.DailyMatchDetailInsertService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
@@ -19,9 +19,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Objects;
 
 /**
  * 경기 결과 업데이트
@@ -31,7 +28,7 @@ import java.util.Objects;
 @Slf4j
 public class ScoreInsertJobConfig {
     private final PlatformTransactionManager platformTransactionManager;
-    private final DailyMatchScoreService dailyMatchScoreService;
+    private final DailyMatchDetailInsertService dailyMatchDetailInsertService;
 
     @Bean
     public Job scoreInsertJob(JobRepository jobRepository)
@@ -59,15 +56,8 @@ public class ScoreInsertJobConfig {
             if(stepContext!=null)
             {
                 JobParameters jobParameters = stepContext.getStepExecution().getJobParameters();
-                String targetDate = jobParameters.getString("targetDate");
-                LocalDate date = LocalDate.parse(targetDate);
-
-                LocalDateTime dateTime = date.atStartOfDay();
-                log.info("dateTime" + dateTime);
-
-
-                dailyMatchScoreService.insertMatchScore(dateTime);
-
+                String year = jobParameters.getString("year", LocalDate.now().toString());
+                dailyMatchDetailInsertService.insertMatchDetail(year);
             }
             return RepeatStatus.FINISHED;
         };

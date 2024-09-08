@@ -38,7 +38,7 @@ public class LeagueService {
 
     public LeagueDTO findByLeagueName(String name)
     {
-        League league = leagueRepository.findByLeagueName(name);
+        League league = leagueRepository.findByLeagueName(name).orElseThrow();
         return LeagueDTO.of(league);
     }
 }

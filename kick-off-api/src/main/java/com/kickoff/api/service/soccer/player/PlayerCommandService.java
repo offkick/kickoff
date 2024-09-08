@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class ApiPlayerService {
+public class PlayerCommandService {
     private final PlayerService playerService;
     private final MemberService memberService;
     private final PlayerCommentRepository playerCommentRepository;
