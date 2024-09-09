@@ -107,15 +107,16 @@ public class DailyMatchInsertService {
                 LocalDateTime gameDate = instant.atZone(ZoneId.systemDefault()).toLocalDateTime();
 
                 LeagueGame leagueGame = LeagueGame.builder()
-                        .leagueGameStatus(LeagueGameStatus.END)
+                        .leagueGameStatus(match.status().equals("FINISHED")? LeagueGameStatus.END : LeagueGameStatus.BEFORE)
                         .away(awayTeam)
                         .season(season)
                         .venue(match.venue())
                         .home(homeTeam)
                         .gameDate(gameDate)
-                        .count(match.matchday())
+                        .matchDay(match.matchday())
                         .score(score)
                         .build();
+
                 leagueGameRepository.save(leagueGame);
 
                 if(!externalGameMappingRepository.findByExternalGameIdAndGameId(

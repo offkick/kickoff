@@ -5,4 +5,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface LeagueCodeRepository extends JpaRepository<LeagueCode, Long> {
+
 }
