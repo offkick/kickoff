@@ -15,9 +15,9 @@ spring:
 spring:
   profiles:
     active: local
-    include: core
+    include: core,batch
 ---
 spring:
   profiles:
     active: prod
-    include: core
+    include: core,batch
