@@ -4,18 +4,18 @@ jwt:
   secret-key: 56ab0682dda585b2997d3871c0921fb6929ef195501ab98b18c6870bdc808970fb041463f6792ae02a4c7458bc3e375095a03508f3bb2925eddf618a56d41540
 api:
   footbool:
-    token: ${footballToken}
-
----
+    token: b1a0c6ed997843cdbc8d22f33523bde6
 spring:
-  profiles:
-    active: local
-    include: core
   main:
     allow-bean-definition-overriding: true
   batch:
     job:
       enabled: false
+---
+spring:
+  profiles:
+    active: local
+    include: core
 ---
 spring:
   profiles:
