@@ -17,6 +17,7 @@ public interface SoccerApiFeign {
     @GetMapping("/v4/competitions/{competition}/matches")
     MatchesFeignResponse getLatestClMatch(@PathVariable(value = "competition") String competition);
 
+
     /**
      * @param competition ex) PL
      * @param season 시즌 ex) 2023
@@ -50,4 +51,8 @@ public interface SoccerApiFeign {
     @GetMapping("/v4/matches/{matchId}")
     Match getCompetitionMatchResponse(
             @PathVariable(value = "matchId") Long matchId);
+
+    @GetMapping("/v4/competitions/{competitions}")
+    Competitions getCompetitionResponse(
+            @PathVariable(value = "competitions") String competitions);
 }
