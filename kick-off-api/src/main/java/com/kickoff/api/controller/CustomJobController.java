@@ -17,10 +17,10 @@ import java.time.LocalDate;
 
 @RequiredArgsConstructor
 @RestController
-public class JobController {
+public class CustomJobController {
     private final JobLauncher jobLauncher;
-    private final DailyMatchInsertJobConfig dailyMatchInsertJobConfig;
     private final JobRepository jobRepository;
+    private final DailyMatchInsertJobConfig dailyMatchInsertJobConfig;
 
     @Scheduled(cron = "0 0 8 * * *")
     public void matchInsert() throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
