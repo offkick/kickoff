@@ -16,10 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface SoccerApiFeign {
     @GetMapping("/v4/competitions/{competition}/matches")
     MatchesFeignResponse getLatestClMatch(@PathVariable(value = "competition") String competition);
-
-//    @GetMapping("/v4/competitions/{competition}/matches")
-//    MatchesFeignResponse getLatestClMatch(@PathVariable(value = "competition") String competition);
-
+    
     /**
      * @param competition ex) PL
      * @param season 시즌 ex) 2023
