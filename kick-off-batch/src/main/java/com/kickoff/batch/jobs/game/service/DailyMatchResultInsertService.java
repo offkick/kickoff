@@ -66,9 +66,6 @@ public class DailyMatchResultInsertService {
                 ExternalTeamIdMapping awayTeamMapping = externalTeamIdMappingRepository.findByExternalTeamId((long) match.awayTeam().id()).orElseThrow();
                 ExternalTeamIdMapping homeTeamMapping = externalTeamIdMappingRepository.findByExternalTeamId((long) match.homeTeam().id()).orElseThrow();
 
-                log.info("finded awayTeamMapping : {}", awayTeamMapping.getTeamId());
-                log.info("finded homeTeamMapping : {}", homeTeamMapping.getTeamId());
-
                 LeagueTeam awayTeam = leagueTeamRepository.findById(awayTeamMapping.getTeamId()).orElseThrow();
                 LeagueTeam homeTeam = leagueTeamRepository.findById(homeTeamMapping.getTeamId()).orElseThrow();
 
