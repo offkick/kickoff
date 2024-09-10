@@ -54,7 +54,7 @@ public class DailyMatchInsertJobConfig {
     public Tasklet dailyMatchInsertTasklet()
     {
         return (contribution, chunkContext) -> {
-            log.info("[Start dailyMatchInsertTasklet]");
+            log.info("[START] - dailyMatchInsertTasklet");
             JobParameters jobParameters = getJobParameters();
 
             LocalDate targetDateFrom = parseDateOrDefault(jobParameters.getString("targetDateFrom"), LocalDate.now());
@@ -62,9 +62,19 @@ public class DailyMatchInsertJobConfig {
             String competitions = jobParameters.getString("competitions") == null ? "PL" : jobParameters.getString("competitions");
             String seasonYear = jobParameters.getString("seasonYear") == null ? String.valueOf(LocalDate.now().getYear()) : jobParameters.getString("seasonYear");
 
+            if (competitions == null)
+            {
+                throw new IllegalArgumentException("invalid parameter");
+            }
+
             log.info("Input Parameter targetDateFrom: {}, targetDateTo: {}, competitions: {}, seasonYear :{}", targetDateFrom, targetDateTo, competitions, seasonYear);
-            dailyMatchResultInsertService.insertMatch(targetDateFrom, targetDateTo, competitions, seasonYear);
-            log.info("[End dailyMatchInsertTasklet]");
+
+            for (String competition : competitions.split(","))
+            {
+                dailyMatchResultInsertService.insertMatch(targetDateFrom, targetDateTo, competition, seasonYear);
+            }
+
+            log.info("[END] - dailyMatchInsertTasklet");
             return RepeatStatus.FINISHED;
         };
     }

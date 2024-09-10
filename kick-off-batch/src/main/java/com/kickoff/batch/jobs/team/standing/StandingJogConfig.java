@@ -55,13 +55,10 @@ public class StandingJogConfig {
             log.info("start dailyStandingInfoTasklet");
             JobParameters jobParameters = stepContext.getStepExecution().getJobParameters();
             String season = JobParameterUtil.getIfPresentStringParameter(jobParameters, "season");
-            Long matchDay = Long.valueOf(JobParameterUtil.getIfPresentStringParameter(jobParameters, "matchDay"));
+            long matchDay = Long.parseLong(JobParameterUtil.getIfPresentStringParameter(jobParameters, "matchDay"));
             Long leagueId = JobParameterUtil.getIfPresentLongParameter(jobParameters, "leagueId");
 
-            for (int i=  1; i <= 38; i++) {
-                Thread.sleep(3000L);
-                standingBatchService.insertStanding(season, (long) i, leagueId);
-            }
+            standingBatchService.insertStanding(season, (long) matchDay, leagueId);
             return RepeatStatus.FINISHED;
         };
     }
