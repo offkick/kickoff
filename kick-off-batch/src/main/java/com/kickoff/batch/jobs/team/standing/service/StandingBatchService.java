@@ -25,13 +25,13 @@ public class StandingBatchService {
 
     public void insertStanding(String season, Long matchDay, Long leagueId)
     {
-        if (teamStandingRepository.existsBySeasonAndRound(season, matchDay))
+        if (teamStandingRepository.existsBySeasonAndRoundAndLeagueId(season, matchDay, leagueId))
         {
             log.info("해당 시즌과 라운드의 순위 정보가 이미 존재합니다. 시즌={}, 라운드={}", season, matchDay);
             return ;
         }
 
-        log.info("순위 정보 삽입 시작: 시즌={}, 라운드={}", season, matchDay);
+        log.info("순위 정보 삽입 시작: 시즌={}, 라운드={}, 리그 = {}", season, matchDay, leagueId);
 
         try {
             StandingResponse standingResponse = soccerApiFeign.getStandings(season, matchDay);

@@ -15,7 +15,6 @@ import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Repository;
 import org.springframework.transaction.PlatformTransactionManager;
 
 
@@ -53,10 +52,7 @@ public class CompetitionInsertJobConfig {
                 JobParameters jobParameters = stepContext.getStepExecution().getJobParameters();
                 String competitions = jobParameters.getString("competitions");
                 log.info("competitions" + competitions);
-
-
                 competitionInsertService.insertCompetition(competitions);
-
             }
             return RepeatStatus.FINISHED;
         };
