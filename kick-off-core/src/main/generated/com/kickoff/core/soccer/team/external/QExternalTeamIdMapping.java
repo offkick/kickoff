@@ -25,6 +25,8 @@ public class QExternalTeamIdMapping extends EntityPathBase<ExternalTeamIdMapping
 
     public final NumberPath<Long> externalTeamId = createNumber("externalTeamId", Long.class);
 
+    public final StringPath season = createString("season");
+
     public final NumberPath<Long> teamId = createNumber("teamId", Long.class);
 
     public QExternalTeamIdMapping(String variable) {

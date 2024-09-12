@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.Step;
+import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.repository.JobRepository;
@@ -52,6 +53,7 @@ public class TeamSquadInsertJobConfig {
     }
 
     @Bean
+    @StepScope
     public Tasklet dailyImportSoccerTasklet()
     {
         return (contribution, chunkContext) -> {
@@ -61,10 +63,10 @@ public class TeamSquadInsertJobConfig {
 
             // 필요한 파라미터들을 가져와서 유효성 검사 및 서비스 호출
             String competitions = jobParameters.getString("competitions");
-            String year = jobParameters.getString("year");
+            String season = jobParameters.getString("season");
 
-            validateJobParameters(competitions, year);
-            processTeamSquadInsert(Arrays.stream(competitions.split(",")).collect(Collectors.toList()), year);
+            validateJobParameters(competitions, season);
+            processTeamSquadInsert(Arrays.stream(competitions.split(",")).collect(Collectors.toList()), season);
 
             log.info("[End] DailyImportSoccerTasklet");
             return RepeatStatus.FINISHED;

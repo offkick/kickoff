@@ -8,4 +8,5 @@ import java.util.Optional;
 @Repository
 public interface LeagueRepository extends JpaRepository<League, Long> {
     Optional<League> findByLeagueName(String leagueName);
+    Optional<League> findByLeagueNameAndSeason(String leagueName, Season season);
 }

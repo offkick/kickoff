@@ -17,6 +17,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -38,33 +39,35 @@ public class DailyMatchResultInsertService {
      * @param targetDateTo
      * @param competitions
      */
-    public void insertMatch(LocalDate targetDateFrom, LocalDate targetDateTo, String competitions, String seasonYear)
+    public void insertMatch(LocalDate targetDateFrom, LocalDate targetDateTo, String competitions)
     {
         LocalDate currentDateTimeFrom = targetDateFrom;
-        Season season = seasonRepository.findByYears(seasonYear).orElse(Season.builder().years(seasonYear).build());
-        seasonRepository.save(season);
 
         while (currentDateTimeFrom.isBefore(targetDateTo))
         {
+            int season = currentDateTimeFrom.getYear();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             MatchResultResponse matchResultResponse = soccerApiFeign.getMatchResultResponse(competitions, currentDateTimeFrom.format(formatter), currentDateTimeFrom.plusDays(DIFF_DAYS).format(formatter));
             for (MatchResultResponse.Match match : matchResultResponse.matches())
             {
                 log.info("Match : {}, {}", match.awayTeam().id(), match.homeTeam().id());
-                if (externalTeamIdMappingRepository.findByExternalTeamId((long) match.awayTeam().id()).isEmpty())
+                Optional<ExternalTeamIdMapping> awayExternalTeam = externalTeamIdMappingRepository.findByExternalTeamIdAndSeason((long) match.awayTeam().id(), String.valueOf(season));
+                Optional<ExternalTeamIdMapping> homeExternalTeam = externalTeamIdMappingRepository.findByExternalTeamIdAndSeason((long) match.homeTeam().id(), String.valueOf(season));
+
+                if (awayExternalTeam.isEmpty())
                 {
                     log.info("Not Found League awayTeam : {}, external Team Id : {}", match.awayTeam().name(), match.awayTeam().id());
                     continue;
                 }
 
-                if (externalTeamIdMappingRepository.findByExternalTeamId((long) match.homeTeam().id()).isEmpty())
+                if (homeExternalTeam.isEmpty())
                 {
                     log.info("Not Found League home : {}, external Team Id : {}", match.homeTeam().name(), match.homeTeam().id());
                     continue;
                 }
 
-                ExternalTeamIdMapping awayTeamMapping = externalTeamIdMappingRepository.findByExternalTeamId((long) match.awayTeam().id()).orElseThrow();
-                ExternalTeamIdMapping homeTeamMapping = externalTeamIdMappingRepository.findByExternalTeamId((long) match.homeTeam().id()).orElseThrow();
+                ExternalTeamIdMapping awayTeamMapping = awayExternalTeam.get();
+                ExternalTeamIdMapping homeTeamMapping = homeExternalTeam.get();
 
                 LeagueTeam awayTeam = leagueTeamRepository.findById(awayTeamMapping.getTeamId()).orElseThrow();
                 LeagueTeam homeTeam = leagueTeamRepository.findById(homeTeamMapping.getTeamId()).orElseThrow();
@@ -80,7 +83,7 @@ public class DailyMatchResultInsertService {
                 LeagueGame leagueGame = LeagueGame.builder()
                         .leagueGameStatus(match.status().equals("FINISHED")? LeagueGameStatus.END : LeagueGameStatus.BEFORE)
                         .away(awayTeam)
-                        .season(season)
+                        .season(awayTeam.getSeason())
                         .venue(match.venue())
                         .home(homeTeam)
                         .gameDate(gameDate)

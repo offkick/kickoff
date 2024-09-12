@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Transactional
 @RequiredArgsConstructor
@@ -36,38 +35,22 @@ public class DailyTeamSquadService {
     public void insertTeamSquad(String year, String competition)
     {
         CompetitionTeamsResponse competitionTeams = soccerApiFeign.getCompetitionTeams(competition, year);
-        Season season = seasonRepository.findByYears(year).orElse(Season.builder().years(year).build());
-        seasonRepository.save(season);
+        Season season = seasonRepository.findByYears(year).orElseThrow();
+        League league = leagueRepository.findByLeagueNameAndSeason(competition, season).orElseThrow();
 
-        Optional<League> byLeagueName = leagueRepository.findByLeagueName(competition);
-        List<LeagueTeam> findLeagueTeam = leagueTeamRepository.findByLeagueName(competition);
-
-        if (!findLeagueTeam.isEmpty())
-        {
-            leagueTeamRepository.deleteAll(findLeagueTeam);
-        }
-
-        if (byLeagueName.isEmpty())
-        {
-            throw new IllegalArgumentException("Not Founded League");
-        }
-
+        log.info("league : {} , season : {}", league.getLeagueName(), season.getYears());
         for (Team team : competitionTeams.teams())
         {
-            LeagueTeam leagueTeam = leagueTeamRepository.findByLeagueTeamName(team.name()).orElse(
-                    LeagueTeam
-                        .builder()
-                        .leagueTeamName(team.name())
-                        .teamType(TeamType.LEAGUE)
-                        .logo(team.crest())
-                        .season(season).league(byLeagueName.get())
-                    .build()
-            );
+            log.info("TEAM : {}", team.name());
+            // league Team이 없는 경우 생성한다.
+            LeagueTeam leagueTeam = leagueTeamRepository.findByLeagueAndSeasonAndLeagueTeamName(league, season, team.name())
+                    .orElse(makeNewLeagueTeam(season, league, team));
 
-
+            leagueTeamRepository.save(leagueTeam);
 
             ExternalTeamIdMapping externalTeamIdMapping = ExternalTeamIdMapping.builder()
                     .externalTeamId((long) team.id())
+                    .season(season.getYears())
                     .externalApiName(ExternalApiName.FOOT_BALL_API_V1)
                     .leagueTeamId(leagueTeam.getLeagueTeamId())
                     .build();
@@ -77,22 +60,39 @@ public class DailyTeamSquadService {
 
             for (Squad squad : team.squad())
             {
-                Player player = Player.builder()
-                        .leagueTeam(leagueTeam)
-                        .contract(new Contract(squad.contract().start(), squad.contract().until()))
-                        .national(squad.nationality())
-                        .position(convertPosition(squad.position()))
-                        .playerName(squad.name())
-                        .birth(squad.dateOfBirth())
-                        .season(season)
-                        .build();
-
+                Player player = makePlayer(season, leagueTeam, squad);
                 playerRepository.save(player);
             }
         }
     }
 
-    private void deleteIfExistsPlayers(Season season, LeagueTeam leagueTeam) {
+    private static LeagueTeam makeNewLeagueTeam(Season season, League league, Team team)
+    {
+        return LeagueTeam
+                .builder()
+                .leagueTeamName(team.name())
+                .teamType(TeamType.LEAGUE)
+                .logo(team.crest())
+                .season(season).league(league)
+                .build();
+    }
+
+    private Player makePlayer(Season season, LeagueTeam leagueTeam, Squad squad)
+    {
+        Player player = Player.builder()
+                .leagueTeam(leagueTeam)
+                .contract(new Contract(squad.contract().start(), squad.contract().until()))
+                .national(squad.nationality())
+                .position(convertPosition(squad.position()))
+                .playerName(squad.name())
+                .birth(squad.dateOfBirth())
+                .season(season)
+                .build();
+        return player;
+    }
+
+    private void deleteIfExistsPlayers(Season season, LeagueTeam leagueTeam)
+    {
         List<Player> players = playerRepository.findByLeagueTeamAndSeason(leagueTeam, season);
 
         if (players.isEmpty())

@@ -60,18 +60,17 @@ public class DailyMatchInsertJobConfig {
             LocalDate targetDateFrom = parseDateOrDefault(jobParameters.getString("targetDateFrom"), LocalDate.now());
             LocalDate targetDateTo = parseDateOrDefault(jobParameters.getString("targetDateTo"), LocalDate.now());
             String competitions = jobParameters.getString("competitions") == null ? "PL" : jobParameters.getString("competitions");
-            String seasonYear = jobParameters.getString("seasonYear") == null ? String.valueOf(LocalDate.now().getYear()) : jobParameters.getString("seasonYear");
 
             if (competitions == null)
             {
                 throw new IllegalArgumentException("invalid parameter");
             }
 
-            log.info("Input Parameter targetDateFrom: {}, targetDateTo: {}, competitions: {}, seasonYear :{}", targetDateFrom, targetDateTo, competitions, seasonYear);
+            log.info("Input Parameter targetDateFrom: {}, targetDateTo: {}, competitions: {}", targetDateFrom, targetDateTo, competitions);
 
             for (String competition : competitions.split(","))
             {
-                dailyMatchResultInsertService.insertMatch(targetDateFrom, targetDateTo, competition, seasonYear);
+                dailyMatchResultInsertService.insertMatch(targetDateFrom, targetDateTo, competition);
             }
 
             log.info("[END] - dailyMatchInsertTasklet");

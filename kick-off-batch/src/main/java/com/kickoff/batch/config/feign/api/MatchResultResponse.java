@@ -35,8 +35,22 @@ public record MatchResultResponse(
                         List<Referee> referees
     ) {}
 
+    public record Winner(
+            int id,
+            String name,
+            String shortName,
+            String tla,
+            String crest,
+            String address,
+            String website,
+            int founded,
+            String clubColors,
+            String venue,
+            Date lastUpdated
+    ) {}
+
     public record Score(
-            String winner,
+//            Winner winner,
             String duration,
             MatchesFeignResponse.FullTime fullTime,
             MatchesFeignResponse.HalfTime halfTime
@@ -47,7 +61,7 @@ public record MatchResultResponse(
             String startDate,
             String endDate,
             int currentMatchday,
-            String winner
+            Winner winner
     ) {}
 
     public record Filters(
@@ -65,20 +79,6 @@ public record MatchResultResponse(
             String first,
             String last,
             Integer played
-    ) {}
-
-    public record Winner(
-            int id,
-            String name,
-            String shortName,
-            String tla,
-            String crest,
-            String address,
-            String website,
-            int founded,
-            String clubColors,
-            String venue,
-            Date lastUpdated
     ) {}
 
 }
