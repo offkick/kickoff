@@ -31,6 +31,14 @@ public class LeagueController {
         return leagueFindService.findAllLeagues();
     }
 
+    @GetMapping
+    public List<FindLeagueResponse> findAllLeagues(
+            @RequestParam String season,
+            @RequestParam String competition
+    ) {
+        return leagueFindService.findAllLeagues(season, competition);
+    }
+
     @GetMapping("/{years}/{leagueId}")
     public List<LeagueTeamResponse> findLeagueTeam(
             @PathVariable(value = "years") String years,

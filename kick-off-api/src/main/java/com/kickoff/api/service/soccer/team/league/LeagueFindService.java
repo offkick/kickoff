@@ -21,4 +21,24 @@ public class LeagueFindService {
                 .map(FindLeagueResponse::from)
                 .collect(Collectors.toList());
     }
+
+    public List<FindLeagueResponse> findAllLeagues(String season, String competition)
+    {
+        return leagueService.findAll().stream()
+                .filter(s -> s.seasonYear().equals(season))
+                .filter(s -> equalLeagueName(competition, s.leagueName()))
+                .map(FindLeagueResponse::from)
+                .collect(Collectors.toList());
+    }
+
+    private boolean equalLeagueName(String competition, String leagueName)
+    {
+        return switch (competition) {
+            case "PL" -> leagueName.equals("PL");
+            case "LALIGA" -> leagueName.equals("PD");
+            case "LEAGUE1" -> leagueName.equals("FL1");
+            case "BUNDESLIGA" -> leagueName.equals("ABL");
+            default -> throw new IllegalArgumentException("지원 하지 않는 코드");
+        };
+    }
 }
