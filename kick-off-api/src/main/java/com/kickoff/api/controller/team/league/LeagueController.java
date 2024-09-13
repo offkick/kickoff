@@ -31,7 +31,7 @@ public class LeagueController {
         return leagueFindService.findAllLeagues();
     }
 
-    @GetMapping("/sub")
+    @GetMapping
     public List<FindLeagueResponse> findAllLeagues(
             @RequestParam String season,
             @RequestParam String competition

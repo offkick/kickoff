@@ -45,12 +45,12 @@ public class JWTCheckFilter extends OncePerRequestFilter {
                 "/api/member/join",
                 "/api/auth/authentication",
                 "/api/post/search/",
-                "/api/league/.*",
                 "/api/player/search",
                 "/api/comment/search",
                 "/api/league-game",
                 "/api/post/search",
-                "/api/league/"
+                "/api/league/",
+                "/api/league"
         };
         String path = request.getRequestURI();
         return Arrays.stream(excludePath).anyMatch(path::startsWith);
