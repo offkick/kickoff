@@ -2,7 +2,6 @@ package com.kickoff.api.service.soccer.team.league;
 
 import com.kickoff.core.soccer.team.standing.TeamStandingQueryService;
 import com.kickoff.core.soccer.team.standing.dto.TeamStandingQueryResult;
-import com.kickoff.core.soccer.team.league.service.LeagueService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,8 +13,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TeamStandingService {
     private final TeamStandingQueryService teamStandingQueryService;
-    private final LeagueService leagueService;
-
     public List<TeamStandingQueryResult> teamStandings(Long matchDay, String season, Long leagueId)
     {
         return teamStandingQueryService.teamStandings(matchDay, season, leagueId);
