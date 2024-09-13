@@ -9,7 +9,8 @@ public record LeagueDTO(
         National national,
         String emblem,
         String tier,
-        String seasonYear
+        String seasonYear,
+        Long winner
 ) {
     public static LeagueDTO of(League league) {
         return new LeagueDTO(
@@ -18,7 +19,8 @@ public record LeagueDTO(
                 league.getNational(),
                 league.getEmblem(),
                 league.getTier(),
-                league.getSeason().getYears()
+                league.getSeason().getYears(),
+                league.getWinner()
         );
     }
 }

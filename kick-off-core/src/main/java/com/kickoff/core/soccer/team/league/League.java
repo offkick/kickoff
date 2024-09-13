@@ -30,6 +30,8 @@ public class League extends BaseEntity {
     @Column(columnDefinition = "boolean default false")
     private Boolean isDeleted;
 
+    private Long winner;
+
     @Builder
     public League(
             Long leagueId,
@@ -37,7 +39,8 @@ public class League extends BaseEntity {
             National national,
             String tier,
             String emblem,
-            Season season) {
+            Season season,
+            Long winner) {
         this.leagueId = leagueId;
         this.leagueName = leagueName;
         this.national = national;
@@ -45,6 +48,7 @@ public class League extends BaseEntity {
         this.season = season;
         this.emblem = emblem;
         isDeleted = Boolean.FALSE;
+        this.winner = winner;
     }
 
     public void delete()
