@@ -22,7 +22,7 @@ public class CompetitionInsertService {
     private final SoccerApiFeign soccerApiFeign;
     private final LeagueRepository leagueRepository;
     private final SeasonRepository seasonRepository;
-    private final ExternalTeamIdMappingRepository externalTeamIdMappingRepository;
+    private final WinnerRepository winnerRepository;
 
     public void insertCompetition(String competitions)
     {
@@ -40,12 +40,15 @@ public class CompetitionInsertService {
             Long winnerId = null;
             if (season.winner() != null) {
                 winnerId = (long)season.winner().id();
+                Winner winner = Winner.builder()
+                        .winnerId(winnerId)
+                        .winnerTeamName(season.winner().name())
+                        .build();
+                winnerRepository.save(winner);
             } else {
                 winnerId = null;
 
             }
-
-
 
             seasonRepository.save(season1);
 
@@ -53,7 +56,7 @@ public class CompetitionInsertService {
                     .leagueName(competitionsData.name())
                     .emblem(competitionsData.emblem())
                     .season(season1)
-                    .winner(winnerId)
+                    .winnerId(winnerId)
                     .build();
             leagueRepository.save(league);
         }

@@ -22,7 +22,7 @@ public record LeagueTeamDTO(
                         entity.getLogo(),
                         entity.getLeague().getTier(),
                         entity.getLeague().getSeason().getYears(),
-                        entity.getLeague().getWinner()
+                        entity.getLeague().getWinnerId()
                 ),
                 entity.getLogo()
         );

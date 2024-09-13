@@ -44,7 +44,7 @@ public class QLeague extends EntityPathBase<League> {
     //inherited
     public final DateTimePath<java.time.LocalDateTime> updatedAt = _super.updatedAt;
 
-    public final NumberPath<Long> winner = createNumber("winner", Long.class);
+    public final NumberPath<Long> winnerId = createNumber("winnerId", Long.class);
 
     public QLeague(String variable) {
         this(League.class, forVariable(variable), INITS);

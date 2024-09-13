@@ -10,7 +10,7 @@ public record LeagueDTO(
         String emblem,
         String tier,
         String seasonYear,
-        Long winner
+        Long winnerId
 ) {
     public static LeagueDTO of(League league) {
         return new LeagueDTO(
@@ -20,7 +20,7 @@ public record LeagueDTO(
                 league.getEmblem(),
                 league.getTier(),
                 league.getSeason().getYears(),
-                league.getWinner()
+                league.getWinnerId()
         );
     }
 }
