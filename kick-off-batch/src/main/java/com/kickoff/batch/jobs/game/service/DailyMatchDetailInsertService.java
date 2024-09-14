@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -77,8 +78,14 @@ public class DailyMatchDetailInsertService {
                             LeagueTeam scoredTeam = leagueTeamRepository.findById(externalTeamIdMapping.getTeamId())
                                     .orElseThrow(() -> new IllegalArgumentException("Team not found: " + externalTeamIdMapping.getTeamId()));
 
-                            ExternalPlayerIdMapping externalPlayerIdMapping = externalPlayerIdMappingRepository.findByExternalPlayerId(matchGoal.scorer().id()).orElseThrow();
+                            Optional<ExternalPlayerIdMapping> byExternalPlayerId = externalPlayerIdMappingRepository.findByExternalPlayerId(matchGoal.scorer().id());
 
+                            if (byExternalPlayerId.isEmpty()) {
+                                log.info("byExternalPlayerId is empty");
+                                return null;
+                            }
+
+                            ExternalPlayerIdMapping externalPlayerIdMapping = byExternalPlayerId.get();
                             Player player = playerRepository.findById(externalPlayerIdMapping.getPlayerId())
                                     .orElseThrow(() -> new IllegalArgumentException("Player not found: " + matchGoal.scorer().id()));
 
