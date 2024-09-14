@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('github-clone') {
             steps {
-                git branch: 'main', credentialsId: 'github_token', url: 'https://github.com/offkick/kickoff.git'
+                git branch: 'main', credentialsId: 'deckurodev', url: 'https://github.com/offkick/kickoff.git'
             }
         }
    	}
