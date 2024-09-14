@@ -55,8 +55,8 @@ public class LeagueGameSearchController {
         return leagueGameFindService.findByLeagueGameId(leagueGameId);
     }
 
-    @GetMapping("/date/{targetDate}")
-    public DateLeagueGameResponse findLeagueGameByDate(@PathVariable String targetDate)
+    @GetMapping("/date")
+    public DateLeagueGameResponse findLeagueGameByDate(@RequestParam String targetDate)
     {
         return leagueGameFindService.findLeagueGameByDate(LocalDate.parse(targetDate));
     }
