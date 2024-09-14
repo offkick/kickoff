@@ -20,7 +20,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 public class LeagueController {
-
     private final LeagueFindService leagueFindService;
     private final ApiLeagueTeamService leagueTeamService;
     private final TeamStandingService teamStandingService;
