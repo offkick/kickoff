@@ -66,7 +66,11 @@ public class DailyMatchDetailInsertService {
     private void processMatchDetails(Long externalGameId, LeagueGame leagueGame, Season season)
     {
         Match match = soccerApiFeign.getCompetitionMatchResponse(externalGameId);
-        externalGameMappingRepository.findByExternalGameId(match.id().longValue()).ifPresentOrElse(mapping -> saveMatchDetails(match, leagueGame, season), () -> log.warn("No game information found for ExternalGameId: {}", match.id()));
+        externalGameMappingRepository.findByExternalGameId(match.id().longValue())
+                .ifPresentOrElse(
+                        mapping -> saveMatchDetails(match, leagueGame, season),
+                        () -> log.warn("No game information found for ExternalGameId: {}", match.id())
+                );
     }
 
     private void saveMatchDetails(Match match, LeagueGame leagueGame, Season season)

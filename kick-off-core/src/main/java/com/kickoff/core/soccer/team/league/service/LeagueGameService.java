@@ -6,10 +6,10 @@ import com.kickoff.core.soccer.team.league.game.LeagueGameRepository;
 import com.kickoff.core.soccer.team.league.game.dto.FindLeagueGamesResponse;
 import com.kickoff.core.soccer.team.league.service.dto.LeagueGameDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import org.springframework.data.domain.Pageable;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -32,7 +32,14 @@ public class LeagueGameService {
 
     public Optional<LeagueGameDTO> findById(Long leagueGameId)
     {
-        return leagueGameRepository.findById(leagueGameId).map(LeagueGameDTO::of);
+        LeagueGame leagueGame = leagueGameRepository.findById(leagueGameId).orElse(null);
+
+        if (leagueGame == null)
+        {
+            return Optional.empty();
+        }
+
+        return Optional.of(LeagueGameDTO.of(leagueGame));
     }
 
     public List<LeagueGameDTO> findBySeasonBetween(Long leagueId, LocalDateTime startDateTime, LocalDateTime endDateTime)
