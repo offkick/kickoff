@@ -1,6 +1,6 @@
-package com.kickoff.api.controller.team.league;
+package com.kickoff.api.controller.soccer.team.league;
 
-import com.kickoff.api.controller.team.league.dto.TeamRankInfo;
+import com.kickoff.api.controller.soccer.team.league.dto.TeamRankInfo;
 import com.kickoff.api.service.soccer.team.league.ApiLeagueTeamService;
 import com.kickoff.api.service.soccer.team.league.LeagueFindService;
 import com.kickoff.api.service.soccer.team.league.TeamStandingService;

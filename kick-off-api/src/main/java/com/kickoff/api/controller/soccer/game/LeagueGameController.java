@@ -1,4 +1,4 @@
-package com.kickoff.api.controller.team.league.game;
+package com.kickoff.api.controller.soccer.game;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;

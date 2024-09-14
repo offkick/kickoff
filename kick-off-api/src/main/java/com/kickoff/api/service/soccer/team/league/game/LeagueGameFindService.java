@@ -1,9 +1,8 @@
 package com.kickoff.api.service.soccer.team.league.game;
 
-import com.kickoff.api.controller.team.league.dto.DateLeagueGameResponse;
-import com.kickoff.api.controller.team.league.dto.FindLeagueGamePlayerResponse;
-import com.kickoff.api.controller.team.league.dto.SeasonLeagueGameResponse;
-import com.kickoff.core.soccer.team.league.game.LeagueGame;
+import com.kickoff.api.controller.soccer.team.league.dto.DateLeagueGameResponse;
+import com.kickoff.api.controller.soccer.team.league.dto.FindLeagueGamePlayerResponse;
+import com.kickoff.api.controller.soccer.team.league.dto.SeasonLeagueGameResponse;
 import com.kickoff.core.soccer.team.league.game.LeagueGameQuerydslRepository;
 import com.kickoff.core.soccer.team.league.game.dto.FindGameCond;
 import com.kickoff.core.soccer.team.league.game.dto.FindLeagueGamesResponse;
