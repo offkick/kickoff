@@ -59,7 +59,7 @@ public record FindLeagueGamePlayerResponse(
         ) {
             public static GoalsDTO of(LeagueGameDTO.GoalInfo info)
             {
-                return new GoalsDTO(info.plyerId(), info.playerName(), info.playTime(), info.goalType());
+                return new GoalsDTO(info.playerId(), info.playerName(), info.playTime(), info.goalType());
             }
         }
     }

@@ -38,7 +38,8 @@ public record LeagueGameDTO(
         );
     }
 
-    public record GoalInfo(Long plyerId, String playerName, String goalType, int playTime, String teamName, Long teamId)
+    // 성능 개선
+    public record GoalInfo(Long playerId, String playerName, String goalType, int playTime, String teamName, Long teamId)
     {
         public static List<GoalInfo> of(List<Goal> goals)
         {
