@@ -1,7 +1,9 @@
 package com.kickoff.api.service.soccer.team.league;
 
+import com.kickoff.api.controller.soccer.game.LatestLeagueInfo;
 import com.kickoff.api.service.soccer.team.league.dto.FindLeagueResponse;
 import com.kickoff.core.soccer.team.league.service.LeagueService;
+import com.kickoff.core.soccer.team.league.service.SeasonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,7 +16,7 @@ import java.util.stream.Collectors;
 @Transactional
 public class LeagueFindService {
     private final LeagueService leagueService;
-
+    private final SeasonService seasonService;
     public List<FindLeagueResponse> findAllLeagues()
     {
         return leagueService.findAll().stream()
@@ -40,5 +42,11 @@ public class LeagueFindService {
             case "BUNDESLIGA" -> leagueName.equals("ABL");
             default -> throw new IllegalArgumentException("지원 하지 않는 코드");
         };
+    }
+
+    public LatestLeagueInfo latestLeagues()
+    {
+        // TODO
+        return null;
     }
 }

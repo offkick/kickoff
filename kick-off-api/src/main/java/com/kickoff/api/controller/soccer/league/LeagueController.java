@@ -1,6 +1,7 @@
-package com.kickoff.api.controller.soccer.team.league;
+package com.kickoff.api.controller.soccer.league;
 
-import com.kickoff.api.controller.soccer.team.league.dto.TeamRankInfo;
+import com.kickoff.api.controller.soccer.game.LatestLeagueInfo;
+import com.kickoff.api.controller.soccer.league.dto.TeamRankInfo;
 import com.kickoff.api.service.soccer.team.league.ApiLeagueTeamService;
 import com.kickoff.api.service.soccer.team.league.LeagueFindService;
 import com.kickoff.api.service.soccer.team.league.TeamStandingService;
@@ -52,5 +53,11 @@ public class LeagueController {
             @RequestParam(name = "season") String  season
     ) {
         return TeamRankInfo.of(teamStandingService.teamStandings(season, leagueId));
+    }
+
+    @GetMapping("/league/latest")
+    public LatestLeagueInfo latestLeagues()
+    {
+        return leagueFindService.latestLeagues();
     }
 }

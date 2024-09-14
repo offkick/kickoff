@@ -1,4 +1,4 @@
-package com.kickoff.api.controller.soccer.team.league.dto;
+package com.kickoff.api.controller.soccer.league.dto;
 
 import com.kickoff.core.soccer.player.PlayerPosition;
 import com.kickoff.core.soccer.team.league.game.LeagueGameStatus;
@@ -55,11 +55,16 @@ public record FindLeagueGamePlayerResponse(
                 Long plyerId,
                 String playerName,
                 int time,
-                String type
+                String type,
+                String teamName,
+                Long teamId
         ) {
             public static GoalsDTO of(LeagueGameDTO.GoalInfo info)
             {
-                return new GoalsDTO(info.playerId(), info.playerName(), info.playTime(), info.goalType());
+                return new GoalsDTO(info.playerId(), info.playerName(), info.playTime(), info.goalType(),
+                    info.teamName(),
+                        info.teamId()
+                );
             }
         }
     }

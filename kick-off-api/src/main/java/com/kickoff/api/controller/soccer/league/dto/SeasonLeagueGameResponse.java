@@ -1,4 +1,4 @@
-package com.kickoff.api.controller.soccer.team.league.dto;
+package com.kickoff.api.controller.soccer.league.dto;
 
 import com.kickoff.core.soccer.team.league.game.LeagueGameStatus;
 import com.kickoff.core.soccer.team.league.service.dto.LeagueGameDTO;
