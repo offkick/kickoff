@@ -10,9 +10,8 @@ pipeline {
         stage('echo test') {
             steps {
                 echo 'Hello, JDK'
-                sh '$PWD'
+                sh 'echo $PWD'
             }
-
         }
    	}
 }
