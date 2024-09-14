@@ -8,6 +8,10 @@ public record ScoreDTO(
 ) {
     public static ScoreDTO of(Score score)
     {
+        if (score == null)
+        {
+            return new ScoreDTO(null, null);
+        }
         return new ScoreDTO(score.getHomeScore(), score.getAwayScore());
     }
 }
