@@ -38,12 +38,12 @@ public record LeagueGameDTO(
         );
     }
 
-    public record GoalInfo(Long plyerId, String goalType, int playTime)
+    public record GoalInfo(Long plyerId, String playerName, String goalType, int playTime)
     {
         public static List<GoalInfo> of(List<Goal> goals)
         {
             return goals.stream()
-                    .map(s-> new GoalInfo(s.getPlayer().getPlayerId(), s.getType().name(), s.getPlayTime()))
+                    .map(s-> new GoalInfo(s.getPlayer().getPlayerId(),s.getPlayer().getPlayerName(), s.getType().name(), s.getPlayTime()))
                     .toList();
         }
     }

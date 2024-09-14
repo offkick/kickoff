@@ -89,7 +89,7 @@ public record FindLeagueGamesResponse(List<FindLeagueGames> findLeagueGames, lon
                     leagueGame.getMatchDay(),
                     leagueGame.getAway().getLeagueTeamName(),
                     leagueGame.getHome().getLeagueTeamName(),
-                    leagueGame.getScore(),
+                    leagueGame.getScore() == null ? null : leagueGame.getScore(),
                     leagueGame.getLeagueGameStatus(),
                     leagueGame.getVenue(),
                     null,

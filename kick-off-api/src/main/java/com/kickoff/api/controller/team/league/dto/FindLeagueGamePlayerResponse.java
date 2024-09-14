@@ -6,6 +6,7 @@ import com.kickoff.core.soccer.team.league.service.dto.LeagueGameDTO;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public record FindLeagueGamePlayerResponse(
         LeagueGamePlayerResponse response
@@ -32,7 +33,8 @@ public record FindLeagueGamePlayerResponse(
             LeagueGameStatus leagueGameStatus,
             String venue,
             List<GamePlayer> homePlayers,
-            List<GamePlayer> awayPlayers
+            List<GamePlayer> awayPlayers,
+            List<GoalsDTO> goalss
     ) {
         public static LeagueGamePlayerResponse of(LeagueGameDTO leagueGame) {
             return new LeagueGamePlayerResponse(
@@ -45,8 +47,20 @@ public record FindLeagueGamePlayerResponse(
                     leagueGame.leagueGameStatus(),
                     leagueGame.venue(),
                     null,
-                    null
+                    null,
+                    leagueGame.goalInfos().stream().map(GoalsDTO::of).collect(Collectors.toList())
             );
+        }
+        public record GoalsDTO(
+                Long plyerId,
+                String playerName,
+                int time,
+                String type
+        ) {
+            public static GoalsDTO of(LeagueGameDTO.GoalInfo info)
+            {
+                return new GoalsDTO(info.plyerId(), info.playerName(), info.playTime(), info.goalType());
+            }
         }
     }
 }
