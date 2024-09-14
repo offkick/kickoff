@@ -18,13 +18,17 @@ public class Winner extends BaseEntity {
     private Long winnerId;
 
     private String winnerName;
+
+    private Long externalTeamId;
+
     @Column(columnDefinition = "boolean default false")
     private Boolean isDeleted;
 
     @Builder
-    public Winner(Long winnerId, String winnerTeamName) {
+    public Winner(Long winnerId, String winnerTeamName, Long externalTeamId) {
         this.winnerId = winnerId;
         this.winnerName = winnerTeamName;
+        this.externalTeamId = externalTeamId;
     }
     public void delete()
     {

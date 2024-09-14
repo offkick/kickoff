@@ -24,6 +24,8 @@ public class QWinner extends EntityPathBase<Winner> {
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
 
+    public final NumberPath<Long> externalTeamId = createNumber("externalTeamId", Long.class);
+
     public final BooleanPath isDeleted = createBoolean("isDeleted");
 
     //inherited

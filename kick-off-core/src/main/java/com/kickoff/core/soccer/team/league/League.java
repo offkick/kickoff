@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Entity
 @Getter
 @NoArgsConstructor
@@ -31,6 +33,8 @@ public class League extends BaseEntity {
     private Boolean isDeleted;
 
     private Long winnerId;
+    private String startDate;
+    private String endDate;
 
     @Builder
     public League(
@@ -40,7 +44,9 @@ public class League extends BaseEntity {
             String tier,
             String emblem,
             Season season,
-            Long winnerId) {
+            Long winnerId,
+            String startDate,
+            String endDate) {
         this.leagueId = leagueId;
         this.leagueName = leagueName;
         this.national = national;
@@ -49,6 +55,8 @@ public class League extends BaseEntity {
         this.emblem = emblem;
         isDeleted = Boolean.FALSE;
         this.winnerId = winnerId;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     public void delete()

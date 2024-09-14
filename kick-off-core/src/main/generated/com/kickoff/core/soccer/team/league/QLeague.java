@@ -29,6 +29,8 @@ public class QLeague extends EntityPathBase<League> {
 
     public final StringPath emblem = createString("emblem");
 
+    public final StringPath endDate = createString("endDate");
+
     public final BooleanPath isDeleted = createBoolean("isDeleted");
 
     public final NumberPath<Long> leagueId = createNumber("leagueId", Long.class);
@@ -38,6 +40,8 @@ public class QLeague extends EntityPathBase<League> {
     public final EnumPath<com.kickoff.core.common.National> national = createEnum("national", com.kickoff.core.common.National.class);
 
     public final QSeason season;
+
+    public final StringPath startDate = createString("startDate");
 
     public final StringPath tier = createString("tier");
 

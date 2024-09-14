@@ -39,15 +39,15 @@ public class CompetitionInsertService {
 
             Long winnerId = null;
             if (season.winner() != null) {
-                winnerId = (long)season.winner().id();
+                Long externalTeamId = (long)season.winner().id();
                 Winner winner = Winner.builder()
-                        .winnerId(winnerId)
                         .winnerTeamName(season.winner().name())
+                        .externalTeamId(externalTeamId)
                         .build();
                 winnerRepository.save(winner);
+                winnerId = winner.getWinnerId();
             } else {
                 winnerId = null;
-
             }
 
             seasonRepository.save(season1);
@@ -57,6 +57,8 @@ public class CompetitionInsertService {
                     .emblem(competitionsData.emblem())
                     .season(season1)
                     .winnerId(winnerId)
+                    .startDate(season.startDate())
+                    .endDate(season.endDate())
                     .build();
             leagueRepository.save(league);
         }
