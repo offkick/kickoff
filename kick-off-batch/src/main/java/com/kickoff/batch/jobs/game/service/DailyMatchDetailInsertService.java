@@ -1,4 +1,4 @@
-package com.kickoff.batch.jobs.competition.service;
+package com.kickoff.batch.jobs.game.service;
 
 import com.kickoff.batch.config.feign.SoccerApiFeign;
 import com.kickoff.batch.config.feign.api.temp.Match;
@@ -7,11 +7,10 @@ import com.kickoff.core.soccer.player.PlayerRepository;
 import com.kickoff.core.soccer.team.Goal;
 import com.kickoff.core.soccer.team.GoalType;
 import com.kickoff.core.soccer.team.Score;
+import com.kickoff.core.soccer.team.external.ExternalPlayerIdMapping;
+import com.kickoff.core.soccer.team.external.ExternalPlayerIdMappingRepository;
 import com.kickoff.core.soccer.team.external.ExternalTeamIdMappingRepository;
-import com.kickoff.core.soccer.team.league.LeagueTeam;
-import com.kickoff.core.soccer.team.league.LeagueTeamRepository;
-import com.kickoff.core.soccer.team.league.Season;
-import com.kickoff.core.soccer.team.league.SeasonRepository;
+import com.kickoff.core.soccer.team.league.*;
 import com.kickoff.core.soccer.team.league.game.ExternalGameMappingRepository;
 import com.kickoff.core.soccer.team.league.game.LeagueGame;
 import com.kickoff.core.soccer.team.league.game.LeagueGameRepository;
@@ -36,38 +35,51 @@ public class DailyMatchDetailInsertService {
     private final PlayerRepository playerRepository;
     private final LeagueGameRepository leagueGameRepository;
     private final ExternalTeamIdMappingRepository externalTeamIdMappingRepository;
+    private final ExternalPlayerIdMappingRepository  externalPlayerIdMappingRepository;
     private final ExternalGameMappingRepository externalGameMappingRepository;
+    private final LeagueRepository leagueRepository;
 
-    public void insertMatchDetail(String years)
+    public void insertMatchDetail(String season, String competition)
     {
-        Season season = seasonRepository.findByYears(years).orElseThrow();
-        List<LeagueGame> leagueGames = leagueGameRepository.findBySeason(season);
+        Season findSeason = seasonRepository.findByYears(season).orElseThrow();
+        League league = leagueRepository.findByLeagueNameAndSeason(competition, findSeason).orElseThrow();
+
+        List<LeagueGame> leagueGames = leagueGameRepository.findBySeason(findSeason);
 
         for (LeagueGame leagueGame : leagueGames)
         {
-            externalGameMappingRepository.findByGameId(leagueGame.getLeagueGameId())
-                    .ifPresent(externalGameMapping -> processMatchDetails(externalGameMapping.getExternalGameId(), leagueGame));
+            if (!checkLeagueId(league, leagueGame))
+            {
+                continue;
+            }
+
+            externalGameMappingRepository.findByGameId(leagueGame.getLeagueGameId()).ifPresent(externalGameMapping -> processMatchDetails(externalGameMapping.getExternalGameId(), leagueGame, findSeason));
             sleepForApiRateLimiting();
         }
     }
 
-    private void processMatchDetails(Long externalGameId, LeagueGame leagueGame)
-    {
-        Match match = soccerApiFeign.getCompetitionMatchResponse(externalGameId);
-        externalGameMappingRepository.findByExternalGameId(match.id().longValue())
-                .ifPresentOrElse(mapping -> saveMatchDetails(match, leagueGame), () -> log.warn("No game information found for ExternalGameId: {}", match.id()));
+    private static boolean checkLeagueId(League league, LeagueGame leagueGame) {
+        return leagueGame.getAway().getLeague().getLeagueId().equals(league.getLeagueId()) && leagueGame.getHome().getLeague().getLeagueId().equals(league.getLeagueId());
     }
 
-    private void saveMatchDetails(Match match, LeagueGame leagueGame)
+    private void processMatchDetails(Long externalGameId, LeagueGame leagueGame, Season season)
+    {
+        Match match = soccerApiFeign.getCompetitionMatchResponse(externalGameId);
+        externalGameMappingRepository.findByExternalGameId(match.id().longValue()).ifPresentOrElse(mapping -> saveMatchDetails(match, leagueGame, season), () -> log.warn("No game information found for ExternalGameId: {}", match.id()));
+    }
+
+    private void saveMatchDetails(Match match, LeagueGame leagueGame, Season season)
     {
         Score score = Score.builder().awayScore(match.score().fullTime().away()).homeScore(match.score().fullTime().home()).build();
         List<Goal> goals = match.goals().stream()
-                .map(matchGoal -> externalTeamIdMappingRepository.findByExternalTeamId((long) matchGoal.team().id())
+                .map(matchGoal -> externalTeamIdMappingRepository.findByExternalTeamIdAndSeason((long) matchGoal.team().id(), season.getYears())
                         .map(externalTeamIdMapping -> {
                             LeagueTeam scoredTeam = leagueTeamRepository.findById(externalTeamIdMapping.getTeamId())
                                     .orElseThrow(() -> new IllegalArgumentException("Team not found: " + externalTeamIdMapping.getTeamId()));
 
-                            Player player = playerRepository.findByPlayerId(matchGoal.scorer().id())
+                            ExternalPlayerIdMapping externalPlayerIdMapping = externalPlayerIdMappingRepository.findByExternalPlayerId(matchGoal.scorer().id()).orElseThrow();
+
+                            Player player = playerRepository.findById(externalPlayerIdMapping.getPlayerId())
                                     .orElseThrow(() -> new IllegalArgumentException("Player not found: " + matchGoal.scorer().id()));
 
                             GoalType goalType = GoalType.valueOf(matchGoal.type().toUpperCase());

@@ -13,8 +13,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TeamStandingService {
     private final TeamStandingQueryService teamStandingQueryService;
-    public List<TeamStandingQueryResult> teamStandings(Long matchDay, String season, Long leagueId)
+    public List<TeamStandingQueryResult> teamStandings(String season, Long leagueId)
     {
-        return teamStandingQueryService.teamStandings(matchDay, season, leagueId);
+        return teamStandingQueryService.teamStandings(season, leagueId);
     }
 }

@@ -3,6 +3,8 @@ package com.kickoff.batch.jobs.team.standing.service;
 import com.kickoff.batch.config.feign.SoccerApiFeign;
 import com.kickoff.batch.config.feign.api.temp.StandingResponse;
 import com.kickoff.batch.config.feign.api.temp.Standings;
+import com.kickoff.core.soccer.team.league.LeagueRepository;
+import com.kickoff.core.soccer.team.league.game.LeagueGameRepository;
 import com.kickoff.core.soccer.team.standing.TeamStanding;
 import com.kickoff.core.soccer.team.standing.TeamStandingRepository;
 import com.kickoff.core.soccer.team.external.ExternalTeamIdMapping;
@@ -22,22 +24,22 @@ public class StandingBatchService {
     private final SoccerApiFeign soccerApiFeign;
     private final ExternalTeamIdMappingRepository externalTeamIdMappingRepository;
     private final TeamStandingRepository teamStandingRepository;
+    private final LeagueRepository leagueRepository;
+    private final LeagueGameRepository leagueGameRepository;
 
-    public void insertStanding(String season, Long matchDay, Long leagueId)
+    public void insertStanding(String season, String competition, Long leagueId)
     {
-        if (teamStandingRepository.existsBySeasonAndRoundAndLeagueId(season, matchDay, leagueId))
-        {
-            log.info("해당 시즌과 라운드의 순위 정보가 이미 존재합니다. 시즌={}, 라운드={}", season, matchDay);
-            return ;
-        }
-
-        log.info("순위 정보 삽입 시작: 시즌={}, 라운드={}, 리그 = {}", season, matchDay, leagueId);
-
         try {
-            StandingResponse standingResponse = soccerApiFeign.getStandings(season, matchDay);
-            processStandingResponse(standingResponse, season, matchDay, leagueId);
+            StandingResponse standingResponse = soccerApiFeign.getStandings(season, competition);
+            int currentMatchDay = standingResponse.season().currentMatchday();
+
+            for (long matchday = 1; matchday <= currentMatchDay; matchday++)
+            {
+                processStandingResponse(standingResponse, season, matchday, leagueId);
+            }
+
         } catch (Exception e) {
-            log.error("순위 정보를 가져오는 중 오류 발생: 시즌={}, 라운드={}", season, matchDay, e);
+            log.error("순위 정보를 가져오는 중 오류 발생: season={}, competition={}", season, competition, e);
         }
     }
 
@@ -59,7 +61,7 @@ public class StandingBatchService {
         int externalTeamId = table.team().id();
 
         Optional<ExternalTeamIdMapping> externalTeamIdMappingOpt = externalTeamIdMappingRepository
-                .findByExternalTeamId((long) externalTeamId);
+                .findByExternalTeamIdAndSeason((long) externalTeamId, season);
 
         externalTeamIdMappingOpt.ifPresentOrElse(
                 externalTeamIdMapping -> saveTeamStanding(table, season, matchDay, leagueId, externalTeamIdMapping.getTeamId()),

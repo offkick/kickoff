@@ -11,9 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -23,7 +21,7 @@ public class TeamStandingQueryService {
     private final TeamStandingRepository teamStandingRepository;
 
     @Transactional(readOnly = true)
-    public List<TeamStandingQueryResult> teamStandings(Long matchDay, String season, Long leagueId)
+    public List<TeamStandingQueryResult> teamStandings(String season, Long leagueId)
     {
         QTeamStanding teamStanding = QTeamStanding.teamStanding;
         return jpaQueryFactory.select(Projections.constructor(
@@ -43,7 +41,7 @@ public class TeamStandingQueryService {
                 .from(QTeamStanding.teamStanding)
                 .join(QLeagueTeam.leagueTeam)
                 .on(QLeagueTeam.leagueTeam.leagueTeamId.eq(teamStanding.teamId))
-                .where(teamStanding.season.eq(season), eqMatchDay(season, matchDay), eqLeagueId(leagueId))
+                .where(teamStanding.season.eq(season), eqLeagueId(leagueId))
                 .fetch();
     }
 
@@ -59,20 +57,4 @@ public class TeamStandingQueryService {
         return QTeamStanding.teamStanding.leagueId.eq(leagueId);
     }
 
-    private BooleanExpression eqMatchDay(String season, Long matchDay)
-    {
-        if (matchDay == null)
-        {
-            Optional<TeamStanding> maxRound = teamStandingRepository.findBySeason(season).stream().max(Comparator.comparingLong(TeamStanding::getRound));
-
-            if (maxRound.isEmpty())
-            {
-                throw new IllegalArgumentException("not found season match standings");
-            }
-
-            return QTeamStanding.teamStanding.round.eq(maxRound.get().getRound());
-        }
-
-        return QTeamStanding.teamStanding.round.eq(matchDay);
-    }
 }

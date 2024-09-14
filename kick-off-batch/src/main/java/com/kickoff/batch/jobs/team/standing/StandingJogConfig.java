@@ -1,7 +1,6 @@
 package com.kickoff.batch.jobs.team.standing;
 
 import com.kickoff.batch.jobs.team.standing.service.StandingBatchService;
-import com.kickoff.batch.util.JobParameterUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
@@ -54,14 +53,12 @@ public class StandingJogConfig {
             StepContext stepContext = StepSynchronizationManager.getContext();
             log.info("start dailyStandingInfoTasklet");
             JobParameters jobParameters = stepContext.getStepExecution().getJobParameters();
-            String season = JobParameterUtil.getIfPresentStringParameter(jobParameters, "season");
-//            long matchDay = Long.parseLong(JobParameterUtil.getIfPresentStringParameter(jobParameters, "matchDay"));
-            Long leagueId = JobParameterUtil.getIfPresentLongParameter(jobParameters, "leagueId");
 
-            for (int i = 1; i <= 38; i++) {
-                standingBatchService.insertStanding(season, (long) i, leagueId);
-                Thread.sleep(2000L);
-            }
+            String competitions = jobParameters.getString( "competitions");
+            String season = jobParameters.getString( "season");
+            Long leagueId = Long.parseLong(jobParameters.getString( "leagueId"));
+
+            standingBatchService.insertStanding(season, competitions, leagueId);
             return RepeatStatus.FINISHED;
         };
     }

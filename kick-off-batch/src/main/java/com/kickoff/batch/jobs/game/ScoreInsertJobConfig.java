@@ -1,6 +1,6 @@
-package com.kickoff.batch.jobs.competition;
+package com.kickoff.batch.jobs.game;
 
-import com.kickoff.batch.jobs.competition.service.DailyMatchDetailInsertService;
+import com.kickoff.batch.jobs.game.service.DailyMatchDetailInsertService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
@@ -17,8 +17,6 @@ import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
-
-import java.time.LocalDate;
 
 /**
  * 경기 결과 업데이트
@@ -56,8 +54,9 @@ public class ScoreInsertJobConfig {
             if(stepContext!=null)
             {
                 JobParameters jobParameters = stepContext.getStepExecution().getJobParameters();
-                String year = jobParameters.getString("year", LocalDate.now().toString());
-                dailyMatchDetailInsertService.insertMatchDetail(year);
+                String season = jobParameters.getString("season");
+                String competitions = jobParameters.getString("competitions");
+                dailyMatchDetailInsertService.insertMatchDetail(season, competitions);
             }
             return RepeatStatus.FINISHED;
         };

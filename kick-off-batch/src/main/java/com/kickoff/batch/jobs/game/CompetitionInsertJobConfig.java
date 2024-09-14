@@ -1,5 +1,6 @@
-package com.kickoff.batch.jobs.competition.service;
+package com.kickoff.batch.jobs.game;
 
+import com.kickoff.batch.jobs.game.service.CompetitionInsertService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;

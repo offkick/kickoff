@@ -9,9 +9,7 @@ import com.kickoff.core.soccer.player.Player;
 import com.kickoff.core.soccer.player.PlayerPosition;
 import com.kickoff.core.soccer.player.PlayerRepository;
 import com.kickoff.core.soccer.team.TeamType;
-import com.kickoff.core.soccer.team.external.ExternalApiName;
-import com.kickoff.core.soccer.team.external.ExternalTeamIdMapping;
-import com.kickoff.core.soccer.team.external.ExternalTeamIdMappingRepository;
+import com.kickoff.core.soccer.team.external.*;
 import com.kickoff.core.soccer.team.league.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +29,7 @@ public class DailyTeamSquadService {
     private final LeagueRepository leagueRepository;
     private final PlayerRepository playerRepository;
     private final ExternalTeamIdMappingRepository externalTeamIdMappingRepository;
+    private final ExternalPlayerIdMappingRepository externalPlayerIdMappingRepository;
 
     public void insertTeamSquad(String year, String competition)
     {
@@ -42,7 +41,6 @@ public class DailyTeamSquadService {
         for (Team team : competitionTeams.teams())
         {
             log.info("TEAM : {}", team.name());
-            // league Team이 없는 경우 생성한다.
             LeagueTeam leagueTeam = leagueTeamRepository.findByLeagueAndSeasonAndLeagueTeamName(league, season, team.name())
                     .orElse(makeNewLeagueTeam(season, league, team));
 
@@ -62,6 +60,11 @@ public class DailyTeamSquadService {
             {
                 Player player = makePlayer(season, leagueTeam, squad);
                 playerRepository.save(player);
+                ExternalPlayerIdMapping save = externalPlayerIdMappingRepository.save(ExternalPlayerIdMapping.builder()
+                        .externalPlayerId((long) squad.id())
+                        .season(season.getYears())
+                        .playerId(player.getPlayerId())
+                        .build());
             }
         }
     }

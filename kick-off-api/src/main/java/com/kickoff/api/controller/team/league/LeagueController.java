@@ -50,9 +50,8 @@ public class LeagueController {
     @GetMapping("/rank/{leagueId}")
     public TeamRankInfo getTeamRanks(
             @PathVariable(value = "leagueId") Long leagueId,
-            @RequestParam(name = "season") String  season,
-            @RequestParam(name = "matchDay", required = false) Long matchDay
+            @RequestParam(name = "season") String  season
     ) {
-        return TeamRankInfo.of(teamStandingService.teamStandings(matchDay, season, leagueId));
+        return TeamRankInfo.of(teamStandingService.teamStandings(season, leagueId));
     }
 }

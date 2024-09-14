@@ -7,15 +7,31 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public record TeamRankInfo(
-        List<TeamInfo> ranks
+        List<MatchDayTeamInfo> rankInfo
 ) {
     public static TeamRankInfo of(List<TeamStandingQueryResult> teamStandings)
     {
-        return new TeamRankInfo(teamStandings.stream()
-                .map(TeamInfo::of)
-                .sorted(Comparator.comparingInt(a -> a.rank))
-                .collect(Collectors.toList()));
+        List<MatchDayTeamInfo> rankInfo = teamStandings.stream()
+                .collect(Collectors.groupingBy(TeamStandingQueryResult::round))
+                .entrySet()
+                .stream()
+                .map(entry -> {
+                    List<TeamInfo> teamInfos = entry.getValue().stream()
+                            .map(TeamInfo::of)
+                            .collect(Collectors.toList());
+
+                    return new MatchDayTeamInfo(entry.getKey(), teamInfos);
+                })
+                .sorted(Comparator.comparing(s->s.matchDay))
+                .toList();
+
+        return new TeamRankInfo(rankInfo);
     }
+
+    public record MatchDayTeamInfo(
+            Long matchDay,
+            List<TeamInfo> ranks
+    ) {}
 
     public record TeamInfo(
             Long teamId,

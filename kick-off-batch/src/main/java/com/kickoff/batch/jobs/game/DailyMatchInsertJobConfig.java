@@ -1,4 +1,4 @@
-package com.kickoff.batch.jobs.competition;
+package com.kickoff.batch.jobs.game;
 
 import com.kickoff.batch.jobs.game.service.DailyMatchResultInsertService;
 import lombok.RequiredArgsConstructor;

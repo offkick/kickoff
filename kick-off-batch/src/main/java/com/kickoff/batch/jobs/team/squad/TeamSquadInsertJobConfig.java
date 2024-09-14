@@ -61,7 +61,6 @@ public class TeamSquadInsertJobConfig {
 
             JobParameters jobParameters = getJobParameters();
 
-            // 필요한 파라미터들을 가져와서 유효성 검사 및 서비스 호출
             String competitions = jobParameters.getString("competitions");
             String season = jobParameters.getString("season");
 
