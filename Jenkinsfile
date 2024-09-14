@@ -13,5 +13,12 @@ pipeline {
                 sh 'echo $PWD'
             }
         }
+
+        stage('Gradle Build') {
+            steps {
+                // Gradle 빌드 실행
+                sh './gradlew kick-off-batch:bootJar -x test'
+            }
+        }
    	}
 }
