@@ -22,6 +22,7 @@ public record LeagueGameDTO(
         List<GoalInfo> goalInfos
 ) {
     public static LeagueGameDTO of(LeagueGame leagueGame) {
+        System.out.println("#@!#*I(!#(*_)!#(*)");
         return new LeagueGameDTO(
                 leagueGame.getLeagueGameId(),
                 leagueGame.getGameDate(),
@@ -43,8 +44,15 @@ public record LeagueGameDTO(
     {
         public static List<GoalInfo> of(List<Goal> goals)
         {
+            System.out.println("WQEIUWQEEWQEWQEQEQ");
             return goals.stream()
-                    .map(s-> new GoalInfo(s.getPlayer().getPlayerId(),s.getPlayer().getPlayerName(), s.getType().name(), s.getPlayTime(), s.getScoredTeam().getLeagueTeamName(), s.getScoredTeam().getLeagueTeamId()))
+                    .map(s-> new GoalInfo(
+                            s.getPlayer().getPlayerId(),
+                            s.getPlayer().getPlayerName(),
+                            s.getType() == null ? "" : s.getType().name(),
+                            s.getPlayTime(),
+                            s.getScoredTeam().getLeagueTeamName(),
+                            s.getScoredTeam().getLeagueTeamId()))
                     .toList();
         }
     }

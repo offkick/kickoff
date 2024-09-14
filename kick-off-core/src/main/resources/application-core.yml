@@ -36,7 +36,7 @@ spring:
     defer-datasource-initialization: true
 logging:
   level:
-    root: info
+    root: debug
   file:
     path: ./logs
     name: local.log
@@ -71,9 +71,9 @@ server:
 
 logging:
   level:
-    root: info
+    root: DEBUG
     org:
-      apache.catalina: INFO
+      apache.catalina: DEBUG
   file:
     path: /home/ubuntu/logs
     name: prod.log

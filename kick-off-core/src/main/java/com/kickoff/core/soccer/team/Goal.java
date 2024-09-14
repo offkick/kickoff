@@ -2,7 +2,6 @@ package com.kickoff.core.soccer.team;
 
 import com.kickoff.core.soccer.player.Player;
 import com.kickoff.core.soccer.team.league.LeagueTeam;
-import com.kickoff.core.soccer.team.league.game.LeagueGame;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -26,11 +25,11 @@ public class Goal {
     @JoinColumn(name = "home")
     private LeagueTeam scoredTeam;
 
-
+    @Enumerated(EnumType.STRING)
     private GoalType type;
 
     @Builder
-    public Goal(Player player, int playTime, LeagueTeam scoredTeam, LeagueTeam awayTeam, GoalType type) {
+    public Goal(Player player, int playTime, LeagueTeam scoredTeam, GoalType type) {
         this.player = player;
         this.playTime = playTime;
         this.scoredTeam = scoredTeam;

@@ -59,7 +59,8 @@ public record SeasonLeagueGameResponse(
             String awayLogo,
             String venue,
             List<TeamResponse> teamId,
-            int matchDay
+            int matchDay,
+            List<Goals> goals
             ) {
         public static LeagueGameResponse of(LeagueGameDTO leagueGame) {
             return new LeagueGameResponse(
@@ -76,8 +77,21 @@ public record SeasonLeagueGameResponse(
                     leagueGame.away().logo(),
                     leagueGame.venue(),
                     java.util.List.of(TeamResponse.of(leagueGame)),
-                    leagueGame.matchDay()
+                    leagueGame.matchDay(),
+                    leagueGame.goalInfos().stream().map(Goals::of).collect(Collectors.toList())
             );
+        }
+    }
+
+    public record Goals(
+            Long plyerId,
+            String playerName,
+            int time,
+            String type
+    ) {
+        public static Goals of(LeagueGameDTO.GoalInfo info)
+        {
+            return new Goals(info.playerId(), info.playerName(), info.playTime(), info.goalType());
         }
     }
 }

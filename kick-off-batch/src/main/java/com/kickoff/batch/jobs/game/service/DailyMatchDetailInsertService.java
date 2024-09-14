@@ -84,7 +84,8 @@ public class DailyMatchDetailInsertService {
 
                             Optional<ExternalPlayerIdMapping> byExternalPlayerId = externalPlayerIdMappingRepository.findByExternalPlayerId(matchGoal.scorer().id());
 
-                            if (byExternalPlayerId.isEmpty()) {
+                            if (byExternalPlayerId.isEmpty())
+                            {
                                 log.info("byExternalPlayerId is empty");
                                 return null;
                             }
