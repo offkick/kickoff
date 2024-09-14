@@ -34,7 +34,7 @@ public record FindLeagueGamePlayerResponse(
             String venue,
             List<GamePlayer> homePlayers,
             List<GamePlayer> awayPlayers,
-            List<GoalsDTO> goalss
+            List<GoalsDTO> goals
     ) {
         public static LeagueGamePlayerResponse of(LeagueGameDTO leagueGame) {
             return new LeagueGamePlayerResponse(
