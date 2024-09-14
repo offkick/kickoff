@@ -8,8 +8,11 @@ pipeline {
         }
 
         stage('echo test') {
-            sh '''echo $PWD
-            echo before start build'''
+            steps {
+                echo 'Hello, JDK'
+                sh '$PWD'
+            }
+
         }
    	}
 }
