@@ -34,8 +34,8 @@ public class CompetitionInsertJobConfig {
                 .incrementer(new RunIdIncrementer())
                 .start(competitionInsertJobStep(jobRepository))
                 .build();
-
     }
+
     @Bean
     public Step competitionInsertJobStep(JobRepository jobRepository)
     {
@@ -43,6 +43,7 @@ public class CompetitionInsertJobConfig {
                 .tasklet(importCompetitionTasklet(), platformTransactionManager)
                 .build();
     }
+
     @Bean
     public Tasklet importCompetitionTasklet()
     {
