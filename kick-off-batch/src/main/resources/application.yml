@@ -1,0 +1,19 @@
+spring:
+  profiles:
+    active: local
+    include: core
+  batch:
+    jdbc:
+      initialize-schema: always
+    job:
+      name: scoreInsertJob
+server:
+  port: 8083
+api:
+  footbool:
+    token: b1a0c6ed997843cdbc8d22f33523bde6
+springdoc:
+  swagger-ui:
+    enabled: false
+#springdoc:
+#  use-management-port: true
