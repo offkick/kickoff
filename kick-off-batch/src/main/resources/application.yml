@@ -15,5 +15,3 @@ api:
 springdoc:
   swagger-ui:
     enabled: false
-#springdoc:
-#  use-management-port: true
