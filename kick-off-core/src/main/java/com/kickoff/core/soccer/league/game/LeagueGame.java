@@ -67,11 +67,6 @@ public class LeagueGame extends BaseEntity {
     @Setter
     private List<Goal> goals = new ArrayList<>();
 
-//    @ElementCollection
-//    @CollectionTable(name = "FAVORITE_FOODS", joinColumns = @JoinColumn(name = "MEMBER_ID"))
-//    @Column(name="FOOD_NAME")
-//    private List<Substitutions> substitutions;
-
     @Builder
     public LeagueGame(
             Long leagueGameId,
@@ -138,5 +133,10 @@ public class LeagueGame extends BaseEntity {
         ) {
             throw new IllegalArgumentException("팀이 다름");
         }
+    }
+
+    public void endGame()
+    {
+        this.leagueGameStatus = LeagueGameStatus.END;
     }
 }

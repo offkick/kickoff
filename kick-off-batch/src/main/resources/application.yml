@@ -6,8 +6,7 @@ spring:
     jdbc:
       initialize-schema: always
     job:
-      enabled: false
-      name: competitionInsertJob
+      name: dailyStandingInfoJob
 server:
   port: 8083
 api:

@@ -19,6 +19,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import java.time.LocalDate;
+import java.util.Objects;
+
 /**
  * 경기 상세 결과 업데이트
  */
@@ -54,10 +57,18 @@ public class MatchDetailInsertJobConfig {
         return (contribution, chunkContext)->{
             StepContext stepContext = StepSynchronizationManager.getContext();
             JobParameters jobParameters = stepContext.getStepExecution().getJobParameters();
+
+            LocalDate targetDateFrom = parseDateOrDefault(jobParameters.getString("targetDateFrom"), LocalDate.now().minusDays(2));
+            LocalDate targetDateTo = parseDateOrDefault(jobParameters.getString("targetDateTo"), LocalDate.now());
             String season = jobParameters.getString("season");
-            String competitions = jobParameters.getString("competitions");
-            dailyMatchDetailInsertService.insertMatchDetail(season, competitions);
+
+            dailyMatchDetailInsertService.insertMatchDetail(targetDateFrom, targetDateTo, season);
             return RepeatStatus.FINISHED;
         };
+    }
+
+    private LocalDate parseDateOrDefault(String date, LocalDate defaultDate)
+    {
+        return date == null ? defaultDate : LocalDate.parse(Objects.requireNonNull(date));
     }
 }

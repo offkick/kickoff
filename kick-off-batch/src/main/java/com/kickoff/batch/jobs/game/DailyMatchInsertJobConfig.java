@@ -57,7 +57,7 @@ public class DailyMatchInsertJobConfig {
             log.info("[START] - dailyMatchInsertTasklet");
             JobParameters jobParameters = getJobParameters();
 
-            LocalDate targetDateFrom = parseDateOrDefault(jobParameters.getString("targetDateFrom"), LocalDate.now());
+            LocalDate targetDateFrom = parseDateOrDefault(jobParameters.getString("targetDateFrom"), LocalDate.now().minusDays(1));
             LocalDate targetDateTo = parseDateOrDefault(jobParameters.getString("targetDateTo"), LocalDate.now());
             String competitions = jobParameters.getString("competitions") == null ? "PL" : jobParameters.getString("competitions");
 

@@ -56,9 +56,8 @@ public class StandingJogConfig {
 
             String competitions = jobParameters.getString( "competitions");
             String season = jobParameters.getString( "season");
-            Long leagueId = Long.parseLong(jobParameters.getString( "leagueId"));
 
-            standingBatchService.insertStanding(season, competitions, leagueId);
+            standingBatchService.insertStanding(season, competitions);
             return RepeatStatus.FINISHED;
         };
     }

@@ -3,7 +3,10 @@ package com.kickoff.batch.jobs.team.standing.service;
 import com.kickoff.batch.config.feign.SoccerApiFeign;
 import com.kickoff.batch.config.feign.api.temp.StandingResponse;
 import com.kickoff.batch.config.feign.api.temp.Standings;
+import com.kickoff.core.soccer.league.League;
 import com.kickoff.core.soccer.league.LeagueRepository;
+import com.kickoff.core.soccer.league.Season;
+import com.kickoff.core.soccer.league.SeasonRepository;
 import com.kickoff.core.soccer.league.game.LeagueGameRepository;
 import com.kickoff.core.soccer.team.standing.TeamStanding;
 import com.kickoff.core.soccer.team.standing.TeamStandingRepository;
@@ -26,24 +29,28 @@ public class StandingBatchService {
     private final TeamStandingRepository teamStandingRepository;
     private final LeagueRepository leagueRepository;
     private final LeagueGameRepository leagueGameRepository;
+    private final SeasonRepository seasonRepository;
 
-    public void insertStanding(String season, String competition, Long leagueId)
+    public void insertStanding(String seasonYears, String competition)
     {
+        Season findSeason = seasonRepository.findByYears(seasonYears).orElseThrow();
+        League league = leagueRepository.findByLeagueNameAndSeason(competition, findSeason).orElseThrow();
+
         try {
-            StandingResponse standingResponse = soccerApiFeign.getStandings(season, competition);
+            StandingResponse standingResponse = soccerApiFeign.getStandings(seasonYears, competition);
             int currentMatchDay = standingResponse.season().currentMatchday();
 
             for (long matchday = 1; matchday <= currentMatchDay; matchday++)
             {
-                processStandingResponse(standingResponse, season, matchday, leagueId);
+                processStandingResponse(standingResponse, seasonYears, matchday, league);
             }
 
         } catch (Exception e) {
-            log.error("순위 정보를 가져오는 중 오류 발생: season={}, competition={}", season, competition, e);
+            log.error("순위 정보를 가져오는 중 오류 발생: season={}, competition={}", seasonYears, competition, e);
         }
     }
 
-    private void processStandingResponse(StandingResponse standingResponse, String season, Long matchDay, Long leagueId)
+    private void processStandingResponse(StandingResponse standingResponse, String season, Long matchDay, League league)
     {
         for (Standings standing : standingResponse.standings())
         {
@@ -52,11 +59,11 @@ public class StandingBatchService {
                 continue; // 총합 순위만 처리
             }
 
-            standing.table().forEach(table -> processTableEntry(table, season, matchDay, leagueId));
+            standing.table().forEach(table -> processTableEntry(table, season, matchDay, league));
         }
     }
 
-    private void processTableEntry(Standings.Table table, String season, Long matchDay, Long leagueId)
+    private void processTableEntry(Standings.Table table, String season, Long matchDay, League league)
     {
         int externalTeamId = table.team().id();
 
@@ -64,16 +71,21 @@ public class StandingBatchService {
                 .findByExternalTeamIdAndSeason((long) externalTeamId, season);
 
         externalTeamIdMappingOpt.ifPresentOrElse(
-                externalTeamIdMapping -> saveTeamStanding(table, season, matchDay, leagueId, externalTeamIdMapping.getTeamId()),
+                externalTeamIdMapping -> saveTeamStanding(table, season, matchDay, league, externalTeamIdMapping.getTeamId()),
                 () -> log.warn("외부 팀 ID 매핑을 찾을 수 없음: externalTeamId={}", externalTeamId)
         );
     }
 
-    private void saveTeamStanding(Standings.Table table, String season, Long matchDay, Long leagueId, Long teamId)
+    private void saveTeamStanding(Standings.Table table, String season, Long matchDay, League league, Long teamId)
     {
+        if (teamStandingRepository.existsBySeasonAndRoundAndLeagueId(season, matchDay, league.getLeagueId()))
+        {
+            return;
+        }
+
         TeamStanding teamStanding = TeamStanding.builder()
                 .ranks(table.position())
-                .leagueId(leagueId)
+                .leagueId(league.getLeagueId())
                 .round(matchDay)
                 .teamId(teamId)
                 .draw(table.draw())
