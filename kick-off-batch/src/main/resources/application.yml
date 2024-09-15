@@ -6,7 +6,7 @@ spring:
     jdbc:
       initialize-schema: always
     job:
-      name: dailyStandingInfoJob
+      name: dailyMatchInsertJob
 server:
   port: 8083
 api:
