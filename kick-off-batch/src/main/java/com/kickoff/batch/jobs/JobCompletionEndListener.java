@@ -9,7 +9,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 @Slf4j
-@Component
 public class JobCompletionEndListener implements JobExecutionListener {
     private final ApplicationContext context;
 
