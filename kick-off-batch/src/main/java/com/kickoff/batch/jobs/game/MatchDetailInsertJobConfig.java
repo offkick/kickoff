@@ -19,35 +19,35 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
 
 /**
- * 경기 결과 업데이트
+ * 경기 상세 결과 업데이트
  */
 @Configuration
 @RequiredArgsConstructor
 @Slf4j
-public class ScoreInsertJobConfig {
+public class MatchDetailInsertJobConfig {
     private final PlatformTransactionManager platformTransactionManager;
     private final DailyMatchDetailInsertService dailyMatchDetailInsertService;
 
     @Bean
-    public Job scoreInsertJob(JobRepository jobRepository)
+    public Job matchDetailInsertJob(JobRepository jobRepository)
     {
-        return new JobBuilder("scoreInsertJob",jobRepository)
+        return new JobBuilder("matchDetailInsertJob",jobRepository)
                 .preventRestart()
                 .incrementer(new RunIdIncrementer())
-                .start(scoreInsertJobStep(jobRepository))
+                .start(matchDetailInsertJobStep(jobRepository))
                 .build();
     }
 
     @Bean
-    public Step scoreInsertJobStep(JobRepository jobRepository)
+    public Step matchDetailInsertJobStep(JobRepository jobRepository)
     {
-        return new StepBuilder("scoreInsertJobStep", jobRepository)
-                .tasklet(dailyImportScoreTasklet(), platformTransactionManager)
+        return new StepBuilder("matchDetailInsertJobStep", jobRepository)
+                .tasklet(matchDetailInsertTasklet(), platformTransactionManager)
                 .build();
     }
 
     @Bean
-    public Tasklet dailyImportScoreTasklet()
+    public Tasklet matchDetailInsertTasklet()
     {
         return (contribution, chunkContext)->{
             StepContext stepContext = StepSynchronizationManager.getContext();

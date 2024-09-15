@@ -36,7 +36,7 @@ spring:
     defer-datasource-initialization: true
 logging:
   level:
-    root: debug
+    root: info
   file:
     path: ./logs
     name: local.log
