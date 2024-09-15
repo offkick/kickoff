@@ -50,9 +50,9 @@ spring:
 
 logging:
   level:
-    root: DEBUG
+    root: info
     org:
-      apache.catalina: DEBUG
+      apache.catalina: info
   file:
     path: /var/apps/logs
     name: app.log

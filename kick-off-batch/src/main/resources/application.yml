@@ -17,9 +17,9 @@ springdoc:
     enabled: false
 logging:
   level:
-    root: DEBUG
+    root: info
     org:
-      apache.catalina: DEBUG
+      apache.catalina: info
   file:
     path: /var/libs/batch/logs
     name: batch.log
