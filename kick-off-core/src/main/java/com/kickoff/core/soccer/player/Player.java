@@ -1,8 +1,8 @@
 package com.kickoff.core.soccer.player;
 
 import com.kickoff.core.BaseEntity;
-import com.kickoff.core.soccer.team.league.LeagueTeam;
-import com.kickoff.core.soccer.team.league.Season;
+import com.kickoff.core.soccer.league.LeagueTeam;
+import com.kickoff.core.soccer.league.Season;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;

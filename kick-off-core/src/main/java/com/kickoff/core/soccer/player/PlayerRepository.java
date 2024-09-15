@@ -1,7 +1,7 @@
 package com.kickoff.core.soccer.player;
 
-import com.kickoff.core.soccer.team.league.LeagueTeam;
-import com.kickoff.core.soccer.team.league.Season;
+import com.kickoff.core.soccer.league.LeagueTeam;
+import com.kickoff.core.soccer.league.Season;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

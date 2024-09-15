@@ -2,7 +2,7 @@ package com.kickoff.api.service.soccer.team.league.dto;
 
 import com.kickoff.core.soccer.team.TeamType;
 
-import com.kickoff.core.soccer.team.league.service.dto.TeamByLeagueDTO;
+import com.kickoff.core.soccer.league.service.dto.TeamByLeagueDTO;
 
 public record LeagueTeamResponse(
         Long leagueTeamId,

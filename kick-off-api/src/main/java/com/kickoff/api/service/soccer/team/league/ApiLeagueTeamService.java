@@ -1,8 +1,8 @@
 package com.kickoff.api.service.soccer.team.league;
 
 import com.kickoff.api.service.soccer.team.league.dto.LeagueTeamResponse;
-import com.kickoff.core.soccer.team.league.service.LeagueTeamService;
-import com.kickoff.core.soccer.team.league.service.dto.TeamByLeagueDTO;
+import com.kickoff.core.soccer.league.service.LeagueTeamService;
+import com.kickoff.core.soccer.league.service.dto.TeamByLeagueDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

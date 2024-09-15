@@ -2,6 +2,8 @@ package com.kickoff.core.soccer.team.league.game.player;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
+import com.kickoff.core.soccer.league.game.player.LeagueGamePlayer;
+import com.kickoff.core.soccer.league.game.player.LeagueGamePlayerStatus;
 import com.querydsl.core.types.dsl.*;
 
 import com.querydsl.core.types.PathMetadata;

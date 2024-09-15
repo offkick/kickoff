@@ -2,11 +2,13 @@ package com.kickoff.batch.jobs.game.service;
 
 import com.kickoff.batch.config.feign.SoccerApiFeign;
 import com.kickoff.batch.config.feign.api.MatchResultResponse;
+import com.kickoff.core.soccer.league.LeagueTeam;
+import com.kickoff.core.soccer.league.LeagueTeamRepository;
+import com.kickoff.core.soccer.league.SeasonRepository;
+import com.kickoff.core.soccer.league.game.*;
 import com.kickoff.core.soccer.team.Score;
 import com.kickoff.core.soccer.team.external.ExternalTeamIdMapping;
 import com.kickoff.core.soccer.team.external.ExternalTeamIdMappingRepository;
-import com.kickoff.core.soccer.team.league.*;
-import com.kickoff.core.soccer.team.league.game.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

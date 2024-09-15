@@ -3,7 +3,7 @@ package com.kickoff.batch.jobs.game.service;
 import com.kickoff.batch.config.feign.SoccerApiFeign;
 import com.kickoff.batch.config.feign.api.temp.Competitions;
 import com.kickoff.batch.config.feign.api.temp.SeasonDTO;
-import com.kickoff.core.soccer.team.league.*;
+import com.kickoff.core.soccer.league.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

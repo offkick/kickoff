@@ -2,8 +2,8 @@ package com.kickoff.core.team.league;
 
 import com.kickoff.core.TestConfiguration;
 import com.kickoff.core.soccer.team.TeamType;
-import com.kickoff.core.soccer.team.league.LeagueTeam;
-import com.kickoff.core.soccer.team.league.LeagueTeamRepository;
+import com.kickoff.core.soccer.league.LeagueTeam;
+import com.kickoff.core.soccer.league.LeagueTeamRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

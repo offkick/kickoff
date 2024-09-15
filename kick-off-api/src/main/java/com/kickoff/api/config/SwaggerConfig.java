@@ -10,10 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-
-import java.util.List;
 
 @OpenAPIDefinition(
         info = @Info(title = "Kick Off",

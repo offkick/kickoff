@@ -2,6 +2,8 @@ package com.kickoff.core.soccer.team.league;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
+import com.kickoff.core.soccer.league.LeagueGameStatic;
+import com.kickoff.core.soccer.league.game.LeagueGameStatus;
 import com.querydsl.core.types.dsl.*;
 
 import com.querydsl.core.types.PathMetadata;
@@ -33,7 +35,7 @@ public class QLeagueGameStatic extends EntityPathBase<LeagueGameStatic> {
 
     public final NumberPath<Long> leagueGameStaticId = createNumber("leagueGameStaticId", Long.class);
 
-    public final EnumPath<com.kickoff.core.soccer.team.league.game.LeagueGameStatus> leagueGameStatus = createEnum("leagueGameStatus", com.kickoff.core.soccer.team.league.game.LeagueGameStatus.class);
+    public final EnumPath<LeagueGameStatus> leagueGameStatus = createEnum("leagueGameStatus", LeagueGameStatus.class);
 
     public final NumberPath<Long> seasonId = createNumber("seasonId", Long.class);
 

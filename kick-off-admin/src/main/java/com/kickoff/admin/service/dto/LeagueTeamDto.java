@@ -1,6 +1,6 @@
 package com.kickoff.admin.service.dto;
 
-import com.kickoff.core.soccer.team.league.service.dto.LeagueTeamDTO;
+import com.kickoff.core.soccer.league.service.dto.LeagueTeamDTO;
 
 public record LeagueTeamDto(
         Long leagueTeamId,

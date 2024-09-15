@@ -1,11 +1,11 @@
 package com.kickoff.admin.service.dto;
 
 import com.kickoff.core.soccer.team.Score;
-import com.kickoff.core.soccer.team.league.LeagueTeam;
-import com.kickoff.core.soccer.team.league.Season;
-import com.kickoff.core.soccer.team.league.game.LeagueGame;
-import com.kickoff.core.soccer.team.league.game.LeagueGameStatus;
-import com.kickoff.core.soccer.team.league.game.player.LeagueGamePlayer;
+import com.kickoff.core.soccer.league.LeagueTeam;
+import com.kickoff.core.soccer.league.Season;
+import com.kickoff.core.soccer.league.game.LeagueGame;
+import com.kickoff.core.soccer.league.game.LeagueGameStatus;
+import com.kickoff.core.soccer.league.game.player.LeagueGamePlayer;
 
 import java.time.LocalDateTime;
 import java.util.List;

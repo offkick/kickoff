@@ -2,6 +2,9 @@ package com.kickoff.core.soccer.team.league.game;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
+import com.kickoff.core.soccer.league.game.LeagueGame;
+import com.kickoff.core.soccer.league.game.LeagueGameStatus;
+import com.kickoff.core.soccer.league.game.player.LeagueGamePlayer;
 import com.querydsl.core.types.dsl.*;
 
 import com.querydsl.core.types.PathMetadata;
@@ -26,7 +29,7 @@ public class QLeagueGame extends EntityPathBase<LeagueGame> {
 
     public final com.kickoff.core.soccer.team.league.QLeagueTeam away;
 
-    public final ListPath<com.kickoff.core.soccer.team.league.game.player.LeagueGamePlayer, com.kickoff.core.soccer.team.league.game.player.QLeagueGamePlayer> awayPlayers = this.<com.kickoff.core.soccer.team.league.game.player.LeagueGamePlayer, com.kickoff.core.soccer.team.league.game.player.QLeagueGamePlayer>createList("awayPlayers", com.kickoff.core.soccer.team.league.game.player.LeagueGamePlayer.class, com.kickoff.core.soccer.team.league.game.player.QLeagueGamePlayer.class, PathInits.DIRECT2);
+    public final ListPath<LeagueGamePlayer, com.kickoff.core.soccer.team.league.game.player.QLeagueGamePlayer> awayPlayers = this.<LeagueGamePlayer, com.kickoff.core.soccer.team.league.game.player.QLeagueGamePlayer>createList("awayPlayers", LeagueGamePlayer.class, com.kickoff.core.soccer.team.league.game.player.QLeagueGamePlayer.class, PathInits.DIRECT2);
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
@@ -37,7 +40,7 @@ public class QLeagueGame extends EntityPathBase<LeagueGame> {
 
     public final com.kickoff.core.soccer.team.league.QLeagueTeam home;
 
-    public final ListPath<com.kickoff.core.soccer.team.league.game.player.LeagueGamePlayer, com.kickoff.core.soccer.team.league.game.player.QLeagueGamePlayer> homePlayers = this.<com.kickoff.core.soccer.team.league.game.player.LeagueGamePlayer, com.kickoff.core.soccer.team.league.game.player.QLeagueGamePlayer>createList("homePlayers", com.kickoff.core.soccer.team.league.game.player.LeagueGamePlayer.class, com.kickoff.core.soccer.team.league.game.player.QLeagueGamePlayer.class, PathInits.DIRECT2);
+    public final ListPath<LeagueGamePlayer, com.kickoff.core.soccer.team.league.game.player.QLeagueGamePlayer> homePlayers = this.<LeagueGamePlayer, com.kickoff.core.soccer.team.league.game.player.QLeagueGamePlayer>createList("homePlayers", LeagueGamePlayer.class, com.kickoff.core.soccer.team.league.game.player.QLeagueGamePlayer.class, PathInits.DIRECT2);
 
     public final NumberPath<Long> leagueGameId = createNumber("leagueGameId", Long.class);
 

@@ -2,16 +2,15 @@ package com.kickoff.admin.service;
 
 import com.kickoff.admin.service.dto.*;
 import com.kickoff.core.soccer.player.Player;
-import com.kickoff.core.soccer.player.PlayerImage;
 import com.kickoff.core.soccer.player.dto.PlayerDTO;
 import com.kickoff.core.soccer.player.dto.PlayerSearchCondition;
 import com.kickoff.core.soccer.player.service.PlayerService;
 import com.kickoff.core.soccer.player.service.dto.CreatePlayerRequest;
-import com.kickoff.core.soccer.team.league.game.LeagueGameQuerydslRepository;
-import com.kickoff.core.soccer.team.league.game.dto.FindLeagueGameResponse;
-import com.kickoff.core.soccer.team.league.game.dto.GameSearchCondition;
-import com.kickoff.core.soccer.team.league.service.LeagueTeamService;
-import com.kickoff.core.soccer.team.league.service.dto.LeagueTeamDTO;
+import com.kickoff.core.soccer.league.game.LeagueGameQuerydslRepository;
+import com.kickoff.core.soccer.league.game.dto.FindLeagueGameResponse;
+import com.kickoff.core.soccer.league.game.dto.GameSearchCondition;
+import com.kickoff.core.soccer.league.service.LeagueTeamService;
+import com.kickoff.core.soccer.league.service.dto.LeagueTeamDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -19,7 +18,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor

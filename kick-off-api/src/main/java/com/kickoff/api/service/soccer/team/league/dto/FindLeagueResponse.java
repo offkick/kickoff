@@ -1,6 +1,6 @@
 package com.kickoff.api.service.soccer.team.league.dto;
 
-import com.kickoff.core.soccer.team.league.service.dto.LeagueDTO;
+import com.kickoff.core.soccer.league.service.dto.LeagueDTO;
 
 public record FindLeagueResponse(
         Long leagueId,
