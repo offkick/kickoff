@@ -52,7 +52,6 @@ public class CompetitionInsertJobConfig {
             {
                 JobParameters jobParameters = stepContext.getStepExecution().getJobParameters();
                 String competitions = jobParameters.getString("competitions");
-                log.info("competitions" + competitions);
                 competitionInsertService.insertCompetition(competitions);
             }
             return RepeatStatus.FINISHED;
