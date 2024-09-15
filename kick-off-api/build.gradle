@@ -8,7 +8,7 @@ repositories {
 
 dependencies {
     implementation project(':kick-off-core')
-    implementation 'co.elastic.clients:elasticsearch-java:8.4.3'
+//    implementation 'co.elastic.clients:elasticsearch-java:8.4.3'
     implementation 'jakarta.json:jakarta.json-api:2.0.1'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.1'
     implementation 'com.opencsv:opencsv:5.5'
