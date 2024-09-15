@@ -1,6 +1,7 @@
 package com.kickoff.batch.jobs;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.batch.core.BatchStatus;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobExecutionListener;
 import org.springframework.context.ApplicationContext;
@@ -22,6 +23,8 @@ public class JobCompletionEndListener implements JobExecutionListener {
     @Override
     public void afterJob(JobExecution jobExecution)
     {
-        System.exit(0);
+        if (jobExecution.getStatus() == BatchStatus.COMPLETED) {
+            System.exit(0);
+        }
     }
 }

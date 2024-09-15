@@ -72,6 +72,6 @@ public class MatchDetailInsertJobConfig {
 
     private LocalDate parseDateOrDefault(String date, LocalDate defaultDate)
     {
-        return date == null ? defaultDate : LocalDate.parse(Objects.requireNonNull(date));
+        return (date == null || date.isBlank())? defaultDate : LocalDate.parse(Objects.requireNonNull(date));
     }
 }

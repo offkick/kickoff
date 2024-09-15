@@ -53,16 +53,13 @@ public class DailyMatchInsertJobConfig {
     }
 
     @Bean
-    public Tasklet dailyMatchInsertTasklet()
-    {
+    public Tasklet dailyMatchInsertTasklet() {
         return (contribution, chunkContext) -> {
             log.info("[START] - dailyMatchInsertTasklet");
             JobParameters jobParameters = getJobParameters();
-
             LocalDate targetDateFrom = parseDateOrDefault(jobParameters.getString("targetDateFrom"), LocalDate.now().minusDays(1));
             LocalDate targetDateTo = parseDateOrDefault(jobParameters.getString("targetDateTo"), LocalDate.now());
             String competitions = (jobParameters.getString("competitions") == null || jobParameters.getString("competitions").isBlank()) ? "PL" : jobParameters.getString("competitions");
-
             if (competitions == null)
             {
                 throw new IllegalArgumentException("invalid parameter");
@@ -94,6 +91,6 @@ public class DailyMatchInsertJobConfig {
 
     private LocalDate parseDateOrDefault(String date, LocalDate defaultDate)
     {
-        return date == null ? defaultDate : LocalDate.parse(Objects.requireNonNull(date));
+        return (date == null || date.isBlank()) ? defaultDate : LocalDate.parse(Objects.requireNonNull(date));
     }
 }
