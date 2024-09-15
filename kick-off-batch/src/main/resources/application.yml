@@ -15,3 +15,11 @@ api:
 springdoc:
   swagger-ui:
     enabled: false
+logging:
+  level:
+    root: DEBUG
+    org:
+      apache.catalina: DEBUG
+  file:
+    path: /var/libs/batch/logs
+    name: batch.log
