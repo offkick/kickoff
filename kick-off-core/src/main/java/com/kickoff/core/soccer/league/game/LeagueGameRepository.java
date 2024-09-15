@@ -12,6 +12,7 @@ public interface LeagueGameRepository extends JpaRepository<LeagueGame, Long> {
 
     List<LeagueGame> findByGameDateBetween(LocalDateTime start, LocalDateTime end);
 
+
     List<LeagueGame> findBySeason(Season season);
 
     @Query("select g from LeagueGame g where g.home.league.leagueId = :leagueId and g.gameDate >= :start and g.gameDate <= :end ")

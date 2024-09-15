@@ -30,6 +30,15 @@ public class LeagueGameService {
                 .collect(Collectors.toList());
     }
 
+    public List<LeagueGameDTO> findByGameDateBetweenAndLeagueId(LocalDateTime start, LocalDateTime end, Long leagueId)
+    {
+        List<LeagueGame> byGameDateBetween = leagueGameRepository.findBySeasonBetween(leagueId, start, end);
+        return byGameDateBetween.stream()
+                .map(LeagueGameDTO::of)
+                .collect(Collectors.toList());
+    }
+
+
     public Optional<LeagueGameDTO> findById(Long leagueGameId)
     {
         LeagueGame leagueGame = leagueGameRepository.findById(leagueGameId).orElse(null);

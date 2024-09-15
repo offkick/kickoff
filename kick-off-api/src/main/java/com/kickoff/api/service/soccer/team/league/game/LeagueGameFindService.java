@@ -48,6 +48,18 @@ public class LeagueGameFindService {
         return DateLeagueGameResponse.of(leagueGames);
     }
 
+    public DateLeagueGameResponse findLeagueGameByDateAndLeagueId(LocalDate date, Long leagueId)
+    {
+        List<LeagueGameDTO> leagueGames = leagueGameService.findByGameDateBetweenAndLeagueId(
+                date.atStartOfDay(),
+                date.atTime(LocalTime.MAX),
+                leagueId
+        );
+
+        return DateLeagueGameResponse.of(leagueGames);
+    }
+
+
     public SeasonLeagueGameResponse findLeagueGameBySeason(Long leagueId, YearMonth yearMonth)
     {
         LocalDateTime startDateTime = yearMonth.atDay(1).atStartOfDay();
