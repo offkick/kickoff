@@ -4,6 +4,7 @@ import com.kickoff.batch.jobs.team.standing.service.StandingBatchService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
+import org.springframework.batch.core.JobExecutionListener;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.job.builder.JobBuilder;
@@ -27,12 +28,14 @@ import org.springframework.transaction.PlatformTransactionManager;
 public class StandingJogConfig {
     private final PlatformTransactionManager platformTransactionManager;
     private final StandingBatchService standingBatchService;
+    private final JobExecutionListener jobCompletionEndListener;
 
     @Bean
     public Job dailyStandingInfo(JobRepository jobRepository)
     {
         return new JobBuilder("dailyStandingInfoJob", jobRepository)
                 .preventRestart()
+                .listener(jobCompletionEndListener)
                 .incrementer(new RunIdIncrementer())
                 .start(dailyStandingInfoStep(jobRepository))
                 .build();

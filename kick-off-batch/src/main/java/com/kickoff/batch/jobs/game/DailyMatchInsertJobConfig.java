@@ -4,6 +4,7 @@ import com.kickoff.batch.jobs.game.service.DailyMatchResultInsertService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
+import org.springframework.batch.core.JobExecutionListener;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.job.builder.JobBuilder;
@@ -28,15 +29,16 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @Configuration
 public class DailyMatchInsertJobConfig {
-
     private final PlatformTransactionManager platformTransactionManager;
     private final DailyMatchResultInsertService dailyMatchResultInsertService;
+    private final JobExecutionListener jobCompletionEndListener;
 
     @Bean
     public Job dailyMatchInsertJob(JobRepository jobRepository)
     {
         return new JobBuilder("dailyMatchInsertJob", jobRepository)
                 .preventRestart()
+                .listener(jobCompletionEndListener)
                 .incrementer(new RunIdIncrementer())
                 .start(dailyMatchInsertStep(jobRepository))
                 .build();

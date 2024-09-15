@@ -4,6 +4,7 @@ import com.kickoff.batch.jobs.game.service.DailyMatchDetailInsertService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
+import org.springframework.batch.core.JobExecutionListener;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.StepScope;
@@ -31,12 +32,14 @@ import java.util.Objects;
 public class MatchDetailInsertJobConfig {
     private final PlatformTransactionManager platformTransactionManager;
     private final DailyMatchDetailInsertService dailyMatchDetailInsertService;
+    private final JobExecutionListener jobCompletionEndListener;
 
     @Bean
     public Job matchDetailInsertJob(JobRepository jobRepository)
     {
         return new JobBuilder("matchDetailInsertJob",jobRepository)
                 .preventRestart()
+                .listener(jobCompletionEndListener)
                 .incrementer(new RunIdIncrementer())
                 .start(matchDetailInsertJobStep(jobRepository))
                 .build();
