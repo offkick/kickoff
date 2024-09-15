@@ -1,10 +1,7 @@
-package com.kickoff.core.soccer.team.league.game;
+package com.kickoff.core.soccer.league.game;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
-import com.kickoff.core.soccer.league.game.LeagueGame;
-import com.kickoff.core.soccer.league.game.LeagueGameStatus;
-import com.kickoff.core.soccer.league.game.player.LeagueGamePlayer;
 import com.querydsl.core.types.dsl.*;
 
 import com.querydsl.core.types.PathMetadata;
@@ -19,7 +16,7 @@ import com.querydsl.core.types.dsl.PathInits;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QLeagueGame extends EntityPathBase<LeagueGame> {
 
-    private static final long serialVersionUID = -1289060601L;
+    private static final long serialVersionUID = 64384486L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
@@ -27,9 +24,9 @@ public class QLeagueGame extends EntityPathBase<LeagueGame> {
 
     public final com.kickoff.core.QBaseEntity _super = new com.kickoff.core.QBaseEntity(this);
 
-    public final com.kickoff.core.soccer.team.league.QLeagueTeam away;
+    public final com.kickoff.core.soccer.league.QLeagueTeam away;
 
-    public final ListPath<LeagueGamePlayer, com.kickoff.core.soccer.team.league.game.player.QLeagueGamePlayer> awayPlayers = this.<LeagueGamePlayer, com.kickoff.core.soccer.team.league.game.player.QLeagueGamePlayer>createList("awayPlayers", LeagueGamePlayer.class, com.kickoff.core.soccer.team.league.game.player.QLeagueGamePlayer.class, PathInits.DIRECT2);
+    public final ListPath<com.kickoff.core.soccer.league.game.player.LeagueGamePlayer, com.kickoff.core.soccer.league.game.player.QLeagueGamePlayer> awayPlayers = this.<com.kickoff.core.soccer.league.game.player.LeagueGamePlayer, com.kickoff.core.soccer.league.game.player.QLeagueGamePlayer>createList("awayPlayers", com.kickoff.core.soccer.league.game.player.LeagueGamePlayer.class, com.kickoff.core.soccer.league.game.player.QLeagueGamePlayer.class, PathInits.DIRECT2);
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
@@ -38,9 +35,9 @@ public class QLeagueGame extends EntityPathBase<LeagueGame> {
 
     public final ListPath<com.kickoff.core.soccer.team.Goal, com.kickoff.core.soccer.team.QGoal> goals = this.<com.kickoff.core.soccer.team.Goal, com.kickoff.core.soccer.team.QGoal>createList("goals", com.kickoff.core.soccer.team.Goal.class, com.kickoff.core.soccer.team.QGoal.class, PathInits.DIRECT2);
 
-    public final com.kickoff.core.soccer.team.league.QLeagueTeam home;
+    public final com.kickoff.core.soccer.league.QLeagueTeam home;
 
-    public final ListPath<LeagueGamePlayer, com.kickoff.core.soccer.team.league.game.player.QLeagueGamePlayer> homePlayers = this.<LeagueGamePlayer, com.kickoff.core.soccer.team.league.game.player.QLeagueGamePlayer>createList("homePlayers", LeagueGamePlayer.class, com.kickoff.core.soccer.team.league.game.player.QLeagueGamePlayer.class, PathInits.DIRECT2);
+    public final ListPath<com.kickoff.core.soccer.league.game.player.LeagueGamePlayer, com.kickoff.core.soccer.league.game.player.QLeagueGamePlayer> homePlayers = this.<com.kickoff.core.soccer.league.game.player.LeagueGamePlayer, com.kickoff.core.soccer.league.game.player.QLeagueGamePlayer>createList("homePlayers", com.kickoff.core.soccer.league.game.player.LeagueGamePlayer.class, com.kickoff.core.soccer.league.game.player.QLeagueGamePlayer.class, PathInits.DIRECT2);
 
     public final NumberPath<Long> leagueGameId = createNumber("leagueGameId", Long.class);
 
@@ -50,7 +47,7 @@ public class QLeagueGame extends EntityPathBase<LeagueGame> {
 
     public final com.kickoff.core.soccer.team.QScore score;
 
-    public final com.kickoff.core.soccer.team.league.QSeason season;
+    public final com.kickoff.core.soccer.league.QSeason season;
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> updatedAt = _super.updatedAt;
@@ -75,10 +72,10 @@ public class QLeagueGame extends EntityPathBase<LeagueGame> {
 
     public QLeagueGame(Class<? extends LeagueGame> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.away = inits.isInitialized("away") ? new com.kickoff.core.soccer.team.league.QLeagueTeam(forProperty("away"), inits.get("away")) : null;
-        this.home = inits.isInitialized("home") ? new com.kickoff.core.soccer.team.league.QLeagueTeam(forProperty("home"), inits.get("home")) : null;
+        this.away = inits.isInitialized("away") ? new com.kickoff.core.soccer.league.QLeagueTeam(forProperty("away"), inits.get("away")) : null;
+        this.home = inits.isInitialized("home") ? new com.kickoff.core.soccer.league.QLeagueTeam(forProperty("home"), inits.get("home")) : null;
         this.score = inits.isInitialized("score") ? new com.kickoff.core.soccer.team.QScore(forProperty("score")) : null;
-        this.season = inits.isInitialized("season") ? new com.kickoff.core.soccer.team.league.QSeason(forProperty("season")) : null;
+        this.season = inits.isInitialized("season") ? new com.kickoff.core.soccer.league.QSeason(forProperty("season")) : null;
     }
 
 }

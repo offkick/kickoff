@@ -1,8 +1,7 @@
-package com.kickoff.core.soccer.team.league;
+package com.kickoff.core.soccer.league;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
-import com.kickoff.core.soccer.league.Winner;
 import com.querydsl.core.types.dsl.*;
 
 import com.querydsl.core.types.PathMetadata;
@@ -16,7 +15,7 @@ import com.querydsl.core.types.Path;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QWinner extends EntityPathBase<Winner> {
 
-    private static final long serialVersionUID = -1666143115L;
+    private static final long serialVersionUID = -1498040650L;
 
     public static final QWinner winner = new QWinner("winner");
 

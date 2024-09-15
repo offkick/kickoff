@@ -1,8 +1,7 @@
-package com.kickoff.core.soccer.team.league;
+package com.kickoff.core.soccer.league;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
-import com.kickoff.core.soccer.league.Season;
 import com.querydsl.core.types.dsl.*;
 
 import com.querydsl.core.types.PathMetadata;
@@ -16,7 +15,7 @@ import com.querydsl.core.types.Path;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QSeason extends EntityPathBase<Season> {
 
-    private static final long serialVersionUID = -1784735975L;
+    private static final long serialVersionUID = -1616633510L;
 
     public static final QSeason season = new QSeason("season");
 

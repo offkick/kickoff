@@ -1,8 +1,7 @@
-package com.kickoff.core.soccer.team.league;
+package com.kickoff.core.soccer.league;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
-import com.kickoff.core.soccer.league.LeagueCode;
 import com.querydsl.core.types.dsl.*;
 
 import com.querydsl.core.types.PathMetadata;
@@ -16,7 +15,7 @@ import com.querydsl.core.types.Path;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QLeagueCode extends EntityPathBase<LeagueCode> {
 
-    private static final long serialVersionUID = -726833678L;
+    private static final long serialVersionUID = -458135629L;
 
     public static final QLeagueCode leagueCode1 = new QLeagueCode("leagueCode1");
 

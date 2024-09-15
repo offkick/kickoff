@@ -33,7 +33,7 @@ public class QPlayer extends EntityPathBase<Player> {
 
     public final BooleanPath isDeleted = createBoolean("isDeleted");
 
-    public final com.kickoff.core.soccer.team.league.QLeagueTeam leagueTeam;
+    public final com.kickoff.core.soccer.league.QLeagueTeam leagueTeam;
 
     public final StringPath national = createString("national");
 
@@ -45,7 +45,7 @@ public class QPlayer extends EntityPathBase<Player> {
 
     public final EnumPath<PlayerPosition> position = createEnum("position", PlayerPosition.class);
 
-    public final com.kickoff.core.soccer.team.league.QSeason season;
+    public final com.kickoff.core.soccer.league.QSeason season;
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> updatedAt = _super.updatedAt;
@@ -69,8 +69,8 @@ public class QPlayer extends EntityPathBase<Player> {
     public QPlayer(Class<? extends Player> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.contract = inits.isInitialized("contract") ? new QContract(forProperty("contract")) : null;
-        this.leagueTeam = inits.isInitialized("leagueTeam") ? new com.kickoff.core.soccer.team.league.QLeagueTeam(forProperty("leagueTeam"), inits.get("leagueTeam")) : null;
-        this.season = inits.isInitialized("season") ? new com.kickoff.core.soccer.team.league.QSeason(forProperty("season")) : null;
+        this.leagueTeam = inits.isInitialized("leagueTeam") ? new com.kickoff.core.soccer.league.QLeagueTeam(forProperty("leagueTeam"), inits.get("leagueTeam")) : null;
+        this.season = inits.isInitialized("season") ? new com.kickoff.core.soccer.league.QSeason(forProperty("season")) : null;
     }
 
 }

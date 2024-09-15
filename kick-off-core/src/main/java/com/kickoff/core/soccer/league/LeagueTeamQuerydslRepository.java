@@ -2,7 +2,6 @@ package com.kickoff.core.soccer.league;
 
 
 import com.kickoff.core.soccer.league.service.dto.TeamByLeagueDTO;
-import com.kickoff.core.soccer.team.league.QLeagueTeam;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;

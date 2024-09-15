@@ -28,7 +28,7 @@ public class QGoal extends EntityPathBase<Goal> {
 
     public final NumberPath<Integer> playTime = createNumber("playTime", Integer.class);
 
-    public final com.kickoff.core.soccer.team.league.QLeagueTeam scoredTeam;
+    public final com.kickoff.core.soccer.league.QLeagueTeam scoredTeam;
 
     public final EnumPath<GoalType> type = createEnum("type", GoalType.class);
 
@@ -51,7 +51,7 @@ public class QGoal extends EntityPathBase<Goal> {
     public QGoal(Class<? extends Goal> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.player = inits.isInitialized("player") ? new com.kickoff.core.soccer.player.QPlayer(forProperty("player"), inits.get("player")) : null;
-        this.scoredTeam = inits.isInitialized("scoredTeam") ? new com.kickoff.core.soccer.team.league.QLeagueTeam(forProperty("scoredTeam"), inits.get("scoredTeam")) : null;
+        this.scoredTeam = inits.isInitialized("scoredTeam") ? new com.kickoff.core.soccer.league.QLeagueTeam(forProperty("scoredTeam"), inits.get("scoredTeam")) : null;
     }
 
 }

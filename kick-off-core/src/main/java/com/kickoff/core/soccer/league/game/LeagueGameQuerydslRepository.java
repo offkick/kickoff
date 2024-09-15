@@ -2,9 +2,8 @@ package com.kickoff.core.soccer.league.game;
 
 import com.kickoff.core.soccer.league.game.dto.FindGameCond;
 import com.kickoff.core.soccer.league.game.dto.FindLeagueGameResponse;
-import com.kickoff.core.soccer.league.game.dto.GameSearchCondition;
-import com.kickoff.core.soccer.team.league.game.QLeagueGame;
 import com.kickoff.core.soccer.league.game.dto.FindLeagueGamesResponse;
+import com.kickoff.core.soccer.league.game.dto.GameSearchCondition;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -19,7 +18,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.kickoff.core.soccer.team.league.game.QLeagueGame.leagueGame;
+import static com.kickoff.core.soccer.league.game.QLeagueGame.leagueGame;
+
 
 @Transactional(readOnly = true)
 @Component
@@ -78,13 +78,13 @@ public class LeagueGameQuerydslRepository {
     {
         if (startDate != null && endDate != null)
         {
-            return QLeagueGame.leagueGame.gameDate.between(startDate.atStartOfDay(), endDate.atTime(23, 59, 59));
+            return leagueGame.gameDate.between(startDate.atStartOfDay(), endDate.atTime(23, 59, 59));
         } else if (startDate != null)
         {
-            return QLeagueGame.leagueGame.gameDate.goe(startDate.atStartOfDay());
+            return leagueGame.gameDate.goe(startDate.atStartOfDay());
         } else if (endDate != null)
         {
-            return QLeagueGame.leagueGame.gameDate.loe(endDate.atTime(23, 59, 59));
+            return leagueGame.gameDate.loe(endDate.atTime(23, 59, 59));
         } else
         {
             return null;

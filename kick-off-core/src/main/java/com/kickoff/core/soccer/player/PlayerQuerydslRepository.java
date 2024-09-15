@@ -1,15 +1,12 @@
 package com.kickoff.core.soccer.player;
 
-import com.kickoff.core.soccer.player.dto.PlayerDTO;
-import com.kickoff.core.soccer.team.league.QLeagueTeam;
+import com.kickoff.core.soccer.league.QLeagueTeam;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor

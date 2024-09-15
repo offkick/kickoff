@@ -1,9 +1,7 @@
-package com.kickoff.core.soccer.team.league;
+package com.kickoff.core.soccer.league;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
-import com.kickoff.core.soccer.league.LeagueGameStatic;
-import com.kickoff.core.soccer.league.game.LeagueGameStatus;
 import com.querydsl.core.types.dsl.*;
 
 import com.querydsl.core.types.PathMetadata;
@@ -17,7 +15,7 @@ import com.querydsl.core.types.Path;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QLeagueGameStatic extends EntityPathBase<LeagueGameStatic> {
 
-    private static final long serialVersionUID = -1502172859L;
+    private static final long serialVersionUID = 1799919174L;
 
     public static final QLeagueGameStatic leagueGameStatic = new QLeagueGameStatic("leagueGameStatic");
 
@@ -35,7 +33,7 @@ public class QLeagueGameStatic extends EntityPathBase<LeagueGameStatic> {
 
     public final NumberPath<Long> leagueGameStaticId = createNumber("leagueGameStaticId", Long.class);
 
-    public final EnumPath<LeagueGameStatus> leagueGameStatus = createEnum("leagueGameStatus", LeagueGameStatus.class);
+    public final EnumPath<com.kickoff.core.soccer.league.game.LeagueGameStatus> leagueGameStatus = createEnum("leagueGameStatus", com.kickoff.core.soccer.league.game.LeagueGameStatus.class);
 
     public final NumberPath<Long> seasonId = createNumber("seasonId", Long.class);
 

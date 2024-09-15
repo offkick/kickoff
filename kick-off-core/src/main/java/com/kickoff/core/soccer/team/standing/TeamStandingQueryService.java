@@ -1,6 +1,6 @@
 package com.kickoff.core.soccer.team.standing;
 
-import com.kickoff.core.soccer.team.league.QLeagueTeam;
+import com.kickoff.core.soccer.league.QLeagueTeam;
 import com.kickoff.core.soccer.league.service.LeagueService;
 import com.kickoff.core.soccer.league.service.dto.LeagueDTO;
 import com.kickoff.core.soccer.team.standing.dto.TeamStandingQueryResult;

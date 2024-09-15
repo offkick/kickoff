@@ -48,7 +48,6 @@ public class LeagueFindService {
     public LatestLeagueInfo latestLeagues()
     {
         // TODO
-        leagueService.findByLeagueName("PL")
         return null;
     }
 }
