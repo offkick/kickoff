@@ -59,5 +59,5 @@ logging:
     org:
       apache.catalina: DEBUG
   file:
-    path: /home/ubuntu/logs
-    name: prod.log
+    path: /var/libs/batch/logs
+    name: batch.log
