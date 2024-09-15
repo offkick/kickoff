@@ -34,7 +34,6 @@ for pid in $processes; do
 done
 
 echo "> $APPLICATION_JAR 배포"
-
 CURRENT_SERVER_ADDRESS=$(hostname -I)
 echo "> CURRENT_SERVER_ADDRESS : $CURRENT_SERVER_ADDRESS"
 

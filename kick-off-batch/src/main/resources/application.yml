@@ -5,6 +5,9 @@ spring:
   batch:
     jdbc:
       initialize-schema: always
+    job:
+      enabled: false
+      name: competitionInsertJob
 server:
   port: 8083
 api:
