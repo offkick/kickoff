@@ -2,8 +2,7 @@ package com.kickoff.batch.jobs.game.service;
 
 import com.kickoff.batch.config.feign.SoccerApiFeign;
 import com.kickoff.batch.config.feign.api.temp.Competitions;
-import com.kickoff.core.soccer.team.external.ExternalTeamIdMapping;
-import com.kickoff.core.soccer.team.external.ExternalTeamIdMappingRepository;
+import com.kickoff.batch.config.feign.api.temp.SeasonDTO;
 import com.kickoff.core.soccer.team.league.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,17 +26,17 @@ public class CompetitionInsertService {
     {
         Competitions competitionsData = soccerApiFeign.getCompetitionResponse(competitions);
 
-        List<com.kickoff.batch.config.feign.api.temp.Season> seasons = competitionsData.seasons();
+        List<SeasonDTO> seasons = competitionsData.seasons();
 
-        for(com.kickoff.batch.config.feign.api.temp.Season season : seasons)
+        for(SeasonDTO season : seasons)
         {
-
             LocalDate startDate = LocalDate.parse(season.startDate());
             String startYear= String.valueOf(startDate.getYear());
-            Season season1 = Season.builder().years(startYear).build();
+            Season findSeason = seasonRepository.findByYears(startYear).orElseThrow();
 
             Long winnerId = null;
-            if (season.winner() != null) {
+            if (season.winner() != null)
+            {
                 Long externalTeamId = (long)season.winner().id();
                 Winner winner = Winner.builder()
                         .winnerTeamName(season.winner().name())
@@ -49,12 +48,11 @@ public class CompetitionInsertService {
                 winnerId = null;
             }
 
-            seasonRepository.save(season1);
 
             League league = League.builder()
                     .leagueName(competitionsData.name())
                     .emblem(competitionsData.emblem())
-                    .season(season1)
+                    .season(findSeason)
                     .winnerId(winnerId)
                     .startDate(season.startDate())
                     .endDate(season.endDate())

@@ -9,7 +9,7 @@ public record Competitions(
         String code,
         String type,
         String emblem,
-        Season currentSeason,
-        List<Season> seasons
+        SeasonDTO currentSeason,
+        List<SeasonDTO> seasons
 ) {
 }

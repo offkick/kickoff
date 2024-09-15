@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.Step;
+import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.repository.JobRepository;
@@ -47,17 +48,15 @@ public class MatchDetailInsertJobConfig {
     }
 
     @Bean
+    @StepScope
     public Tasklet matchDetailInsertTasklet()
     {
         return (contribution, chunkContext)->{
             StepContext stepContext = StepSynchronizationManager.getContext();
-            if(stepContext!=null)
-            {
-                JobParameters jobParameters = stepContext.getStepExecution().getJobParameters();
-                String season = jobParameters.getString("season");
-                String competitions = jobParameters.getString("competitions");
-                dailyMatchDetailInsertService.insertMatchDetail(season, competitions);
-            }
+            JobParameters jobParameters = stepContext.getStepExecution().getJobParameters();
+            String season = jobParameters.getString("season");
+            String competitions = jobParameters.getString("competitions");
+            dailyMatchDetailInsertService.insertMatchDetail(season, competitions);
             return RepeatStatus.FINISHED;
         };
     }

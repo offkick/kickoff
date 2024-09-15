@@ -1,13 +1,11 @@
 package com.kickoff.batch.config.feign.api.temp;
 
-import com.kickoff.batch.config.feign.api.MatchesResultDetailResponse;
-
 import java.util.Date;
 import java.util.List;
 
 public record Match(Area area,
                         Competition competition,
-                        Season season,
+                        SeasonDTO season,
                         Integer id,
                         Date utcDate,
                         String status,

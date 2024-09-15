@@ -6,7 +6,7 @@ public record StandingResponse(
         Filters filters,
         Area area,
         Competition competition,
-        Season season,
+        SeasonDTO season,
         List<Standings> standings
 ) {
 }
