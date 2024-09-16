@@ -1,4 +1,4 @@
-package com.kickoff.batch.jobs;
+package com.kickoff.batch.config;
 
 import org.springframework.batch.core.JobExecutionListener;
 import org.springframework.context.ApplicationContext;

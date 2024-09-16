@@ -1,5 +1,6 @@
 package com.kickoff.batch.jobs.game;
 
+import com.kickoff.batch.config.UniqueRunIdIncrementer;
 import com.kickoff.batch.jobs.game.service.CompetitionInsertService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -8,7 +9,6 @@ import org.springframework.batch.core.JobExecutionListener;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.job.builder.JobBuilder;
-import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.scope.context.StepContext;
 import org.springframework.batch.core.scope.context.StepSynchronizationManager;
@@ -33,7 +33,7 @@ public class CompetitionInsertJobConfig {
         return new JobBuilder("competitionInsertJob", jobRepository)
                 .preventRestart()
                 .listener(jobCompletionEndListener)
-                .incrementer(new RunIdIncrementer())
+                .incrementer(new UniqueRunIdIncrementer())
                 .start(competitionInsertJobStep(jobRepository))
                 .build();
     }

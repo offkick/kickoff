@@ -1,5 +1,6 @@
 package com.kickoff.batch.jobs.game;
 
+import com.kickoff.batch.config.UniqueRunIdIncrementer;
 import com.kickoff.batch.jobs.game.service.DailyMatchResultInsertService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -8,7 +9,6 @@ import org.springframework.batch.core.JobExecutionListener;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.job.builder.JobBuilder;
-import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.scope.context.StepContext;
 import org.springframework.batch.core.scope.context.StepSynchronizationManager;
@@ -38,8 +38,8 @@ public class DailyMatchInsertJobConfig {
     {
         return new JobBuilder("dailyMatchInsertJob", jobRepository)
                 .preventRestart()
+                .incrementer(new UniqueRunIdIncrementer())
                 .listener(jobCompletionEndListener)
-                .incrementer(new RunIdIncrementer())
                 .start(dailyMatchInsertStep(jobRepository))
                 .build();
     }
@@ -60,6 +60,7 @@ public class DailyMatchInsertJobConfig {
             JobParameters jobParameters = getJobParameters();
             LocalDate targetDateFrom = parseDateOrDefault(jobParameters.getString("targetDateFrom"), LocalDate.now().minusDays(1));
             LocalDate targetDateTo = parseDateOrDefault(jobParameters.getString("targetDateTo"), LocalDate.now());
+            System.out.println("E = " + LocalDate.now());
             String competitions = (jobParameters.getString("competitions") == null || jobParameters.getString("competitions").isBlank()) ? "PL" : jobParameters.getString("competitions");
             if (competitions == null)
             {
