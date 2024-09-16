@@ -52,6 +52,7 @@ public class DailyMatchInsertJobConfig {
                 .build();
     }
 
+
     @Bean
     public Tasklet dailyMatchInsertTasklet() {
         return (contribution, chunkContext) -> {
