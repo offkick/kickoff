@@ -104,7 +104,7 @@ public class DailyMatchResultInsertService {
                 .map(mapping -> leagueTeamRepository.findById(mapping.getTeamId()))
                 .orElseGet(() ->
                 {
-                    log.info("Not Found League Team: {}, External Team ID: {}", teamName, externalTeamId);
+                    log.info("Not Found League Team: {}, External Team ID: {},  season ID: {}", teamName, externalTeamId, season);
                     return Optional.empty();
                 });
     }
@@ -122,15 +122,15 @@ public class DailyMatchResultInsertService {
      */
     private void updateExistingGame(MatchResultResponse.Match match, Score score)
     {
-        if (!match.status().equals("FINISHED"))
-        {
-            return;
-        }
-
         ExternalGameMapping externalGameMapping = externalGameMappingRepository.findByExternalGameId((long) match.id()).orElseThrow();
         LeagueGame leagueGame = leagueGameRepository.findById(externalGameMapping.getGameId()).orElseThrow();
-        leagueGame.endGame();
+        log.info("{leagueGame = }" +leagueGame +"{match status}"+ match.status());
+        leagueGame.setLeagueGameStatus(updateLeagueGameStatus(match.status()));
+
         leagueGame.setScore(score);
+
+        leagueGameRepository.save(leagueGame);
+
     }
 
     /**
@@ -176,6 +176,20 @@ public class DailyMatchResultInsertService {
     private LocalDateTime convertToGameDateTime(Instant instant)
     {
         return instant.atZone(ZoneId.systemDefault()).toLocalDateTime();
+    }
+
+    private LeagueGameStatus updateLeagueGameStatus(String status)
+    {
+        switch (status){
+            case "GAMING":
+                return LeagueGameStatus.GAMING;
+            case "CANCELED":
+                return LeagueGameStatus.CANCELED;
+            case "BEFORE":
+                return LeagueGameStatus.BEFORE;
+            default:
+                return LeagueGameStatus.END;
+        }
     }
 
     /**
