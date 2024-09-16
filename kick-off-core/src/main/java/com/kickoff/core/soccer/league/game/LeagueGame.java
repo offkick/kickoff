@@ -49,6 +49,7 @@ public class LeagueGame extends BaseEntity {
     private Score score;
 
     @Enumerated(EnumType.STRING)
+    @Setter
     private LeagueGameStatus leagueGameStatus;
 
     @ManyToOne(fetch = FetchType.LAZY)
