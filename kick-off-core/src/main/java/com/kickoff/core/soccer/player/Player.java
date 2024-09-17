@@ -22,6 +22,7 @@ public class Player extends BaseEntity {
     private String national;
 
     private String playerName;
+    private String playerKrName;
 
     @Enumerated(EnumType.STRING)
     private PlayerPosition position;
@@ -49,7 +50,7 @@ public class Player extends BaseEntity {
             Long playerId,
             String national,
             String playerName,
-            PlayerPosition position,
+            String playerKrName, PlayerPosition position,
             LeagueTeam leagueTeam,
             String birth,
             Season season,
@@ -57,6 +58,7 @@ public class Player extends BaseEntity {
         this.playerId = playerId;
         this.national = national;
         this.playerName = playerName;
+        this.playerKrName = playerKrName;
         this.position = position;
         this.leagueTeam = leagueTeam;
         this.birth = birth;

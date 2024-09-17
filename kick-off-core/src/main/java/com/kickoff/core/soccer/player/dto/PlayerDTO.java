@@ -20,7 +20,7 @@ public record PlayerDTO(
         return new PlayerDTO(
                 player.getPlayerId(),
                 player.getNational(),
-                player.getPlayerName(),
+                player.getPlayerKrName(),
                 player.getPosition(),
                 player.getLeagueTeam().getLeagueTeamName(),
                 player.getLeagueTeam().getLeagueTeamId(),
