@@ -1,3 +1,6 @@
+jwt:
+  secret-key: 56ab0682dda585b2997d3871c0921fb6929ef195501ab98b18c6870bdc808970fb041463f6792ae02a4c7458bc3e375095a03508f3bb2925eddf618a56d41540
+---
 spring:
   config:
     activate:
@@ -15,3 +18,41 @@ spring:
       hibernate:
         format_sql: true
     defer-datasource-initialization: true
+logging:
+  level:
+    root: info
+  file:
+    path: ./logs
+    name: local.log
+server:
+  tomcat:
+    basedir: ./logs
+    accesslog:
+      enabled: true
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    url: jdbc:mysql://ec2-3-36-78-202.ap-northeast-2.compute.amazonaws.com:3306/kick_off?createDatabaseIfNotExist=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: master
+    password: master1234
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    defer-datasource-initialization: true
+
+logging:
+  level:
+    root: info
+    org:
+      apache.catalina: info
+  file:
+    path: /var/apps/logs
+    name: app.log
