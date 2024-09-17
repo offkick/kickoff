@@ -122,15 +122,17 @@ public class DailyMatchResultInsertService {
      */
     private void updateExistingGame(MatchResultResponse.Match match, Score score)
     {
-        if (!match.status().equals("FINISHED"))
-        {
-            return;
-        }
 
         ExternalGameMapping externalGameMapping = externalGameMappingRepository.findByExternalGameId((long) match.id()).orElseThrow();
         LeagueGame leagueGame = leagueGameRepository.findById(externalGameMapping.getGameId()).orElseThrow();
-        leagueGame.endGame();
+        log.info("{leagueGame = }" +leagueGame +"{match status}"+ match.status());
+
+        leagueGame.updateGameStatue(match.status());
+
         leagueGame.setScore(score);
+
+        leagueGameRepository.save(leagueGame);
+
     }
 
     /**
