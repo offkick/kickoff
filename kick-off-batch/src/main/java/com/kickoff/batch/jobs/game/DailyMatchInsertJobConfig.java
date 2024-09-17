@@ -60,7 +60,6 @@ public class DailyMatchInsertJobConfig {
             JobParameters jobParameters = getJobParameters();
             LocalDate targetDateFrom = parseDateOrDefault(jobParameters.getString("targetDateFrom"), LocalDate.now().minusDays(1));
             LocalDate targetDateTo = parseDateOrDefault(jobParameters.getString("targetDateTo"), LocalDate.now());
-            System.out.println("E = " + LocalDate.now());
             String competitions = (jobParameters.getString("competitions") == null || jobParameters.getString("competitions").isBlank()) ? "PL" : jobParameters.getString("competitions");
             if (competitions == null)
             {

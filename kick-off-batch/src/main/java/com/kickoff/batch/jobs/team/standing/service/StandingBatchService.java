@@ -37,12 +37,12 @@ public class StandingBatchService {
         League league = leagueRepository.findByLeagueNameAndSeason(competition, findSeason).orElseThrow();
 
         try {
-            StandingResponse standingResponse = soccerApiFeign.getStandings(seasonYears, competition);
+            StandingResponse standingResponse = soccerApiFeign.getStandings(seasonYears, competition, null);
             int currentMatchDay = standingResponse.season().currentMatchday();
 
             for (long matchday = 1; matchday <= currentMatchDay; matchday++)
             {
-                processStandingResponse(standingResponse, seasonYears, matchday, league);
+                processStandingResponse(seasonYears, matchday, league, competition);
             }
 
         } catch (Exception e) {
@@ -50,8 +50,9 @@ public class StandingBatchService {
         }
     }
 
-    private void processStandingResponse(StandingResponse standingResponse, String season, Long matchDay, League league)
+    private void processStandingResponse(String season, Long matchDay, League league, String competition)
     {
+        StandingResponse standingResponse = soccerApiFeign.getStandings(season, competition, matchDay);
         for (Standings standing : standingResponse.standings())
         {
             if (!"TOTAL".equals(standing.type()))
@@ -69,7 +70,7 @@ public class StandingBatchService {
 
         Optional<ExternalTeamIdMapping> externalTeamIdMappingOpt = externalTeamIdMappingRepository
                 .findByExternalTeamIdAndSeason((long) externalTeamId, season);
-
+        log.info("table: {}/{}/{}, season : {}, matchDay : {}", table.won(), table.draw(), table.lost(), season, matchDay);
         externalTeamIdMappingOpt.ifPresentOrElse(
                 externalTeamIdMapping -> saveTeamStanding(table, season, matchDay, league, externalTeamIdMapping.getTeamId()),
                 () -> log.warn("외부 팀 ID 매핑을 찾을 수 없음: externalTeamId={}", externalTeamId)
@@ -78,7 +79,7 @@ public class StandingBatchService {
 
     private void saveTeamStanding(Standings.Table table, String season, Long matchDay, League league, Long teamId)
     {
-        if (teamStandingRepository.existsBySeasonAndRoundAndLeagueId(season, matchDay, league.getLeagueId()))
+        if (teamStandingRepository.existsByTeamIdAndSeasonAndRoundAndLeagueId(teamId, season, matchDay, league.getLeagueId()))
         {
             return;
         }

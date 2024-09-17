@@ -8,7 +8,8 @@ public class UniqueRunIdIncrementer extends RunIdIncrementer {
     private static final String RUN_ID = "run.id";
 
     @Override
-    public JobParameters getNext(JobParameters parameters) {
+    public JobParameters getNext(JobParameters parameters)
+    {
         JobParameters params = (parameters == null) ? new JobParameters() : parameters;
         return new JobParametersBuilder()
                 .addLong(RUN_ID, params.getLong(RUN_ID, 0L) + 1)

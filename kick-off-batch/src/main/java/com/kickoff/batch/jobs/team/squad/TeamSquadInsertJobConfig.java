@@ -81,14 +81,7 @@ public class TeamSquadInsertJobConfig {
             throw new IllegalStateException("StepContext not available");
         }
 
-        JobParameters jobParameters = stepContext.getStepExecution().getJobParameters();
-        if (jobParameters == null)
-        {
-            log.error("[Error] JobParameters is null.");
-            throw new IllegalStateException("JobParameters not found");
-        }
-
-        return jobParameters;
+        return stepContext.getStepExecution().getJobParameters();
     }
 
     private void validateJobParameters(String competition, String year)

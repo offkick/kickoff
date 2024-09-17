@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface TeamStandingRepository extends JpaRepository<TeamStanding, Long> {
     boolean existsBySeasonAndRound(String season, long round);
-    boolean existsBySeasonAndRoundAndLeagueId(String season, long round, Long leagueId);
+    boolean existsByTeamIdAndSeasonAndRoundAndLeagueId(Long teamId, String season, long round, Long leagueId);
     List<TeamStanding> findBySeason(String season);
     List<TeamStanding> findBySeasonAndRound(String season, Long round);
 }

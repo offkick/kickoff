@@ -42,7 +42,8 @@ public interface SoccerApiFeign {
     @GetMapping("/v4/competitions/{competitions}/standings")
     StandingResponse getStandings(
             @RequestParam(name = "season") String season,
-            @PathVariable(name = "competitions") String competitions
+            @PathVariable(name = "competitions") String competitions,
+            @RequestParam(required = false, name = "matchday") Long matchday
     );
 
     @GetMapping("/v4/matches/{matchId}")
