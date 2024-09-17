@@ -134,6 +134,23 @@ public class LeagueGame extends BaseEntity {
             throw new IllegalArgumentException("팀이 다름");
         }
     }
+    public void updateGameStatue(String status){
+        LeagueGameStatus leagueGameStatus1 = updateStatus(status);
+        this.leagueGameStatus = leagueGameStatus1;
+    }
+    private LeagueGameStatus updateStatus(String status)
+    {
+        switch (status){
+            case "GAMING":
+                return LeagueGameStatus.GAMING;
+            case "CANCELED":
+                return LeagueGameStatus.CANCELED;
+            case "BEFORE":
+                return LeagueGameStatus.BEFORE;
+            default:
+                return LeagueGameStatus.END;
+        }
+    }
 
     public void endGame()
     {
