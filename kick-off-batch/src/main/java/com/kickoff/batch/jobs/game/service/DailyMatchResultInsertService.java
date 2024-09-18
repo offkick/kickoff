@@ -122,13 +122,10 @@ public class DailyMatchResultInsertService {
      */
     private void updateExistingGame(MatchResultResponse.Match match, Score score)
     {
-
         ExternalGameMapping externalGameMapping = externalGameMappingRepository.findByExternalGameId((long) match.id()).orElseThrow();
         LeagueGame leagueGame = leagueGameRepository.findById(externalGameMapping.getGameId()).orElseThrow();
         log.info("{leagueGame = }" +leagueGame +"{match status}"+ match.status());
-
         leagueGame.updateGameStatue(match.status());
-
         leagueGame.setScore(score);
 
         leagueGameRepository.save(leagueGame);
