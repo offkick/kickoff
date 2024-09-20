@@ -161,7 +161,6 @@ public class LeagueGameQuerydslRepositoryTest {
                 LeagueGame.builder()
                         .leagueGameStatus(LeagueGameStatus.GAMING)
                         .gameDate(LocalDate.of(2024, 11, 24).atStartOfDay())
-                        .count(2)
                         .away(awayTeam)
                         .home(homeTeam)
                         .score(score)

@@ -45,9 +45,10 @@ public class LeagueFindService {
         };
     }
 
-    public LatestLeagueInfo latestLeagues()
+    public List<LatestLeagueInfo> latestLeagues()
     {
-        // TODO
-        return null;
+        return leagueService.findLatestLeague().stream()
+                .map(dto -> new LatestLeagueInfo(dto.leagueName(), dto.leagueId()))
+                .collect(Collectors.toList());
     }
 }
