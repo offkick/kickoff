@@ -2,6 +2,7 @@ package com.kickoff.core.soccer.league.service;
 
 import com.kickoff.core.soccer.league.League;
 import com.kickoff.core.soccer.league.LeagueRepository;
+import com.kickoff.core.soccer.league.dto.LatestLeagueDTO;
 import com.kickoff.core.soccer.league.service.dto.LeagueDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -40,5 +41,10 @@ public class LeagueService {
     {
         League league = leagueRepository.findByLeagueName(name).orElseThrow();
         return LeagueDTO.of(league);
+    }
+
+    public List<LatestLeagueDTO> findLatestLeague()
+    {
+        return leagueRepository.findLatestLeague();
     }
 }

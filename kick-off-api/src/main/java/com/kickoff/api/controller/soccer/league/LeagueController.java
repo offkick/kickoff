@@ -56,7 +56,7 @@ public class LeagueController {
     }
 
     @GetMapping("/league/latest")
-    public LatestLeagueInfo latestLeagues()
+    public List<LatestLeagueInfo> latestLeagues()
     {
         return leagueFindService.latestLeagues();
     }
