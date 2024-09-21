@@ -1,4 +1,4 @@
-package com.kickoff.api.config;
+package com.kickoff.core.config.security.config;
 
 import com.google.gson.Gson;
 import com.kickoff.core.config.security.CustomUserDetailsService;
@@ -50,7 +50,12 @@ public class JWTCheckFilter extends OncePerRequestFilter {
                 "/api/league-game",
                 "/api/post/search",
                 "/api/league/",
-                "/api/league"
+                "/**",
+                "/oauth2/authorization/google",
+                "/api/oauth2/authorization/google",
+                "/login/oauth2/code/google",
+                "/api/auth/social",
+
         };
         String path = request.getRequestURI();
         return Arrays.stream(excludePath).anyMatch(path::startsWith);

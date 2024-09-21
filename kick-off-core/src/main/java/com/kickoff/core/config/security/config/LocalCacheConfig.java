@@ -1,4 +1,4 @@
-package com.kickoff.api.config;
+package com.kickoff.core.config.security.config;
 
 import org.springframework.context.annotation.Configuration;
 

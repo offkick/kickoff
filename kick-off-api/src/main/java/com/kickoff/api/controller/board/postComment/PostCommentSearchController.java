@@ -5,7 +5,10 @@ import com.kickoff.core.board.postcomment.PostCommentRepository;
 import com.kickoff.core.config.security.AuthUtil;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @Tag(name = "댓글 조회 컨트롤러", description = "댓글 조회")
 @RequiredArgsConstructor

@@ -8,10 +8,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "Auth", description = "Auth")
 @RequiredArgsConstructor
@@ -27,6 +24,13 @@ public class AuthController {
         return AuthenticationApiResponse.of(
                 authService.authentication(AuthenticationRequest.of(request.email(), request.password()))
         );
+    }
+
+    @GetMapping("/social")
+    public String token(@RequestParam(value = "accessToken") String accessToken)
+    {
+        System.out.println("QWEQWEEWQEQWEEQWEQEWQEQWEQEEWQE");
+        return accessToken;
     }
 
     @PostMapping("/validate")

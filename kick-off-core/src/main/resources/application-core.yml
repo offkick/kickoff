@@ -5,6 +5,16 @@ spring:
   config:
     activate:
       on-profile: local
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 204538173899-dmsvi4gb0oag586hvm6morsqirk73d1q.apps.googleusercontent.com
+            client-secret: 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
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            scope:
+              - email
   datasource:
     url: jdbc:mysql://ec2-3-36-78-202.ap-northeast-2.compute.amazonaws.com:3306/kick_off?createDatabaseIfNotExist=true
     driver-class-name: com.mysql.cj.jdbc.Driver
