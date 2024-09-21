@@ -4,6 +4,7 @@ import com.kickoff.core.config.security.PrincipalDetails;
 import com.kickoff.core.member.Member;
 import com.kickoff.core.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
@@ -23,13 +25,16 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
     {
         Map<String, Object> oAuth2UserAttributes = super.loadUser(userRequest).getAttributes();
 
+        log.info("tr = " + oAuth2UserAttributes);
         String registrationId = userRequest.getClientRegistration().getRegistrationId();
 
+        log.info("registrationId = " + registrationId);
         String userNameAttributeName = userRequest.getClientRegistration().getProviderDetails()
                 .getUserInfoEndpoint().getUserNameAttributeName();
 
+        log.info("userNameAttributeName = " + userNameAttributeName);
         OAuth2UserInfo oAuth2UserInfo = OAuth2UserInfo.of(registrationId, oAuth2UserAttributes);
-
+        log.info("oAuth2UserInfo = " + oAuth2UserInfo);
 
         return new PrincipalDetails(getOrSave(oAuth2UserInfo), oAuth2UserAttributes, userNameAttributeName);
     }

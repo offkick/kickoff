@@ -78,3 +78,49 @@
 [2024-09-22 02:04:20:4791] INFO  26882 --- [           main] o.a.coyote.http11.Http11NioProtocol      : Starting ProtocolHandler ["http-nio-8081"]
 [2024-09-22 02:04:20:4799] INFO  26882 --- [           main] o.s.b.w.e.tomcat.TomcatWebServer         : Tomcat started on port(s): 8081 (http) with context path ''
 [2024-09-22 02:04:20:4804] INFO  26882 --- [           main] com.kickoff.KickOffApiApplication        : Started KickOffApiApplication in 4.755 seconds (process running for 4.961)
+[2024-09-22 02:33:32:1756401] INFO  26882 --- [nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2024-09-22 02:33:32:1756402] INFO  26882 --- [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+[2024-09-22 02:33:32:1756412] INFO  26882 --- [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 10 ms
+[2024-09-22 02:33:39:1763929] INFO  26882 --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+[2024-09-22 02:33:39:1763931] INFO  26882 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+[2024-09-22 02:33:39:1764008] INFO  26882 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+[2024-09-22 02:33:42:353] INFO  27550 --- [kground-preinit] o.h.validator.internal.util.Version      : HV000001: Hibernate Validator 8.0.1.Final
+[2024-09-22 02:33:42:378] INFO  27550 --- [           main] com.kickoff.KickOffApiApplication        : Starting KickOffApiApplication using Java 17.0.6 with PID 27550 (/Users/sangyoon/Desktop/socc/kickoff/kick-off-api/build/classes/java/main started by sangyoon in /Users/sangyoon/Desktop/socc/kickoff)
+[2024-09-22 02:33:42:378] INFO  27550 --- [           main] com.kickoff.KickOffApiApplication        : The following 2 profiles are active: "core", "prod"
+[2024-09-22 02:33:42:729] INFO  27550 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+[2024-09-22 02:33:42:775] INFO  27550 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 43 ms. Found 30 JPA repository interfaces.
+[2024-09-22 02:33:43:1226] INFO  27550 --- [           main] o.s.b.w.e.tomcat.TomcatWebServer         : Tomcat initialized with port(s): 8081 (http)
+[2024-09-22 02:33:43:1237] INFO  27550 --- [           main] o.a.coyote.http11.Http11NioProtocol      : Initializing ProtocolHandler ["http-nio-8081"]
+[2024-09-22 02:33:43:1238] INFO  27550 --- [           main] o.a.catalina.core.StandardService        : Starting service [Tomcat]
+[2024-09-22 02:33:43:1238] INFO  27550 --- [           main] o.a.catalina.core.StandardEngine         : Starting Servlet engine: [Apache Tomcat/10.1.15]
+[2024-09-22 02:33:43:1280] INFO  27550 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+[2024-09-22 02:33:43:1280] INFO  27550 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 875 ms
+[2024-09-22 02:33:43:1372] INFO  27550 --- [           main] o.h.jpa.internal.util.LogHelper          : HHH000204: Processing PersistenceUnitInfo [name: default]
+[2024-09-22 02:33:43:1395] INFO  27550 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.2.13.Final
+[2024-09-22 02:33:43:1396] INFO  27550 --- [           main] org.hibernate.cfg.Environment            : HHH000406: Using bytecode reflection optimizer
+[2024-09-22 02:33:43:1508] INFO  27550 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+[2024-09-22 02:33:43:1518] INFO  27550 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+[2024-09-22 02:33:43:1772] INFO  27550 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3c5e4aac
+[2024-09-22 02:33:43:1773] INFO  27550 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+[2024-09-22 02:33:44:2574] INFO  27550 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+[2024-09-22 02:33:45:3638] INFO  27550 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+[2024-09-22 02:33:45:3807] INFO  27550 --- [           main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+[2024-09-22 02:33:46:4661] WARN  27550 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+[2024-09-22 02:33:46:4720] INFO  27550 --- [           main] c.k.c.c.s.c.CustomSecurityConfig         : ---- security config -----
+[2024-09-22 02:33:46:4769] INFO  27550 --- [           main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@7df7cc64, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@431c2020, org.springframework.security.web.context.SecurityContextHolderFilter@194e913b, org.springframework.security.web.header.HeaderWriterFilter@7dca6126, org.springframework.web.filter.CorsFilter@701dbfbd, org.springframework.security.web.authentication.logout.LogoutFilter@637721f4, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@5e0bf895, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@467465c, com.kickoff.core.config.security.config.JWTCheckFilter@635791b7, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@15d301f2, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@46f31564, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@dd909bb, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5cf81e6e, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5246532, org.springframework.security.web.session.SessionManagementFilter@5727a03d, org.springframework.security.web.access.ExceptionTranslationFilter@374d09fa]
+[2024-09-22 02:33:47:5186] WARN  27550 --- [           main] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/static/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+[2024-09-22 02:33:47:5186] INFO  27550 --- [           main] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/static/**']
+[2024-09-22 02:33:47:5186] WARN  27550 --- [           main] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/swagger-resources/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+[2024-09-22 02:33:47:5186] INFO  27550 --- [           main] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/swagger-resources/**']
+[2024-09-22 02:33:47:5186] WARN  27550 --- [           main] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/swagger-ui/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+[2024-09-22 02:33:47:5186] INFO  27550 --- [           main] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/swagger-ui/**']
+[2024-09-22 02:33:47:5186] WARN  27550 --- [           main] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/api-docs']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+[2024-09-22 02:33:47:5186] INFO  27550 --- [           main] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/api-docs']
+[2024-09-22 02:33:47:5186] WARN  27550 --- [           main] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/webjars/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+[2024-09-22 02:33:47:5186] INFO  27550 --- [           main] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/webjars/**']
+[2024-09-22 02:33:47:5208] INFO  27550 --- [           main] o.a.coyote.http11.Http11NioProtocol      : Starting ProtocolHandler ["http-nio-8081"]
+[2024-09-22 02:33:47:5219] INFO  27550 --- [           main] o.s.b.w.e.tomcat.TomcatWebServer         : Tomcat started on port(s): 8081 (http) with context path ''
+[2024-09-22 02:33:47:5223] INFO  27550 --- [           main] com.kickoff.KickOffApiApplication        : Started KickOffApiApplication in 5.151 seconds (process running for 5.569)
+[2024-09-22 02:33:50:9011] INFO  27550 --- [nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2024-09-22 02:33:50:9011] INFO  27550 --- [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+[2024-09-22 02:33:50:9013] INFO  27550 --- [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
