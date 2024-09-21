@@ -89,7 +89,7 @@ public class CustomSecurityConfig {
 
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         http://*.example.com"));
-        corsConfiguration.setAllowedOriginPatterns(List.of("http://*.amazonaws.com"));  // 서브도메인 패턴 허용
+        corsConfiguration.setAllowedOriginPatterns(List.of("https://soccer-community-p-c.netlify.app"));  // 서브도메인 패턴 허용
         corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS"));
         corsConfiguration.setAllowedHeaders(List.of("*"));
         corsConfiguration.setExposedHeaders(List.of("*"));

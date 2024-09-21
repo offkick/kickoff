@@ -32,14 +32,6 @@ spring:
 logging:
   level:
     root: info
-#  file:
-#    path: ./logs
-#    name: local.log
-#server:
-#  tomcat:
-#    basedir: ./logs
-#    accesslog:
-#      enabled: true
 ---
 spring:
   config:
@@ -64,6 +56,3 @@ logging:
     root: info
     org:
       apache.catalina: info
-#  file:
-#    path: /var/apps/logs
-#    name: app.log
