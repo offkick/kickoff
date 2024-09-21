@@ -20,6 +20,6 @@ logging:
     root: info
     org:
       apache.catalina: info
-  file:
-    path: /var/libs/batch/logs
-    name: batch.log
+#  file:
+#    path: /var/libs/batch/logs
+#    name: batch.log
