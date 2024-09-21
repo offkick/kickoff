@@ -55,7 +55,8 @@ public class JWTCheckFilter extends OncePerRequestFilter {
                 "/api/oauth2/authorization/google",
                 "/login/oauth2/code/google",
                 "/api/auth/social",
-                "/login"
+                "/login",
+                "/"
 
         };
         String path = request.getRequestURI();
