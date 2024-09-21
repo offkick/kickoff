@@ -38,5 +38,5 @@ CURRENT_SERVER_ADDRESS=$(hostname -I)
 echo "> CURRENT_SERVER_ADDRESS : $CURRENT_SERVER_ADDRESS"
 
 echo "> 개발서버이므로 개발 환경으로 배포합니다."
-java -jar -Duser.timezone="Asia/Seoul" -Dspring.profiles.active=prod $BUILD_PATH > /dev/null 2> /dev/null < /dev/null &
+java -jar -Duser.timezone="Asia/Seoul" -Dspring.profiles.active=prod /home/ubuntu/kickoff/kick-off-api/build/kick-off-api-0.0.1-SNAPSHOT.jar &
 echo "> 서버가 성공적으로 배포되었습니다. "
