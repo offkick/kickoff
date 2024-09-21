@@ -84,7 +84,23 @@ public class StandingBatchService {
             return;
         }
 
-        TeamStanding teamStanding = TeamStanding.builder()
+        TeamStanding teamStanding = teamStandingRepository.findByTeamIdAndSeasonAndRoundAndLeagueId(teamId, season, matchDay, league.getLeagueId()).orElse(
+                TeamStanding.builder()
+                        .ranks(table.position())
+                        .leagueId(league.getLeagueId())
+                        .round(matchDay)
+                        .teamId(teamId)
+                        .draw(table.draw())
+                        .won(table.won())
+                        .goalsAgainst(table.goalsAgainst())
+                        .points(table.points())
+                        .goalsFor(table.goalsFor())
+                        .season(season)
+                        .lost(table.lost())
+                        .build()
+        );
+
+        teamStanding.update(TeamStanding.builder()
                 .ranks(table.position())
                 .leagueId(league.getLeagueId())
                 .round(matchDay)
@@ -96,7 +112,7 @@ public class StandingBatchService {
                 .goalsFor(table.goalsFor())
                 .season(season)
                 .lost(table.lost())
-                .build();
+                .build());
 
         teamStandingRepository.save(teamStanding);
         log.info("순위 정보 저장 완료: 팀 ID={}, 시즌= {}, 라운드= {}", teamId, season, matchDay);

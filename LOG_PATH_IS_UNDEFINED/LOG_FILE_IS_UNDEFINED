@@ -277,3 +277,7 @@
 [2024-09-22 03:59:43:1057545] INFO  29208 --- [nio-8081-exec-6] c.k.c.c.s.o.PrincipalOauth2UserService   : registrationId = google
 [2024-09-22 03:59:43:1057545] INFO  29208 --- [nio-8081-exec-6] c.k.c.c.s.o.PrincipalOauth2UserService   : userNameAttributeName = sub
 [2024-09-22 03:59:43:1057545] INFO  29208 --- [nio-8081-exec-6] c.k.c.c.s.o.PrincipalOauth2UserService   : oAuth2UserInfo = OAuth2UserInfo[name=null, email=sagada1628@gmail.com, profile=https://lh3.googleusercontent.com/a-/ALV-UjWAmgjJOCqCSZSgjATcq13wEloqkvdAqBh1qlX-CojBkcfSpg=s96-c]
+[2024-09-22 04:11:10:1744953] INFO  29208 --- [nio-8081-exec-6] c.k.c.c.s.o.PrincipalOauth2UserService   : tr = {sub=116807251150985758400, picture=https://lh3.googleusercontent.com/a-/ALV-UjWAmgjJOCqCSZSgjATcq13wEloqkvdAqBh1qlX-CojBkcfSpg=s96-c, email=sagada1628@gmail.com, email_verified=true}
+[2024-09-22 04:11:10:1744956] INFO  29208 --- [nio-8081-exec-6] c.k.c.c.s.o.PrincipalOauth2UserService   : registrationId = google
+[2024-09-22 04:11:10:1744957] INFO  29208 --- [nio-8081-exec-6] c.k.c.c.s.o.PrincipalOauth2UserService   : userNameAttributeName = sub
+[2024-09-22 04:11:10:1744957] INFO  29208 --- [nio-8081-exec-6] c.k.c.c.s.o.PrincipalOauth2UserService   : oAuth2UserInfo = OAuth2UserInfo[name=null, email=sagada1628@gmail.com, profile=https://lh3.googleusercontent.com/a-/ALV-UjWAmgjJOCqCSZSgjATcq13wEloqkvdAqBh1qlX-CojBkcfSpg=s96-c]

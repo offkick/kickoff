@@ -34,15 +34,6 @@ public class CustomSecurityConfig {
     @Bean
     public WebSecurityCustomizer configure(){
         return (web) -> web.ignoring()
-//                .requestMatchers(AntPathRequestMatcher.antMatcher("/static/**"))
-//                .requestMatchers(AntPathRequestMatcher.antMatcher("/login"))
-//                .requestMatchers(AntPathRequestMatcher.antMatcher("/signup"))
-//                .requestMatchers(AntPathRequestMatcher.antMatcher("/swagger-resources/**"))
-//                .requestMatchers(AntPathRequestMatcher.antMatcher("/swagger-ui/**"))
-//                .requestMatchers(AntPathRequestMatcher.antMatcher( "/api-docs"))
-//                .requestMatchers(AntPathRequestMatcher.antMatcher("/webjars/**"))
-//                .requestMatchers(AntPathRequestMatcher.antMatcher("/"))
-//                .requestMatchers(AntPathRequestMatcher.antMatcher("/admin"))
                 .requestMatchers(AntPathRequestMatcher.antMatcher("/static/**"))
                 .requestMatchers(AntPathRequestMatcher.antMatcher("/swagger-resources/**"))
                 .requestMatchers(AntPathRequestMatcher.antMatcher("/swagger-ui/**"))
@@ -60,8 +51,6 @@ public class CustomSecurityConfig {
         httpSecurity.addFilterBefore(jwtCheckFilter, UsernamePasswordAuthenticationFilter.class);
         httpSecurity.exceptionHandling(configure -> configure.accessDeniedHandler(new CustomAccessDeniedHandler()));
 
-//        httpSecurity.sessionManagement(configurer ->configurer.sessionCreationPolicy(SessionCreationPolicy.NEVER));
-
         httpSecurity.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         httpSecurity
                 .oauth2Login(oauth2 ->
@@ -75,21 +64,6 @@ public class CustomSecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource()
     {
-//        CorsConfiguration corsConfiguration = new CorsConfiguration();
-//        corsConfiguration.setAllowedOriginPatterns(List.of("*"));
-//        corsConfiguration.setAllowedOriginPatterns(List.of("http://.com"));  // 서브도메인 패턴 허용
-//
-//
-//        corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS"));
-//        corsConfiguration.setAllowedHeaders(List.of("*"));
-//        corsConfiguration.setAllowedOrigins(List.of("*"));
-//        corsConfiguration.setExposedHeaders(List.of("*"));
-//        corsConfiguration.setAllowCredentials(true);
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", corsConfiguration);
-
-
-
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         corsConfiguration.setAllowedOriginPatterns(List.of("https://soccer-community-p-c.netlify.app"));  // 프론트엔드 도메인 명시
         corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
@@ -99,18 +73,5 @@ public class CustomSecurityConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", corsConfiguration);
         return source;
-//
-//
-//        CorsConfiguration corsConfiguration = new CorsConfiguration();
-//        http://*.example.com"));
-//        corsConfiguration.setAllowedOriginPatterns(List.of("https://soccer-community-p-c.netlify.app"));  // 서브도메인 패턴 허용
-//        corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS"));
-//        corsConfiguration.setAllowedHeaders(List.of("*"));
-//        corsConfiguration.setExposedHeaders(List.of("*"));
-//        corsConfiguration.setAllowCredentials(true);  // allowCredentials가 true일 때는 와일드카드 "*" 사용 불가
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", corsConfiguration);
-//        return source;
-
     }
 }

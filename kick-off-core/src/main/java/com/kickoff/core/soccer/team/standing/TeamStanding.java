@@ -28,4 +28,14 @@ public class TeamStanding extends BaseEntity {
     private Integer goalsAgainst;
     private Long leagueId;
     private String season;
+
+    public void update(TeamStanding build)
+    {
+        this.won=build.getWon();
+        this.draw= build.getDraw();
+        this.lost = build.lost;
+        this.points = build.getPoints();
+        this.goalsFor = build.getGoalsFor();
+        this.goalsAgainst = build.goalsAgainst;
+    }
 }

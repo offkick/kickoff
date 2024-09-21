@@ -1,6 +1,8 @@
 jwt:
   secret-key: 56ab0682dda585b2997d3871c0921fb6929ef195501ab98b18c6870bdc808970fb041463f6792ae02a4c7458bc3e375095a03508f3bb2925eddf618a56d41540
 spring:
+  session:
+    store-type: redis
   security:
     oauth2:
       client:
@@ -11,6 +13,7 @@ spring:
             redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
             scope:
               - email
+
 server:
   forward-headers-strategy: framework
 ---
