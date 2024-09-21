@@ -7,8 +7,13 @@ spring:
       initialize-schema: always
     job:
       name: dailyStandingInfoJob
+  session:
+    store-type: redis
 server:
   port: 8083
+
+
+
 api:
   footbool:
     token: b1a0c6ed997843cdbc8d22f33523bde6
