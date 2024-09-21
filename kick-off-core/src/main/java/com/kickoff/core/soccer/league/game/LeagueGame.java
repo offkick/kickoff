@@ -142,6 +142,7 @@ public class LeagueGame extends BaseEntity {
     private LeagueGameStatus updateStatus(String status)
     {
         switch (status){
+            case "IN_PLAY":
             case "GAMING":
                 return LeagueGameStatus.GAMING;
             case "FINISHED":
