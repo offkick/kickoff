@@ -74,15 +74,29 @@ public class CustomSecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource()
     {
+//        CorsConfiguration corsConfiguration = new CorsConfiguration();
+//        corsConfiguration.setAllowedOriginPatterns(List.of("*"));
+//        corsConfiguration.setAllowedOriginPatterns(List.of("http://.com"));  // 서브도메인 패턴 허용
+//
+//
+//        corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS"));
+//        corsConfiguration.setAllowedHeaders(List.of("*"));
+//        corsConfiguration.setAllowedOrigins(List.of("*"));
+//        corsConfiguration.setExposedHeaders(List.of("*"));
+//        corsConfiguration.setAllowCredentials(true);
+//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//        source.registerCorsConfiguration("/**", corsConfiguration);
+
         CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.setAllowedOriginPatterns(List.of("*"));
+        http://*.example.com"));
+        corsConfiguration.setAllowedOriginPatterns(List.of("http://*.amazonaws.com"));  // 서브도메인 패턴 허용
         corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS"));
         corsConfiguration.setAllowedHeaders(List.of("*"));
-        corsConfiguration.setAllowedOrigins(List.of("*"));
         corsConfiguration.setExposedHeaders(List.of("*"));
-        corsConfiguration.setAllowCredentials(true);
+        corsConfiguration.setAllowCredentials(true);  // allowCredentials가 true일 때는 와일드카드 "*" 사용 불가
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", corsConfiguration);
         return source;
+
     }
 }
