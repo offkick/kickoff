@@ -29,7 +29,7 @@ public class TeamStanding extends BaseEntity {
     private Long leagueId;
     private String season;
 
-    public void update(TeamStanding build)
+    public TeamStanding update(TeamStanding build)
     {
         this.won=build.getWon();
         this.draw= build.getDraw();
@@ -37,5 +37,7 @@ public class TeamStanding extends BaseEntity {
         this.points = build.getPoints();
         this.goalsFor = build.getGoalsFor();
         this.goalsAgainst = build.goalsAgainst;
+        this.round = build.getRound();
+        return this;
     }
 }

@@ -100,7 +100,7 @@ public class StandingBatchService {
                         .build()
         );
 
-        teamStanding.update(TeamStanding.builder()
+        TeamStanding update = teamStanding.update(TeamStanding.builder()
                 .ranks(table.position())
                 .leagueId(league.getLeagueId())
                 .round(matchDay)
@@ -114,7 +114,7 @@ public class StandingBatchService {
                 .lost(table.lost())
                 .build());
 
-        teamStandingRepository.save(teamStanding);
+        teamStandingRepository.save(update);
         log.info("순위 정보 저장 완료: 팀 ID={}, 시즌= {}, 라운드= {}", teamId, season, matchDay);
     }
 }
