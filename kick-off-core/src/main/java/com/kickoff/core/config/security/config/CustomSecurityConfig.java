@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -57,7 +56,7 @@ public class CustomSecurityConfig {
         httpSecurity.cors(httpSecurityCorsConfigurer -> {
             httpSecurityCorsConfigurer.configurationSource(corsConfigurationSource());
         });
-        httpSecurity.csrf(AbstractHttpConfigurer::disable);
+        httpSecurity.csrf(s -> s.disable());
         httpSecurity.addFilterBefore(jwtCheckFilter, UsernamePasswordAuthenticationFilter.class);
         httpSecurity.exceptionHandling(configure -> configure.accessDeniedHandler(new CustomAccessDeniedHandler()));
 
@@ -87,16 +86,29 @@ public class CustomSecurityConfig {
 //        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 //        source.registerCorsConfiguration("/**", corsConfiguration);
 
+
+
         CorsConfiguration corsConfiguration = new CorsConfiguration();
-        http://*.example.com"));
-        corsConfiguration.setAllowedOriginPatterns(List.of("https://soccer-community-p-c.netlify.app"));  // 서브도메인 패턴 허용
-        corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS"));
+        corsConfiguration.setAllowedOriginPatterns(List.of("https://soccer-community-p-c.netlify.app"));  // 프론트엔드 도메인 명시
+        corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         corsConfiguration.setAllowedHeaders(List.of("*"));
         corsConfiguration.setExposedHeaders(List.of("*"));
-        corsConfiguration.setAllowCredentials(true);  // allowCredentials가 true일 때는 와일드카드 "*" 사용 불가
+        corsConfiguration.setAllowCredentials(true);  // 자격 증명 허용
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", corsConfiguration);
         return source;
+//
+//
+//        CorsConfiguration corsConfiguration = new CorsConfiguration();
+//        http://*.example.com"));
+//        corsConfiguration.setAllowedOriginPatterns(List.of("https://soccer-community-p-c.netlify.app"));  // 서브도메인 패턴 허용
+//        corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS"));
+//        corsConfiguration.setAllowedHeaders(List.of("*"));
+//        corsConfiguration.setExposedHeaders(List.of("*"));
+//        corsConfiguration.setAllowCredentials(true);  // allowCredentials가 true일 때는 와일드카드 "*" 사용 불가
+//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//        source.registerCorsConfiguration("/**", corsConfiguration);
+//        return source;
 
     }
 }
