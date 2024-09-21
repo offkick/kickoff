@@ -29,7 +29,6 @@ public class AuthController {
     @GetMapping("/social")
     public String token(@RequestParam(value = "accessToken") String accessToken)
     {
-        System.out.println("QWEQWEEWQEQWEEQWEQEWQEQWEQEEWQE");
         return accessToken;
     }
 

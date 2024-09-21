@@ -54,5 +54,3 @@ spring:
 logging:
   level:
     root: info
-    org:
-      apache.catalina: info
