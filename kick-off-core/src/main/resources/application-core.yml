@@ -8,7 +8,7 @@ spring:
           google:
             client-id: 204538173899-dmsvi4gb0oag586hvm6morsqirk73d1q.apps.googleusercontent.com
             client-secret: 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
-            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            redirect-uri: "https://soccer-community-p-c.netlify.app/login/oauth2/code/{registrationId}"
             scope:
               - email
 ---
@@ -64,6 +64,6 @@ logging:
     root: info
     org:
       apache.catalina: info
-  file:
-    path: /var/apps/logs
-    name: app.log
+#  file:
+#    path: /var/apps/logs
+#    name: app.log
