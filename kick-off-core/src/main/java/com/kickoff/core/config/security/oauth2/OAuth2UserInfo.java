@@ -15,7 +15,7 @@ public record OAuth2UserInfo(
 ) {
     public static OAuth2UserInfo of(String registrationId, Map<String, Object> attributes)
     {
-        return switch (registrationId) { // registration id별로 userInfo 생성
+        return switch (registrationId) {
             case "google" -> ofGoogle(attributes);
             default -> throw new IllegalArgumentException("not supported provider");
         };
