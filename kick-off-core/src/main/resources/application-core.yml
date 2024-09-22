@@ -14,8 +14,8 @@ spring:
             scope:
               - email
 
-#server:
-#  forward-headers-strategy: framework
+server:
+  forward-headers-strategy: framework
 ---
 spring:
   config:
