@@ -13,7 +13,6 @@ spring:
             redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
             scope:
               - email
-
 server:
   forward-headers-strategy: framework
 ---

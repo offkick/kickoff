@@ -3,16 +3,17 @@ package com.kickoff.core.survey.dto;
 import com.kickoff.core.survey.Questions;
 import com.kickoff.core.survey.SurveyHeaders;
 import com.kickoff.core.survey.SurveySections;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
-@Data
-@NoArgsConstructor
+@Getter
+@Setter
+@ToString
+@AllArgsConstructor
 public class CreateSurveyRequest {
-    private String surveyName;
-    private  String instructions;
+    private final String surveyName;
+    private final String instructions;
     private List<SurveySectionRequest> surveySections;
 
     public SurveyHeaders getSurveyHeaders()
