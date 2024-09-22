@@ -46,4 +46,9 @@ public class PostController {
     {
         postLikeService.checkLike(AuthUtil.currentUserId(), postId);
     }
+
+    @GetMapping("/test")
+    public String dd(){
+        return "TTTT";
+    }
 }
