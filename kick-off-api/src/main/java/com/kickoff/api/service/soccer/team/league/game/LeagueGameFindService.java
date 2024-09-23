@@ -78,6 +78,15 @@ public class LeagueGameFindService {
 
     }
 
+    public SeasonLeagueGameResponse findByLeagueOrTeamAndSeason(Long leagueId,Long leagueTeamId, YearMonth yearMonth)
+    {
+        LocalDateTime startDateTime = yearMonth.atDay(1).atStartOfDay();
+        LocalDateTime endDateTime = yearMonth.atEndOfMonth().atTime(23,59,59);
+        List<LeagueGameDTO> byLeagueTeam = leagueGameService.findByLeagueOrTeamAndSeason(leagueId,leagueTeamId, startDateTime, endDateTime);
+        return SeasonLeagueGameResponse.of(byLeagueTeam);
+
+    }
+
     public FindLeagueGamesResponse findLeagueTeamGame(Long leagueTeamId, Pageable pageable)
     {
         return leagueGameQuerydslRepository.findLeagueTeamGame(leagueTeamId, pageable);

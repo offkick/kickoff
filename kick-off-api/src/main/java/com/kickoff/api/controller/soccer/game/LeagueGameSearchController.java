@@ -74,6 +74,11 @@ public class LeagueGameSearchController {
     {
         return leagueGameFindService.findLeagueTeamBySeason(leagueTeamId,YearMonth.parse(yearMonth));
     }
+    @GetMapping("/team/{leagueId}/{leagueTeamId}/{yearMonth}")
+    public SeasonLeagueGameResponse findLeagueTeamBySeason(@PathVariable Long leagueId,@PathVariable Long leagueTeamId, @PathVariable String yearMonth)
+    {
+        return leagueGameFindService.findByLeagueOrTeamAndSeason(leagueId,leagueTeamId,YearMonth.parse(yearMonth));
+    }
     @GetMapping("/team/{leagueTeamId}")
     public FindLeagueGamesResponse findLeagueTeamGame(@PathVariable(value = "leagueTeamId") Long leagueGameTeamId, Pageable pageable)
     {

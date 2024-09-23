@@ -6,7 +6,9 @@ import com.kickoff.batch.config.feign.api.MatchesFeignResponse;
 import com.kickoff.batch.config.feign.api.temp.Competitions;
 import com.kickoff.batch.config.feign.api.temp.Match;
 import com.kickoff.batch.config.feign.api.temp.StandingResponse;
+import com.kickoff.batch.jobs.data.service.AllDataDeleteService;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -53,4 +55,8 @@ public interface SoccerApiFeign {
     @GetMapping("/v4/competitions/{competitions}")
     Competitions getCompetitionResponse(
             @PathVariable(value = "competitions") String competitions);
+
+    @DeleteMapping("/v4/all-data")
+    void deleteAllData();
+
 }

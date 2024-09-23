@@ -21,5 +21,15 @@ public interface LeagueGameRepository extends JpaRepository<LeagueGame, Long> {
     @Query("select g from LeagueGame g where (g.home.leagueTeamId = :leagueTeamId or g.away.leagueTeamId = :leagueTeamId) and g.gameDate >= :start and g.gameDate <= :end")
     List<LeagueGame> findByLeagueTeam(@Param("leagueTeamId") Long leagueTeamId,@Param("start")LocalDateTime start, @Param("end") LocalDateTime end);
 
+    @Query("SELECT g FROM LeagueGame g " +
+            "WHERE (:leagueId IS NULL OR g.home.league.leagueId = :leagueId) " +
+            "AND (:leagueTeamId IS NULL OR g.home.leagueTeamId = :leagueTeamId OR g.away.leagueTeamId = :leagueTeamId) " +
+            "AND g.gameDate BETWEEN :start AND :end")
+    List<LeagueGame> findByLeagueOrTeamAndSeason(
+            @Param("leagueId") Long leagueId,
+            @Param("leagueTeamId") Long leagueTeamId,
+            @Param("start") LocalDateTime start,
+            @Param("end") LocalDateTime end);
+
 
 }

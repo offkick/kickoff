@@ -6,9 +6,7 @@ spring:
     jdbc:
       initialize-schema: always
     job:
-      name: dailyStandingInfoJob
-  session:
-    store-type: redis
+      name: deleteAllDataJob
 server:
   port: 8083
 
