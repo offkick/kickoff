@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "> KICK OFF 프로젝트 어플리케이션 배포 시작"
-BUILD_PATH=/home/ubuntu/kickoff/kick-off-api/build/kick-off-api-0.0.1-SNAPSHOT.jar
+BUILD_PATH=/home/ubuntu/kick-off-api-0.0.1-SNAPSHOT.jar
 JAR_NAME=$(basename $BUILD_PATH)
 echo "> build 파일명: $JAR_NAME"
 
