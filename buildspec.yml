@@ -21,7 +21,7 @@ artifacts:
     - kick-off-api/build/libs/*.jar
     - scripts/**
   discard-paths: yes
-  base-directory: /home/ubuntu
+#  base-directory: /home/ubuntu
 ###################################################
 
 cache:
