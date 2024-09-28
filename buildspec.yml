@@ -20,7 +20,7 @@ artifacts:
     - appspec.yml
     - kick-off-api/build/libs/*.jar
     - scripts/**
-  discard-paths: yes
+#  discard-paths: yes
 #  base-directory: kickoff  # 기본 루트 디렉토리를 설정해준다. 없으면 그냥 해당 설정 자체를 없엔다.
 ###################################################
 
