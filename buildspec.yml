@@ -5,7 +5,6 @@ phases:
     commands:
       - echo Entered the build phase...
       - echo Build Starting on `date`
-      - cd DeployServer
       - ./gradlew kick-off-api:bootJar -x test
   post_build:
     commands:
@@ -21,8 +20,6 @@ artifacts:
     - appspec.yml
     - kick-off-api/build/libs/*.jar
     - scripts/**
-  discard-paths: yes
-  base-directory: /
 ###################################################
 
 cache:
