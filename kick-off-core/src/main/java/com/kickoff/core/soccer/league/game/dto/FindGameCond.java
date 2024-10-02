@@ -8,6 +8,6 @@ public record FindGameCond(
         LocalDate startDate,
         LocalDate endDate,
         Long leagueId,
-        Pageable pageable
+        Long teamId, Pageable pageable
 ) {
 }

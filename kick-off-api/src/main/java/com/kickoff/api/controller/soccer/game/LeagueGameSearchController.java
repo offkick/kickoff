@@ -37,6 +37,7 @@ public class LeagueGameSearchController {
             @RequestParam("startDate") LocalDate startDate,
             @RequestParam("endDate") LocalDate endDate,
             @RequestParam("leagueId") Long leagueId,
+            @RequestParam("teamId") Long teamId,
             @RequestParam(name = "page", defaultValue = "0") int page,
             @RequestParam(name = "size", defaultValue = "10") int size
     ) {
@@ -44,6 +45,7 @@ public class LeagueGameSearchController {
                 startDate,
                 endDate,
                 leagueId,
+                teamId,
                 PageRequest.of(page,size)
         );
         return leagueGameFindService.searchGames(cond);

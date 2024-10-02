@@ -54,7 +54,7 @@ public class LeagueGameQuerydslRepository {
 
         List<LeagueGame> leagueGames = jpaQueryFactory.selectFrom(leagueGame)
                 .where(gameDateEq(condition.startDate(), condition.endDate()),
-                        leagueIdEq(condition.leagueId())
+                        leagueIdEq(condition.leagueId()), eqLeagueTeamId(condition.teamId())
                 )
                 .orderBy(leagueGame.gameDate.desc())
                 .offset(pageable.getOffset())
