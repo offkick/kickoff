@@ -82,7 +82,7 @@ public class LeagueGameFindService {
     {
         LocalDateTime startDateTime = yearMonth.atDay(1).atStartOfDay();
         LocalDateTime endDateTime = yearMonth.atEndOfMonth().atTime(23,59,59);
-        List<LeagueGameDTO> byLeagueTeam = leagueGameService.findByLeagueOrTeamAndSeason(leagueId,leagueTeamId, startDateTime, endDateTime);
+        List<LeagueGameDTO> byLeagueTeam = leagueGameQuerydslRepository.findLeagueGamesWithDynamicParameter(leagueId,leagueTeamId, startDateTime, endDateTime);
         return SeasonLeagueGameResponse.of(byLeagueTeam);
 
     }

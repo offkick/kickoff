@@ -74,10 +74,9 @@ public class LeagueGameService {
                 .collect(Collectors.toList());
     }
 
-
-
     public FindLeagueGamesResponse leagueTeamGames(Long leagueTeamId, Pageable pageable)
     {
         return leagueGameQuerydslRepository.findLeagueTeamGame(leagueTeamId,pageable);
     }
+
 }

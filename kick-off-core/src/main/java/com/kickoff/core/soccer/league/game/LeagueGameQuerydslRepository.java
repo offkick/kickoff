@@ -4,6 +4,7 @@ import com.kickoff.core.soccer.league.game.dto.FindGameCond;
 import com.kickoff.core.soccer.league.game.dto.FindLeagueGameResponse;
 import com.kickoff.core.soccer.league.game.dto.FindLeagueGamesResponse;
 import com.kickoff.core.soccer.league.game.dto.GameSearchCondition;
+import com.kickoff.core.soccer.league.service.dto.LeagueGameDTO;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -91,6 +93,24 @@ public class LeagueGameQuerydslRepository {
         }
     }
 
+
+    private BooleanExpression gameDateEq(LocalDateTime startDate, LocalDateTime endDate)
+    {
+        if (startDate != null && endDate != null)
+        {
+            return leagueGame.gameDate.between(startDate, endDate);
+        } else if (startDate != null)
+        {
+            return leagueGame.gameDate.goe(startDate);
+        } else if (endDate != null)
+        {
+            return leagueGame.gameDate.loe(endDate);
+        } else
+        {
+            return null;
+        }
+    }
+
     private BooleanExpression leagueIdEq(Long leagueId)
     {
         return leagueId != null ? leagueGame.away.league.leagueId.eq(leagueId) : null;
@@ -114,5 +134,24 @@ public class LeagueGameQuerydslRepository {
                 .map(FindLeagueGameResponse::from)
                 .collect(Collectors.toList());
         return new PageImpl<>(responses,pageable,total);
+    }
+
+    public List<LeagueGameDTO> findLeagueGamesWithDynamicParameter(Long leagueId, Long leagueTeamId, LocalDateTime startDateTime, LocalDateTime endDateTime)
+    {
+        List<LeagueGame> results = jpaQueryFactory.selectFrom(leagueGame)
+                .where(
+                        gameDateEq(startDateTime, endDateTime), leagueIdEq(leagueId), eqLeagueTeamId(leagueTeamId)
+                )
+                .orderBy(leagueGame.gameDate.desc())
+                .fetch();
+
+        return results.stream()
+                .map(LeagueGameDTO::of)
+                .collect(Collectors.toList());
+    }
+
+    private BooleanExpression eqLeagueTeamId(Long leagueTeamId)
+    {
+        return leagueTeamId != null ? (leagueGame.away.league.leagueId.eq(leagueTeamId)).or(leagueGame.home.league.leagueId.eq(leagueTeamId)) : null;
     }
 }
