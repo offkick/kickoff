@@ -75,7 +75,7 @@ public class LeagueGameSearchController {
         return leagueGameFindService.findLeagueTeamBySeason(leagueTeamId,YearMonth.parse(yearMonth));
     }
 
-    @GetMapping("/team")
+    @GetMapping
     public SeasonLeagueGameResponse findLeagueTeamBySeason(
             @RequestParam(required = true) Long leagueId,
             @RequestParam(required = false) Long leagueTeamId,
