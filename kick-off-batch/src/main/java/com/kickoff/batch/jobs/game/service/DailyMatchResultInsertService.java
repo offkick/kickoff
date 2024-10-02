@@ -124,7 +124,7 @@ public class DailyMatchResultInsertService {
     {
         ExternalGameMapping externalGameMapping = externalGameMappingRepository.findByExternalGameId((long) match.id()).orElseThrow();
         LeagueGame leagueGame = leagueGameRepository.findById(externalGameMapping.getGameId()).orElseThrow();
-        log.info("{leagueGame = }" +leagueGame +"{match status}"+ match.status());
+        log.info("START : {} ", match.id());
         leagueGame.updateGameStatue(match.status());
         leagueGame.setScore(score);
 

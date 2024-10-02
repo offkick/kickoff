@@ -6,23 +6,15 @@ spring:
     jdbc:
       initialize-schema: always
     job:
-      name: deleteAllDataJob
+      name: dailyMatchInsertJob
 server:
-  port: 8083
-
-
+  port: 8084
 
 api:
   footbool:
     token: b1a0c6ed997843cdbc8d22f33523bde6
-#springdoc:
-#  swagger-ui:
-#    enabled: false
 logging:
   level:
     root: info
     org:
       apache.catalina: info
-#  file:
-#    path: /var/libs/batch/logs
-#    name: batch.log

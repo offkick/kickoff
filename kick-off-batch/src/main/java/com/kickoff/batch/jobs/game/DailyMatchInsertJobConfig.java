@@ -70,6 +70,7 @@ public class DailyMatchInsertJobConfig {
 
             for (String competition : competitions.split(","))
             {
+                log.info("competition");
                 dailyMatchResultInsertService.insertMatch(targetDateFrom, targetDateTo, competition);
             }
 

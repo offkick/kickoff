@@ -27,6 +27,7 @@ public class CompetitionInsertJobConfig {
     private final PlatformTransactionManager platformTransactionManager;
     private final CompetitionInsertService competitionInsertService;
     private final JobExecutionListener jobCompletionEndListener;
+
     @Bean
     public Job competitionInsertJob(JobRepository jobRepository)
     {

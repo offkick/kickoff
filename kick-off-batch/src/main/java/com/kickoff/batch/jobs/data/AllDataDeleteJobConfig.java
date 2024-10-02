@@ -2,12 +2,9 @@ package com.kickoff.batch.jobs.data;
 
 import com.kickoff.batch.config.UniqueRunIdIncrementer;
 import com.kickoff.batch.jobs.data.service.AllDataDeleteService;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
-import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
@@ -20,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Configuration
 @RequiredArgsConstructor
-@EnableBatchProcessing
 public class AllDataDeleteJobConfig {
     private final PlatformTransactionManager platformTransactionManager;
     private final AllDataDeleteService allDataDeleteService;
