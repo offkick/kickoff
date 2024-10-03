@@ -7,7 +7,7 @@ import com.kickoff.core.soccer.league.League;
 import com.kickoff.core.soccer.league.LeagueRepository;
 import com.kickoff.core.soccer.league.Season;
 import com.kickoff.core.soccer.league.SeasonRepository;
-import com.kickoff.core.soccer.league.game.LeagueGameRepository;
+import com.kickoff.core.soccer.game.LeagueGameRepository;
 import com.kickoff.core.soccer.team.standing.TeamStanding;
 import com.kickoff.core.soccer.team.standing.TeamStandingRepository;
 import com.kickoff.core.soccer.team.external.ExternalTeamIdMapping;

@@ -46,7 +46,6 @@ public class GlobalExceptionHandler {
         return ErrorResponse.badRequest(exception.getMessage());
     }
 
-
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MemberException.class)
     public ErrorResponse handleMemberException(MemberException exception)
@@ -54,7 +53,6 @@ public class GlobalExceptionHandler {
         log.error("MemberException handle : {}",exception.getMessage());
         return ErrorResponse.badRequest(exception.getMessage());
     }
-
 
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     @ExceptionHandler(ElasticSearchFoundException.class)

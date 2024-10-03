@@ -1,9 +1,9 @@
-package com.kickoff.core.soccer.league.game.dto;
+package com.kickoff.core.soccer.game.dto;
 
 import com.kickoff.core.soccer.league.LeagueTeam;
-import com.kickoff.core.soccer.league.game.LeagueGame;
-import com.kickoff.core.soccer.league.game.LeagueGameStatus;
-import com.kickoff.core.soccer.league.game.player.LeagueGamePlayerStatus;
+import com.kickoff.core.soccer.game.LeagueGame;
+import com.kickoff.core.soccer.game.LeagueGameStatus;
+import com.kickoff.core.soccer.game.player.LeagueGamePlayerStatus;
 import com.kickoff.core.soccer.player.PlayerPosition;
 import com.kickoff.core.soccer.team.Score;
 import com.kickoff.core.soccer.team.TeamType;

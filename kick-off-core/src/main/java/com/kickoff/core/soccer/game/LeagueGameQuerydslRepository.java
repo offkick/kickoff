@@ -1,9 +1,9 @@
-package com.kickoff.core.soccer.league.game;
+package com.kickoff.core.soccer.game;
 
-import com.kickoff.core.soccer.league.game.dto.FindGameCond;
-import com.kickoff.core.soccer.league.game.dto.FindLeagueGameResponse;
-import com.kickoff.core.soccer.league.game.dto.FindLeagueGamesResponse;
-import com.kickoff.core.soccer.league.game.dto.GameSearchCondition;
+import com.kickoff.core.soccer.game.dto.FindLeagueGameResponse;
+import com.kickoff.core.soccer.game.dto.FindGameCond;
+import com.kickoff.core.soccer.game.dto.FindLeagueGamesResponse;
+import com.kickoff.core.soccer.game.dto.GameSearchCondition;
 import com.kickoff.core.soccer.league.service.dto.LeagueGameDTO;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.kickoff.core.soccer.league.game.QLeagueGame.leagueGame;
+import static com.kickoff.core.soccer.game.QLeagueGame.leagueGame;
 
 
 @Transactional(readOnly = true)

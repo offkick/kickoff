@@ -1,6 +1,6 @@
 package com.kickoff.api.controller.soccer.league.dto;
 
-import com.kickoff.core.soccer.league.game.LeagueGameStatus;
+import com.kickoff.core.soccer.game.LeagueGameStatus;
 import com.kickoff.core.soccer.league.service.dto.LeagueGameDTO;
 
 import java.time.LocalDate;

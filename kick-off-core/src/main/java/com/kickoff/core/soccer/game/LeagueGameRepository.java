@@ -1,4 +1,4 @@
-package com.kickoff.core.soccer.league.game;
+package com.kickoff.core.soccer.game;
 
 import com.kickoff.core.soccer.league.Season;
 import org.springframework.data.jpa.repository.JpaRepository;

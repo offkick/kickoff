@@ -1,4 +1,4 @@
-package com.kickoff.core.soccer.league.game.player;
+package com.kickoff.core.soccer.game.player;
 
 import com.kickoff.core.soccer.player.Player;
 import com.kickoff.core.soccer.player.PlayerPosition;

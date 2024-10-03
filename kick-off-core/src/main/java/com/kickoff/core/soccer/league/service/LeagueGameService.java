@@ -1,9 +1,9 @@
 package com.kickoff.core.soccer.league.service;
 
-import com.kickoff.core.soccer.league.game.LeagueGame;
-import com.kickoff.core.soccer.league.game.LeagueGameQuerydslRepository;
-import com.kickoff.core.soccer.league.game.LeagueGameRepository;
-import com.kickoff.core.soccer.league.game.dto.FindLeagueGamesResponse;
+import com.kickoff.core.soccer.game.LeagueGame;
+import com.kickoff.core.soccer.game.LeagueGameQuerydslRepository;
+import com.kickoff.core.soccer.game.LeagueGameRepository;
+import com.kickoff.core.soccer.game.dto.FindLeagueGamesResponse;
 import com.kickoff.core.soccer.league.service.dto.LeagueGameDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;

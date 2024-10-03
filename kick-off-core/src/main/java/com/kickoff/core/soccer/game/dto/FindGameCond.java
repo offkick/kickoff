@@ -1,4 +1,4 @@
-package com.kickoff.core.soccer.league.game.dto;
+package com.kickoff.core.soccer.game.dto;
 
 import org.springframework.data.domain.Pageable;
 

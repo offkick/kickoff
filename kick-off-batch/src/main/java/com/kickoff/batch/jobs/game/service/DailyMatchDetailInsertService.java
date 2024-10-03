@@ -2,8 +2,9 @@ package com.kickoff.batch.jobs.game.service;
 
 import com.kickoff.batch.config.feign.SoccerApiFeign;
 import com.kickoff.batch.config.feign.api.temp.Match;
+import com.kickoff.batch.config.feign.api.temp.Team;
+import com.kickoff.core.soccer.game.*;
 import com.kickoff.core.soccer.league.*;
-import com.kickoff.core.soccer.league.game.*;
 import com.kickoff.core.soccer.player.Player;
 import com.kickoff.core.soccer.player.PlayerRepository;
 import com.kickoff.core.soccer.team.Goal;
@@ -22,6 +23,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 @Transactional
@@ -63,13 +65,70 @@ public class DailyMatchDetailInsertService {
 
     private void saveMatchDetails(Match match, LeagueGame leagueGame, Season season)
     {
+        leagueGame.setMinute(match.minute());
+        leagueGame.setInjuryTime(match.injuryTime());
+        settingScore(match, leagueGame);
+        settingGoals(match, leagueGame, season);
+        settingLineUps(match, leagueGame);
+
+        leagueGameRepository.save(leagueGame);
+    }
+
+    private void settingLineUps(Match match, LeagueGame leagueGame)
+    {
+        leagueGame.getGameLineUps().clear();
+        List<GameLineUp> home = makeGameLineUp(match.homeTeam(), "home", leagueGame);
+        List<GameLineUp> away = makeGameLineUp(match.awayTeam(), "away", leagueGame);
+
+        List<GameLineUp> gameLineUps = Stream.concat(home.stream(), away.stream()).toList();
+        if (gameLineUps.isEmpty())
+        {
+            log.info("gameLineUps is Empty");
+            return;
+        }
+    }
+
+    private List<GameLineUp> makeGameLineUp(Team match, String home, LeagueGame leagueGame) {
+        return match.lineup().stream()
+                .map(lineUp -> {
+                    Optional<ExternalPlayerIdMapping> externalPlayer = externalPlayerIdMappingRepository.findByExternalPlayerId(Long.parseLong(lineUp.id()));
+
+                    if (externalPlayer.isEmpty()) {
+                        log.info("byExternalPlayerId is empty");
+                        return null;
+                    }
+
+                    ExternalPlayerIdMapping externalPlayerIdMapping = externalPlayer.get();
+                    Player player = playerRepository.findByPlayerId(externalPlayerIdMapping.getPlayerId()).orElseThrow();
+
+                    GameLineUp gameLineUp = new GameLineUp(externalPlayerIdMapping.getPlayerId(),
+                            lineUp.position(),
+                            lineUp.shirtNumber(),
+                            home,
+                            player.getPlayerKrName(),
+                            player.getPlayerName());
+
+                    leagueGame.addGameLineUp(gameLineUp);
+                    return gameLineUp;
+
+                }).collect(Collectors.toList());
+    }
+
+
+    private static void settingScore(Match match, LeagueGame leagueGame)
+    {
+        Score score = Score.builder().awayScore(match.score().fullTime().away()).homeScore(match.score().fullTime().home()).build();
+        leagueGame.setScore(score);
+    }
+
+    private void settingGoals(Match match, LeagueGame leagueGame, Season season)
+    {
         if (!leagueGame.getGoals().isEmpty())
         {
             log.info("exists goals info : {}", leagueGame.getLeagueGameId());
             return;
         }
 
-        Score score = Score.builder().awayScore(match.score().fullTime().away()).homeScore(match.score().fullTime().home()).build();
         List<Goal> goals = match.goals().stream()
                 .map(matchGoal -> externalTeamIdMappingRepository.findByExternalTeamIdAndSeason((long) matchGoal.team().id(), season.getYears())
                         .map(externalTeamIdMapping -> {
@@ -106,9 +165,6 @@ public class DailyMatchDetailInsertService {
                 .collect(Collectors.toList());
 
         leagueGame.setGoals(goals);
-        leagueGame.setScore(score);
-
-        leagueGameRepository.save(leagueGame);
     }
 
     private void sleepForApiRateLimiting()

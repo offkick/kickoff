@@ -4,7 +4,7 @@ import com.kickoff.admin.service.PlayerAdminService;
 import com.kickoff.admin.service.dto.*;
 import com.kickoff.core.soccer.player.Player;
 import com.kickoff.core.soccer.player.dto.PlayerSearchCondition;
-import com.kickoff.core.soccer.league.game.dto.GameSearchCondition;
+import com.kickoff.core.soccer.game.dto.GameSearchCondition;
 import com.kickoff.core.soccer.league.service.LeagueTeamService;
 import com.kickoff.core.soccer.league.service.dto.LeagueTeamDTO;
 import lombok.RequiredArgsConstructor;

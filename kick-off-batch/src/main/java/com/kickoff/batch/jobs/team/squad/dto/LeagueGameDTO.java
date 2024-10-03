@@ -1,7 +1,7 @@
 package com.kickoff.batch.jobs.team.squad.dto;
 
-import com.kickoff.core.soccer.league.game.LeagueGame;
-import com.kickoff.core.soccer.league.game.LeagueGameStatus;
+import com.kickoff.core.soccer.game.LeagueGame;
+import com.kickoff.core.soccer.game.LeagueGameStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

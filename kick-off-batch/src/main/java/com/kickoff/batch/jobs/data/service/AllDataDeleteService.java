@@ -4,7 +4,7 @@ import com.kickoff.batch.config.feign.SoccerApiFeign;
 import com.kickoff.core.soccer.league.LeagueRepository;
 import com.kickoff.core.soccer.league.LeagueTeamRepository;
 import com.kickoff.core.soccer.league.SeasonRepository;
-import com.kickoff.core.soccer.league.game.LeagueGameRepository;
+import com.kickoff.core.soccer.game.LeagueGameRepository;
 import com.kickoff.core.soccer.player.PlayerRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;

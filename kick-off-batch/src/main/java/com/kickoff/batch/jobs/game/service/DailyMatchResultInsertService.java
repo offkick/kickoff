@@ -2,9 +2,9 @@ package com.kickoff.batch.jobs.game.service;
 
 import com.kickoff.batch.config.feign.SoccerApiFeign;
 import com.kickoff.batch.config.feign.api.MatchResultResponse;
+import com.kickoff.core.soccer.game.*;
 import com.kickoff.core.soccer.league.LeagueTeam;
 import com.kickoff.core.soccer.league.LeagueTeamRepository;
-import com.kickoff.core.soccer.league.game.*;
 import com.kickoff.core.soccer.team.Score;
 import com.kickoff.core.soccer.team.external.ExternalTeamIdMappingRepository;
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package com.kickoff.core.soccer.league.game;
+package com.kickoff.core.soccer.game;
 
 import com.kickoff.core.BaseEntity;
 import com.kickoff.core.soccer.league.LeagueTeam;
@@ -6,8 +6,8 @@ import com.kickoff.core.soccer.player.PlayerPosition;
 import com.kickoff.core.soccer.team.Goal;
 import com.kickoff.core.soccer.team.Score;
 import com.kickoff.core.soccer.league.Season;
-import com.kickoff.core.soccer.league.game.player.LeagueGamePlayer;
-import com.kickoff.core.soccer.league.game.player.LeagueGamePlayerStatus;
+import com.kickoff.core.soccer.game.player.LeagueGamePlayer;
+import com.kickoff.core.soccer.game.player.LeagueGamePlayerStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -44,6 +44,11 @@ public class LeagueGame extends BaseEntity {
     @JoinColumn(name = "home_team_id")
     private LeagueTeam home;
 
+    @Setter
+    private Long injuryTime;
+
+    @Setter
+    private Long minute;
     @Embedded
     @Setter
     private Score score;
@@ -66,6 +71,12 @@ public class LeagueGame extends BaseEntity {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @Setter
     private List<Goal> goals = new ArrayList<>();
+
+    @Setter
+    @ElementCollection
+    @CollectionTable(name = "game_line_up",
+            joinColumns = @JoinColumn(name = "leagueGameId"))
+    private List<GameLineUp> gameLineUps = new ArrayList<>();
 
     @Builder
     public LeagueGame(
@@ -91,8 +102,6 @@ public class LeagueGame extends BaseEntity {
         this.leagueGameStatus = leagueGameStatus;
         this.season = season;
         this.venue = venue;
-//        validate(home, homePlayers);
-//        validate(away, awayPlayers);
         this.homePlayers = homePlayers;
         this.awayPlayers = awayPlayers;
         this.goals = goals;
@@ -134,6 +143,7 @@ public class LeagueGame extends BaseEntity {
             throw new IllegalArgumentException("팀이 다름");
         }
     }
+
     public void updateGameStatue(String status)
     {
         this.leagueGameStatus = updateStatus(status);
@@ -141,21 +151,21 @@ public class LeagueGame extends BaseEntity {
 
     private LeagueGameStatus updateStatus(String status)
     {
-        switch (status){
-            case "IN_PLAY":
-            case "GAMING":
-                return LeagueGameStatus.GAMING;
-            case "FINISHED":
-                return LeagueGameStatus.END;
-            case "CANCELED":
-                return LeagueGameStatus.CANCELED;
-            default:
-                return LeagueGameStatus.BEFORE;
-        }
+        return switch (status) {
+            case "IN_PLAY", "GAMING" -> LeagueGameStatus.GAMING;
+            case "FINISHED" -> LeagueGameStatus.END;
+            case "CANCELED" -> LeagueGameStatus.CANCELED;
+            default -> LeagueGameStatus.BEFORE;
+        };
     }
 
     public void endGame()
     {
         this.leagueGameStatus = LeagueGameStatus.END;
+    }
+
+    public void addGameLineUp(GameLineUp gameLineUp)
+    {
+        this.getGameLineUps().add(gameLineUp);
     }
 }

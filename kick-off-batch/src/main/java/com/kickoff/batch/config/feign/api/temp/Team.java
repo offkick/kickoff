@@ -18,5 +18,6 @@ public record Team(
         List<RunningCompetition> runningCompetitions,
         List<Object> staff,
         List<Squad> squad,
-        Date lastUpdated
+        Date lastUpdated,
+        List<LineUp> lineup
 ) {}

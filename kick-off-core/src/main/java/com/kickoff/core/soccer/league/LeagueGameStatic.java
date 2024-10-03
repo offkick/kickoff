@@ -1,7 +1,7 @@
 package com.kickoff.core.soccer.league;
 
-import com.kickoff.core.soccer.league.game.LeagueGame;
-import com.kickoff.core.soccer.league.game.LeagueGameStatus;
+import com.kickoff.core.soccer.game.LeagueGame;
+import com.kickoff.core.soccer.game.LeagueGameStatus;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

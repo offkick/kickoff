@@ -1,7 +1,7 @@
 package com.kickoff.admin.config;
 
 import com.kickoff.core.config.security.CustomUserDetailsService;
-import com.kickoff.core.config.security.handler.CustomAccessDeniedHandler;
+import com.kickoff.core.config.security.config.CustomAccessDeniedHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;

@@ -1,8 +1,8 @@
 package com.kickoff.api.controller.soccer.league.dto;
 
-import com.kickoff.core.soccer.league.game.LeagueGameStatus;
+import com.kickoff.core.soccer.game.LeagueGameStatus;
 import com.kickoff.core.soccer.league.service.dto.LeagueGameDTO;
-import com.kickoff.core.soccer.player.PlayerPosition;
+import com.kickoff.core.soccer.league.service.dto.LeagueGamePlayerDTO;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -17,11 +17,19 @@ public record FindLeagueGamePlayerResponse(
     }
 
     public record GamePlayer(
-            String name,
-            int playedTime,
-            int subTime,
-            PlayerPosition position
-    ) {}
+            Long playerId,
+            String position,
+            String shirtNumber,
+            String playerKrName,
+            String playerEnName
+    ) {
+        public static List<GamePlayer> of(List<LeagueGamePlayerDTO> leagueGamePlayerDTOS)
+        {
+            return leagueGamePlayerDTOS.stream()
+                    .map(s-> new GamePlayer(s.playerId(), s.position(), s.shirtNumber(), s.playerKrName(), s.playerEnName()))
+                    .collect(Collectors.toList());
+        }
+    }
 
     public record LeagueGamePlayerResponse(
             LocalDateTime gameDate,
@@ -36,7 +44,9 @@ public record FindLeagueGamePlayerResponse(
             String venue,
             List<GamePlayer> homePlayers,
             List<GamePlayer> awayPlayers,
-            List<GoalsDTO> goals
+            List<GoalsDTO> goals,
+            Long minute,
+            Long injuryTime
     ) {
         public static LeagueGamePlayerResponse of(LeagueGameDTO leagueGame) {
             return new LeagueGamePlayerResponse(
@@ -50,9 +60,11 @@ public record FindLeagueGamePlayerResponse(
                     leagueGame.away().logo(),
                     leagueGame.leagueGameStatus(),
                     leagueGame.venue(),
-                    null,
-                    null,
-                    leagueGame.goalInfos().stream().map(GoalsDTO::of).collect(Collectors.toList())
+                    GamePlayer.of(leagueGame.homePlayers()),
+                    GamePlayer.of(leagueGame.awayPlayers()),
+                    leagueGame.goalInfos().stream().map(GoalsDTO::of).collect(Collectors.toList()),
+                    leagueGame.minute(),
+                    leagueGame.injuryTime()
             );
         }
         public record GoalsDTO(

@@ -1,11 +1,13 @@
 package com.kickoff.core.soccer.league.service.dto;
 
-import com.kickoff.core.soccer.league.game.LeagueGame;
-import com.kickoff.core.soccer.league.game.LeagueGameStatus;
+import com.kickoff.core.soccer.game.GameLineUp;
+import com.kickoff.core.soccer.game.LeagueGame;
+import com.kickoff.core.soccer.game.LeagueGameStatus;
 import com.kickoff.core.soccer.team.Goal;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public record LeagueGameDTO(
         Long leagueGameId,
@@ -19,7 +21,9 @@ public record LeagueGameDTO(
         String venue,
         List<LeagueGamePlayerDTO> homePlayers,
         List<LeagueGamePlayerDTO> awayPlayers,
-        List<GoalInfo> goalInfos
+        List<GoalInfo> goalInfos,
+        Long minute,
+        Long injuryTime
 ) {
     public static LeagueGameDTO of(LeagueGame leagueGame) {
         return new LeagueGameDTO(
@@ -32,10 +36,19 @@ public record LeagueGameDTO(
                 leagueGame.getLeagueGameStatus(),
                 leagueGame.getSeason().getYears(),
                 leagueGame.getVenue(),
-                null, // TODO : 선수 추가 되면 변경
-                null,
-                GoalInfo.of(leagueGame.getGoals())
+                makePlayers(leagueGame.getGameLineUps().stream().filter(s->s.getType().equals("home")).collect(Collectors.toList())), // TODO : 선수 추가 되면 변경
+                makePlayers(leagueGame.getGameLineUps().stream().filter(s->s.getType().equals("away")).collect(Collectors.toList())),
+                GoalInfo.of(leagueGame.getGoals()),
+                leagueGame.getMinute(),
+                leagueGame.getInjuryTime()
         );
+    }
+
+    private static List<LeagueGamePlayerDTO> makePlayers(List<GameLineUp> gameLineUps)
+    {
+        return gameLineUps.stream()
+                .map(line -> new LeagueGamePlayerDTO(line.getPlayerId(), line.getPosition(), line.getShirtNumber(), line.getPlayerKrName(), line.getPlayerEnName()))
+                .collect(Collectors.toList());
     }
 
     // 성능 개선
