@@ -23,7 +23,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 
 @Transactional
@@ -77,43 +76,33 @@ public class DailyMatchDetailInsertService {
     private void settingLineUps(Match match, LeagueGame leagueGame)
     {
         leagueGame.getGameLineUps().clear();
-        List<GameLineUp> home = makeGameLineUp(match.homeTeam(), "home", leagueGame);
-        List<GameLineUp> away = makeGameLineUp(match.awayTeam(), "away", leagueGame);
+        settingLineUps(match.homeTeam(), "home", leagueGame);
+        settingLineUps(match.awayTeam(), "away", leagueGame);
+    }
 
-        List<GameLineUp> gameLineUps = Stream.concat(home.stream(), away.stream()).toList();
-        if (gameLineUps.isEmpty())
+    private void settingLineUps(Team match, String home, LeagueGame leagueGame)
+    {
+        match.lineup().forEach(lineUp ->
         {
-            log.info("gameLineUps is Empty");
-            return;
-        }
+            Optional<ExternalPlayerIdMapping> externalPlayer = externalPlayerIdMappingRepository.findByExternalPlayerId(Long.parseLong(lineUp.id()));
+
+            if (externalPlayer.isPresent())
+            {
+                log.info("byExternalPlayerId is empty");
+                ExternalPlayerIdMapping externalPlayerIdMapping = externalPlayer.get();
+                Player player = playerRepository.findByPlayerId(externalPlayerIdMapping.getPlayerId()).orElseThrow();
+
+                GameLineUp gameLineUp = new GameLineUp(externalPlayerIdMapping.getPlayerId(),
+                        lineUp.position(),
+                        lineUp.shirtNumber(),
+                        home,
+                        player.getPlayerKrName(),
+                        player.getPlayerName());
+
+                leagueGame.addGameLineUp(gameLineUp);
+            }
+        });
     }
-
-    private List<GameLineUp> makeGameLineUp(Team match, String home, LeagueGame leagueGame) {
-        return match.lineup().stream()
-                .map(lineUp -> {
-                    Optional<ExternalPlayerIdMapping> externalPlayer = externalPlayerIdMappingRepository.findByExternalPlayerId(Long.parseLong(lineUp.id()));
-
-                    if (externalPlayer.isEmpty()) {
-                        log.info("byExternalPlayerId is empty");
-                        return null;
-                    }
-
-                    ExternalPlayerIdMapping externalPlayerIdMapping = externalPlayer.get();
-                    Player player = playerRepository.findByPlayerId(externalPlayerIdMapping.getPlayerId()).orElseThrow();
-
-                    GameLineUp gameLineUp = new GameLineUp(externalPlayerIdMapping.getPlayerId(),
-                            lineUp.position(),
-                            lineUp.shirtNumber(),
-                            home,
-                            player.getPlayerKrName(),
-                            player.getPlayerName());
-
-                    leagueGame.addGameLineUp(gameLineUp);
-                    return gameLineUp;
-
-                }).collect(Collectors.toList());
-    }
-
 
     private static void settingScore(Match match, LeagueGame leagueGame)
     {
@@ -130,8 +119,9 @@ public class DailyMatchDetailInsertService {
         }
 
         List<Goal> goals = match.goals().stream()
-                .map(matchGoal -> externalTeamIdMappingRepository.findByExternalTeamIdAndSeason((long) matchGoal.team().id(), season.getYears())
-                        .map(externalTeamIdMapping -> {
+                .map(matchGoal ->
+                        externalTeamIdMappingRepository.findByExternalTeamIdAndSeason((long) matchGoal.team().id(), season.getYears()).map(externalTeamIdMapping ->
+                        {
                             LeagueTeam scoredTeam = leagueTeamRepository.findById(externalTeamIdMapping.getTeamId())
                                     .orElseThrow(() -> new IllegalArgumentException("Team not found: " + externalTeamIdMapping.getTeamId()));
 
@@ -156,7 +146,8 @@ public class DailyMatchDetailInsertService {
                                     .type(goalType)
                                     .build();
                         })
-                        .orElseGet(() -> {
+                        .orElseGet(() ->
+                        {
                             log.warn("No ExternalTeamIdMapping found for TeamId: {}", matchGoal.team().id());
                             return null;
                         })
