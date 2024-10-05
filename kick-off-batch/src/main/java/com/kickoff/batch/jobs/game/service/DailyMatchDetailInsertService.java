@@ -12,6 +12,7 @@ import com.kickoff.core.soccer.team.GoalType;
 import com.kickoff.core.soccer.team.Score;
 import com.kickoff.core.soccer.team.external.ExternalPlayerIdMapping;
 import com.kickoff.core.soccer.team.external.ExternalPlayerIdMappingRepository;
+import com.kickoff.core.soccer.team.external.ExternalTeamIdMapping;
 import com.kickoff.core.soccer.team.external.ExternalTeamIdMappingRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -66,11 +67,40 @@ public class DailyMatchDetailInsertService {
     {
         leagueGame.setMinute(match.minute());
         leagueGame.setInjuryTime(match.injuryTime());
+        leagueGame.settingFormation(match.homeTeam().formation(), match.awayTeam().formation());
         settingScore(match, leagueGame);
         settingGoals(match, leagueGame, season);
         settingLineUps(match, leagueGame);
-
+        settingBookings(match, leagueGame);
         leagueGameRepository.save(leagueGame);
+    }
+
+    private void settingBookings(Match match, LeagueGame leagueGame)
+    {
+        leagueGame.getGameBookings().clear();
+        match.bookings().forEach(
+            bookings -> {
+                Optional<ExternalPlayerIdMapping> externalPlayer = externalPlayerIdMappingRepository.findByExternalPlayerId((long) bookings.player().id());
+                Optional<ExternalTeamIdMapping> externalTeamId = externalTeamIdMappingRepository.findByExternalTeamId((long) bookings.team().id());
+
+                if (externalPlayer.isEmpty() || externalTeamId.isEmpty())
+                {
+                    log.info("external playerID : {}, teamId : {}", bookings.player().id(), bookings.team().id());
+                    return;
+                }
+
+                Player player = playerRepository.findByPlayerId((long) externalPlayer.get().getPlayerId()).orElseThrow();
+                GameBooking gameBooking = GameBooking.builder()
+                        .cardType(CardType.valueOf(bookings.card()).toString())
+                        .minute(bookings.minute())
+                        .playerKrName(player.getPlayerKrName())
+                        .playerEnName(player.getPlayerName())
+                        .leagueTeamId(externalTeamId.get().getTeamId())
+                        .playerId(player.getPlayerId())
+                        .build();
+
+                leagueGame.addGameBookings(gameBooking);
+            });
     }
 
     private void settingLineUps(Match match, LeagueGame leagueGame)

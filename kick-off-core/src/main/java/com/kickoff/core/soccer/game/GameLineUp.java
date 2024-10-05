@@ -21,5 +21,6 @@ public class GameLineUp {
             this.shirtNumber = shirtNumber;
             this.type = type;
             this.playerKrName = playerKrName;
+            this.playerEnName = playerEnName;
       }
 }

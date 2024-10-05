@@ -19,6 +19,8 @@ public record LeagueGameDTO(
         LeagueGameStatus leagueGameStatus,
         String seasonYear,
         String venue,
+        String homeFormation,
+        String awayFormation,
         List<LeagueGamePlayerDTO> homePlayers,
         List<LeagueGamePlayerDTO> awayPlayers,
         List<GoalInfo> goalInfos,
@@ -36,6 +38,8 @@ public record LeagueGameDTO(
                 leagueGame.getLeagueGameStatus(),
                 leagueGame.getSeason().getYears(),
                 leagueGame.getVenue(),
+                leagueGame.getHomeFormation(),
+                leagueGame.getAwayFormation(),
                 makePlayers(leagueGame.getGameLineUps().stream().filter(s->s.getType().equals("home")).collect(Collectors.toList())), // TODO : 선수 추가 되면 변경
                 makePlayers(leagueGame.getGameLineUps().stream().filter(s->s.getType().equals("away")).collect(Collectors.toList())),
                 GoalInfo.of(leagueGame.getGoals()),

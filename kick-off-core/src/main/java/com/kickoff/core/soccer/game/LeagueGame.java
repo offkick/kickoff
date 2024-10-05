@@ -78,6 +78,21 @@ public class LeagueGame extends BaseEntity {
             joinColumns = @JoinColumn(name = "leagueGameId"))
     private List<GameLineUp> gameLineUps = new ArrayList<>();
 
+    @Setter
+    @ElementCollection
+    @CollectionTable(name = "game_booking",
+            joinColumns = @JoinColumn(name = "leagueGameId"))
+    private List<GameBooking> gameBookings = new ArrayList<>();
+
+    private String homeFormation;
+    private String awayFormation;
+
+    public void settingFormation(String home, String away)
+    {
+        this.awayFormation = away;
+        this.homeFormation = home;
+    }
+
     @Builder
     public LeagueGame(
             Long leagueGameId,
@@ -91,8 +106,8 @@ public class LeagueGame extends BaseEntity {
             List<LeagueGamePlayer> homePlayers,
             List<LeagueGamePlayer> awayPlayers,
             List<Goal> goals,
-            String venue
-    ) {
+            String venue,
+            String homeFormation, String awayFormation) {
         this.leagueGameId = leagueGameId;
         this.gameDate = gameDate;
         this.matchDay = matchDay;
@@ -105,6 +120,8 @@ public class LeagueGame extends BaseEntity {
         this.homePlayers = homePlayers;
         this.awayPlayers = awayPlayers;
         this.goals = goals;
+        this.homeFormation = homeFormation;
+        this.awayFormation = awayFormation;
     }
 
     private void validate(LeagueTeam leagueTeam, List<LeagueGamePlayer> leagueGamePlayers)
@@ -167,5 +184,10 @@ public class LeagueGame extends BaseEntity {
     public void addGameLineUp(GameLineUp gameLineUp)
     {
         this.getGameLineUps().add(gameLineUp);
+    }
+
+    public void addGameBookings(GameBooking gameBooking)
+    {
+        this.getGameBookings().add(gameBooking);
     }
 }

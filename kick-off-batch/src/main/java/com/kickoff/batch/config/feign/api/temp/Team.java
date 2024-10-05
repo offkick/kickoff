@@ -13,11 +13,13 @@ public record Team(
         String address,
         String website,
         int founded,
+        String formation,
         String clubColors,
         String venue,
         List<RunningCompetition> runningCompetitions,
         List<Object> staff,
         List<Squad> squad,
         Date lastUpdated,
-        List<LineUp> lineup
+        List<LineUp> lineup,
+        List<LineUp> bench
 ) {}

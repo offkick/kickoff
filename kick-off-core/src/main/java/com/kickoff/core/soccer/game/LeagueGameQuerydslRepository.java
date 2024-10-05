@@ -152,6 +152,6 @@ public class LeagueGameQuerydslRepository {
 
     private BooleanExpression eqLeagueTeamId(Long leagueTeamId)
     {
-        return leagueTeamId != null ? (leagueGame.away.league.leagueId.eq(leagueTeamId)).or(leagueGame.home.league.leagueId.eq(leagueTeamId)) : null;
+        return leagueTeamId != null ? (leagueGame.away.leagueTeamId.eq(leagueTeamId)).or(leagueGame.home.leagueTeamId.eq(leagueTeamId)) : null;
     }
 }
