@@ -50,16 +50,4 @@ public class LeagueGameService {
                 .map(LeagueGameDTO::of)
                 .collect(Collectors.toList());
     }
-    public List<LeagueGameDTO> findByLeagueOrTeamAndSeason(Long leagueId, Long leagueTeamId, LocalDateTime startDateTime, LocalDateTime endDateTime)
-    {
-        return leagueGameRepository.findByLeagueOrTeamAndSeason(leagueId,leagueTeamId, startDateTime, endDateTime)
-                .stream()
-                .map(LeagueGameDTO::of)
-                .collect(Collectors.toList());
-    }
-
-    public FindLeagueGamesResponse leagueTeamGames(Long leagueTeamId, Pageable pageable)
-    {
-        return leagueGameQuerydslRepository.findLeagueTeamGame(leagueTeamId,pageable);
-    }
 }
