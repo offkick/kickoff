@@ -38,16 +38,6 @@ public class LeagueGameFindService {
         return FindLeagueGamePlayerResponse.of(leagueGame);
     }
 
-    public DateLeagueGameResponse findLeagueGameByDate(LocalDate date)
-    {
-        List<LeagueGameDTO> leagueGames = leagueGameService.findByGameDateBetween(
-                date.atStartOfDay(),
-                date.atTime(LocalTime.MAX)
-        );
-
-        return DateLeagueGameResponse.of(leagueGames);
-    }
-
     public DateLeagueGameResponse findLeagueGameByDateAndLeagueId(LocalDate date, Long leagueId)
     {
         List<LeagueGameDTO> leagueGames = leagueGameService.findByGameDateBetweenAndLeagueId(
@@ -58,7 +48,6 @@ public class LeagueGameFindService {
 
         return DateLeagueGameResponse.of(leagueGames);
     }
-
 
     public SeasonLeagueGameResponse findLeagueGameBySeason(Long leagueId, YearMonth yearMonth)
     {
