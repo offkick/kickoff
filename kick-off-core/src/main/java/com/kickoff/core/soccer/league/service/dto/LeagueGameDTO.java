@@ -1,5 +1,6 @@
 package com.kickoff.core.soccer.league.service.dto;
 
+import com.kickoff.core.soccer.game.GameBooking;
 import com.kickoff.core.soccer.game.GameLineUp;
 import com.kickoff.core.soccer.game.LeagueGame;
 import com.kickoff.core.soccer.game.LeagueGameStatus;
@@ -25,7 +26,8 @@ public record LeagueGameDTO(
         List<LeagueGamePlayerDTO> awayPlayers,
         List<GoalInfo> goalInfos,
         Long minute,
-        Long injuryTime
+        Long injuryTime,
+        List<GameBookingDTO> gameBookingDTOS
 ) {
     public static LeagueGameDTO of(LeagueGame leagueGame) {
         return new LeagueGameDTO(
@@ -44,7 +46,8 @@ public record LeagueGameDTO(
                 makePlayers(leagueGame.getGameLineUps().stream().filter(s->s.getType().equals("away")).collect(Collectors.toList())),
                 GoalInfo.of(leagueGame.getGoals()),
                 leagueGame.getMinute(),
-                leagueGame.getInjuryTime()
+                leagueGame.getInjuryTime(),
+                leagueGame.getGameBookings().stream().map(GameBookingDTO::of).collect(Collectors.toList())
         );
     }
 
@@ -69,6 +72,29 @@ public record LeagueGameDTO(
                             s.getScoredTeam().getLeagueTeamName(),
                             s.getScoredTeam().getLeagueTeamId()))
                     .toList();
+        }
+    }
+
+    public record GameBookingDTO(
+            Long minute,
+            Long leagueTeamId,
+            Long playerId,
+            String type,
+            String playerKrName,
+            String playerEnName,
+            String cardType
+    ) {
+        public static GameBookingDTO of(GameBooking gameBooking)
+        {
+            return new GameBookingDTO(
+                    gameBooking.getMinute(),
+                    gameBooking.getLeagueTeamId(),
+                    gameBooking.getPlayerId(),
+                    gameBooking.getType(),
+                    gameBooking.getPlayerKrName(),
+                    gameBooking.getPlayerEnName(),
+                    gameBooking.getCardType()
+            );
         }
     }
 }
