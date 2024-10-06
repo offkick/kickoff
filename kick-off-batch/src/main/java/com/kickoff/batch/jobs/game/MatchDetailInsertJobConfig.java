@@ -64,6 +64,7 @@ public class MatchDetailInsertJobConfig {
             LocalDate targetDateFrom = parseDateOrDefault(jobParameters.getString("targetDateFrom"), LocalDate.now().minusDays(2));
             LocalDate targetDateTo = parseDateOrDefault(jobParameters.getString("targetDateTo"), LocalDate.now().plusDays(1));
             String season = jobParameters.getString("season");
+            log.info("start parameter with start [targetDateFrom] : {}, [targetDateTo] : {}", targetDateFrom, targetDateTo);
             dailyMatchDetailInsertService.insertMatchDetail(targetDateFrom, targetDateTo, season);
             return RepeatStatus.FINISHED;
         };
