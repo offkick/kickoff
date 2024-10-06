@@ -1,4 +1,4 @@
-package com.kickoff.core.soccer.league.game;
+package com.kickoff.core.soccer.game;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -16,7 +16,7 @@ import com.querydsl.core.types.dsl.PathInits;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QLeagueGame extends EntityPathBase<LeagueGame> {
 
-    private static final long serialVersionUID = 64384486L;
+    private static final long serialVersionUID = 178418197L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
@@ -26,18 +26,22 @@ public class QLeagueGame extends EntityPathBase<LeagueGame> {
 
     public final com.kickoff.core.soccer.league.QLeagueTeam away;
 
-    public final ListPath<com.kickoff.core.soccer.league.game.player.LeagueGamePlayer, com.kickoff.core.soccer.league.game.player.QLeagueGamePlayer> awayPlayers = this.<com.kickoff.core.soccer.league.game.player.LeagueGamePlayer, com.kickoff.core.soccer.league.game.player.QLeagueGamePlayer>createList("awayPlayers", com.kickoff.core.soccer.league.game.player.LeagueGamePlayer.class, com.kickoff.core.soccer.league.game.player.QLeagueGamePlayer.class, PathInits.DIRECT2);
+    public final ListPath<com.kickoff.core.soccer.game.player.LeagueGamePlayer, com.kickoff.core.soccer.game.player.QLeagueGamePlayer> awayPlayers = this.<com.kickoff.core.soccer.game.player.LeagueGamePlayer, com.kickoff.core.soccer.game.player.QLeagueGamePlayer>createList("awayPlayers", com.kickoff.core.soccer.game.player.LeagueGamePlayer.class, com.kickoff.core.soccer.game.player.QLeagueGamePlayer.class, PathInits.DIRECT2);
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
 
     public final DateTimePath<java.time.LocalDateTime> gameDate = createDateTime("gameDate", java.time.LocalDateTime.class);
 
+    public final ListPath<GameLineUp, QGameLineUp> gameLineUps = this.<GameLineUp, QGameLineUp>createList("gameLineUps", GameLineUp.class, QGameLineUp.class, PathInits.DIRECT2);
+
     public final ListPath<com.kickoff.core.soccer.team.Goal, com.kickoff.core.soccer.team.QGoal> goals = this.<com.kickoff.core.soccer.team.Goal, com.kickoff.core.soccer.team.QGoal>createList("goals", com.kickoff.core.soccer.team.Goal.class, com.kickoff.core.soccer.team.QGoal.class, PathInits.DIRECT2);
 
     public final com.kickoff.core.soccer.league.QLeagueTeam home;
 
-    public final ListPath<com.kickoff.core.soccer.league.game.player.LeagueGamePlayer, com.kickoff.core.soccer.league.game.player.QLeagueGamePlayer> homePlayers = this.<com.kickoff.core.soccer.league.game.player.LeagueGamePlayer, com.kickoff.core.soccer.league.game.player.QLeagueGamePlayer>createList("homePlayers", com.kickoff.core.soccer.league.game.player.LeagueGamePlayer.class, com.kickoff.core.soccer.league.game.player.QLeagueGamePlayer.class, PathInits.DIRECT2);
+    public final ListPath<com.kickoff.core.soccer.game.player.LeagueGamePlayer, com.kickoff.core.soccer.game.player.QLeagueGamePlayer> homePlayers = this.<com.kickoff.core.soccer.game.player.LeagueGamePlayer, com.kickoff.core.soccer.game.player.QLeagueGamePlayer>createList("homePlayers", com.kickoff.core.soccer.game.player.LeagueGamePlayer.class, com.kickoff.core.soccer.game.player.QLeagueGamePlayer.class, PathInits.DIRECT2);
+
+    public final NumberPath<Long> injuryTime = createNumber("injuryTime", Long.class);
 
     public final NumberPath<Long> leagueGameId = createNumber("leagueGameId", Long.class);
 
@@ -45,9 +49,13 @@ public class QLeagueGame extends EntityPathBase<LeagueGame> {
 
     public final NumberPath<Integer> matchDay = createNumber("matchDay", Integer.class);
 
+    public final NumberPath<Long> minute = createNumber("minute", Long.class);
+
     public final com.kickoff.core.soccer.team.QScore score;
 
     public final com.kickoff.core.soccer.league.QSeason season;
+
+    public final ListPath<Substitutions, QSubstitutions> substitutionsList = this.<Substitutions, QSubstitutions>createList("substitutionsList", Substitutions.class, QSubstitutions.class, PathInits.DIRECT2);
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> updatedAt = _super.updatedAt;

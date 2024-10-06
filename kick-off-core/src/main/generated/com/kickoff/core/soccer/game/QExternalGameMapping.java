@@ -1,4 +1,4 @@
-package com.kickoff.core.soccer.league.game;
+package com.kickoff.core.soccer.game;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -15,7 +15,7 @@ import com.querydsl.core.types.Path;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QExternalGameMapping extends EntityPathBase<ExternalGameMapping> {
 
-    private static final long serialVersionUID = 350463532L;
+    private static final long serialVersionUID = -220731683L;
 
     public static final QExternalGameMapping externalGameMapping = new QExternalGameMapping("externalGameMapping");
 
