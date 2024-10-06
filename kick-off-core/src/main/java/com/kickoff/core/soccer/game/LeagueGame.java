@@ -193,7 +193,8 @@ public class LeagueGame extends BaseEntity {
     public void addSubstitutions(Substitutions substitutions)
     {
         this.getSubstitutionsList().add(substitutions);
-
+        substitutions.setLeagueGame(this);
+    }
 
     public void addGameBookings(GameBooking gameBooking)
     {

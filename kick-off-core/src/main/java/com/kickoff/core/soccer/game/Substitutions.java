@@ -1,6 +1,5 @@
 package com.kickoff.core.soccer.game;
 
-import com.kickoff.core.soccer.game.player.LeagueGamePlayer;
 import com.kickoff.core.soccer.league.LeagueTeam;
 import com.kickoff.core.soccer.player.Player;
 import jakarta.persistence.*;
@@ -41,6 +40,11 @@ public class Substitutions {
         this.playerOut = playerOut;
         this.playerIn = playerIn;
         this.substitutionTeam = substitutionTeam;
+        this.leagueGame = leagueGame;
+    }
+
+    public void setLeagueGame(LeagueGame leagueGame)
+    {
         this.leagueGame = leagueGame;
     }
 }
