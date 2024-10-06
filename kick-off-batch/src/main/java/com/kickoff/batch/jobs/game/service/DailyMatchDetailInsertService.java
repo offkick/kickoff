@@ -50,8 +50,6 @@ public class DailyMatchDetailInsertService {
                 .filter(game -> game.getLeagueGameStatus().equals(LeagueGameStatus.END))
                 .toList();
 
-
-
         Season findSeason = seasonRepository.findByYears(season).orElseThrow();
 
 
