@@ -39,6 +39,8 @@ public class DailyMatchDetailInsertService {
     private final ExternalTeamIdMappingRepository externalTeamIdMappingRepository;
     private final ExternalPlayerIdMappingRepository  externalPlayerIdMappingRepository;
     private final ExternalGameMappingRepository externalGameMappingRepository;
+    private final SubstitutionsRepository substitutionsRepository;
+
     private final LeagueRepository leagueRepository;
 
     public void insertMatchDetail(LocalDate targetDateFrom, LocalDate targetDateTo, String season)
@@ -48,12 +50,16 @@ public class DailyMatchDetailInsertService {
                 .filter(game -> game.getLeagueGameStatus().equals(LeagueGameStatus.END))
                 .toList();
 
+
+
         Season findSeason = seasonRepository.findByYears(season).orElseThrow();
+
 
         for (LeagueGame leagueGame : targetLeagueGames)
         {
             externalGameMappingRepository.findByGameId(leagueGame.getLeagueGameId()).ifPresent(externalGameMapping -> processMatchDetails(externalGameMapping, leagueGame, findSeason));
             sleepForApiRateLimiting();
+
         }
     }
 
@@ -65,12 +71,14 @@ public class DailyMatchDetailInsertService {
 
     private void saveMatchDetails(Match match, LeagueGame leagueGame, Season season)
     {
+        log.info("MATCHMATCH" + match);
         leagueGame.setMinute(match.minute());
         leagueGame.setInjuryTime(match.injuryTime());
         leagueGame.settingFormation(match.homeTeam().formation(), match.awayTeam().formation());
         settingScore(match, leagueGame);
         settingGoals(match, leagueGame, season);
         settingLineUps(match, leagueGame);
+        settingSubstitutions(match, season,leagueGame);
         settingBookings(match, leagueGame);
         leagueGameRepository.save(leagueGame);
     }
@@ -134,6 +142,38 @@ public class DailyMatchDetailInsertService {
         });
     }
 
+    private void settingSubstitutions(Match match,Season season, LeagueGame leagueGame)
+    {
+        match.substitutions().forEach(substitutions ->
+        {
+
+            Optional<ExternalPlayerIdMapping> externalPlayerOut = externalPlayerIdMappingRepository.findByExternalPlayerId(Long.valueOf(substitutions.playerOut().id()));
+            Optional<ExternalPlayerIdMapping> externalPlayerIn = externalPlayerIdMappingRepository.findByExternalPlayerId(Long.valueOf(substitutions.playerIn().id()));
+            Optional<ExternalTeamIdMapping> byExternalTeamIdAndSeason = externalTeamIdMappingRepository.findByExternalTeamIdAndSeason((long) substitutions.team().id(), season.getYears());
+
+            if (byExternalTeamIdAndSeason.isPresent())
+            {
+                log.info("byExternalPlayerId is empty");
+                ExternalPlayerIdMapping externalPlayerOutIdMapping = externalPlayerOut.get();
+                Player playerOut = playerRepository.findByPlayerId(externalPlayerOutIdMapping.getPlayerId()).orElseThrow();
+                ExternalPlayerIdMapping externalPlayerInIdMapping = externalPlayerIn.get();
+                Player playerIn = playerRepository.findByPlayerId(externalPlayerInIdMapping.getPlayerId()).orElseThrow();
+               LeagueTeam leagueTeam = leagueTeamRepository.findById(byExternalTeamIdAndSeason.get().getTeamId())
+                                    .orElseThrow(() -> new IllegalArgumentException("Team not found: " + byExternalTeamIdAndSeason.get().getTeamId()));
+                Substitutions substitutions1 = new Substitutions(
+                        substitutions.minute(),
+                        playerOut,
+                        playerIn,
+                        leagueTeam,
+                        leagueGame
+                );
+
+
+                leagueGame.addSubstitutions(substitutions1);
+            }
+        });
+    }
+
     private static void settingScore(Match match, LeagueGame leagueGame)
     {
         Score score = Score.builder().awayScore(match.score().fullTime().away()).homeScore(match.score().fullTime().home()).build();
@@ -142,6 +182,7 @@ public class DailyMatchDetailInsertService {
 
     private void settingGoals(Match match, LeagueGame leagueGame, Season season)
     {
+
         if (!leagueGame.getGoals().isEmpty())
         {
             log.info("exists goals info : {}", leagueGame.getLeagueGameId());

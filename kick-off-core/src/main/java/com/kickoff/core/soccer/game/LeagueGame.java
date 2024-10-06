@@ -79,6 +79,10 @@ public class LeagueGame extends BaseEntity {
     private List<GameLineUp> gameLineUps = new ArrayList<>();
 
     @Setter
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "leagueGame")
+    private List<Substitutions> substitutionsList = new ArrayList<>();
+
     @ElementCollection
     @CollectionTable(name = "game_booking",
             joinColumns = @JoinColumn(name = "leagueGameId"))
@@ -186,8 +190,14 @@ public class LeagueGame extends BaseEntity {
         this.getGameLineUps().add(gameLineUp);
     }
 
+    public void addSubstitutions(Substitutions substitutions)
+    {
+        this.getSubstitutionsList().add(substitutions);
+
+
     public void addGameBookings(GameBooking gameBooking)
     {
         this.getGameBookings().add(gameBooking);
+
     }
 }

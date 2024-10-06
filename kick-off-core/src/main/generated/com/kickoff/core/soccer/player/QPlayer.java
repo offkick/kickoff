@@ -41,6 +41,8 @@ public class QPlayer extends EntityPathBase<Player> {
 
     public final SetPath<PlayerImage, QPlayerImage> playerImages = this.<PlayerImage, QPlayerImage>createSet("playerImages", PlayerImage.class, QPlayerImage.class, PathInits.DIRECT2);
 
+    public final StringPath playerKrName = createString("playerKrName");
+
     public final StringPath playerName = createString("playerName");
 
     public final EnumPath<PlayerPosition> position = createEnum("position", PlayerPosition.class);
