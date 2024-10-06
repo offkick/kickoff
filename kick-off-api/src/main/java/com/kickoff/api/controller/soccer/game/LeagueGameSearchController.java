@@ -83,7 +83,6 @@ public class LeagueGameSearchController {
             @RequestParam(required = false) Long leagueTeamId,
             @RequestParam(required = false) String yearMonth
     ) {
-        yearMonth = yearMonth == null? YearMonth.now().toString() : yearMonth;
         return leagueGameFindService.findByLeagueOrTeamAndSeason(leagueId,leagueTeamId, YearMonth.parse(yearMonth));
     }
 

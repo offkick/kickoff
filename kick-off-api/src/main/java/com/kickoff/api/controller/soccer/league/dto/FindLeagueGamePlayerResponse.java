@@ -31,6 +31,28 @@ public record FindLeagueGamePlayerResponse(
         }
     }
 
+    public record GameBooking(
+            Long minute,
+            Long leagueTeamId,
+            Long playerId,
+            String type,
+            String playerKrName,
+            String playerEnName,
+            String cardType
+    ) {
+        public static GameBooking of(LeagueGameDTO.GameBookingDTO dto)
+        {
+            return new GameBooking(
+                    dto.minute(),
+                    dto.leagueTeamId(),
+                    dto.playerId(),
+                    dto.type(),
+                    dto.playerKrName(),
+                    dto.playerEnName(),
+                    dto.cardType()
+            );
+        }
+    }
     public record LeagueGamePlayerResponse(
             LocalDateTime gameDate,
             int matchDay,
@@ -38,6 +60,8 @@ public record FindLeagueGamePlayerResponse(
             String home,
             String homeScore,
             String awayScore,
+            String homeFormation,
+            String awayFormation,
             String homeLogo,
             String awayLogo,
             LeagueGameStatus leagueGameStatus,
@@ -46,7 +70,8 @@ public record FindLeagueGamePlayerResponse(
             List<GamePlayer> awayPlayers,
             List<GoalsDTO> goals,
             Long minute,
-            Long injuryTime
+            Long injuryTime,
+            List<GameBooking> bookings
     ) {
         public static LeagueGamePlayerResponse of(LeagueGameDTO leagueGame) {
             return new LeagueGamePlayerResponse(
@@ -56,6 +81,8 @@ public record FindLeagueGamePlayerResponse(
                     leagueGame.home().leagueTeamName(),
                     leagueGame.score().homeScore(),
                     leagueGame.score().awayScore(),
+                    leagueGame.homeFormation(),
+                    leagueGame.awayFormation(),
                     leagueGame.home().logo(),
                     leagueGame.away().logo(),
                     leagueGame.leagueGameStatus(),
@@ -64,11 +91,12 @@ public record FindLeagueGamePlayerResponse(
                     GamePlayer.of(leagueGame.awayPlayers()),
                     leagueGame.goalInfos().stream().map(GoalsDTO::of).collect(Collectors.toList()),
                     leagueGame.minute(),
-                    leagueGame.injuryTime()
+                    leagueGame.injuryTime(),
+                    leagueGame.gameBookingDTOS().stream().map(GameBooking::of).collect(Collectors.toList())
             );
         }
         public record GoalsDTO(
-                Long plyerId,
+                Long playerId,
                 String playerName,
                 int time,
                 String type,
