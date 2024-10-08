@@ -2,6 +2,7 @@ package com.kickoff.batch.jobs.game.service;
 
 import com.kickoff.batch.config.feign.SoccerApiFeign;
 import com.kickoff.batch.config.feign.api.temp.Match;
+import com.kickoff.batch.config.feign.api.temp.Statistics;
 import com.kickoff.batch.config.feign.api.temp.Team;
 import com.kickoff.core.soccer.game.*;
 import com.kickoff.core.soccer.league.*;
@@ -52,12 +53,10 @@ public class DailyMatchDetailInsertService {
 
         Season findSeason = seasonRepository.findByYears(season).orElseThrow();
 
-
         for (LeagueGame leagueGame : targetLeagueGames)
         {
             externalGameMappingRepository.findByGameId(leagueGame.getLeagueGameId()).ifPresent(externalGameMapping -> processMatchDetails(externalGameMapping, leagueGame, findSeason));
             sleepForApiRateLimiting();
-
         }
     }
 
@@ -69,7 +68,6 @@ public class DailyMatchDetailInsertService {
 
     private void saveMatchDetails(Match match, LeagueGame leagueGame, Season season)
     {
-        log.info("MATCHMATCH" + match);
         leagueGame.setMinute(match.minute());
         leagueGame.setInjuryTime(match.injuryTime());
         leagueGame.settingFormation(match.homeTeam().formation(), match.awayTeam().formation());
@@ -78,6 +76,20 @@ public class DailyMatchDetailInsertService {
         settingLineUps(match, leagueGame);
         settingSubstitutions(match, season,leagueGame);
         settingBookings(match, leagueGame);
+        settingStatics(match, leagueGame);
+        leagueGameRepository.save(leagueGame);
+    }
+
+    private void settingStatics(Match match, LeagueGame leagueGame)
+    {
+        Statistics homeStatistics = match.homeTeam().statistics();
+        Statistics awayStatistics = match.awayTeam().statistics();
+
+        leagueGame.getStatistics().clear();
+        GameStatistics home = Statistics.of(homeStatistics, "home");
+        GameStatistics away = Statistics.of(awayStatistics, "away");
+        leagueGame.addGameStatistics(home);
+        leagueGame.addGameStatistics(away);
         leagueGameRepository.save(leagueGame);
     }
 
@@ -144,20 +156,24 @@ public class DailyMatchDetailInsertService {
     {
         match.substitutions().forEach(substitutions ->
         {
-
             Optional<ExternalPlayerIdMapping> externalPlayerOut = externalPlayerIdMappingRepository.findByExternalPlayerId(Long.valueOf(substitutions.playerOut().id()));
             Optional<ExternalPlayerIdMapping> externalPlayerIn = externalPlayerIdMappingRepository.findByExternalPlayerId(Long.valueOf(substitutions.playerIn().id()));
             Optional<ExternalTeamIdMapping> byExternalTeamIdAndSeason = externalTeamIdMappingRepository.findByExternalTeamIdAndSeason((long) substitutions.team().id(), season.getYears());
 
             if (byExternalTeamIdAndSeason.isPresent())
             {
-                log.info("byExternalPlayerId is empty");
+                if (externalPlayerOut.isEmpty() || externalPlayerIn.isEmpty())
+                {
+                    return;
+                }
+
                 ExternalPlayerIdMapping externalPlayerOutIdMapping = externalPlayerOut.get();
                 Player playerOut = playerRepository.findByPlayerId(externalPlayerOutIdMapping.getPlayerId()).orElseThrow();
                 ExternalPlayerIdMapping externalPlayerInIdMapping = externalPlayerIn.get();
+
                 Player playerIn = playerRepository.findByPlayerId(externalPlayerInIdMapping.getPlayerId()).orElseThrow();
-               LeagueTeam leagueTeam = leagueTeamRepository.findById(byExternalTeamIdAndSeason.get().getTeamId())
-                                    .orElseThrow(() -> new IllegalArgumentException("Team not found: " + byExternalTeamIdAndSeason.get().getTeamId()));
+                LeagueTeam leagueTeam = leagueTeamRepository.findById(byExternalTeamIdAndSeason.get().getTeamId())
+                        .orElseThrow(() -> new IllegalArgumentException("Team not found: " + byExternalTeamIdAndSeason.get().getTeamId()));
                 Substitutions substitutions1 = new Substitutions(
                         substitutions.minute(),
                         playerOut,

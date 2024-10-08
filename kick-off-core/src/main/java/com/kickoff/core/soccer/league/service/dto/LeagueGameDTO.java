@@ -1,12 +1,9 @@
 package com.kickoff.core.soccer.league.service.dto;
 
-import com.kickoff.core.soccer.game.GameBooking;
-import com.kickoff.core.soccer.game.GameLineUp;
-import com.kickoff.core.soccer.game.LeagueGame;
-import com.kickoff.core.soccer.game.LeagueGameStatus;
-import com.kickoff.core.soccer.game.Substitutions;
+import com.kickoff.core.soccer.game.*;
 import com.kickoff.core.soccer.league.LeagueTeam;
 import com.kickoff.core.soccer.team.Goal;
+import lombok.Builder;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -30,7 +27,9 @@ public record LeagueGameDTO(
         List<SubstitutionInfo> substitutionInfos,
         Long minute,
         Long injuryTime,
-        List<GameBookingDTO> gameBookingDTOS
+        List<GameBookingDTO> gameBookingDTOS,
+        GameStatisticsDTO homeGameStatisticsDTO,
+        GameStatisticsDTO awayGameStatisticsDTO
 ) {
     public static LeagueGameDTO of(LeagueGame leagueGame) {
         return new LeagueGameDTO(
@@ -51,7 +50,9 @@ public record LeagueGameDTO(
                 SubstitutionInfo.of(leagueGame.getSubstitutionsList(),leagueGame.getHome(), leagueGame.getAway()),
                 leagueGame.getMinute(),
                 leagueGame.getInjuryTime(),
-                leagueGame.getGameBookings().stream().map(GameBookingDTO::of).collect(Collectors.toList())
+                leagueGame.getGameBookings().stream().map(GameBookingDTO::of).collect(Collectors.toList()),
+                GameStatisticsDTO.of(leagueGame.getStatistics().stream().filter(s->s.getType().equals("home")).findFirst().orElse(null)),
+                GameStatisticsDTO.of(leagueGame.getStatistics().stream().filter(s->s.getType().equals("away")).findFirst().orElse(null))
         );
     }
 
@@ -76,6 +77,48 @@ public record LeagueGameDTO(
                             s.getScoredTeam().getLeagueTeamName(),
                             s.getScoredTeam().getLeagueTeamId()))
                     .toList();
+        }
+    }
+
+    @Builder
+    public record GameStatisticsDTO(
+            String cornerKicks,
+            String freeKicks,
+            String goalKicks,
+            String offsides,
+            String fouls,
+            String ballPossession,
+            String saves,
+            String throwIns,
+            String shots,
+            String shotsOnGoal,
+            String shotsOffGoal,
+            String yellowCards,
+            String yellowRedCards,
+            String redCards
+    ) {
+        public static GameStatisticsDTO of(GameStatistics statistics)
+        {
+            if (statistics ==  null)
+            {
+                return null;
+            }
+            return GameStatisticsDTO.builder()
+                    .cornerKicks(statistics.getCornerKicks())
+                    .freeKicks(statistics.getFreeKicks())
+                    .goalKicks(statistics.getGoalKicks())
+                    .offsides(statistics.getOffsides())
+                    .fouls(statistics.getFouls())
+                    .ballPossession(statistics.getBallPossession())
+                    .saves(statistics.getSaves())
+                    .throwIns(statistics.getThrowIns())
+                    .shots(statistics.getShots())
+                    .shotsOnGoal(statistics.getShotsOnGoal())
+                    .shotsOffGoal(statistics.getShotsOffGoal())
+                    .yellowCards(statistics.getYellowCards())
+                    .yellowRedCards(statistics.getYellowRedCards())
+                    .redCards(statistics.getRedCards())
+                    .build();
         }
     }
 

@@ -3,6 +3,7 @@ package com.kickoff.api.controller.soccer.league.dto;
 import com.kickoff.core.soccer.game.LeagueGameStatus;
 import com.kickoff.core.soccer.league.service.dto.LeagueGameDTO;
 import com.kickoff.core.soccer.league.service.dto.LeagueGamePlayerDTO;
+import lombok.Builder;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -53,6 +54,49 @@ public record FindLeagueGamePlayerResponse(
             );
         }
     }
+
+    @Builder
+    public record GameStatistics(
+            String cornerKicks,
+            String freeKicks,
+            String goalKicks,
+            String offsides,
+            String fouls,
+            String ballPossession,
+            String saves,
+            String throwIns,
+            String shots,
+            String shotsOnGoal,
+            String shotsOffGoal,
+            String yellowCards,
+            String yellowRedCards,
+            String redCards
+    ) {
+        public static GameStatistics of(LeagueGameDTO.GameStatisticsDTO statistics)
+        {
+            if (statistics ==  null)
+            {
+                return null;
+            }
+            return GameStatistics.builder()
+                    .cornerKicks(statistics.cornerKicks())
+                    .freeKicks(statistics.freeKicks())
+                    .goalKicks(statistics.goalKicks())
+                    .offsides(statistics.offsides())
+                    .fouls(statistics.fouls())
+                    .ballPossession(statistics.ballPossession())
+                    .saves(statistics.saves())
+                    .throwIns(statistics.throwIns())
+                    .shots(statistics.shots())
+                    .shotsOnGoal(statistics.shotsOnGoal())
+                    .shotsOffGoal(statistics.shotsOffGoal())
+                    .yellowCards(statistics.yellowCards())
+                    .yellowRedCards(statistics.yellowRedCards())
+                    .redCards(statistics.redCards())
+                    .build();
+        }
+    }
+
     public record LeagueGamePlayerResponse(
             LocalDateTime gameDate,
             int matchDay,
@@ -72,7 +116,9 @@ public record FindLeagueGamePlayerResponse(
             List<SubstitutionDTO> substitutions,
             Long minute,
             Long injuryTime,
-            List<GameBooking> bookings
+            List<GameBooking> bookings,
+            GameStatistics homeStatistics,
+            GameStatistics awayStatistics
     ) {
         public static LeagueGamePlayerResponse of(LeagueGameDTO leagueGame) {
             return new LeagueGamePlayerResponse(
@@ -91,10 +137,12 @@ public record FindLeagueGamePlayerResponse(
                     GamePlayer.of(leagueGame.homePlayers()),
                     GamePlayer.of(leagueGame.awayPlayers()),
                     leagueGame.goalInfos().stream().map(GoalsDTO::of).collect(Collectors.toList()),
-                    leagueGame.substitutionInfos().stream().map(SubstitutionDTO::of).collect(Collectors.toList()),
+                    null,
                     leagueGame.minute(),
                     leagueGame.injuryTime(),
-                    leagueGame.gameBookingDTOS().stream().map(GameBooking::of).collect(Collectors.toList())
+                    leagueGame.gameBookingDTOS().stream().map(GameBooking::of).collect(Collectors.toList()),
+                    GameStatistics.of(leagueGame.homeGameStatisticsDTO()),
+                    GameStatistics.of(leagueGame.awayGameStatisticsDTO())
             );
         }
         public record GoalsDTO(

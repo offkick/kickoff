@@ -72,6 +72,7 @@ public class LeagueGame extends BaseEntity {
     @Setter
     private List<Goal> goals = new ArrayList<>();
 
+
     @Setter
     @ElementCollection
     @CollectionTable(name = "game_line_up",
@@ -79,7 +80,6 @@ public class LeagueGame extends BaseEntity {
     private List<GameLineUp> gameLineUps = new ArrayList<>();
 
     @Setter
-
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "leagueGame")
     private List<Substitutions> substitutionsList = new ArrayList<>();
 
@@ -87,6 +87,9 @@ public class LeagueGame extends BaseEntity {
     @CollectionTable(name = "game_booking",
             joinColumns = @JoinColumn(name = "leagueGameId"))
     private List<GameBooking> gameBookings = new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "leagueGame")
+    private List<GameStatistics> statistics;
 
     private String homeFormation;
     private String awayFormation;
@@ -111,7 +114,8 @@ public class LeagueGame extends BaseEntity {
             List<LeagueGamePlayer> awayPlayers,
             List<Goal> goals,
             String venue,
-            String homeFormation, String awayFormation) {
+            String homeFormation, String awayFormation
+    ) {
         this.leagueGameId = leagueGameId;
         this.gameDate = gameDate;
         this.matchDay = matchDay;
@@ -199,6 +203,11 @@ public class LeagueGame extends BaseEntity {
     public void addGameBookings(GameBooking gameBooking)
     {
         this.getGameBookings().add(gameBooking);
+    }
 
+    public void addGameStatistics(GameStatistics gameStatistics)
+    {
+        this.getStatistics().add(gameStatistics);
+        gameStatistics.setLeagueGame(this);
     }
 }

@@ -21,5 +21,6 @@ public record Team(
         List<Squad> squad,
         Date lastUpdated,
         List<LineUp> lineup,
-        List<LineUp> bench
+        List<LineUp> bench,
+        Statistics statistics
 ) {}
