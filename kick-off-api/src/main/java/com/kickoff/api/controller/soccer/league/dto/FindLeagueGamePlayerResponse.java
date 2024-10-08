@@ -69,6 +69,7 @@ public record FindLeagueGamePlayerResponse(
             List<GamePlayer> homePlayers,
             List<GamePlayer> awayPlayers,
             List<GoalsDTO> goals,
+            List<SubstitutionDTO> substitutions,
             Long minute,
             Long injuryTime,
             List<GameBooking> bookings
@@ -90,6 +91,7 @@ public record FindLeagueGamePlayerResponse(
                     GamePlayer.of(leagueGame.homePlayers()),
                     GamePlayer.of(leagueGame.awayPlayers()),
                     leagueGame.goalInfos().stream().map(GoalsDTO::of).collect(Collectors.toList()),
+                    leagueGame.substitutionInfos().stream().map(SubstitutionDTO::of).collect(Collectors.toList()),
                     leagueGame.minute(),
                     leagueGame.injuryTime(),
                     leagueGame.gameBookingDTOS().stream().map(GameBooking::of).collect(Collectors.toList())
@@ -109,6 +111,20 @@ public record FindLeagueGamePlayerResponse(
                     info.teamName(),
                         info.teamId()
                 );
+            }
+        }
+
+        public record SubstitutionDTO(
+                int minute,
+                Long playerOutId,
+                String playerOutName,
+                Long playerInId,
+                String playerInName,
+                String substitutionTeam
+        ){
+            public static SubstitutionDTO of(LeagueGameDTO.SubstitutionInfo info)
+            {
+                return new SubstitutionDTO(info.minute(), info.playerOutId(), info.playerOutName(), info.playerInId(), info.playerInName(), info.substitutionTeam());
             }
         }
     }

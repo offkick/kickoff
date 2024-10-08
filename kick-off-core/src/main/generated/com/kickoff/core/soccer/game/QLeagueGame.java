@@ -26,10 +26,14 @@ public class QLeagueGame extends EntityPathBase<LeagueGame> {
 
     public final com.kickoff.core.soccer.league.QLeagueTeam away;
 
+    public final StringPath awayFormation = createString("awayFormation");
+
     public final ListPath<com.kickoff.core.soccer.game.player.LeagueGamePlayer, com.kickoff.core.soccer.game.player.QLeagueGamePlayer> awayPlayers = this.<com.kickoff.core.soccer.game.player.LeagueGamePlayer, com.kickoff.core.soccer.game.player.QLeagueGamePlayer>createList("awayPlayers", com.kickoff.core.soccer.game.player.LeagueGamePlayer.class, com.kickoff.core.soccer.game.player.QLeagueGamePlayer.class, PathInits.DIRECT2);
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
+
+    public final ListPath<GameBooking, QGameBooking> gameBookings = this.<GameBooking, QGameBooking>createList("gameBookings", GameBooking.class, QGameBooking.class, PathInits.DIRECT2);
 
     public final DateTimePath<java.time.LocalDateTime> gameDate = createDateTime("gameDate", java.time.LocalDateTime.class);
 
@@ -38,6 +42,8 @@ public class QLeagueGame extends EntityPathBase<LeagueGame> {
     public final ListPath<com.kickoff.core.soccer.team.Goal, com.kickoff.core.soccer.team.QGoal> goals = this.<com.kickoff.core.soccer.team.Goal, com.kickoff.core.soccer.team.QGoal>createList("goals", com.kickoff.core.soccer.team.Goal.class, com.kickoff.core.soccer.team.QGoal.class, PathInits.DIRECT2);
 
     public final com.kickoff.core.soccer.league.QLeagueTeam home;
+
+    public final StringPath homeFormation = createString("homeFormation");
 
     public final ListPath<com.kickoff.core.soccer.game.player.LeagueGamePlayer, com.kickoff.core.soccer.game.player.QLeagueGamePlayer> homePlayers = this.<com.kickoff.core.soccer.game.player.LeagueGamePlayer, com.kickoff.core.soccer.game.player.QLeagueGamePlayer>createList("homePlayers", com.kickoff.core.soccer.game.player.LeagueGamePlayer.class, com.kickoff.core.soccer.game.player.QLeagueGamePlayer.class, PathInits.DIRECT2);
 
