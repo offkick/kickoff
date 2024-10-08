@@ -4,6 +4,8 @@ import com.kickoff.core.soccer.game.GameBooking;
 import com.kickoff.core.soccer.game.GameLineUp;
 import com.kickoff.core.soccer.game.LeagueGame;
 import com.kickoff.core.soccer.game.LeagueGameStatus;
+import com.kickoff.core.soccer.game.Substitutions;
+import com.kickoff.core.soccer.league.LeagueTeam;
 import com.kickoff.core.soccer.team.Goal;
 
 import java.time.LocalDateTime;
@@ -25,6 +27,7 @@ public record LeagueGameDTO(
         List<LeagueGamePlayerDTO> homePlayers,
         List<LeagueGamePlayerDTO> awayPlayers,
         List<GoalInfo> goalInfos,
+        List<SubstitutionInfo> substitutionInfos,
         Long minute,
         Long injuryTime,
         List<GameBookingDTO> gameBookingDTOS
@@ -45,6 +48,7 @@ public record LeagueGameDTO(
                 makePlayers(leagueGame.getGameLineUps().stream().filter(s->s.getType().equals("home")).collect(Collectors.toList())), // TODO : 선수 추가 되면 변경
                 makePlayers(leagueGame.getGameLineUps().stream().filter(s->s.getType().equals("away")).collect(Collectors.toList())),
                 GoalInfo.of(leagueGame.getGoals()),
+                SubstitutionInfo.of(leagueGame.getSubstitutionsList(),leagueGame.getHome(), leagueGame.getAway()),
                 leagueGame.getMinute(),
                 leagueGame.getInjuryTime(),
                 leagueGame.getGameBookings().stream().map(GameBookingDTO::of).collect(Collectors.toList())
@@ -95,6 +99,22 @@ public record LeagueGameDTO(
                     gameBooking.getPlayerEnName(),
                     gameBooking.getCardType()
             );
+        }
+    }
+
+    public record SubstitutionInfo(int minute, Long playerOutId, String playerOutName,Long playerInId, String playerInName, String substitutionTeam)
+    {
+        public static List<SubstitutionInfo> of(List<Substitutions> substitutions, LeagueTeam homeTeam, LeagueTeam awayTeam)
+        {
+            return substitutions.stream()
+                    .map(s->new SubstitutionInfo(
+                            s.getMinute(),
+                            s.getPlayerOut().getPlayerId(),
+                            s.getPlayerOut().getPlayerKrName(),
+                            s.getPlayerIn().getPlayerId(),
+                            s.getPlayerIn().getPlayerKrName(),
+                            s.getSubstitutionTeam().getLeagueTeamName().equals(homeTeam.getLeagueTeamName()) ? "home" : "away"
+                    )).toList();
         }
     }
 }
