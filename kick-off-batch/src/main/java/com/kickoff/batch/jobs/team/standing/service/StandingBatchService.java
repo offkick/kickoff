@@ -79,10 +79,11 @@ public class StandingBatchService {
 
     private void saveTeamStanding(Standings.Table table, String season, Long matchDay, League league, Long teamId)
     {
-        if (teamStandingRepository.existsByTeamIdAndSeasonAndRoundAndLeagueId(teamId, season, matchDay, league.getLeagueId()))
-        {
-            return;
-        }
+//        if (teamStandingRepository.existsByTeamIdAndSeasonAndRoundAndLeagueId(teamId, season, matchDay, league.getLeagueId()))
+//        {
+//            log.info("exists");
+//            return;
+//        }
 
         TeamStanding teamStanding = teamStandingRepository.findByTeamIdAndSeasonAndRoundAndLeagueId(teamId, season, matchDay, league.getLeagueId()).orElse(
                 TeamStanding.builder()
