@@ -43,6 +43,8 @@ public class Substitutions {
         this.leagueGame = leagueGame;
     }
 
+
+
     public void setLeagueGame(LeagueGame leagueGame)
     {
         this.leagueGame = leagueGame;

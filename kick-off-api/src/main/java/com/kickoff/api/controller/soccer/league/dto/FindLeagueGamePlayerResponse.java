@@ -4,16 +4,19 @@ import com.kickoff.core.soccer.game.LeagueGameStatus;
 import com.kickoff.core.soccer.league.service.dto.LeagueGameDTO;
 import com.kickoff.core.soccer.league.service.dto.LeagueGamePlayerDTO;
 import lombok.Builder;
+import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 public record FindLeagueGamePlayerResponse(
         LeagueGamePlayerResponse response
 ) {
     public static FindLeagueGamePlayerResponse of(LeagueGameDTO leagueGame)
     {
+        log.info("int" + leagueGame); // 리스트의 요소를 쉼표로 구분하여 결합
         return new FindLeagueGamePlayerResponse(LeagueGamePlayerResponse.of(leagueGame));
     }
 
@@ -137,7 +140,7 @@ public record FindLeagueGamePlayerResponse(
                     GamePlayer.of(leagueGame.homePlayers()),
                     GamePlayer.of(leagueGame.awayPlayers()),
                     leagueGame.goalInfos().stream().map(GoalsDTO::of).collect(Collectors.toList()),
-                    null,
+                    leagueGame.substitutionInfos().stream().map(SubstitutionDTO::of).collect(Collectors.toList()),
                     leagueGame.minute(),
                     leagueGame.injuryTime(),
                     leagueGame.gameBookingDTOS().stream().map(GameBooking::of).collect(Collectors.toList()),

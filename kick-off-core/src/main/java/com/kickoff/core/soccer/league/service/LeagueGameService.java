@@ -6,6 +6,7 @@ import com.kickoff.core.soccer.game.LeagueGameRepository;
 import com.kickoff.core.soccer.game.dto.FindLeagueGamesResponse;
 import com.kickoff.core.soccer.league.service.dto.LeagueGameDTO;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Transactional
+@Slf4j
 public class LeagueGameService {
     private final LeagueGameRepository leagueGameRepository;
     private final LeagueGameQuerydslRepository leagueGameQuerydslRepository;
@@ -32,6 +34,7 @@ public class LeagueGameService {
 
     public Optional<LeagueGameDTO> findById(Long leagueGameId)
     {
+//        log.info("=====" + leagueGameRepository.findById(leagueGameId).map(LeagueGameDTO::of).);
         return leagueGameRepository.findById(leagueGameId).map(LeagueGameDTO::of);
     }
 
