@@ -179,7 +179,7 @@ public class DailyMatchDetailInsertService {
                                 existingSubstitution.getMinute() == substitutions.minute() &&
                                         existingSubstitution.getPlayerOut().equals(playerOut) &&
                                         existingSubstitution.getPlayerIn().equals(playerIn) &&
-                                        existingSubstitution.getSubstitutionTeam().equals(leagueTeam)
+                                        existingSubstitution.getSubstitutionTeam().getLeagueTeamId().equals(leagueTeam.getLeagueTeamId())
                         );
 
                 if (!exists) {
@@ -192,16 +192,7 @@ public class DailyMatchDetailInsertService {
                     );
                     leagueGame.addSubstitutions(newSubstitution);
                 }
-//                Substitutions substitutions1 = new Substitutions(
-//                        substitutions.minute(),
-//                        playerOut,
-//                        playerIn,
-//                        leagueTeam,
-//                        leagueGame
-//                );
-//
-//
-//                leagueGame.addSubstitutions(substitutions1);
+
             }
         });
     }
