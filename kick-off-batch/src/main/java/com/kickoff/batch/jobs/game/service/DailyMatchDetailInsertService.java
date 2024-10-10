@@ -174,16 +174,34 @@ public class DailyMatchDetailInsertService {
                 Player playerIn = playerRepository.findByPlayerId(externalPlayerInIdMapping.getPlayerId()).orElseThrow();
                 LeagueTeam leagueTeam = leagueTeamRepository.findById(byExternalTeamIdAndSeason.get().getTeamId())
                         .orElseThrow(() -> new IllegalArgumentException("Team not found: " + byExternalTeamIdAndSeason.get().getTeamId()));
-                Substitutions substitutions1 = new Substitutions(
-                        substitutions.minute(),
-                        playerOut,
-                        playerIn,
-                        leagueTeam,
-                        leagueGame
-                );
+                boolean exists = leagueGame.getSubstitutionsList().stream()
+                        .anyMatch(existingSubstitution ->
+                                existingSubstitution.getMinute() == substitutions.minute() &&
+                                        existingSubstitution.getPlayerOut().equals(playerOut) &&
+                                        existingSubstitution.getPlayerIn().equals(playerIn) &&
+                                        existingSubstitution.getSubstitutionTeam().equals(leagueTeam)
+                        );
 
-
-                leagueGame.addSubstitutions(substitutions1);
+                if (!exists) {
+                    Substitutions newSubstitution = new Substitutions(
+                            substitutions.minute(),
+                            playerOut,
+                            playerIn,
+                            leagueTeam,
+                            leagueGame
+                    );
+                    leagueGame.addSubstitutions(newSubstitution);
+                }
+//                Substitutions substitutions1 = new Substitutions(
+//                        substitutions.minute(),
+//                        playerOut,
+//                        playerIn,
+//                        leagueTeam,
+//                        leagueGame
+//                );
+//
+//
+//                leagueGame.addSubstitutions(substitutions1);
             }
         });
     }

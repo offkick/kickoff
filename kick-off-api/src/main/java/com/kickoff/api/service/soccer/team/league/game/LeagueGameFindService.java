@@ -34,6 +34,7 @@ public class LeagueGameFindService {
 
     public FindLeagueGamePlayerResponse findByLeagueGameId(Long leagueGameId)
     {
+
         LeagueGameDTO leagueGame = leagueGameService.findById(leagueGameId).orElseThrow(EntityNotFoundException::new);
         return FindLeagueGamePlayerResponse.of(leagueGame);
     }

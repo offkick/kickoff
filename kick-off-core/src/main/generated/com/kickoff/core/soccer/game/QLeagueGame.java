@@ -61,6 +61,8 @@ public class QLeagueGame extends EntityPathBase<LeagueGame> {
 
     public final com.kickoff.core.soccer.league.QSeason season;
 
+    public final ListPath<GameStatistics, QGameStatistics> statistics = this.<GameStatistics, QGameStatistics>createList("statistics", GameStatistics.class, QGameStatistics.class, PathInits.DIRECT2);
+
     public final ListPath<Substitutions, QSubstitutions> substitutionsList = this.<Substitutions, QSubstitutions>createList("substitutionsList", Substitutions.class, QSubstitutions.class, PathInits.DIRECT2);
 
     //inherited

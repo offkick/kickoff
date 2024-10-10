@@ -4,11 +4,13 @@ import com.kickoff.core.soccer.game.*;
 import com.kickoff.core.soccer.league.LeagueTeam;
 import com.kickoff.core.soccer.team.Goal;
 import lombok.Builder;
+import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 public record LeagueGameDTO(
         Long leagueGameId,
         LocalDateTime gameDate,
@@ -32,6 +34,8 @@ public record LeagueGameDTO(
         GameStatisticsDTO awayGameStatisticsDTO
 ) {
     public static LeagueGameDTO of(LeagueGame leagueGame) {
+        // Substitutions 리스트를 로그로 출력
+
         return new LeagueGameDTO(
                 leagueGame.getLeagueGameId(),
                 leagueGame.getGameDate(),
@@ -54,6 +58,8 @@ public record LeagueGameDTO(
                 GameStatisticsDTO.of(leagueGame.getStatistics().stream().filter(s->s.getType().equals("home")).findFirst().orElse(null)),
                 GameStatisticsDTO.of(leagueGame.getStatistics().stream().filter(s->s.getType().equals("away")).findFirst().orElse(null))
         );
+
+
     }
 
     private static List<LeagueGamePlayerDTO> makePlayers(List<GameLineUp> gameLineUps)
@@ -150,6 +156,7 @@ public record LeagueGameDTO(
         public static List<SubstitutionInfo> of(List<Substitutions> substitutions, LeagueTeam homeTeam, LeagueTeam awayTeam)
         {
             return substitutions.stream()
+                    .distinct()
                     .map(s->new SubstitutionInfo(
                             s.getMinute(),
                             s.getPlayerOut().getPlayerId(),
@@ -160,4 +167,5 @@ public record LeagueGameDTO(
                     )).toList();
         }
     }
+
 }
