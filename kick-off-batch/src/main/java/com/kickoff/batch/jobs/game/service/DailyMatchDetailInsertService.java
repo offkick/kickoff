@@ -74,6 +74,7 @@ public class DailyMatchDetailInsertService {
         settingScore(match, leagueGame);
         settingGoals(match, leagueGame, season);
         settingLineUps(match, leagueGame);
+        settingBenches(match,leagueGame);
         settingSubstitutions(match, season,leagueGame);
         settingBookings(match, leagueGame);
         settingStatics(match, leagueGame);
@@ -151,6 +152,38 @@ public class DailyMatchDetailInsertService {
             }
         });
     }
+
+    private void settingBenches(Match match, LeagueGame leagueGame)
+    {
+        leagueGame.getGameLineUps().clear();
+        settingBenches(match.homeTeam(), "home", leagueGame);
+        settingBenches(match.awayTeam(), "away", leagueGame);
+    }
+
+    private void settingBenches(Team match, String home, LeagueGame leagueGame)
+    {
+        match.lineup().forEach(lineUp ->
+        {
+            Optional<ExternalPlayerIdMapping> externalPlayer = externalPlayerIdMappingRepository.findByExternalPlayerId(Long.parseLong(lineUp.id()));
+
+            if (externalPlayer.isPresent())
+            {
+                log.info("byExternalPlayerId is empty");
+                ExternalPlayerIdMapping externalPlayerIdMapping = externalPlayer.get();
+                Player player = playerRepository.findByPlayerId(externalPlayerIdMapping.getPlayerId()).orElseThrow();
+
+                Bench bench = new Bench(externalPlayerIdMapping.getPlayerId(),
+                        lineUp.position(),
+                        lineUp.shirtNumber(),
+                        home,
+                        player.getPlayerKrName(),
+                        player.getPlayerName());
+
+                leagueGame.addGameBench(bench);
+            }
+        });
+    }
+
 
     private void settingSubstitutions(Match match,Season season, LeagueGame leagueGame)
     {
