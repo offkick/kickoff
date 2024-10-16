@@ -25,6 +25,8 @@ public record LeagueGameDTO(
         String awayFormation,
         List<LeagueGamePlayerDTO> homePlayers,
         List<LeagueGamePlayerDTO> awayPlayers,
+        List<LeagueGamePlayerDTO> homeBenchPlayers,
+        List<LeagueGamePlayerDTO> awayBenchPlayers,
         List<GoalInfo> goalInfos,
         List<SubstitutionInfo> substitutionInfos,
         Long minute,
@@ -50,6 +52,8 @@ public record LeagueGameDTO(
                 leagueGame.getAwayFormation(),
                 makePlayers(leagueGame.getGameLineUps().stream().filter(s->s.getType().equals("home")).collect(Collectors.toList())), // TODO : 선수 추가 되면 변경
                 makePlayers(leagueGame.getGameLineUps().stream().filter(s->s.getType().equals("away")).collect(Collectors.toList())),
+                benchPlayers(leagueGame.getGameBenches().stream().filter(s->s.getType().equals("home")).collect(Collectors.toList())),
+                benchPlayers(leagueGame.getGameBenches().stream().filter(s->s.getType().equals("away")).collect(Collectors.toList())),
                 GoalInfo.of(leagueGame.getGoals()),
                 SubstitutionInfo.of(leagueGame.getSubstitutionsList(),leagueGame.getHome(), leagueGame.getAway()),
                 leagueGame.getMinute(),
@@ -65,6 +69,13 @@ public record LeagueGameDTO(
     private static List<LeagueGamePlayerDTO> makePlayers(List<GameLineUp> gameLineUps)
     {
         return gameLineUps.stream()
+                .map(line -> new LeagueGamePlayerDTO(line.getPlayerId(), line.getPosition(), line.getShirtNumber(), line.getPlayerKrName(), line.getPlayerEnName()))
+                .collect(Collectors.toList());
+    }
+
+    private static List<LeagueGamePlayerDTO> benchPlayers(List<Bench> gameBenches)
+    {
+        return gameBenches.stream()
                 .map(line -> new LeagueGamePlayerDTO(line.getPlayerId(), line.getPosition(), line.getShirtNumber(), line.getPlayerKrName(), line.getPlayerEnName()))
                 .collect(Collectors.toList());
     }

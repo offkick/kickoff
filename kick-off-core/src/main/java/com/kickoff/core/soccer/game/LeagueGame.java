@@ -88,6 +88,13 @@ public class LeagueGame extends BaseEntity {
             joinColumns = @JoinColumn(name = "leagueGameId"))
     private List<GameBooking> gameBookings = new ArrayList<>();
 
+    @Setter
+    @ElementCollection
+    @CollectionTable(name = "game_bench",
+            joinColumns = @JoinColumn(name = "leagueGameId"))
+    private List<Bench> gameBenches= new ArrayList<>();
+
+
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "leagueGame")
     private List<GameStatistics> statistics;
 
@@ -211,4 +218,10 @@ public class LeagueGame extends BaseEntity {
         this.getStatistics().add(gameStatistics);
         gameStatistics.setLeagueGame(this);
     }
+
+    public void addGameBench(Bench gameBenches)
+    {
+        this.getGameBenches().add(gameBenches);
+    }
+
 }

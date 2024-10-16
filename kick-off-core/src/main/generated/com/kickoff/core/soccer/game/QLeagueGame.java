@@ -33,6 +33,8 @@ public class QLeagueGame extends EntityPathBase<LeagueGame> {
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
 
+    public final ListPath<Bench, QBench> gameBenches = this.<Bench, QBench>createList("gameBenches", Bench.class, QBench.class, PathInits.DIRECT2);
+
     public final ListPath<GameBooking, QGameBooking> gameBookings = this.<GameBooking, QGameBooking>createList("gameBookings", GameBooking.class, QGameBooking.class, PathInits.DIRECT2);
 
     public final DateTimePath<java.time.LocalDateTime> gameDate = createDateTime("gameDate", java.time.LocalDateTime.class);
