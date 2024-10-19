@@ -61,7 +61,7 @@ public class MatchDetailInsertJobConfig {
             StepContext stepContext = StepSynchronizationManager.getContext();
             JobParameters jobParameters = stepContext.getStepExecution().getJobParameters();
 
-            LocalDate targetDateFrom = parseDateOrDefault(jobParameters.getString("targetDateFrom"), LocalDate.now().minusDays(2));
+            LocalDate targetDateFrom = parseDateOrDefault(jobParameters.getString("targetDateFrom"), LocalDate.now().minusDays(3));
             LocalDate targetDateTo = parseDateOrDefault(jobParameters.getString("targetDateTo"), LocalDate.now().plusDays(1));
             String season = jobParameters.getString("season");
             log.info("start parameter with start [targetDateFrom] : {}, [targetDateTo] : {}", targetDateFrom, targetDateTo);
