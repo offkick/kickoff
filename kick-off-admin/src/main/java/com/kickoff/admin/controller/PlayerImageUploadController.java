@@ -20,8 +20,6 @@ public class PlayerImageUploadController {
     private final PlayerAdminService playerAdminService;
     private final PlayerService playerService;
 
-
-
     @Autowired
     public PlayerImageUploadController(LocalPlayerImageUploadServiceImpl localPlayerImageUploadService, PlayerAdminService playerAdminService, PlayerService playerService) {
         this.localPlayerImageUploadService = localPlayerImageUploadService;
