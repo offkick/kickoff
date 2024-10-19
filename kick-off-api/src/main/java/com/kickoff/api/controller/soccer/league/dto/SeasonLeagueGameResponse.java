@@ -23,6 +23,7 @@ public record SeasonLeagueGameResponse(
                     List<LeagueGameDTO> games = entry.getValue();
                     List<LeagueGameResponse> gameResponses = games.stream()
                             .map(LeagueGameResponse::of)
+                            .sorted(Comparator.comparing(LeagueGameResponse::date))
                             .collect(Collectors.toList());
                     return new DateResponse(date, gameResponses);
                 })
