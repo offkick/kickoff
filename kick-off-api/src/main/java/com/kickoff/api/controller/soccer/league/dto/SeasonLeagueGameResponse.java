@@ -5,6 +5,7 @@ import com.kickoff.core.soccer.league.service.dto.LeagueGameDTO;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -25,6 +26,7 @@ public record SeasonLeagueGameResponse(
                             .collect(Collectors.toList());
                     return new DateResponse(date, gameResponses);
                 })
+                .sorted(Comparator.comparing(DateResponse::date))
                 .collect(Collectors.toList());
 
         return new SeasonLeagueGameResponse(dateResponses);

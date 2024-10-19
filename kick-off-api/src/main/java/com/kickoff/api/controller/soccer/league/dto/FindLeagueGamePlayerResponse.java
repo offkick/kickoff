@@ -16,7 +16,6 @@ public record FindLeagueGamePlayerResponse(
 ) {
     public static FindLeagueGamePlayerResponse of(LeagueGameDTO leagueGame)
     {
-        log.info("int" + leagueGame); // 리스트의 요소를 쉼표로 구분하여 결합
         return new FindLeagueGamePlayerResponse(LeagueGamePlayerResponse.of(leagueGame));
     }
 

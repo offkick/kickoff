@@ -203,7 +203,6 @@ public class LeagueGame extends BaseEntity {
 
     public void addSubstitutions(Substitutions substitutions)
     {
-//        log.info("Adding substitution: {}", substitutions);
         this.getSubstitutionsList().add(substitutions);
         substitutions.setLeagueGame(this);
     }
@@ -223,5 +222,4 @@ public class LeagueGame extends BaseEntity {
     {
         this.getGameBenches().add(gameBenches);
     }
-
 }

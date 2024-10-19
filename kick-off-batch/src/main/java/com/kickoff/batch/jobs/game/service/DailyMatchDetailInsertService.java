@@ -48,7 +48,7 @@ public class DailyMatchDetailInsertService {
     {
         List<LeagueGame> targetLeagueGames = leagueGameRepository.findByGameDateBetween(targetDateFrom.atStartOfDay(), targetDateTo.atTime(23, 59, 59))
                 .stream()
-                .filter(game -> game.getLeagueGameStatus().equals(LeagueGameStatus.END))
+//                .filter(game -> game.getLeagueGameStatus().equals(LeagueGameStatus.END))
                 .toList();
 
         Season findSeason = seasonRepository.findByYears(season).orElseThrow();
@@ -68,9 +68,11 @@ public class DailyMatchDetailInsertService {
 
     private void saveMatchDetails(Match match, LeagueGame leagueGame, Season season)
     {
+        log.info("leagueGame : {} / {}", leagueGame.getLeagueGameId(), match.status());
         leagueGame.setMinute(match.minute());
         leagueGame.setInjuryTime(match.injuryTime());
         leagueGame.settingFormation(match.homeTeam().formation(), match.awayTeam().formation());
+        leagueGame.updateGameStatue(match.status());
         settingScore(match, leagueGame);
         settingGoals(match, leagueGame, season);
         settingLineUps(match, leagueGame);
@@ -87,10 +89,13 @@ public class DailyMatchDetailInsertService {
         Statistics awayStatistics = match.awayTeam().statistics();
 
         leagueGame.getStatistics().clear();
+
         GameStatistics home = Statistics.of(homeStatistics, "home");
         GameStatistics away = Statistics.of(awayStatistics, "away");
+
         leagueGame.addGameStatistics(home);
         leagueGame.addGameStatistics(away);
+
         leagueGameRepository.save(leagueGame);
     }
 
@@ -155,14 +160,14 @@ public class DailyMatchDetailInsertService {
 
     private void settingBenches(Match match, LeagueGame leagueGame)
     {
-        leagueGame.getGameLineUps().clear();
+        leagueGame.getGameBenches().clear();
         settingBenches(match.homeTeam(), "home", leagueGame);
         settingBenches(match.awayTeam(), "away", leagueGame);
     }
 
     private void settingBenches(Team match, String home, LeagueGame leagueGame)
     {
-        match.lineup().forEach(lineUp ->
+        match.bench().forEach(lineUp ->
         {
             Optional<ExternalPlayerIdMapping> externalPlayer = externalPlayerIdMappingRepository.findByExternalPlayerId(Long.parseLong(lineUp.id()));
 
@@ -238,7 +243,6 @@ public class DailyMatchDetailInsertService {
 
     private void settingGoals(Match match, LeagueGame leagueGame, Season season)
     {
-
         if (!leagueGame.getGoals().isEmpty())
         {
             log.info("exists goals info : {}", leagueGame.getLeagueGameId());

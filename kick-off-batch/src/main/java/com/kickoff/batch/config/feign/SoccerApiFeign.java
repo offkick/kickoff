@@ -1,12 +1,12 @@
 package com.kickoff.batch.config.feign;
 
 import com.kickoff.batch.config.feign.api.CompetitionTeamsResponse;
+import com.kickoff.batch.config.feign.api.LeaguePlayerRankResponse;
 import com.kickoff.batch.config.feign.api.MatchResultResponse;
 import com.kickoff.batch.config.feign.api.MatchesFeignResponse;
 import com.kickoff.batch.config.feign.api.temp.Competitions;
 import com.kickoff.batch.config.feign.api.temp.Match;
 import com.kickoff.batch.config.feign.api.temp.StandingResponse;
-import com.kickoff.batch.jobs.data.service.AllDataDeleteService;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,6 +47,11 @@ public interface SoccerApiFeign {
             @PathVariable(name = "competitions") String competitions,
             @RequestParam(required = false, name = "matchday") Long matchday
     );
+
+    @GetMapping("/v4/competitions/{competitions}/scorers")
+    LeaguePlayerRankResponse leagueRank(
+            @PathVariable(name = "competitions") String competitions,
+            @RequestParam(name = "season") String season);
 
     @GetMapping("/v4/matches/{matchId}")
     Match getCompetitionMatchResponse(
