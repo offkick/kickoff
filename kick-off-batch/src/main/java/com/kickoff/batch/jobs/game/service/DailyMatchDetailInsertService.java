@@ -243,11 +243,7 @@ public class DailyMatchDetailInsertService {
 
     private void settingGoals(Match match, LeagueGame leagueGame, Season season)
     {
-        if (!leagueGame.getGoals().isEmpty())
-        {
-            log.info("exists goals info : {}", leagueGame.getLeagueGameId());
-            return;
-        }
+        leagueGame.getGoals().clear();
 
         List<Goal> goals = match.goals().stream()
                 .map(matchGoal ->
