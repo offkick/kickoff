@@ -88,6 +88,11 @@ public class DailyMatchDetailInsertService {
         Statistics homeStatistics = match.homeTeam().statistics();
         Statistics awayStatistics = match.awayTeam().statistics();
 
+        List<GameStatistics> statistics = leagueGame.getStatistics();
+        for (GameStatistics gameStatistics : statistics)
+        {
+            gameStatistics.setLeagueGame(null);
+        }
         leagueGame.getStatistics().clear();
 
         GameStatistics home = Statistics.of(homeStatistics, "home");

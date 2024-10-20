@@ -121,7 +121,7 @@ public class LeagueGame extends BaseEntity {
             List<LeagueGamePlayer> awayPlayers,
             List<Goal> goals,
             String venue,
-            String homeFormation, String awayFormation
+            List<GameStatistics> statistics, String homeFormation, String awayFormation
     ) {
         this.leagueGameId = leagueGameId;
         this.gameDate = gameDate;
@@ -135,6 +135,7 @@ public class LeagueGame extends BaseEntity {
         this.homePlayers = homePlayers;
         this.awayPlayers = awayPlayers;
         this.goals = goals;
+        this.statistics = statistics;
         this.homeFormation = homeFormation;
         this.awayFormation = awayFormation;
     }
@@ -189,11 +190,6 @@ public class LeagueGame extends BaseEntity {
             case "CANCELED" -> LeagueGameStatus.CANCELED;
             default -> LeagueGameStatus.BEFORE;
         };
-    }
-
-    public void endGame()
-    {
-        this.leagueGameStatus = LeagueGameStatus.END;
     }
 
     public void addGameLineUp(GameLineUp gameLineUp)
