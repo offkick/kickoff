@@ -218,4 +218,15 @@ public class LeagueGame extends BaseEntity {
     {
         this.getGameBenches().add(gameBenches);
     }
+
+    public void deleteStatistics()
+    {
+        List<GameStatistics> deleteTargets = this.getStatistics();
+        for (GameStatistics gameStatistics : deleteTargets)
+        {
+            gameStatistics.setLeagueGame(null);
+        }
+
+        this.getStatistics().clear();
+    }
 }
