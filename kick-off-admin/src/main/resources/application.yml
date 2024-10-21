@@ -17,12 +17,12 @@ spring:
   servlet:
     multipart:
       enabled: true
-      location: './images'
+      location: /Users/shinhee/Desktop/images/
       max-request-size: 300MB
       max-file-size: 300MB
 upload:
   image:
-    player: ./images/
+    player: /Users/shinhee/Desktop/images/
 
 ---
 spring:
@@ -32,13 +32,13 @@ spring:
   servlet:
     multipart:
       enabled: true
-      location: './images'
+#      location: './images'
       max-request-size: 300MB
       max-file-size: 300MB
 
 server:
   port: 8084
 
-upload:
-  image:
-    player: ./images/
+#upload:
+#  image:
+#    player: ./images/
